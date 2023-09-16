@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Engine, Render, World, Events } from "matter-js";
 import Scena from './Scena';
 import Body from './Body';
@@ -8,9 +8,14 @@ import TileMap from './TileMap';
 export default function Level(props) {
     const scene = useRef()
     const engine = useRef(Engine.create());
+    const[press, setPress] = useState(0);
    useEffect(()=>{
-    console.log("test")
-   },[])
+    console.log(props.press)
+   },[props.press])
+
+
+
+
 
     useEffect(() => {
         // mount
@@ -44,8 +49,10 @@ export default function Level(props) {
         money.setup(world, scena);
         player.setup(world, scena);
         Events.on(render,"beforeRender",(event)=>{
-            player.draw(world);
+            document.addEventListener("keydown",(e)=>{ setPress(e.key)})
+            player.draw(world,press);
             money.draw(world);
+
         })
 
        

@@ -57,8 +57,12 @@ export default class Player extends Body {
     }
 
 
-    draw(world) {
+    draw(world,press) {
         this.translate(world);
+        if(press === "ArrowUp"){
+              this.body.map((b)=>Matter.Body.setVelocity(b,{x:0,y:-1}))
+        }
+      console.log(press)
       //  this.spriteAnimate("./img/money/", 63);
     }
     translate(world) {
