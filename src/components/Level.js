@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Engine, Render, World, Events } from "matter-js";
+import { Engine, Render, World, Events, Composite } from "matter-js";
 import Scena from './Scena';
 import Body from './Body';
 import Player from './Player';
@@ -8,18 +8,16 @@ import TileMap from './TileMap';
 export default function Level(props) {
     const scene = useRef()
     const engine = useRef(Engine.create());
-    const[press, setPress] = useState(0);
-   useEffect(()=>{
-    console.log(props.press)
-   },[props.press])
-
+    ///const[press, setPress] = useState(0);
+   const scena = new Scena();
+scena.scena = props.scena;
 
 
 
 
     useEffect(() => {
         // mount
-        const scena = new Scena();
+       
         const render = Render.create({
             element: scene.current,
             engine: engine.current,
@@ -27,7 +25,7 @@ export default function Level(props) {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 wireframes: false,
-                background: 'transparent'
+                background: '#000'
             }
         })
 
@@ -36,23 +34,59 @@ export default function Level(props) {
         Engine.run(engine.current)
         Render.run(render);
         let world = engine.current.world;
-        scena.scena = props.scena;
-        scena.create()
+        
+        scena.create();
+        let press = {pressUp:0,pressLeft:0,pressRight:0};
         const player = new Player("player");
         const platform = new Body("platform");
         const platformB = new Body("platform_b");
+        
         const money = new Money("money");
-        const tileMap = new TileMap(scena,"./img/scene/scena1.png",6200,6200);
-        tileMap.setup(world);
+
+        const tileMap = props.bg.map((el)=>new TileMap(scena,el.name,el.img,el.position.x,el.position.y,el.size.w,el.size.h));
+        tileMap.map((el)=>el.setup(world))
+       
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
         money.setup(world, scena);
         player.setup(world, scena);
-        Events.on(render,"beforeRender",(event)=>{
-            document.addEventListener("keydown",(e)=>{ setPress(e.key)})
+       console.log(world.bodies)
+
+        Events.on(engine.current, "collisionStart", function (event) {
+            let pairs = event.pairs;
+            for (let i = 0; i < pairs.length; i++) {
+                let pair = pairs[i];
+               if(pair.bodyA.label === "money" && pair.bodyB.label === "player" ){
+                   player.money++;
+                   props.setMoney(player.money)
+                   let mst = window.localStorage.getItem("money");
+                   mst = Number.parseInt(mst);
+                   mst++
+                   window.localStorage.setItem("money",mst);
+                   Composite.remove(world,pair.bodyA)
+               }
+            }
+        });
+
+
+       
+
+        Events.on(render,"afterRender",(event)=>{
+            document.addEventListener("keydown",(e)=>{
+           if(e.key === "ArrowUp"){press.pressUp = e.key}
+           if(e.key === "ArrowRight"){press.pressRight = e.key}
+           if(e.key === "ArrowLeft"){press.pressLeft = e.key}
+        
+
+            })
+            document.addEventListener("keyup",(e)=>{
+                press = {pressLeft:0,pressRight:0,pressUp:0}
+                
+           })
+
             player.draw(world,press);
             money.draw(world);
-
+            
         })
 
        
@@ -69,7 +103,7 @@ export default function Level(props) {
         }
 
 
-    }, [])
+    }, [scena.scena])
 
     return (
         <div ref={scene} style={{ width: '100%', height: '100%', position: "fixed", margin: 0, padding: 0 }} />

@@ -4,7 +4,7 @@ export default class Scena{
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 2;
+    scale = 8;
 
     create() {
         this.scenaWidth = this.scena.width * this.scena.tileheight;
