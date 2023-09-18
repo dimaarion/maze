@@ -1,22 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
 import { Engine, Render, World, Events, Composite } from "matter-js";
+import Sketch from 'react-p5';
 import Scena from './Scena';
 import Body from './Body';
 import Player from './Player';
 import Money from './Money';
 import TileMap from './TileMap';
+import axios from 'axios';
 export default function Level(props) {
-    const scene = useRef()
-    const engine = useRef(Engine.create());
-    ///const[press, setPress] = useState(0);
-   const scena = new Scena();
-scena.scena = props.scena;
+    
+    let engine;
+    let world;
+    let render;
+    const scena = new Scena();
+    scena.scena = props.scena;
+    const player = new Player("player");
+    const platform = new Body("platform");
+    const platformB = new Body("platform_b");
+    const money = new Money("money");
+    let press = {pressUp:0,pressLeft:0,pressRight:0};
+   // let tileMap = props.bg.map((el)=>new TileMap(scena,el.name,el.img,el.position.x,el.position.y,el.size.w,el.size.h));
 
-
-
+/*
 
     useEffect(() => {
+       
         // mount
+    
+
        
         const render = Render.create({
             element: scene.current,
@@ -36,7 +47,7 @@ scena.scena = props.scena;
         let world = engine.current.world;
         
         scena.create();
-        let press = {pressUp:0,pressLeft:0,pressRight:0};
+       
         const player = new Player("player");
         const platform = new Body("platform");
         const platformB = new Body("platform_b");
@@ -50,7 +61,8 @@ scena.scena = props.scena;
         platform.createRect(world, scena);
         money.setup(world, scena);
         player.setup(world, scena);
-       console.log(world.bodies)
+      
+        
 
         Events.on(engine.current, "collisionStart", function (event) {
             let pairs = event.pairs;
@@ -71,7 +83,7 @@ scena.scena = props.scena;
 
        
 
-        Events.on(render,"afterRender",(event)=>{
+        Events.on(engine.current,"afterUpdate",(event)=>{
             document.addEventListener("keydown",(e)=>{
            if(e.key === "ArrowUp"){press.pressUp = e.key}
            if(e.key === "ArrowRight"){press.pressRight = e.key}
@@ -103,9 +115,64 @@ scena.scena = props.scena;
         }
 
 
-    }, [scena.scena])
+    }, [])
 
-    return (
-        <div ref={scene} style={{ width: '100%', height: '100%', position: "fixed", margin: 0, padding: 0 }} />
-    )
+*/
+
+
+     const preload = (p5)=>{
+       // tileMap.map((el)=>el.preloadImage(p5))
+        scena.create(p5);
+     }
+
+
+
+    const setup = (p5, canvasParentRef) => {
+        // use parent to render the canvas in this ref
+        // (without that p5 will render the canvas outside of your component)
+        p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+       
+        engine = Engine.create();
+        render = Render; 
+        world = engine.world;
+        Engine.run(engine);
+       
+        let press = {pressUp:0,pressLeft:0,pressRight:0};
+       
+
+       
+      //  tileMap.map((el)=>el.setup(world))
+       
+        platformB.createRect(world, scena);
+        platform.createRect(world, scena);
+        money.setup(world, scena);
+        player.setup(world, scena);
+
+
+
+
+
+
+       
+      };
+
+
+      const draw = (p5) => {
+        p5.background(255);
+    //    tileMap.map((el)=>el.view(p5))
+        player.draw(world,press);
+       // money.draw(world);
+       platform.viewRect(p5)
+       player.viewRect(p5)
+        // NOTE: Do not use setState in the draw function or in functions that are executed
+        // in the draw function...
+        // please use normal variables or class properties for these purposes
+      
+      };
+
+
+      
+
+
+      return <Sketch setup={setup} preload = {preload} draw={draw} />;
 }

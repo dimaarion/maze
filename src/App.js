@@ -21,7 +21,7 @@ setMoneySt(mst);
     <div className="App">
       <button onClick={()=>window.localStorage.setItem("money",0)}>cleaner</button>
       <div>{moneySt}</div>
-      {mousePress === 0?<Level press = {mousePress} setMoney = {setMoney} scena = {scena_1} bg = {[{name:"bg",position:{x:0,y:0},size:{w:6200,h:6200},img:"./img/scene/scena1.png"},{name:"bg2",position:{x:-500,y:-1000},size:{w:6200,h:6200},img:"./img/scene/scena4.png"}]} />:""}
+      {mousePress === 0?<Level press = {mousePress} setMoney = {setMoney} scena = {scena_1} bg = {[{name:"bg",position:{x:0,y:0},size:{w:6200,h:6200},img:"./img/scene/scena1.png"}]} />:""}
       {mousePress === 1?<Level press = {mousePress} setMoney = {setMoney} scena = {scena_2} bg = {[{name:"bg",position:{x:0,y:0},size:{w:6200,h:6200},img:"./img/scene/scena2.png"}]}/>:""}
    
     <Button setPress = {setMousePress} />

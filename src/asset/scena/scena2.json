@@ -4,7 +4,7 @@
  "layers":[
         {
          "id":9,
-         "image":"..\/..\/asset\/maze\/scena2.png",
+         "image":"..\/..\/..\/public\/img\/scene\/scena2.png",
          "name":"\u0421\u043b\u043e\u0439 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0439 1",
          "opacity":1,
          "type":"imagelayer",
@@ -49,7 +49,7 @@
          "name":"wall",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":31,
          "x":0,
          "y":0
@@ -863,7 +863,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1876,11 +1876,11 @@
                  "visible":true,
                  "width":50,
                  "x":2659.6617463837,
-                 "y":1232.45213810579
+                 "y":1250.45213810579
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 

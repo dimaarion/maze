@@ -10,7 +10,9 @@
 .button{
   position: fixed;
 }
-
+.react-p5{
+  position: fixed;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -4,9 +4,11 @@ export default class Scena{
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 8;
+    scale = 1;
+    p5;
 
-    create() {
+    create(p5) {
+        this.p5 = p5;
         this.scenaWidth = this.scena.width * this.scena.tileheight;
         this.scenaHeigiht = this.scena.height * this.scena.tileheight;
         this.scenaSize =
@@ -64,7 +66,7 @@ export default class Scena{
     }
 
     procentXY(n) {
-        let r = window.innerWidth + window.innerHeight;
+        let r = this.p5.windowWidth + this.p5.windowHeight;
         return this.procentIn(r, n)
     }
 
@@ -77,12 +79,12 @@ export default class Scena{
     }
 
     procentX(x) {
-        let r = window.innerWidth;
+        let r = this.p5.windowWidth;
         return this.procentIn(r, x);
     }
 
     procentY(x) {
-        let r = window.innerHeight;
+        let r = this.p5.windowHeight;
         return this.procentIn(r, x);
     }
 

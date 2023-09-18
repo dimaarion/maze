@@ -9,6 +9,8 @@ export default class TileMap {
     x = 0;
     y = 0;
     name = "";
+    sprite;
+
     // eslint-disable-next-line no-useless-constructor
     constructor(scene, name, image, x, y, width, height) {
         this.scene = scene;
@@ -18,6 +20,10 @@ export default class TileMap {
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    preloadImage(p5){
+        this.sprite = p5.loadImage(this.image);
     }
 
     setup(world) {
@@ -33,23 +39,22 @@ export default class TileMap {
 
     
         this.body = Matter.Bodies.rectangle(
-            this.scene.size(this.x + this.scene.scenaWidth / 2, this.scene.scale),
-            this.scene.size(this.y + this.scene.scenaHeigiht / 2, this.scene.scale),
+            this.scene.size(this.x + 1000, this.scene.scale),
+            this.scene.size(this.y , this.scene.scale),
             this.scene.size(this.scene.scenaWidth, this.scene.scale),
             this.scene.size(this.scene.scenaHeigiht, this.scene.scale), {
             isStatic: true,
             isSensor: true,
-            render: {
-                sprite: {
-                    texture: this.image,
-                    xScale: this.scene.size(this.scene.scenaWidth, this.scene.scale) / this.width,
-                    yScale: this.scene.size(this.scene.scenaHeigiht, this.scene.scale) / this.height
-                }
-            }
+            sprite:this.sprite
         }
 
         )
         Matter.World.add(world, [this.body]);
 
+    }
+
+
+    view(p5){
+        p5.image(this.body.sprite,this.body.position.x ,this.body.position.y,this.body.width,this.body.height); 
     }
 }

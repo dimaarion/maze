@@ -17,6 +17,6 @@ export default class Money extends Body{
 
 
     draw(world) {
-        this.spriteAnimate("./img/money/", 63);
+        this.spriteAnimate("money", 63);
     }
 }
