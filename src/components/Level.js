@@ -19,7 +19,9 @@ export default function Level(props) {
     const platformB = new Body("platform_b");
     const money = new Money("money");
     let press = {pressUp:0,pressLeft:0,pressRight:0};
-   // let tileMap = props.bg.map((el)=>new TileMap(scena,el.name,el.img,el.position.x,el.position.y,el.size.w,el.size.h));
+   // let tileMap = new TileMap()
+    let tileMap = props.bg.map((el)=>new TileMap(el.name,el.img));
+
 
 /*
 
@@ -121,8 +123,9 @@ export default function Level(props) {
 
 
      const preload = (p5)=>{
-       // tileMap.map((el)=>el.preloadImage(p5))
-        scena.create(p5);
+        tileMap.map((el)=>el.preloadImage(p5))
+       
+        player.preloadImage(p5,"./img/player/1.png")
      }
 
 
@@ -131,7 +134,7 @@ export default function Level(props) {
         // use parent to render the canvas in this ref
         // (without that p5 will render the canvas outside of your component)
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-       
+        scena.create(p5);
         engine = Engine.create();
         render = Render; 
         world = engine.world;
@@ -141,7 +144,7 @@ export default function Level(props) {
        
 
        
-      //  tileMap.map((el)=>el.setup(world))
+       tileMap.map((el)=>el.setup(world,scena))
        
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
@@ -159,11 +162,11 @@ export default function Level(props) {
 
       const draw = (p5) => {
         p5.background(255);
-    //    tileMap.map((el)=>el.view(p5))
-        player.draw(world,press);
+      tileMap.map((el)=>el.view(p5))
+        player.draw(p5,world,press);
        // money.draw(world);
        platform.viewRect(p5)
-       player.viewRect(p5)
+      // player.viewRect(p5)
         // NOTE: Do not use setState in the draw function or in functions that are executed
         // in the draw function...
         // please use normal variables or class properties for these purposes

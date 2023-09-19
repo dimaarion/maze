@@ -12,21 +12,22 @@ export default class TileMap {
     sprite;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor(scene, name, image, x, y, width, height) {
-        this.scene = scene;
+    constructor(name,image) {
+       
         this.name = name;
         this.image = image;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+      //  this.x = x;
+      //  this.y = y;
+      //  this.width = width;
+      //  this.height = height;
     }
 
     preloadImage(p5){
         this.sprite = p5.loadImage(this.image);
     }
 
-    setup(world) {
+    setup(world, scene) {
+        this.scene = scene;
         if (this.scene.getObject(this.name) != undefined) {
             if (this.scene.getObject(this.name).offsetx !== undefined) {
                 this.x = this.scene.getObject(this.name).offsetx;
@@ -39,7 +40,7 @@ export default class TileMap {
 
     
         this.body = Matter.Bodies.rectangle(
-            this.scene.size(this.x + 1000, this.scene.scale),
+            this.scene.size(this.x , this.scene.scale),
             this.scene.size(this.y , this.scene.scale),
             this.scene.size(this.scene.scenaWidth, this.scene.scale),
             this.scene.size(this.scene.scenaHeigiht, this.scene.scale), {

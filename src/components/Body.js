@@ -218,4 +218,13 @@ export default class Body {
         .map((b) => p5.rect(b.position.x, b.position.y, b.width, b.height));
     }
   }
+  sprite(p5) {
+    if (this.world !== undefined) {
+      p5.rectMode(p5.CENTER);
+      this.world.bodies
+        .filter((f) => f.label === this.name)
+        .map((b) => p5.image(b.sprite,b.position.x, b.position.y, b.width, b.height));
+    }
+  }
+
 }

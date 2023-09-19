@@ -56,6 +56,11 @@ export default class Player extends Body {
          this.image = "./img/player/playerFace.png";
     }
 
+
+
+    
+
+
     setup(world, scena) {
         this.fric = 1;
 
@@ -75,7 +80,7 @@ export default class Player extends Body {
 
 
 
-    draw(world, press) {
+    draw(p5,world, press) {
         let x = 0;
         let y = 0;
         this.translate(world);
@@ -117,7 +122,7 @@ this.body.map((b,i)=>{
     if(this.getVelocity()[i].x < -3 && this.getVelocity()[i].y > 0){
         this.spriteAnimate("playerLeft", 24);
     }
-
+this.sprite(p5)
 
 })
         
