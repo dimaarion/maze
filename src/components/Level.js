@@ -1,132 +1,114 @@
-import { useEffect, useRef, useState } from 'react'
-import { Engine, Render, World, Events, Composite } from "matter-js";
+import { Engine, Composite, Events} from "matter-js";
 import Sketch from 'react-p5';
 import Scena from './Scena';
 import Body from './Body';
 import Player from './Player';
 import Money from './Money';
-import TileMap from './TileMap';
-import axios from 'axios';
+import Interface from './Interface';
+
 export default function Level(props) {
-    
+
     let engine;
     let world;
-    let render;
+    const interfaces = new Interface();
     const scena = new Scena();
     scena.scena = props.scena;
     const player = new Player("player");
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
-    let press = {pressUp:0,pressLeft:0,pressRight:0};
-   // let tileMap = new TileMap()
-    let tileMap = props.bg.map((el)=>new TileMap(el.name,el.img));
+    let press = { pressUp: 0, pressLeft: 0, pressRight: 0 };
+    let tileMap = props.bg.map((el) => new Body(el.name,el.img));
 
-
-/*
-
-    useEffect(() => {
-       
-        // mount
+    /*
     
-
-       
-        const render = Render.create({
-            element: scene.current,
-            engine: engine.current,
-            options: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-                wireframes: false,
-                background: '#000'
-            }
-        })
-
-
-        // run the engine
-        Engine.run(engine.current)
-        Render.run(render);
-        let world = engine.current.world;
+        useEffect(() => {
+           
+            // mount
         
-        scena.create();
-       
-        const player = new Player("player");
-        const platform = new Body("platform");
-        const platformB = new Body("platform_b");
-        
-        const money = new Money("money");
-
-        const tileMap = props.bg.map((el)=>new TileMap(scena,el.name,el.img,el.position.x,el.position.y,el.size.w,el.size.h));
-        tileMap.map((el)=>el.setup(world))
-       
-        platformB.createRect(world, scena);
-        platform.createRect(world, scena);
-        money.setup(world, scena);
-        player.setup(world, scena);
-      
-        
-
-        Events.on(engine.current, "collisionStart", function (event) {
-            let pairs = event.pairs;
-            for (let i = 0; i < pairs.length; i++) {
-                let pair = pairs[i];
-               if(pair.bodyA.label === "money" && pair.bodyB.label === "player" ){
-                   player.money++;
-                   props.setMoney(player.money)
-                   let mst = window.localStorage.getItem("money");
-                   mst = Number.parseInt(mst);
-                   mst++
-                   window.localStorage.setItem("money",mst);
-                   Composite.remove(world,pair.bodyA)
-               }
-            }
-        });
-
-
-       
-
-        Events.on(engine.current,"afterUpdate",(event)=>{
-            document.addEventListener("keydown",(e)=>{
-           if(e.key === "ArrowUp"){press.pressUp = e.key}
-           if(e.key === "ArrowRight"){press.pressRight = e.key}
-           if(e.key === "ArrowLeft"){press.pressLeft = e.key}
-        
-
+    
+           
+            const render = Render.create({
+                element: scene.current,
+                engine: engine.current,
+                options: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    wireframes: false,
+                    background: '#000'
+                }
             })
-            document.addEventListener("keyup",(e)=>{
-                press = {pressLeft:0,pressRight:0,pressUp:0}
-                
-           })
-
-            player.draw(world,press);
-            money.draw(world);
+    
+    
+            // run the engine
+            Engine.run(engine.current)
+            Render.run(render);
+            let world = engine.current.world;
             
-        })
+            scena.create();
+           
+            const player = new Player("player");
+            const platform = new Body("platform");
+            const platformB = new Body("platform_b");
+            
+            const money = new Money("money");
+    
+            const tileMap = props.bg.map((el)=>new TileMap(scena,el.name,el.img,el.position.x,el.position.y,el.size.w,el.size.h));
+            tileMap.map((el)=>el.setup(world))
+           
+            platformB.createRect(world, scena);
+            platform.createRect(world, scena);
+            money.setup(world, scena);
+            player.setup(world, scena);
+          
+            
+    
+           
+    
+           
+    
+            Events.on(engine.current,"afterUpdate",(event)=>{
+                document.addEventListener("keydown",(e)=>{
+               if(e.key === "ArrowUp"){press.pressUp = e.key}
+               if(e.key === "ArrowRight"){press.pressRight = e.key}
+               if(e.key === "ArrowLeft"){press.pressLeft = e.key}
+            
+    
+                })
+                document.addEventListener("keyup",(e)=>{
+                    press = {pressLeft:0,pressRight:0,pressUp:0}
+                    
+               })
+    
+                player.draw(world,press);
+                money.draw(world);
+                
+            })
+    
+           
+           
+            
+            // unmount
+            return () => {
+                // destroy Matter
+                Render.stop(render)
+                render.canvas.remove()
+                render.canvas = null
+                render.context = null
+                render.textures = {}
+            }
+    
+    
+        }, [])
+    
+    */
 
-       
-       
-        
-        // unmount
-        return () => {
-            // destroy Matter
-            Render.stop(render)
-            render.canvas.remove()
-            render.canvas = null
-            render.context = null
-            render.textures = {}
-        }
 
-
-    }, [])
-
-*/
-
-
-     const preload = (p5)=>{
-        tileMap.map((el)=>el.preloadImage(p5))
-       
-        player.preloadImage(p5,"./img/player/1.png")
-     }
+    const preload = (p5) => {
+        tileMap.map((el) => el.preloadImage(p5));
+        player.loadImg(p5);
+        money.loadImg(p5);
+    }
 
 
 
@@ -136,46 +118,74 @@ export default function Level(props) {
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
         scena.create(p5);
         engine = Engine.create();
-        render = Render; 
         world = engine.world;
         Engine.run(engine);
-       
-        let press = {pressUp:0,pressLeft:0,pressRight:0};
-       
 
-       
-       tileMap.map((el)=>el.setup(world,scena))
-       
+        Events.on(engine, "collisionStart", function (event) {
+            let pairs = event.pairs;
+            for (let i = 0; i < pairs.length; i++) {
+                let pair = pairs[i];
+               if(pair.bodyA.label === "money" && pair.bodyB.label === "player" ){
+                  let mst = window.localStorage.getItem("money");
+                  mst = Number.parseInt(mst);
+                   mst++
+                   window.localStorage.setItem("money",mst);
+                   player.money = window.localStorage.getItem("money");
+                    Composite.remove(world,pair.bodyA)
+                    pair.bodyA.remove = true;
+               }
+            }
+        });
+
+        
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
+   
+        tileMap.map((el) => {
+           el.sensor = true;
+            return el.createRect(world, scena);
+       })
         money.setup(world, scena);
         player.setup(world, scena);
+    };
+
+
+    
+
+
+   const keyPressed = (e)=>{
+    if(e.key === "ArrowUp"){press.pressUp = e.key}
+    if(e.key === "ArrowRight"){press.pressRight = e.key}
+    if(e.key === "ArrowLeft"){press.pressLeft = e.key}
+   }
+
+const keyReleased = (e)=>{
+    press = {pressLeft:0,pressRight:0,pressUp:0}
+   
+}
+
+document.addEventListener("keyup",(e)=>{
+  
+   
+})
 
 
 
-
-
-
-       
-      };
-
-
-      const draw = (p5) => {
+    const draw = (p5) => {
         p5.background(255);
-      tileMap.map((el)=>el.view(p5))
-        player.draw(p5,world,press);
-       // money.draw(world);
-       platform.viewRect(p5)
-      // player.viewRect(p5)
-        // NOTE: Do not use setState in the draw function or in functions that are executed
-        // in the draw function...
-        // please use normal variables or class properties for these purposes
-      
-      };
+        p5.rectMode(p5.CENTER);
+        tileMap.map((el)=>el.sprite(p5))
+        player.draw(p5, world, press);
+        money.draw(p5);
+
+        //interface
+interfaces.headBar(p5,player.money)
+        
+    };
 
 
-      
 
 
-      return <Sketch setup={setup} preload = {preload} draw={draw} />;
+
+    return <Sketch  setup={setup} keyPressed = {keyPressed} keyReleased = {keyReleased}  preload={preload} draw={draw} />;
 }

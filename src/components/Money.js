@@ -1,22 +1,33 @@
 import Body from "./Body";
+import Animate from "./Animate";
 
 export default class Money extends Body{
+
+    animate = new Animate();
+
     constructor(props) {
         super(props);
         this.sensor = true;
-        this.sizeImage = { width: 200, height: 200 };
-       
-        //  this.imgArr = ["./img/money/1.png","./img/money/50.png"];
-        //this.image = "./img/player/ball.png";
+    }
+
+
+    loadImg(p5){
+        this.animate.animateLoad(p5,"./img/money/money.png",63);
     }
 
     setup(world, scena) {
-      //  this.speedAn = 20
+        this.animate.setupAnimate();
         this.createEllipse(world, scena);
+
     }
 
 
-    draw(world) {
-        this.spriteAnimate("money", 63);
+    draw(p5) {
+        if(Array.isArray(this.body)){
+            this.body.filter((f)=>f.remove === false).map((b)=>{
+              this.animate.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width)
+            })
+        }
+       
     }
 }

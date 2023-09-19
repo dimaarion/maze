@@ -1,5 +1,4 @@
 import Matter from "matter-js";
-import P5 from "./P5";
 export default class Body {
 
   name;
@@ -22,14 +21,19 @@ export default class Body {
   imgArr = [];
   frameSpeed = 10;
   colide = false;
-
-  constructor(name) {
+  img;
+ 
+  constructor(name, img = "") {
+    this.img = img;
     this.name = name;
   }
 
 
-  preloadImage(p5,img) {
-      this.image = p5.loadImage(img);
+  preloadImage(p5) {
+
+    this.image = p5.loadImage(this.img);
+
+
   }
 
 
@@ -53,7 +57,7 @@ export default class Body {
         if (Math.floor(this.frame) % count === 0) {
           count = 1
         }
-        
+
         this.body.map((b) => b.render.sprite.texture = this.imgArr[Math.floor(this.frame) % count]);
       }
 
@@ -62,21 +66,24 @@ export default class Body {
 
 
   collides(world, name, n = 0) {
-    let c = false;
-    let b = world.bodies.filter((el) => el.label === name).map((b) => {
-      let colige = Matter.Collision.collides(this.body[n], b);
-      if (colige !== null) {
-        if (colige.collided) {
-          c = true;
+    if (world !== undefined) {
+      let c = false;
+      let b = world.bodies.filter((el) => el.label === name).map((b) => {
+        let colige = Matter.Collision.collides(this.body[n], b);
+        if (colige !== null) {
+          if (colige.collided) {
+            c = true;
+          }
+
+        } else {
+
         }
 
-      } else {
 
-      }
+      });
+      return c;
+    }
 
-
-    });
-    return c;
   }
 
   createRect(world, scena) {
@@ -103,7 +110,8 @@ export default class Body {
           activeB: 0,
           money: 0,
           rotation: b.rotation,
-          sprite:this.image,
+          sprite: this.image,
+          remove:false
         }
       )
     );
@@ -134,13 +142,9 @@ export default class Body {
           activeB: 0,
           money: 0,
           rotation: b.rotation,
-          render: {
-            sprite: {
-              texture: this.image,
-              xScale: scena.size(b.width, scena.scale) / this.sizeImage.width,
-              yScale: scena.size(b.height, scena.scale) / this.sizeImage.height
-            }
-          }
+          sprite: this.image,
+          remove:false
+
         }
       )
     );
@@ -223,7 +227,7 @@ export default class Body {
       p5.rectMode(p5.CENTER);
       this.world.bodies
         .filter((f) => f.label === this.name)
-        .map((b) => p5.image(b.sprite,b.position.x, b.position.y, b.width, b.height));
+        .map((b) => p5.image(this.image, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
     }
   }
 

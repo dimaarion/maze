@@ -1,4 +1,4 @@
-class Animate {
+export default class Animate {
   name;
   img;
   x;
@@ -303,5 +303,9 @@ class Animate {
     } catch (Exception) {
       console.log("error");
     }
+  }
+
+  spriteView(p5,x, y, w, h){
+    p5.image(this.sprite(p5), x, y, w, h);
   }
 }
