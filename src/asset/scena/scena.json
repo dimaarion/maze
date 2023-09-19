@@ -728,13 +728,13 @@
          "name":"player",
          "objects":[
                 {
-                 "height":80,
+                 "height":50,
                  "id":263,
                  "name":"player",
                  "rotation":0,
                  "type":"player",
                  "visible":true,
-                 "width":80,
+                 "width":50,
                  "x":979.363636363635,
                  "y":379.909090909091
                 }],

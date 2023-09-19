@@ -40,11 +40,13 @@ export default class Player extends Body {
     atanIcon;
     money = 0;
     active = 0;
-    //timer = new Panel();
+   
     elapsedSeconds = 0;
     elapsedMinutes = 0;
     colideMoney = false;
     animateFice = new Animate();
+    animateleft = new Animate();
+    animateRight = new Animate()
 
 
     // eslint-disable-next-line no-useless-constructor
@@ -53,20 +55,23 @@ export default class Player extends Body {
         this.static = false;
         this.sizeImage = { width: 150, height: 150 };
         this.speedAn = 0.5;
-        //  this.imgArr = ["./img/money/1.png","./img/money/50.png"];
-        //   this.image = "./img/player/playerFace.png";
+       
     }
 
 
 
     loadImg(p5) {
         this.animateFice.animateLoad(p5, "./img/player/1.png");
+        this.animateleft.animateLoad(p5,"./img/playerLeft/playerLeft.png",24);
+        this.animateRight.animateLoad(p5,"./img/playerRight/playerRight.png",24);
     }
 
 
     setup(world, scena) {
         this.fric = 1;
         this.createRect(world, scena);
+        this.animateleft.setupAnimate();
+        this.animateRight.setupAnimate();
         this.body.map((b) => {
             b.render.visible = true;
         })
@@ -89,11 +94,7 @@ export default class Player extends Body {
             this.translate(world);
             this.setRotate(0);
 
-            this.body.map((b) => {
-               return p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
-            })
-
-
+          
 
 
             let animations = 0;
@@ -126,14 +127,23 @@ export default class Player extends Body {
             }
             this.body.map((b, i) => {
                 if (this.getVelocity()[i].x > 3 && this.getVelocity()[i].y == 0) {
+                    this.animateRight.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     //   this.spriteAnimate("playerRight", 24,3);
                 }
                 if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y == 0) {
+                    this.animateleft.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     // this.spriteAnimate("playerLeft", 24);
                 }
                 if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y > 0) {
+
                     // this.spriteAnimate("playerLeft", 24);
-                }//
+                }
+                if(this.getVelocity()[i].x < 2 && this.getVelocity()[i].x >= 0){
+                    p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                }
+                if(this.getVelocity()[i].x > -2 && this.getVelocity()[i].x <= 0){
+                    p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                }
 
             }
             )

@@ -1,4 +1,4 @@
-import { Engine, Composite, Events} from "matter-js";
+import { Engine, Composite, Events } from "matter-js";
 import Sketch from 'react-p5';
 import Scena from './Scena';
 import Body from './Body';
@@ -17,8 +17,8 @@ export default function Level(props) {
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
-    let press = { pressUp: 0, pressLeft: 0, pressRight: 0 };
-    let tileMap = props.bg.map((el) => new Body(el.name,el.img));
+    let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress:1 };
+    let tileMap = props.bg.map((el) => new Body(el.name, el.img));
 
     /*
     
@@ -108,6 +108,7 @@ export default function Level(props) {
         tileMap.map((el) => el.preloadImage(p5));
         player.loadImg(p5);
         money.loadImg(p5);
+        interfaces.loadImg(p5);
     }
 
 
@@ -125,67 +126,69 @@ export default function Level(props) {
             let pairs = event.pairs;
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
-               if(pair.bodyA.label === "money" && pair.bodyB.label === "player" ){
-                  let mst = window.localStorage.getItem("money");
-                  mst = Number.parseInt(mst);
-                   mst++
-                   window.localStorage.setItem("money",mst);
-                   player.money = window.localStorage.getItem("money");
-                    Composite.remove(world,pair.bodyA)
+                if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
+                    let mst = window.localStorage.getItem("money");
+                    mst = Number.parseInt(mst);
+                    mst++
+                    window.localStorage.setItem("money", mst);
+                    player.money = window.localStorage.getItem("money");
+                    Composite.remove(world, pair.bodyA)
                     pair.bodyA.remove = true;
-               }
+                }
             }
         });
+        interfaces.setup(p5, scena);
 
-        
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
-   
+
         tileMap.map((el) => {
-           el.sensor = true;
+            el.sensor = true;
             return el.createRect(world, scena);
-       })
+        })
         money.setup(world, scena);
         player.setup(world, scena);
     };
 
 
-    
 
 
-   const keyPressed = (e)=>{
-    if(e.key === "ArrowUp"){press.pressUp = e.key}
-    if(e.key === "ArrowRight"){press.pressRight = e.key}
-    if(e.key === "ArrowLeft"){press.pressLeft = e.key}
-   }
 
-const keyReleased = (e)=>{
-    press = {pressLeft:0,pressRight:0,pressUp:0}
-   
-}
+    const keyPressed = (e) => {
+        if (e.key === "ArrowUp") { press.pressUp = e.key }
+        if (e.key === "ArrowRight") { press.pressRight = e.key }
+        if (e.key === "ArrowLeft") { press.pressLeft = e.key }
+        press.rePress = 0;
+    }
 
-document.addEventListener("keyup",(e)=>{
-  
-   
-})
+    const keyReleased = (e) => {
+
+        if (e.key === "ArrowUp") { press.pressUp = 0 }
+        if (e.key === "ArrowRight") { press.pressRight = 0 }
+        if (e.key === "ArrowLeft") { press.pressLeft = 0 }
+        press.rePress = 1;
+
+    }
+
+
 
 
 
     const draw = (p5) => {
-        p5.background(255);
+        p5.background("#06082d");
         p5.rectMode(p5.CENTER);
-        tileMap.map((el)=>el.sprite(p5))
+        tileMap.map((el) => el.sprite(p5))
         player.draw(p5, world, press);
         money.draw(p5);
 
         //interface
-interfaces.headBar(p5,player.money)
-        
+        interfaces.headBar(p5,scena,player.money)
+
     };
 
 
 
 
 
-    return <Sketch  setup={setup} keyPressed = {keyPressed} keyReleased = {keyReleased}  preload={preload} draw={draw} />;
+    return <Sketch setup={setup} keyPressed={keyPressed} keyReleased={keyReleased} preload={preload} draw={draw} />;
 }

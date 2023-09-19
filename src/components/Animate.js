@@ -306,6 +306,11 @@ export default class Animate {
   }
 
   spriteView(p5,x, y, w, h){
-    p5.image(this.sprite(p5), x, y, w, h);
+    try {
+       p5.image(this.sprite(p5), x, y, w, h);
+    } catch (error) {
+      
+    }
+   
   }
 }

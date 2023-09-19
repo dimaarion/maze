@@ -7,12 +7,44 @@
   pointer-events: none;
 }
 
-.button{
+.button {
   position: fixed;
 }
-.react-p5{
+
+.react-p5 {
   position: fixed;
 }
+
+.head-level {
+  margin: auto;
+  top: 3%;
+  left: 0;
+  right: 0;
+  font-size: 50pt;
+  color: #fff;
+}
+
+.body-level{
+  top: 20%;
+  padding-left: 80px;
+  padding-right: 80px;
+  cursor: pointer;
+}
+.tb-level{
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  font-size: 45pt;
+  cursor: pointer;
+}
+.settings{
+
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -34,10 +66,17 @@
   color: #61dafb;
 }
 
+@media (max-width: 1400px) {
+  .head-level {font-size: 5vw;}
+  .tb-level{font-size: 4vw;}
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

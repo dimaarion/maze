@@ -66,8 +66,17 @@ export default class Scena{
     }
 
     procentXY(n) {
-        let r = this.p5.windowWidth + this.p5.windowHeight;
+        let r = window.innerWidth + window.innerHeight
+        try {
+             r = this.p5.windowWidth + this.p5.windowHeight;
+        } catch (error) {
+            r = window.innerWidth + window.innerHeight
+        }
+             
+        
+        
         return this.procentIn(r, n)
+       
     }
 
     procentIn(n, p) {
@@ -175,4 +184,12 @@ export default class Scena{
         }
         return false;
     };
+
+    arrayCount(n){
+        let a = [];
+         for (let i = 0; i < n; i++){
+           a[i] = i + 1;
+         }
+         return a;
+       }
 }
