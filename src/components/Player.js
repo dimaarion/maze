@@ -54,7 +54,7 @@ export default class Player extends Body {
         super(props);
         this.static = false;
         this.sizeImage = { width: 150, height: 150 };
-        this.speedAn = 0.5;
+        this.speedAn = 2;
        
     }
 
@@ -62,7 +62,7 @@ export default class Player extends Body {
 
     loadImg(p5) {
         this.animateFice.animateLoad(p5, "./img/player/1.png");
-        this.animateleft.animateLoad(p5,"./img/playerLeft/playerLeft.png",24);
+        this.animateleft.animateLoad(p5,"./img/player/run.png",62);
         this.animateRight.animateLoad(p5,"./img/playerRight/playerRight.png",24);
     }
 
