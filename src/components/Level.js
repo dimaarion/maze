@@ -17,7 +17,7 @@ export default function Level(props) {
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
-    let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress:1 };
+    let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = props.bg.map((el) => new Body(el.name, el.img));
 
     /*
@@ -121,24 +121,32 @@ export default function Level(props) {
         engine = Engine.create();
         world = engine.world;
         Engine.run(engine);
-
+        let mst = 0;
         Events.on(engine, "collisionStart", function (event) {
             let pairs = event.pairs;
+
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
                 if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
-                    let mst = window.localStorage.getItem("money");
-                    mst = Number.parseInt(mst);
-                    mst++
-                    window.localStorage.setItem("money", mst);
-                    player.money = window.localStorage.getItem("money");
-                    Composite.remove(world, pair.bodyA)
-                    pair.bodyA.remove = true;
+
+                    mst = window.localStorage.getItem("money");
+                    // eslint-disable-next-line use-isnan
+                    if (mst !== NaN) {
+                        mst = Number.parseInt(mst);
+                        mst++;
+                        console.log(mst)
+                        window.localStorage.setItem("money", mst);
+                        player.money = window.localStorage.getItem("money");
+                        Composite.remove(world, pair.bodyA)
+                        pair.bodyA.remove = true;
+                    }
+
+
                 }
             }
         });
         interfaces.setup(p5, scena);
-
+       
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
 
@@ -148,6 +156,7 @@ export default function Level(props) {
         })
         money.setup(world, scena);
         player.setup(world, scena);
+       
     };
 
 
@@ -177,12 +186,14 @@ export default function Level(props) {
     const draw = (p5) => {
         p5.background("#06082d");
         p5.rectMode(p5.CENTER);
+        p5.push();
+        player.translates(p5);
         tileMap.map((el) => el.sprite(p5))
         player.draw(p5, world, press);
         money.draw(p5);
-
+        p5.pop();
         //interface
-        interfaces.headBar(p5,scena,player.money)
+        interfaces.headBar(p5, scena, player.money)
 
     };
 

@@ -12,17 +12,17 @@ export default class TileMap {
     sprite;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor(name,image) {
-       
+    constructor(name, image) {
+
         this.name = name;
         this.image = image;
-      //  this.x = x;
-      //  this.y = y;
-      //  this.width = width;
-      //  this.height = height;
+        //  this.x = x;
+        //  this.y = y;
+        //  this.width = width;
+        //  this.height = height;
     }
 
-    preloadImage(p5){
+    preloadImage(p5) {
         this.sprite = p5.loadImage(this.image);
     }
 
@@ -34,19 +34,19 @@ export default class TileMap {
             }
             if (this.scene.getObject(this.name).offsety !== undefined) {
                 this.y = this.scene.getObject(this.name).offsety;
-            }    
+            }
             console.log(this.scene.getObject(this.name).offsetx)
         }
 
-    
+
         this.body = Matter.Bodies.rectangle(
-            this.scene.size(this.x , this.scene.scale),
-            this.scene.size(this.y , this.scene.scale),
+            this.scene.size(this.x, this.scene.scale),
+            this.scene.size(this.y, this.scene.scale),
             this.scene.size(this.scene.scenaWidth, this.scene.scale),
             this.scene.size(this.scene.scenaHeigiht, this.scene.scale), {
             isStatic: true,
             isSensor: true,
-            sprite:this.sprite
+            sprite: this.sprite
         }
 
         )
@@ -55,7 +55,13 @@ export default class TileMap {
     }
 
 
-    view(p5){
-        p5.image(this.body.sprite,this.body.position.x ,this.body.position.y,this.body.width,this.body.height); 
+    view(p5) {
+        p5.image(this.body.sprite, 0, 0, this.scena.size(
+            this.scena.scena.width * this.scena.scena.tilewidth,
+            this.scena.scale
+        ), this.scena.size(
+            this.scena.scena.height * this.scena.scena.tileheight,
+            this.scena.scale
+        ));
     }
 }

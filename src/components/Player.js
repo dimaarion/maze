@@ -40,7 +40,7 @@ export default class Player extends Body {
     atanIcon;
     money = 0;
     active = 0;
-   
+
     elapsedSeconds = 0;
     elapsedMinutes = 0;
     colideMoney = false;
@@ -55,21 +55,21 @@ export default class Player extends Body {
         this.static = false;
         this.sizeImage = { width: 150, height: 150 };
         this.speedAn = 2;
-       
+
     }
 
 
 
     loadImg(p5) {
         this.animateFice.animateLoad(p5, "./img/player/1.png");
-        this.animateleft.animateLoad(p5,"./img/player/run.png",62);
-        this.animateRight.animateLoad(p5,"./img/playerRight/playerRight.png",24);
+        this.animateleft.animateLoad(p5, "./img/player/run.png", 62);
+        this.animateRight.animateLoad(p5, "./img/player/runR.png", 62);
     }
 
 
     setup(world, scena) {
         this.fric = 1;
-        this.createRect(world, scena);
+        this.createEllipse(world, scena);
         this.animateleft.setupAnimate();
         this.animateRight.setupAnimate();
         this.body.map((b) => {
@@ -91,10 +91,10 @@ export default class Player extends Body {
         if (Array.isArray(this.body)) {
             let x = 0;
             let y = 0;
-            this.translate(world);
+            //  this.translate(world);
             this.setRotate(0);
 
-          
+
 
 
             let animations = 0;
@@ -102,47 +102,54 @@ export default class Player extends Body {
             //  this.spriteAnimate("player", 1, 1)
             this.colide = this.collides(world, "platform_b", 0);
 
-            if (press.pressUp === "ArrowUp" && this.colide === true) {
-                this.body.map((b) => {
-                      Matter.Body.setVelocity(b, { x: 0, y: -this.gravity });
-                })
-            }
-            if (press.pressRight === "ArrowRight" && this.colide === true) {
-                animations = 1
 
-                this.body.map((b) => Matter.Body.setVelocity(b, { x: this.velocity, y: 0 }))
-            }
-            if (press.pressLeft === "ArrowLeft" && this.colide === true) {
-                animations = 2
 
-                this.body.map((b) => Matter.Body.setVelocity(b, { x: -this.velocity, y: 0 }))
-            }
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
 
-                this.body.map((b) => Matter.Body.setVelocity(b, { x: -this.velocity, y: -this.gravity }))
-            }
-            if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.colide === true) {
+            if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.colide === true) {
+                this.setVelosity(this.gravity,0);
+                
+            }else if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.colide === true) {
+                this.setVelosity(-this.gravity, 0);
+              
+            } else if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.colide === true) {
+                this.setVelosity(this.velocity, -this.gravity);
+            } else if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
+                this.setVelosity(-this.velocity, -this.gravity);
+            }else{
+               
+            } 
 
-                this.body.map((b) => Matter.Body.setVelocity(b, { x: this.velocity, y: -this.gravity }))
+            if(press.pressRight === "ArrowRight" && press.pressUp === 0){
+                this.spriteAnimate(p5,this.animateRight)
+            }else if(press.pressLeft === "ArrowLeft" && press.pressUp === 0){
+                this.spriteAnimate(p5,this.animateleft)
+            }else{
+                this.spriteAnimate(p5,this.animateFice)
             }
+
+            if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
+                this.setVelosity(0, -this.gravity)
+            }
+
+
             this.body.map((b, i) => {
                 if (this.getVelocity()[i].x > 3 && this.getVelocity()[i].y == 0) {
-                    this.animateRight.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
+                 //   this.animateRight.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     //   this.spriteAnimate("playerRight", 24,3);
                 }
                 if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y == 0) {
-                    this.animateleft.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
+                 ///   this.animateleft.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     // this.spriteAnimate("playerLeft", 24);
                 }
                 if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y > 0) {
 
                     // this.spriteAnimate("playerLeft", 24);
                 }
-                if(this.getVelocity()[i].x < 2 && this.getVelocity()[i].x >= 0){
-                    p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                if (this.getVelocity()[i].x < 2 && this.getVelocity()[i].x >= 0) {
+                 //   p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
                 }
-                if(this.getVelocity()[i].x > -2 && this.getVelocity()[i].x <= 0){
-                    p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                if (this.getVelocity()[i].x > -2 && this.getVelocity()[i].x <= 0) {
+                  //  p5.image(this.animateFice.sprite(p5), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
                 }
 
             }

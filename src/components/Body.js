@@ -37,31 +37,24 @@ export default class Body {
   }
 
 
-
-
-  spriteAnimate(dir, count, animater = 0) {
-    this.frame += this.speedAn;
-    for (let i = 1; i < count + 1; i++) {
-      this.imgArr[i - 1] = "./img/" + dir + "/" + i + ".png";
+  translates(p5) {
+    if (this.world !== undefined) {
+      this.world.bodies
+        .filter((f) => f.label === this.name)
+        .map((b) =>
+          p5.translate(
+            -b.position.x + (p5.windowWidth / 2 - b.width / 2),
+            -b.position.y + p5.windowHeight / 2
+          )
+        );
     }
+  }
 
-    if (Array.isArray(this.imgArr)) {
-      if (animater === 0) {
-        this.body.map((b) => b.render.sprite.texture = this.imgArr[Math.floor(this.frame) % count]);
-      } else if (animater === 1) {
-        this.body.map((b) => b.render.sprite.texture = this.imgArr[0]);
-      } else if (animater === 2) {
-        this.body.map((b) => b.render.sprite.texture = this.imgArr[count]);
-      } else if (animater === 3) {
 
-        if (Math.floor(this.frame) % count === 0) {
-          count = 1
-        }
 
-        this.body.map((b) => b.render.sprite.texture = this.imgArr[Math.floor(this.frame) % count]);
-      }
 
-    }
+  spriteAnimate(p5,img) {
+     this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width));
   }
 
 
