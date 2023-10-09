@@ -22,7 +22,7 @@ export default class Body {
   frameSpeed = 10;
   colide = false;
   img;
- 
+
   constructor(name, img = "") {
     this.img = img;
     this.name = name;
@@ -53,8 +53,9 @@ export default class Body {
 
 
 
-  spriteAnimate(p5,img) {
-     this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width));
+  spriteAnimate(p5, img) {
+
+    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width));
   }
 
 
@@ -104,7 +105,7 @@ export default class Body {
           money: 0,
           rotation: b.rotation,
           sprite: this.image,
-          remove:false
+          remove: false
         }
       )
     );
@@ -136,7 +137,7 @@ export default class Body {
           money: 0,
           rotation: b.rotation,
           sprite: this.image,
-          remove:false
+          remove: false
 
         }
       )

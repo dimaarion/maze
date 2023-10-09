@@ -46,8 +46,8 @@ export default class Player extends Body {
     colideMoney = false;
     animateFice = new Animate();
     animateleft = new Animate();
-    animateRight = new Animate()
-
+    animateRight = new Animate();
+    animateJampLeft = new Animate();
 
     // eslint-disable-next-line no-useless-constructor
     constructor(props) {
@@ -61,15 +61,16 @@ export default class Player extends Body {
 
 
     loadImg(p5) {
-        this.animateFice.animateLoad(p5, "./img/player/1.png");
-        this.animateleft.animateLoad(p5, "./img/player/run.png", 62);
-        this.animateRight.animateLoad(p5, "./img/player/runR.png", 62);
+        this.animateJampLeft.animateLoad(p5, "./img/player/jampL.png",54);
+        this.animateleft.animateLoad(p5, "./img/player/runL.png", 54);
+        this.animateRight.animateLoad(p5, "./img/player/run.png", 54);
     }
 
 
     setup(world, scena) {
         this.fric = 1;
         this.createEllipse(world, scena);
+        this.animateJampLeft.setupAnimate();
         this.animateleft.setupAnimate();
         this.animateRight.setupAnimate();
         this.body.map((b) => {
@@ -107,24 +108,37 @@ export default class Player extends Body {
 
             if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.colide === true) {
                 this.setVelosity(this.gravity,0);
-                
-            }else if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.colide === true) {
+                this.spriteAnimate(p5,this.animateRight)
+            }else {
+
+            }
+            
+            if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.colide === true) {
+                this.spriteAnimate(p5,this.animateleft)
                 this.setVelosity(-this.gravity, 0);
               
-            } else if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.colide === true) {
+            } else {
+                this.animateleft.frame = 0;
+                this.spriteAnimate(p5,this.animateleft)
+            }
+            
+            if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.colide === true) {
+                this.direction = 1;
                 this.setVelosity(this.velocity, -this.gravity);
             } else if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
+                this.spriteAnimate(p5,this.animateJampLeft);
                 this.setVelosity(-this.velocity, -this.gravity);
             }else{
                
             } 
 
-            if(press.pressRight === "ArrowRight" && press.pressUp === 0){
-                this.spriteAnimate(p5,this.animateRight)
-            }else if(press.pressLeft === "ArrowLeft" && press.pressUp === 0){
-                this.spriteAnimate(p5,this.animateleft)
+            if(this.direction === 1){
+
+               
+            }else if(this.direction === 2){
+                
             }else{
-                this.spriteAnimate(p5,this.animateFice)
+              //  this.spriteAnimate(p5,this.animateFice)
             }
 
             if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
