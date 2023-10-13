@@ -5,6 +5,7 @@ import Body from './Body';
 import Player from './Player';
 import Money from './Money';
 import Interface from './Interface';
+import Ladder from "./Ladder";
 
 export default function Level(props) {
 
@@ -17,6 +18,7 @@ export default function Level(props) {
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
+    const ladder = new Ladder("ladder");
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = props.bg.map((el) => new Body(el.name, el.img));
 
@@ -109,6 +111,7 @@ export default function Level(props) {
         player.loadImg(p5);
         money.loadImg(p5);
         interfaces.loadImg(p5);
+        ladder.loadImg(p5);
     }
 
 
@@ -145,6 +148,22 @@ export default function Level(props) {
                 }
             }
         });
+
+        Events.on(engine, "collisionActive", function (event) {
+            let pairs = event.pairs;
+
+            for (let i = 0; i < pairs.length; i++) {
+                let pair = pairs[i];
+                if (pair.bodyA.label === "ladder" && pair.bodyB.label === "player") {
+                  //  engine.gravity.y = 0;
+                }
+            }
+        });
+
+
+
+
+
         interfaces.setup(p5, scena);
        
         platformB.createRect(world, scena);
@@ -154,6 +173,7 @@ export default function Level(props) {
             el.sensor = true;
             return el.createRect(world, scena);
         })
+        ladder.setup(world,scena);
         money.setup(world, scena);
         player.setup(world, scena);
        
@@ -188,7 +208,8 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
-        tileMap.map((el) => el.sprite(p5))
+        tileMap.map((el) => el.sprite(p5));
+        ladder.draw(p5);
         player.draw(p5, world, press);
         money.draw(p5);
         p5.pop();

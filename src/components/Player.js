@@ -47,7 +47,8 @@ export default class Player extends Body {
     animateFiceLeft = new Animate();
     animateleft = new Animate();
     animateRight = new Animate();
-    animateJampLeft = new Animate();
+    animateJampLeftN = new Animate();
+    animateJampLeftK = new Animate();
     animateFiceRight = new Animate()
 
     // eslint-disable-next-line no-useless-constructor
@@ -62,10 +63,11 @@ export default class Player extends Body {
 
 
     loadImg(p5) {
-        this.animateJampLeft.animateLoad(p5, "./img/player/jampL.png", 54);
+        this.animateJampLeftN.animateLoad(p5, "./img/player/jampLn.png");
+        this.animateJampLeftK.animateLoad(p5, "./img/player/jampLk.png");
         this.animateleft.animateLoad(p5, "./img/player/runL.png", 54);
         this.animateRight.animateLoad(p5, "./img/player/run.png", 54);
-        this.animateFiceLeft.animateLoad(p5, "./img/player/ficeLeft.png");
+        this.animateFiceLeft.animateLoad(p5, "./img/player/stopLeft.png",54);
         this.animateFiceRight.animateLoad(p5, "./img/player/ficeRight.png");
     }
 
@@ -73,11 +75,13 @@ export default class Player extends Body {
     setup(world, scena) {
         this.fric = 1;
         this.createEllipse(world, scena);
-        this.animateJampLeft.setupAnimate();
+        this.animateJampLeftN.setupAnimate();
+        this.animateJampLeftK.setupAnimate();
         this.animateleft.setupAnimate();
+        this.animateFiceLeft.setupAnimate();
         this.animateRight.setupAnimate();
         this.body.map((b) => {
-            b.render.visible = true;
+            return b.render.visible = true;
         })
         this.gravity = scena.size(this.gravity, scena.scale);
         this.velocity = scena.size(this.velocity, scena.scale);
@@ -93,59 +97,67 @@ export default class Player extends Body {
 
     draw(p5, world, press) {
         if (Array.isArray(this.body)) {
-            let x = 0;
-            let y = 0;
+
             //  this.translate(world);
             this.setRotate(0);
 
 
 
 
-            let animations = 0;
+
 
             //  this.spriteAnimate("player", 1, 1)
-            this.colide = this.collides(world, "platform_b", 0);
+
+            if (this.collides(world, "platform_b", 0)) {
+                this.colide = this.collides(world, "platform_b", 0);
+            } else if (this.collides(world, "ladder", 0)) {
+                this.colide = this.collides(world, "ladder", 0);
+            }else{
+                this.colide = false
+            }
+
+
 
 
 
 
             if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.colide === true) {
                 this.setVelosity(this.gravity, 0);
-                this.spriteAnimate(p5, this.animateRight, this.width, this.height);
+                
                 this.direction = 2;
 
             }
 
             if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.colide === true) {
-                this.spriteAnimate(p5, this.animateleft, this.width, this.height)
+             //   this.spriteAnimate(p5, this.animateleft, this.width, this.height)
                 this.setVelosity(-this.gravity, 0);
                 this.direction = 1;
 
             }
 
             if (press.pressLeft !== "ArrowLeft" && this.direction === 1 && press.pressUp === 0 && this.colide === true) {
-                this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
+              //  this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
             }
 
             if (press.pressRight !== "ArrowRight" && this.direction === 2 && press.pressUp === 0 && this.colide === true) {
-                this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
+               // this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
             }
 
             if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.colide === true) {
-                this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
+              //  this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
                 this.setVelosity(this.velocity, -this.gravity);
             }
             if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.colide === true) {
                 this.setVelosity(-this.velocity, -this.gravity);
             }
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.getVelocity()[0].y < 0 && this.colide !== true) {
-                this.spriteAnimate(p5, this.animateJampLeft, this.width, this.height);
+            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.getVelocity()[0].y > 0) {
+             //   this.spriteAnimate(p5, this.animateJampLeftN, this.width, this.height);
             }
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.getVelocity()[0].y > 0 && this.colide !== true) {
-                this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
+            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.getVelocity()[0].y < 0) {
+             //   this.spriteAnimate(p5, this.animateJampLeftK, this.width, this.height);
             }
-            if (this.direction === 1) {
-
+            if (this.direction === 1 && this.colide !== true && press.pressLeft === 0 && press.pressUp === 0) {
+              //  this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
 
             } else if (this.direction === 2) {
 
@@ -159,16 +171,18 @@ export default class Player extends Body {
 
 
             this.body.map((b, i) => {
-                if (this.getVelocity()[i].x > 3 && this.getVelocity()[i].y == 0) {
+                if (this.getVelocity()[i].x > 0 && this.colide === true && press.pressRight !== 0) {
+                    this.spriteAnimate(p5, this.animateRight, this.width, this.height);
                     //   this.animateRight.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     //   this.spriteAnimate("playerRight", 24,3);
                 }
-                if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y == 0) {
+                if (this.getVelocity()[i].x < 0 && this.colide === true && press.pressLeft !== 0) {
+                    this.spriteAnimate(p5, this.animateleft, this.width, this.height)
                     ///   this.animateleft.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width);
                     // this.spriteAnimate("playerLeft", 24);
                 }
-                if (this.getVelocity()[i].x < -3 && this.getVelocity()[i].y > 0) {
-
+                if (press.pressLeft === 0 && this.direction === 1) {
+                    this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
                     // this.spriteAnimate("playerLeft", 24);
                 }
                 if (this.getVelocity()[i].x < 2 && this.getVelocity()[i].x >= 0) {

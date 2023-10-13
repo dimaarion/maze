@@ -20,7 +20,7 @@
          "offsety":200,
          "opacity":1,
          "type":"imagelayer",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -37,6 +37,17 @@
                  "type":"",
                  "visible":true,
                  "width":6200,
+                 "x":-1,
+                 "y":8.5
+                }, 
+                {
+                 "height":6200,
+                 "id":268,
+                 "name":"bg",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6200,
                  "x":0,
                  "y":0
                 }],
@@ -48,7 +59,7 @@
                  "value":"..\/..\/..\/public\/img\/scene\/scena01.png"
                 }],
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -128,15 +139,15 @@
                  "y":518.22009123629
                 }, 
                 {
-                 "height":1206.00632426169,
+                 "height":1402.00632426169,
                  "id":160,
                  "name":"platform",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":123.260143066734,
-                 "x":1848.40816044447,
-                 "y":298.55762227051
+                 "x":1668.40816044447,
+                 "y":286.55762227051
                 }, 
                 {
                  "height":1382.01756335169,
@@ -383,7 +394,40 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":18,
+         "name":"ladder",
+         "objects":[
+                {
+                 "height":150,
+                 "id":267,
+                 "name":"ladder",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":743,
+                 "y":718
+                }, 
+                {
+                 "height":150,
+                 "id":270,
+                 "name":"ladder",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":743,
+                 "y":566
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -750,8 +794,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":18,
- "nextobjectid":266,
+ "nextlayerid":19,
+ "nextobjectid":271,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",
