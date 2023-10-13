@@ -53,9 +53,10 @@ export default class Body {
 
 
 
-  spriteAnimate(p5, img) {
-
-    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.width / 2, b.width, b.width));
+  spriteAnimate(p5, img,w = 0,h = 0) {
+    w = this.scena.size(w,this.scena.scale);
+    h = this.scena.size(h,this.scena.scale);
+    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, (b.position.y - b.width / 2) - h, b.width + w, b.width + h));
   }
 
 
@@ -82,6 +83,7 @@ export default class Body {
 
   createRect(world, scena) {
     this.world = world;
+    this.scena = scena;
     this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
       Matter.Bodies.rectangle(
@@ -114,7 +116,7 @@ export default class Body {
 
 
   createEllipse(world, scena) {
-
+    this.scena = scena;
     this.world = world;
     this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
