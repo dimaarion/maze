@@ -6,6 +6,7 @@ import Player from './Player';
 import Money from './Money';
 import Interface from './Interface';
 import Ladder from "./Ladder";
+import TileMap from "./TileMap";
 
 export default function Level(props) {
 
@@ -20,7 +21,7 @@ export default function Level(props) {
     const money = new Money("money");
     const ladder = new Ladder("ladder");
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
-    let tileMap = props.bg.map((el) => new Body(el.name, el.img));
+    let tileMap = props.bg.map((el) => new TileMap(el.name, el.img));
 
     /*
     
@@ -168,11 +169,7 @@ export default function Level(props) {
        
         platformB.createRect(world, scena);
         platform.createRect(world, scena);
-
-        tileMap.map((el) => {
-            el.sensor = true;
-            return el.createRect(world, scena);
-        })
+        tileMap.map((el) => el.setup(world, scena));
         ladder.setup(world,scena);
         money.setup(world, scena);
         player.setup(world, scena);
@@ -208,13 +205,15 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
-        tileMap.map((el) => el.sprite(p5));
-        ladder.draw(p5);
+        tileMap.map((el) => el.view(p5));
+      //  ladder.draw(p5);
         player.draw(p5, world, press);
         money.draw(p5);
+      //  platform.viewRect(p5)
         p5.pop();
         //interface
-        interfaces.headBar(p5, scena, player.money)
+        interfaces.headBar(p5, scena, player.money);
+       
 
     };
 

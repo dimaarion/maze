@@ -4,7 +4,7 @@ export default class Scena{
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 10;
+    scale = 5;
     p5;
 
     create(p5) {

@@ -2,7 +2,7 @@ import Matter from "matter-js";
 
 export default class TileMap {
     body = {};
-    scene = {};
+    scena = {};
     image;
     width;
     height;
@@ -26,37 +26,29 @@ export default class TileMap {
         this.sprite = p5.loadImage(this.image);
     }
 
-    setup(world, scene) {
-        this.scene = scene;
-        if (this.scene.getObject(this.name) != undefined) {
-            if (this.scene.getObject(this.name).offsetx !== undefined) {
-                this.x = this.scene.getObject(this.name).offsetx;
+    setup(world, scena) {
+        this.scena = scena;
+        /*
+        if (this.scena.getObject(this.name) != undefined) {
+            if (this.scena.getObject(this.name).offsetx !== undefined) {
+                this.x = this.scena.getObject(this.name).offsetx;
             }
-            if (this.scene.getObject(this.name).offsety !== undefined) {
-                this.y = this.scene.getObject(this.name).offsety;
+            if (this.scena.getObject(this.name).offsety !== undefined) {
+                this.y = this.scena.getObject(this.name).offsety;
             }
-            console.log(this.scene.getObject(this.name).offsetx)
-        }
+
+        }*/
 
 
-        this.body = Matter.Bodies.rectangle(
-            this.scene.size(this.x, this.scene.scale),
-            this.scene.size(this.y, this.scene.scale),
-            this.scene.size(this.scene.scenaWidth, this.scene.scale),
-            this.scene.size(this.scene.scenaHeigiht, this.scene.scale), {
-            isStatic: true,
-            isSensor: true,
-            sprite: this.sprite
-        }
-
-        )
-        Matter.World.add(world, [this.body]);
+       
 
     }
 
 
     view(p5) {
-        p5.image(this.body.sprite, 0, 0, this.scena.size(
+      //  console.log(this.sprite)
+        
+        p5.image(this.sprite, 0, 0, this.scena.size(
             this.scena.scena.width * this.scena.scena.tilewidth,
             this.scena.scale
         ), this.scena.size(
@@ -64,4 +56,38 @@ export default class TileMap {
             this.scena.scale
         ));
     }
+
+    viewMap(p5, id, layers, platform) {
+        let col = 0;
+        let row = 0;
+        let index = 0;
+
+        let center = { x: this.scena.scenaWidth / 2, y: this.scena.scenaHeigiht / 2 }
+
+        this.scena.getObjectData(layers).map((el, i) => {
+            col++;
+            this.x = this.scena.size(col * this.scena.scena.tilewidth, this.scena.scale) - this.scena.size(this.scena.scena.tilewidth, this.scena.scale);
+            this.y = this.scena.size(row * this.scena.scena.tileheight, this.scena.scale);
+
+            if (el === id && this.x > 0) {
+                p5.push()
+                p5.image(
+                    this.animate.sprite(),
+                    this.x,
+                    this.y,
+                    this.scena.size(this.scena.scena.tilewidth + 1, this.scena.scale),
+                    this.scena.size(this.scena.scena.tileheight + 1, this.scena.scale)
+                );
+                p5.pop()
+            }
+            if (col > this.scena.scena.width - 1) {
+                col = 0;
+                row++;
+            }
+        });
+
+        // image(0,0, this.scena.size(this.scena, this.scena.scale))
+    }
+
+
 }
