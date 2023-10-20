@@ -1,11 +1,19 @@
-export default class Scena{
+export default class Scena {
     name = "";
     scena = {};
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 10;
+    scale = 1;
     p5;
+    img = []
+    level = 0;
+    constructor(scena, img, level) {
+        this.scena = scena;
+        this.img = img;
+        this.level = level;
+    }
+
 
     create(p5) {
         this.p5 = p5;
@@ -68,15 +76,15 @@ export default class Scena{
     procentXY(n) {
         let r = window.innerWidth + window.innerHeight
         try {
-             r = this.p5.windowWidth + this.p5.windowHeight;
+            r = this.p5.windowWidth + this.p5.windowHeight;
         } catch (error) {
             r = window.innerWidth + window.innerHeight
         }
-             
-        
-        
+
+
+
         return this.procentIn(r, n)
-       
+
     }
 
     procentIn(n, p) {
@@ -185,11 +193,11 @@ export default class Scena{
         return false;
     };
 
-    arrayCount(n){
+    arrayCount(n) {
         let a = [];
-         for (let i = 0; i < n; i++){
-           a[i] = i + 1;
-         }
-         return a;
-       }
+        for (let i = 0; i < n; i++) {
+            a[i] = i + 1;
+        }
+        return a;
+    }
 }

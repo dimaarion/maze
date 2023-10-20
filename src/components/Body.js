@@ -84,7 +84,8 @@ export default class Body {
   createRect(world, scena) {
     this.world = world;
     this.scena = scena;
-    this.getObj = scena.getObjects(this.name);
+    if(scena.getObjects(this.name)){
+       this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
       Matter.Bodies.rectangle(
         scena.size(b.x + b.width / 2, scena.scale),
@@ -101,7 +102,7 @@ export default class Body {
           friction: this.fric,
           typeObject: b.type,
           speedBodyDop: 0,
-          level: 0,
+          level: 1,
           display: "start",
           activeB: 0,
           money: 0,
@@ -111,6 +112,8 @@ export default class Body {
         }
       )
     );
+    }
+   
     Matter.World.add(this.world, this.body);
   }
 
@@ -118,7 +121,8 @@ export default class Body {
   createEllipse(world, scena) {
     this.scena = scena;
     this.world = world;
-    this.getObj = scena.getObjects(this.name);
+    if(scena.getObjects(this.name)){
+       this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
       Matter.Bodies.circle(
         scena.size(b.x + b.width / 2, scena.scale),
@@ -133,7 +137,7 @@ export default class Body {
           friction: this.fric,
           typeObject: b.type,
           speedBodyDop: 0,
-          level: 0,
+          level: 1,
           display: "start",
           activeB: 0,
           money: 0,
@@ -144,6 +148,8 @@ export default class Body {
         }
       )
     );
+    }
+   
     Matter.World.add(this.world, this.body);
   }
 

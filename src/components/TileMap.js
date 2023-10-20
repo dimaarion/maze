@@ -12,18 +12,18 @@ export default class TileMap {
     sprite;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor(x, y, name, image) {
+    constructor() {
 
-        this.name = name;
-        this.image = image;
-        this.x = x;
-        this.y = y;
+      
+       // this.image = image;
+       // this.x = x;
+       // this.y = y;
         //  this.width = width;
         //  this.height = height;
     }
 
-    preloadImage(p5) {
-        this.sprite = p5.loadImage(this.image);
+    preloadImage(p5,image) {
+        this.sprite = p5.loadImage(image);
     }
 
     setup(world, scena) {

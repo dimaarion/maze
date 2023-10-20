@@ -42,6 +42,7 @@ export default class Player extends Body {
     active = 0;
     collidePlatform = false;
     collideLadder = false;
+    level = 1;
 
     elapsedSeconds = 0;
     elapsedMinutes = 0;
@@ -92,7 +93,7 @@ export default class Player extends Body {
         this.animateRight.setupAnimate();
         this.animateLadder.setupAnimate();
         this.body.map((b) => {
-            return b.render.visible = true;
+            return b.level = this.level;
         })
         this.gravity = scena.size(this.gravity, scena.scale);
         this.velocity = scena.size(this.velocity, scena.scale);
@@ -249,7 +250,7 @@ export default class Player extends Body {
 
 
             this.body.map((b, i) => {
-
+                b.level = this.level
 
 
             }
