@@ -36,8 +36,10 @@ export default class Interface {
         if(money === 0){
             money = window.localStorage.getItem("money");
         }
+        
         this.moneyImg.spriteView(p5,this.scene.size(20, this.scene.scale), this.scene.size(15, this.scene.scale),this.scene.size(30, this.scene.scale), this.scene.size(30, this.scene.scale))
-        p5.text(money,  this.scene.size(100, this.scene.scale), this.scene.size(35, this.scene.scale));
+       
+        p5.text(Number.parseInt(money) ,  this.scene.size(100, this.scene.scale), this.scene.size(35, this.scene.scale));
         p5.pop();
     }
 }

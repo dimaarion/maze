@@ -12,12 +12,12 @@ export default class TileMap {
     sprite;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor(name, image) {
+    constructor(x, y, name, image) {
 
         this.name = name;
         this.image = image;
-        //  this.x = x;
-        //  this.y = y;
+        this.x = x;
+        this.y = y;
         //  this.width = width;
         //  this.height = height;
     }
@@ -40,21 +40,25 @@ export default class TileMap {
         }*/
 
 
-       
+
 
     }
 
 
     view(p5) {
-      //  console.log(this.sprite)
-        
-        p5.image(this.sprite, 0, 0, this.scena.size(
-            this.scena.scena.width * this.scena.scena.tilewidth,
-            this.scena.scale
-        ), this.scena.size(
-            this.scena.scena.height * this.scena.scena.tileheight,
-            this.scena.scale
-        ));
+        //  console.log(this.sprite)
+        try {
+            p5.image(this.sprite, this.x, this.y, this.scena.size(
+                this.scena.scena.width * this.scena.scena.tilewidth,
+                this.scena.scale
+            ), this.scena.size(
+                this.scena.scena.height * this.scena.scena.tileheight,
+                this.scena.scale
+            ));
+        } catch (error) {
+
+        }
+
     }
 
     viewMap(p5, id, layers, platform) {
