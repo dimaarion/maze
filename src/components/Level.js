@@ -9,6 +9,7 @@ import Ladder from "./Ladder";
 import TileMap from "./TileMap";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import Button from "./Button";
 
 export default function Level(props) {
 
@@ -23,6 +24,8 @@ export default function Level(props) {
     const ladder = new Ladder("ladder");
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = new TileMap();
+    let play = new Button(0, 0, 100, 100, 1);
+    let countPlay = -1;
 
     const GETMONEY = useDispatch();
 
@@ -84,10 +87,20 @@ export default function Level(props) {
             }
         });
         //  tileMap.map((el) => el.setup(world, el.scena));
+        play.create(p5)
+        ;
 
-        scena.map((el) => {
+        scena.map((el) => interfaces.setup(p5, el))
+
+
+
+    };
+
+
+    function playBt(p5) {
+        scena.filter((f) => f.level === 1).map((el) => {
             //  el.img.map((tilemap)=>tilemap.setup(world, el))
-            interfaces.setup(p5, el);
+            // interfaces.setup(p5, el);
             platformB.createRect(world, el);
             platform.createRect(world, el);
             ladder.setup(world, el);
@@ -95,15 +108,7 @@ export default function Level(props) {
             player.setup(world, el);
 
         })
-
-        // props.bg.map((el) => levelSetup(p5, el.scena))
-
-
-
-    };
-
-
-
+    }
 
 
     const keyPressed = (e) => {
@@ -122,32 +127,52 @@ export default function Level(props) {
 
     }
 
+    const mousePressed = (e) => {
+        if(play.valueActive === false){
+            play.mousePress();
+        }
+        
+        if (play.valueActive === 1) {
+            scena.filter((f) => f.level === 1).map((el) => {
+                //  el.img.map((tilemap)=>tilemap.setup(world, el))
+                // 
+                platformB.createRect(world, el);
+                platform.createRect(world, el);
+                ladder.setup(world, el);
+                money.setup(world, el);
+                player.setup(world, el);
 
+            })
+        }
+        console.log(play.valueActive)
+    }
 
+    const mouseReleased = () => {
+        play.mouseRelass(0);
+    }
 
 
     const draw = (p5) => {
-       
-            
-            p5.background("#000");
-            p5.rectMode(p5.CENTER);
-            p5.push();
-            player.translates(p5);
-            //   tileMap.map((el) => el.view(p5));
-            ladder.draw(p5);
-            money.draw(p5);
-            player.draw(p5, world, press);
-            platform.viewRect(p5)
-            p5.pop();
-            //interface
-            //  interfaces.headBar(p5, scena, player.money);
-
-      
+        p5.background("#000");
+        p5.rectMode(p5.CENTER);
+        p5.push();
+        player.translates(p5);
+        //   tileMap.map((el) => el.view(p5));
+        ladder.draw(p5);
+        money.draw(p5);
+        player.draw(p5, world, press);
+        platform.viewRect(p5)
+        p5.pop();
+        //interface
+        scena.map((el) => interfaces.headBar(p5, el, player.money));
+        if(play.valueActive === false){
+        play.draw(p5);
+        }
 
     };
 
 
-    return <Sketch setup={setup} keyPressed={keyPressed} keyReleased={keyReleased} preload={preload} draw={draw} />
+    return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed} keyReleased={keyReleased} preload={preload} draw={draw} />
 
 
 }

@@ -1,10 +1,12 @@
 import Animate from "./Animate";
+import Scena from "./Scena";
 
 
 export default class Interface {
     scene
     headBarImg = new Animate();
     moneyImg = new Animate();
+    scene = new Scena();
     txtSize = 0.01;
     x = 0;
     y = 0;
