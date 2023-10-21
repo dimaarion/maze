@@ -26,6 +26,7 @@ export default function Level(props) {
     const textMoney = new Interface(5,5.5,2,0);
     const imageMoney = new Interface(1,1.5,3,3,"./img/money/moneySt.png");
     const action = new Scena();
+    const fakel = new Body("fakel","./img/fakel/fakel.png");
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el)));
     //  let play = new Button(45, 45, 10, 10, 1, "./img/gui/step_level.png");
@@ -39,6 +40,8 @@ export default function Level(props) {
         ladder.loadImg(p5);
         bgHeadBar.loadImg(p5);
         imageMoney.loadImg(p5);
+        fakel.frame = 30;
+        fakel.preloadImage(p5);
     }
 
 
@@ -52,6 +55,8 @@ export default function Level(props) {
             ladder.setup(world, el);
             money.setup(world, el);
             player.setup(world, el);
+            fakel.sensor = true;
+            fakel.createRect(world,el);
             return world;
         })
     }
@@ -161,6 +166,7 @@ export default function Level(props) {
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map) => map.view(p5)))
         //   tileMap.map((el) => el.view(p5));
         // ladder.draw(p5);
+        fakel.spriteAnimate(p5,fakel.animate);
         money.draw(p5);
         player.draw(p5, world, press);
         // platform.viewRect(p5)

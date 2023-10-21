@@ -1,4 +1,5 @@
 import Matter from "matter-js";
+import Animate from "./Animate";
 export default class Body {
 
   name;
@@ -22,7 +23,7 @@ export default class Body {
   frameSpeed = 10;
   colide = false;
   img;
-
+  animate = new Animate(); 
   constructor(name, img = "") {
     this.img = img;
     this.name = name;
@@ -32,7 +33,7 @@ export default class Body {
   preloadImage(p5) {
 
     this.image = p5.loadImage(this.img);
-
+    this.animate.animateLoad(p5,this.img,this.frame);
 
   }
 
@@ -56,8 +57,10 @@ export default class Body {
   spriteAnimate(p5, img,w = 0,h = 0) {
     w = this.scena.size(w,this.scena.scale);
     h = this.scena.size(h,this.scena.scale);
-    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, (b.position.y - b.width / 2) - h, b.width + w, b.width + h));
+    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
   }
+
+
 
 
   collides(world, name, n = 0) {
@@ -84,6 +87,7 @@ export default class Body {
   createRect(world, scena) {
     this.world = world;
     this.scena = scena;
+    this.animate.setupAnimate()
     if(scena.getObjects(this.name)){
        this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
@@ -121,6 +125,7 @@ export default class Body {
   createEllipse(world, scena) {
     this.scena = scena;
     this.world = world;
+    this.animate.setupAnimate()
     if(scena.getObjects(this.name)){
        this.getObj = scena.getObjects(this.name);
     this.body = this.getObj.map((b) =>
@@ -130,6 +135,7 @@ export default class Body {
         scena.size(b.width / 2, scena.scale),
         {
           width: scena.size(b.width, scena.scale),
+          height: scena.size(b.height, scena.scale),
           label: this.name,
           isStatic: this.static,
           isSensor: this.sensor,

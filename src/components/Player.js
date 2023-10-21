@@ -31,11 +31,11 @@ export default class Player extends Body {
     direction = 0;
     speedBody = 0.08;
     speedBodyDop = 1;
-    gravity = 5;
+    gravity = 10;
     rotate = 0;
     header;
     header2;
-    velocity = 5;
+    velocity = 7;
     atanImg;
     atanIcon;
     money = 0;
@@ -86,7 +86,7 @@ export default class Player extends Body {
 
     setup(world, scena) {
         this.fric = 1;
-        this.createEllipse(world, scena);
+        this.createRect(world, scena);
         this.animateJampLeft.setupAnimate();
         this.animateJampLeftK.setupAnimate();
         this.animateleft.setupAnimate();
@@ -96,8 +96,8 @@ export default class Player extends Body {
         this.body.map((b) => {
             return b.level = this.level;
         })
-        this.gravity = scena.size(this.gravity, scena.scale);
-        this.velocity = scena.size(this.velocity, scena.scale);
+       // this.gravity = scena.size(this.gravity, scena.scale);
+       // this.velocity = scena.size(this.velocity, scena.scale);
         //this.spriteAnimate("playerLeft", 24);
         // this.spriteAnimate("player", 1, 1)
     }
