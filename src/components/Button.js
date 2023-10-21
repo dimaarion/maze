@@ -1,16 +1,21 @@
 import { useState } from "react"
-
+import Scena from "./Scena";
+import mobile from "mobile-detect";
 export default class Button {
     x = 0;
     y = 0;
     w = 100;
     h = 100;
     img = "";
+    image = {};
     value = "";
     valueActive = false;
     hit = false;
     p5;
-    constructor(x, y, w, h, value, img) {
+    scena = new Scena();
+    md;
+    constructor(x, y, w, h, value, img = "") {
+
         this.x = x;
         this.y = y;
         this.w = w;
@@ -20,11 +25,34 @@ export default class Button {
     }
 
     loadImage(p5) {
-        p5.loadImage(this.img);
+        this.image = p5.loadImage(this.img);
     }
 
     create(p5) {
         this.p5 = p5;
+        this.scena.create(p5);
+        this.md = new mobile(window.navigator.userAgent);
+
+        if (this.md.mobile()) {
+            if (p5.deviceOrientation === p5.LANDSCAPE) {
+                this.x = this.scena.procentX(this.x);
+                this.y = this.scena.procentY(this.y);
+                this.w = this.scena.procentX(this.w);
+                this.h = this.scena.procentX(this.h);
+            } else {
+
+                this.x = this.scena.procentX(this.x);
+                this.y = this.scena.procentY(this.y);
+                this.w = this.scena.procentY(this.w);
+                this.h = this.scena.procentY(this.h);
+            }
+        } else {
+            this.x = this.scena.procentX(this.x);
+            this.y = this.scena.procentY(this.y);
+            this.w = this.scena.procentX(this.w);
+            this.h = this.scena.procentX(this.h);
+        }
+
     }
 
     collidePointRect = function (pointX, pointY, x, y, xW, yW) {
@@ -43,21 +71,31 @@ export default class Button {
         }
     }
 
-    mouseRelass(n = 0){
+    mouseRelass(n = 0) {
+        if (this.hit) {
             this.valueActive = n;
+        }
+
     }
 
 
 
     draw(p5) {
-        try {
-            p5.image(this.img, this.x, this.y, this.w, this.h);
-        } catch (error) {
+        if (this.img === "") {
+            p5.rectMode(p5.CORNER);
+            //  p5.rect(this.p5.mouseX, this.p5.mouseY, this.w, this.h);
+            p5.rect(this.x, this.y, this.w, this.h);
+        } else {
+            try {
+                p5.image(this.image, this.x, this.y, this.w, this.h);
+            } catch (error) {
 
+            }
         }
-     
 
-        p5.rect(this.x, this.y, this.w, this.h)
+
+
+
     }
 
 }

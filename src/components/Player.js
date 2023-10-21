@@ -31,7 +31,7 @@ export default class Player extends Body {
     direction = 0;
     speedBody = 0.08;
     speedBodyDop = 1;
-    gravity = 4;
+    gravity = 5;
     rotate = 0;
     header;
     header2;
@@ -42,6 +42,7 @@ export default class Player extends Body {
     active = 0;
     collidePlatform = false;
     collideLadder = false;
+    colldeLevel = false;
     level = 1;
 
     elapsedSeconds = 0;
@@ -121,9 +122,8 @@ export default class Player extends Body {
             //  this.spriteAnimate("player", 1, 1)
 
             this.collidePlatform = this.collides(world, "platform_b", 0);
-
-
             this.collideLadder = this.collides(world, "ladder", 0);
+            this.colldeLevel = this.collides(world,"level_2",0);
 
 
 
@@ -225,38 +225,14 @@ export default class Player extends Body {
             }
 
 
-            if (this.direction === 3) {
-                //  this.spriteAnimate(p5, this.animateLadderStatic, this.width, this.height);
-            }
-
-            if (this.collideLadder === true && this.collidePlatform === true && this.direction === 1 && this.direction !== 2 && press.pressLeft === 0) {
-                //  this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
-            }
-            if (this.collideLadder === true && this.collidePlatform === true && this.direction === 2 && this.direction !== 1 && press.pressRight === 0) {
-                // this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
-            }
-
-            if (press.pressLeft === 0 && this.direction === 1 && this.collideLadder !== true) {
-                //  this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
-
-            }
-            if (press.pressRight === 0 && this.direction === 2 && this.collideLadder !== true) {
-                //  this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
-
-            }
-
-
-
-
-
             this.body.map((b, i) => {
                 b.level = this.level
-
-
             }
             )
         }
-        //this.sprite(p5)
+       
+
+       
     }
 
 

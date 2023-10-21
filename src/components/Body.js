@@ -63,7 +63,7 @@ export default class Body {
   collides(world, name, n = 0) {
     if (world !== undefined) {
       let c = false;
-      let b = world.bodies.filter((el) => el.label === name).map((b) => {
+      let b = world.bodies.filter((el) => el.label === name || el.typeObject === name).map((b) => {
         let colige = Matter.Collision.collides(this.body[n], b);
         if (colige !== null) {
           if (colige.collided) {
@@ -102,7 +102,7 @@ export default class Body {
           friction: this.fric,
           typeObject: b.type,
           speedBodyDop: 0,
-          level: 1,
+          level: scena.level,
           display: "start",
           activeB: 0,
           money: 0,

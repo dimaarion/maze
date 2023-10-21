@@ -3,27 +3,30 @@ import Matter from "matter-js";
 export default class TileMap {
     body = {};
     scena = {};
-    image;
-    width;
-    height;
+    image = "";
+    width = 100;
+    height = 100;
     x = 0;
     y = 0;
     name = "";
-    sprite;
+    sprite = {};
+    level = 0;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor() {
+    constructor(image,level,scena) {
 
       
-       // this.image = image;
+       this.image = image;
+       this.level = level;
+       this.scena = scena;
        // this.x = x;
        // this.y = y;
         //  this.width = width;
         //  this.height = height;
     }
 
-    preloadImage(p5,image) {
-        this.sprite = p5.loadImage(image);
+    preloadImage(p5) {
+        this.sprite = p5.loadImage(this.image);
     }
 
     setup(world, scena) {

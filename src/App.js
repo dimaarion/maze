@@ -3,7 +3,8 @@ import './App.css';
 
 import Level from './components/Level';
 import scena_1 from "./asset/scena/scena.json";
-import scena_2 from "./asset/scena/scena2.json"
+import scena_2 from "./asset/scena/scena2.json";
+import scena_3 from "./asset/scena/scena3.json"
 import Button from './components/Button';
 import { useEffect, useState } from 'react';
 import LevelPanel from './components/LevelPanel';
@@ -23,7 +24,8 @@ function App() {
     <div className="App">
       <Level press={mousePress} setMoney={setMoney} scena={scena_1} bg={[
         { scena: scena_1,level:1, img: ["./img/scene/scena1.png"] },
-        { scena: scena_2,level:2, img: ["./img/scene/scena2.png"] }
+        { scena: scena_2,level:2, img: ["./img/scene/scena2.png"] },
+        { scena: scena_3,level:3, img: ["./img/scene/scena3.png"] }
       ]} />
     </div>
   );

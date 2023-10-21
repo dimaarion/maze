@@ -1,4 +1,5 @@
 import { Engine, Composite, Events } from "matter-js";
+import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
 import Body from './Body';
@@ -7,50 +8,75 @@ import Money from './Money';
 import Interface from './Interface';
 import Ladder from "./Ladder";
 import TileMap from "./TileMap";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Button from "./Button";
+
 
 export default function Level(props) {
 
     let engine;
     let world;
-    const interfaces = new Interface();
+    let md = new mobile(window.navigator.userAgent);
     const scena = props.bg.map((el) => new Scena(el.scena, el.img, el.level));
     const player = new Player("player");
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
     const ladder = new Ladder("ladder");
+    const point = new Body("point");
+    const bgHeadBar = new Interface(0, 0, 50, 5, "./img/headBar/Stats_Bar.png");
+    const textMoney = new Interface(5,5.5,2,0);
+    const imageMoney = new Interface(1,1.5,3,3,"./img/money/moneySt.png");
+    const action = new Scena();
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
-    let tileMap = new TileMap();
-    let play = new Button(0, 0, 100, 100, 1);
-    let countPlay = -1;
-
-    const GETMONEY = useDispatch();
-
+    let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el)));
+    //  let play = new Button(45, 45, 10, 10, 1, "./img/gui/step_level.png");
+    
 
     const preload = (p5) => {
-        //    scena.map((el)=>el.img.map((tilemap)=>tileMap.preloadImage(p5,tileMap)))
+
+        tileMap.map((el) => el.map((map) => map.preloadImage(p5)))
         player.loadImg(p5);
         money.loadImg(p5);
-        interfaces.loadImg(p5);
         ladder.loadImg(p5);
-
+        bgHeadBar.loadImg(p5);
+        imageMoney.loadImg(p5);
     }
 
 
+    function createObject(scena, engine, n) {
+        return scena.filter((f) => f.level === n).map((el) => {
+            engine.gravity.y = el.size(1, el.scale);
+            point.sensor = true;
+            point.createRect(world, el);
+            platformB.createRect(world, el);
+            platform.createRect(world, el);
+            ladder.setup(world, el);
+            money.setup(world, el);
+            player.setup(world, el);
+            return world;
+        })
+    }
+
+    function removeObject(engine, n) {
+        Composite.remove(world, engine.world.bodies.filter((f) => f.level === n))
+    }
+
+
+    function collideLevel(removeObject, createObject, player, pair, n) {
+        if (pair.bodyA.typeObject === "level_" + n && pair.bodyB.label === "player") {
+            player.level = n
+            removeObject(engine, n - 1);
+            createObject(scena, engine, n);
+        }
+    }
 
     const setup = (p5, canvasParentRef) => {
-        // use parent to render the canvas in this ref
-        // (without that p5 will render the canvas outside of your component)
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
         scena.map((el) => el.create(p5));
         engine = Engine.create();
-        engine.gravity.y = scena[0].size(0.5, scena.scale)
         world = engine.world;
         Engine.run(engine);
         let mst = 0;
+
         Events.on(engine, "collisionStart", function (event) {
             let pairs = event.pairs;
             for (let i = 0; i < pairs.length; i++) {
@@ -58,21 +84,26 @@ export default function Level(props) {
                 if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
                     if (Number.isInteger(mst)) {
                         mst = window.localStorage.getItem("money");
-                    }
+                   
 
                     // eslint-disable-next-line use-isnan
 
                     mst = Number.parseInt(mst);
                     mst++;
-
+                }else{
+                    mst = 0;
+                }
                     window.localStorage.setItem("money", mst);
                     player.money = window.localStorage.getItem("money");
+
                     Composite.remove(world, pair.bodyA)
                     pair.bodyA.remove = true;
 
 
 
                 }
+
+                scena.filter((f) => f.level > 1).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
         });
 
@@ -86,29 +117,15 @@ export default function Level(props) {
                 }
             }
         });
-        //  tileMap.map((el) => el.setup(world, el.scena));
-        play.create(p5)
-        ;
+        if (player.level === 1) {
+            createObject(scena, engine, 1);
+        }
 
-        scena.map((el) => interfaces.setup(p5, el))
-
-
-
+        bgHeadBar.setup(p5);
+        textMoney.setup(p5);
+        imageMoney.setup(p5);
+        action.create(p5);
     };
-
-
-    function playBt(p5) {
-        scena.filter((f) => f.level === 1).map((el) => {
-            //  el.img.map((tilemap)=>tilemap.setup(world, el))
-            // interfaces.setup(p5, el);
-            platformB.createRect(world, el);
-            platform.createRect(world, el);
-            ladder.setup(world, el);
-            money.setup(world, el);
-            player.setup(world, el);
-
-        })
-    }
 
 
     const keyPressed = (e) => {
@@ -128,27 +145,11 @@ export default function Level(props) {
     }
 
     const mousePressed = (e) => {
-        if(play.valueActive === false){
-            play.mousePress();
-        }
-        
-        if (play.valueActive === 1) {
-            scena.filter((f) => f.level === 1).map((el) => {
-                //  el.img.map((tilemap)=>tilemap.setup(world, el))
-                // 
-                platformB.createRect(world, el);
-                platform.createRect(world, el);
-                ladder.setup(world, el);
-                money.setup(world, el);
-                player.setup(world, el);
 
-            })
-        }
-        console.log(play.valueActive)
     }
 
     const mouseReleased = () => {
-        play.mouseRelass(0);
+
     }
 
 
@@ -157,22 +158,25 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map) => map.view(p5)))
         //   tileMap.map((el) => el.view(p5));
-        ladder.draw(p5);
+        // ladder.draw(p5);
         money.draw(p5);
         player.draw(p5, world, press);
-        platform.viewRect(p5)
+        // platform.viewRect(p5)
         p5.pop();
+        bgHeadBar.viewImage();
+        textMoney.viewMoney(player.money,5,3);
+        imageMoney.viewImage();
         //interface
-        scena.map((el) => interfaces.headBar(p5, el, player.money));
-        if(play.valueActive === false){
-        play.draw(p5);
-        }
+
+
 
     };
 
 
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed} keyReleased={keyReleased} preload={preload} draw={draw} />
+
 
 
 }

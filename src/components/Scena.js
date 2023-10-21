@@ -17,11 +17,14 @@ export default class Scena {
 
     create(p5) {
         this.p5 = p5;
-        this.scenaWidth = this.scena.width * this.scena.tileheight;
-        this.scenaHeigiht = this.scena.height * this.scena.tileheight;
-        this.scenaSize =
-            this.scena.width * this.scena.tileheight +
-            this.scena.height * this.scena.tileheight;
+        if (this.scena) {
+            this.scenaWidth = this.scena.width * this.scena.tileheight;
+            this.scenaHeigiht = this.scena.height * this.scena.tileheight;
+            this.scenaSize =
+                this.scena.width * this.scena.tileheight +
+                this.scena.height * this.scena.tileheight;
+        }
+
     }
 
     getObjects(name) {
@@ -30,11 +33,7 @@ export default class Scena {
         let layersObjects = this.scena.layers
             .map((x) => x.objects)
             .filter((f) => f !== undefined);
-        layersObjects.map((x, i) =>
-            x
-                .filter((f2) => f2.name === nameObject)
-                .map((x2, j) => (arrObject[j] = x2))
-        );
+        layersObjects.map((x, i) => x.filter((f2) => f2.name === nameObject).map((x2, j) => (arrObject[j] = x2)));
         return arrObject;
     }
 
@@ -45,11 +44,7 @@ export default class Scena {
         let layersObjects = layers
             .map((x) => x.objects)
             .filter((f) => f !== undefined);
-        layersObjects.map((x, i) =>
-            x
-                .filter((f2) => f2.name === nameObject && f2.type === type)
-                .map((x2, j) => (arrObject[j] = x2))
-        );
+        layersObjects.map((x, i) =>x.filter((f2) => f2.name === nameObject && f2.type === type).map((x2, j) => (arrObject[j] = x2)));
         return arrObject;
     }
 
