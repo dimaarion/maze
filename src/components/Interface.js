@@ -68,8 +68,24 @@ export default class Interface {
         }
     }
 
-    viewText() {
-
+    viewText(txt,x,y,s,f) {
+        if (this.md.mobile()) {
+            if (this.p5.deviceOrientation === this.p5.LANDSCAPE) {
+                x = this.scene.procentX(x);
+                y = this.scene.procentX(y);
+            } else {
+                x = this.scene.procentY(x);
+                y = this.scene.procentY(y);
+            }
+        } else {
+            x = this.scene.procentX(x);
+            y = this.scene.procentX(y);
+        }
+        this.p5.push();
+        this.p5.fill(f);
+        this.p5.textSize(s);
+        this.p5.text(txt, x, y);
+        this.p5.pop();
     }
 
     viewMoney(money, x, y) {

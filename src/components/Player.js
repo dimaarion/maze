@@ -11,8 +11,8 @@ export default class Player extends Body {
     y = 100;
     joystick;
     static = false;
-    width = 0;
-    height = 30;
+    width = 20;
+    height = 0;
     radius = 50;
     left = 0;
     right = 0;
@@ -40,9 +40,12 @@ export default class Player extends Body {
     atanIcon;
     money = 0;
     active = 0;
+    key = 0;
+    defaultKey = 0;
     collidePlatform = false;
     collideLadder = false;
     colldeLevel = false;
+    collideKey = false;
     level = 1;
 
     elapsedSeconds = 0;
@@ -74,7 +77,7 @@ export default class Player extends Body {
         this.animateJampLeft.animateLoad(p5, "./img/player/jampLn.png");
         this.animateJampRight.animateLoad(p5, "./img/player/jampRn.png");
         this.animateJampLeftK.animateLoad(p5, "./img/player/jampLk.png");
-        this.animateLadderStatic.animateLoad(p5, "./img/player/ladderStatic.png");
+        this.animateLadderStatic.animateLoad(p5, "./img/player/ladderStatic2.png");
         this.animateleft.animateLoad(p5, "./img/player/runL.png", 54);
         this.animateRight.animateLoad(p5, "./img/player/run.png", 54);
         this.animateFiceLeft.animateLoad(p5, "./img/player/stopLeft.png");
@@ -85,7 +88,7 @@ export default class Player extends Body {
 
 
     setup(world, scena) {
-        this.fric = 1;
+        //this.fric = 1;
         this.createRect(world, scena);
         this.animateJampLeft.setupAnimate();
         this.animateJampLeftK.setupAnimate();
@@ -96,10 +99,13 @@ export default class Player extends Body {
         this.body.map((b) => {
             return b.level = this.level;
         })
-       // this.gravity = scena.size(this.gravity, scena.scale);
-       // this.velocity = scena.size(this.velocity, scena.scale);
+        this.gravity = scena.procentXY(0.5);
+        this.velocity = scena.procentXY(0.3);
+        // this.gravity = scena.size(this.gravity, scena.scale);
+        // this.velocity = scena.size(this.velocity, scena.scale);
         //this.spriteAnimate("playerLeft", 24);
         // this.spriteAnimate("player", 1, 1)
+        
     }
 
 
@@ -114,40 +120,50 @@ export default class Player extends Body {
             //  this.translate(world);
             this.setRotate(0);
 
-
+            //this.viewRect(p5)
 
 
 
 
             //  this.spriteAnimate("player", 1, 1)
 
-            this.collidePlatform = this.collides(world, "platform_b", 0);
+            if (this.collides(world, "platform_b", 0)) {
+                this.collidePlatform = this.collides(world, "platform_b", 0);
+            } else if (this.collides(world, "stone", 0)) {
+                this.collidePlatform = this.collides(world, "stone", 0);
+            } else {
+                this.collidePlatform = false;
+            }
+            this.collideKey = this.collides(world, "key", 0);
             this.collideLadder = this.collides(world, "ladder", 0);
-            this.colldeLevel = this.collides(world,"level_2",0);
+            this.colldeLevel = this.collides(world, "level_2", 0);
 
 
-
+            
+              // console.log(this.getTypeAll(world,"level_" + this.level)) 
+             //  console.log(this.getTypeAll(world,"key"))
+            
 
 
 
 
             if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collidePlatform === true) {
-                this.setVelosity(this.gravity, 0);
+                this.setVelosity(this.velocity, 0);
                 // this.direction = 2;
             }
 
             if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.collidePlatform === true) {
-                this.setVelosity(-this.gravity, 0);
+                this.setVelosity(-this.velocity, 0);
                 // this.direction = 1;
 
             }
 
             if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collideLadder === true) {
-                this.setVelosity(this.gravity, 0);
+                this.setVelosity(this.velocity, 0);
             }
 
             if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.collideLadder === true) {
-                this.setVelosity(-this.gravity, 0);
+                this.setVelosity(-this.velocity, 0);
             }
 
 
@@ -218,21 +234,21 @@ export default class Player extends Body {
                 this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
             } else if (press.pressRight === "ArrowRight" && this.collideLadder === false && this.collidePlatform === false) {
                 this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
-            } else if (this.collideLadder === true && (this.getVelocity()[0].y >= 0 || this.getVelocity()[0].y < 0)) {
+            } else if (this.collideLadder === true && press.pressUp === "ArrowUp") {
                 this.spriteAnimate(p5, this.animateLadder, this.width, this.height);
-            } else if (this.collideLadder === true && press.pressUp === 0 && this.collidePlatform === true) {
+            } else if (this.collideLadder === true && press.pressUp === 0) {
                 this.spriteAnimate(p5, this.animateLadderStatic, this.width, this.height);
             }
 
 
             this.body.map((b, i) => {
-                b.level = this.level
+                b.level = this.level;
             }
             )
         }
-       
 
-       
+
+
     }
 
 

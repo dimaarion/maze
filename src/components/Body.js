@@ -57,7 +57,7 @@ export default class Body {
   spriteAnimate(p5, img,w = 0,h = 0) {
     w = this.scena.size(w,this.scena.scale);
     h = this.scena.size(h,this.scena.scale);
-    this.body.map((b, i) => img.spriteView(p5, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
+    this.body.filter((f)=>f.remove === false).map((b, i) => img.spriteView(p5, (b.position.x - b.width / 2) - w / 2 , (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
   }
 
 
@@ -221,6 +221,28 @@ export default class Body {
         .map((b) => Matter.Body.getAngularVelocity(b));
     }
   }
+
+  getTypeObject(name,n){
+    return  this.body.filter((f) => f.typeObject === name)[n];
+   }
+   getTypeObjectAll(name){
+     return  this.body.filter((f) => f.typeObject === name);
+   }
+   getType(world, name, n = 0) {
+     return world.bodies.filter((f) => f.typeObject === name)[n];
+   }
+   getTypeAll(world, name) {
+     return world.bodies.filter((f) => f.typeObject === name);
+   }
+  
+   getName(world, name) {
+       return world.bodies.filter((f) => f.label === name);
+   }
+   getNameType(world, name, type) {
+     return world.bodies
+       .filter((f) => f.label === name)
+       .filter((f) => f.typeObject === type)[0];
+   }
 
   viewRect(p5) {
     if (this.world !== undefined) {

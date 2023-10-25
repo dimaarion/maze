@@ -23,14 +23,17 @@ export default function Level(props) {
     const ladder = new Ladder("ladder");
     const point = new Body("point");
     const bgHeadBar = new Interface(0, 0, 50, 5, "./img/headBar/Stats_Bar.png");
-    const textMoney = new Interface(5,5.5,2,0);
-    const imageMoney = new Interface(1,1.5,3,3,"./img/money/moneySt.png");
+    const textMoney = new Interface(5, 5.5, 2, 0);
+    const imageMoney = new Interface(1, 1.5, 3, 3, "./img/money/moneySt.png");
+    const countKey = new Interface();
     const action = new Scena();
-    const fakel = new Body("fakel","./img/fakel/fakel.png");
+    const fakel = new Body("fakel", "./img/fakel/fakel.png");
+    const stone = new Body("stone", "./img/object/stone.png");
+    const key = new Body("key", "./img/object/key.png");
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el)));
     //  let play = new Button(45, 45, 10, 10, 1, "./img/gui/step_level.png");
-    
+
 
     const preload = (p5) => {
 
@@ -42,6 +45,8 @@ export default function Level(props) {
         imageMoney.loadImg(p5);
         fakel.frame = 30;
         fakel.preloadImage(p5);
+        stone.preloadImage(p5);
+        key.preloadImage(p5);
     }
 
 
@@ -54,9 +59,15 @@ export default function Level(props) {
             platform.createRect(world, el);
             ladder.setup(world, el);
             money.setup(world, el);
-            player.setup(world, el);
             fakel.sensor = true;
-            fakel.createRect(world,el);
+            fakel.createRect(world, el);
+            stone.static = false;
+            stone.createRect(world, el);
+            key.sensor = true;
+            key.createRect(world, el);
+            player.defaultKey = key.body.length;
+            player.setup(world, el);
+
             return world;
         })
     }
@@ -89,15 +100,15 @@ export default function Level(props) {
                 if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
                     if (Number.isInteger(mst)) {
                         mst = window.localStorage.getItem("money");
-                   
 
-                    // eslint-disable-next-line use-isnan
 
-                    mst = Number.parseInt(mst);
-                    mst++;
-                }else{
-                    mst = 0;
-                }
+                        // eslint-disable-next-line use-isnan
+
+                        mst = Number.parseInt(mst);
+                        mst++;
+                    } else {
+                        mst = 0;
+                    }
                     window.localStorage.setItem("money", mst);
                     player.money = window.localStorage.getItem("money");
 
@@ -105,6 +116,13 @@ export default function Level(props) {
                     pair.bodyA.remove = true;
 
 
+
+                }
+
+                if (pair.bodyA.label === "key" && pair.bodyB.label === "player") {
+                    player.key++;
+                    Composite.remove(world, pair.bodyA);
+                    pair.bodyA.remove = true;
 
                 }
 
@@ -130,6 +148,7 @@ export default function Level(props) {
         textMoney.setup(p5);
         imageMoney.setup(p5);
         action.create(p5);
+        countKey.setup(p5);
     };
 
 
@@ -166,16 +185,24 @@ export default function Level(props) {
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map) => map.view(p5)))
         //   tileMap.map((el) => el.view(p5));
         // ladder.draw(p5);
-        fakel.spriteAnimate(p5,fakel.animate);
+        fakel.spriteAnimate(p5, fakel.animate);
+        stone.spriteAnimate(p5, stone.animate);
+        //  stone.viewRect(p5)
+        // platformB.viewRect(p5)
         money.draw(p5);
+        key.spriteAnimate(p5, key.animate);
         player.draw(p5, world, press);
         // platform.viewRect(p5)
         p5.pop();
         bgHeadBar.viewImage();
-        textMoney.viewMoney(player.money,5,3);
+        textMoney.viewMoney(player.money, 5, 3);
         imageMoney.viewImage();
+        countKey.viewText(player.key, 10, 5, 20, 255)
         //interface
-
+        if (player.key === key.body.length) {
+          //  point.getTypeObjectAll("level_" + (player.level + 1))[0]
+       //  scena.filter((el)=>console.log(el.getObjectsType("point","level_" + (player.level + 1))))
+        }
 
 
     };
