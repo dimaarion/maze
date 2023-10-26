@@ -177,6 +177,10 @@ export default function Level(props) {
     }
 
 
+   function getScena(scena ,player){
+        return scena.filter((f)=>f.level === player.level).map((el)=>el)[0]
+    }
+
     const draw = (p5) => {
         p5.background("#000");
         p5.rectMode(p5.CENTER);
@@ -202,6 +206,7 @@ export default function Level(props) {
         if (player.key === key.body.length) {
           //  point.getTypeObjectAll("level_" + (player.level + 1))[0]
        //  scena.filter((el)=>console.log(el.getObjectsType("point","level_" + (player.level + 1))))
+       console.log(getScena(scena,player))
         }
 
 
