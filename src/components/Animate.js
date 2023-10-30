@@ -18,6 +18,7 @@ export default class Animate {
   animated = true;
   last = false;
   newArrImg = [];
+  arrImg = [];
   image;
   world;
   speed = 2;
@@ -31,19 +32,56 @@ export default class Animate {
       height: 0,
     },
   ];
-  animateLoad(p5,name, frame = 0) {
-    this.name = name;
-    if(frame > 0){
+
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(name, frame = 0) {
+    if (frame > 0) {
       this.frame = frame;
       this.animated = true;
-    }else{
+    } else {
+      this.animated = false;
+    }
+
+    if (Array.isArray(name)) {
+      this.name = name;
+    } else {
+      this.name = name;
+    }
+
+  }
+
+
+  loadImg(p5) {
+
+    if (Array.isArray(this.name)) {
+      this.img = this.name.map((el) => p5.loadImage(el));
+
+    } else {
+      this.img = p5.loadImage(this.name);
+
+    }
+   
+  }
+
+
+
+  animateLoad(p5, name, frame = 0) {
+    this.name = name;
+    if (frame > 0) {
+      this.frame = frame;
+      this.animated = true;
+    } else {
       this.animated = false;
     }
 
     this.img = p5.loadImage(this.name);
   }
 
-  animateA(p5,name, frame, format, x, y, w, h) {
+
+
+
+  animateA(p5, name, frame, format, x, y, w, h) {
     this.name = name;
     this.x = x;
     this.y = y;
@@ -54,7 +92,10 @@ export default class Animate {
     this.img = p5.loadImage(this.name);
   }
 
-  animateB(p5,name, frame, x, y, w, h) {
+
+
+
+  animateB(p5, name, frame, x, y, w, h) {
     this.name = name;
     this.x = x;
     this.y = y;
@@ -64,32 +105,47 @@ export default class Animate {
     this.img = p5.loadImage(this.name);
   }
 
-  animateC(p5,name, frame, format) {
+
+
+
+
+  animateC(p5, name, frame, format) {
     this.name = name;
     this.frame = frame;
     this.format = format;
     this.img = p5.loadImage(this.name);
   }
-  animateD(p5,name, frame = 0) {
+
+
+
+
+  animateD(p5, name, frame = 0) {
     this.name = name;
     this.frame = frame;
     this.animated = true;
     this.img = p5.loadImage(this.name);
   }
-  animateE(p5,name) {
+
+
+
+
+  animateE(p5, name) {
     this.name = name;
     this.animated = false;
 
-    if(typeof name === "string"){
+    if (typeof name === "string") {
 
       this.img = p5.loadImage(this.name);
-    }else {
+    } else {
       this.img = this.name;
     }
 
   }
 
-  animateAll(p5,name, frame) {
+
+
+
+  animateAll(p5, name, frame) {
     if (Array.isArray(name)) {
       this.arrAnimate = name.map((img, i) => {
         return { image: p5.loadImage(img), frame: frame[i] };
@@ -97,7 +153,55 @@ export default class Animate {
     }
   }
 
-  setupAnimate() {
+
+
+setupTest(){
+    
+  if (Array.isArray(this.img)) {
+    
+    this.img.map((el) => {
+      if (el) {
+        this.newArrImg = new Array(this.frame);
+        console.log(this.newArrImg);
+       this.widthI = el.width;
+        this.heightI = el.height;
+
+        if (this.orientation === 0) {
+          if (this.widthSp !== 0) {
+            el.resize(this.frame * this.widthSp, this.heightI);
+          } else {
+            this.widthSp = this.widthI / this.frame;
+          }
+        } else {
+          if (this.widthSp !== 0) {
+            el.resize(this.widthI, this.frame * this.widthSp);
+          } else {
+            this.widthSp = this.heightI / this.frame;
+          }
+        }
+
+        for (let i = 0; i < this.newArrImg.length; i++) {
+          if (this.orientation === 0) {
+            this.newArrImg[i] = el.get(
+              i * this.widthSp,
+              0,
+              this.widthSp,
+              this.heightI
+            );
+          } else {
+            this.newArrImg[i] = el.get(
+              0,
+              i * this.widthSp,
+              this.widthI,
+              this.widthSp
+            );
+          }
+        }
+      }
+    })
+   
+  } else {
+
     if (this.animated && this.img) {
       this.newArrImg = new Array(this.frame);
 
@@ -137,6 +241,107 @@ export default class Animate {
       }
     }
   }
+
+
+
+}
+
+  setupAnimate() {
+    
+    if (Array.isArray(this.img)) {
+
+      this.img.map((el) => {
+        if (this.animated && el) {
+          this.newArrImg = new Array(this.frame);
+
+          this.widthI = el.width;
+          this.heightI = el.height;
+
+          if (this.orientation === 0) {
+            if (this.widthSp !== 0) {
+              el.resize(this.frame * this.widthSp, this.heightI);
+            } else {
+              this.widthSp = this.widthI / this.frame;
+            }
+          } else {
+            if (this.widthSp !== 0) {
+              el.resize(this.widthI, this.frame * this.widthSp);
+            } else {
+              this.widthSp = this.heightI / this.frame;
+            }
+          }
+
+          for (let i = 0; i < this.newArrImg.length; i++) {
+            if (this.orientation === 0) {
+              this.newArrImg[i] = el.get(
+                i * this.widthSp,
+                0,
+                this.widthSp,
+                this.heightI
+              );
+            } else {
+              this.newArrImg[i] = el.get(
+                0,
+                i * this.widthSp,
+                this.widthI,
+                this.widthSp
+              );
+            }
+          }
+        }
+      })
+
+    } else {
+
+      if (this.animated && this.img) {
+        this.newArrImg = new Array(this.frame);
+
+        this.widthI = this.img.width;
+        this.heightI = this.img.height;
+
+        if (this.orientation === 0) {
+          if (this.widthSp !== 0) {
+            this.img.resize(this.frame * this.widthSp, this.heightI);
+          } else {
+            this.widthSp = this.widthI / this.frame;
+          }
+        } else {
+          if (this.widthSp !== 0) {
+            this.img.resize(this.widthI, this.frame * this.widthSp);
+          } else {
+            this.widthSp = this.heightI / this.frame;
+          }
+        }
+
+        for (let i = 0; i < this.newArrImg.length; i++) {
+          if (this.orientation === 0) {
+            this.newArrImg[i] = this.img.get(
+              i * this.widthSp,
+              0,
+              this.widthSp,
+              this.heightI
+            );
+          } else {
+            this.newArrImg[i] = this.img.get(
+              0,
+              i * this.widthSp,
+              this.widthI,
+              this.widthSp
+            );
+          }
+        }
+      }
+    }
+
+
+
+
+  }
+
+
+
+
+
 
   setupAnimateAll() {
     this.arrSprite = this.arrAnimate.map((img) => {
@@ -185,6 +390,12 @@ export default class Animate {
       });
     });
   }
+
+
+
+
+
+
 
   params() {
     if (this.format === 0) {
@@ -236,20 +447,39 @@ export default class Animate {
     }
   }
 
+
+
+
+
+
+
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
-          return this.newArrImg[p5.frameCount % this.newArrImg.length];
+        return this.newArrImg[p5.frameCount % this.newArrImg.length];
       } else {
         return this.img;
       }
     }
   }
 
-  getImage(p5,x, y, w, h) {
+
+
+
+
+
+
+
+  getImage(p5, x, y, w, h) {
     // console.log(this.newArrImg[0])
     p5.image(this.newArrImg[0]);
   }
+
+
+
+
+
+
 
   spriteRect(w, h) {
     try {
@@ -265,6 +495,13 @@ export default class Animate {
       return this.img;
     }
   }
+
+
+
+
+
+
+
   spriteEllipse(w) {
     try {
       if (this.animated) {
@@ -280,6 +517,13 @@ export default class Animate {
     }
   }
 
+
+
+
+
+
+
+
   spriteInt(w, h, i) {
     try {
       if (this.animated) {
@@ -294,6 +538,13 @@ export default class Animate {
     }
   }
 
+
+
+
+
+
+
+
   draw(p5) {
     this.params();
     try {
@@ -305,12 +556,25 @@ export default class Animate {
     }
   }
 
-  spriteView(p5,x, y, w, h){
+
+
+
+
+
+
+
+
+  spriteView(p5, x, y, w, h) {
     try {
-       p5.image(this.sprite(p5), x, y, w, h);
+      p5.image(this.sprite(p5), x, y, w, h);
     } catch (error) {
-      
+
     }
-   
+
   }
+
+
+
+
+
 }
