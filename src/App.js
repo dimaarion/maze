@@ -4,14 +4,7 @@ import scena_1 from "./asset/scena/scena.json";
 import scena_2 from "./asset/scena/scena2.json";
 import scena_3 from "./asset/scena/scena3.json"
 
-import { useState } from 'react';
-
 function App() {
-  const [mousePress, setMousePress] = useState(0);
-
-
- 
-
 
   return (
     <div className="App">

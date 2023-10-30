@@ -36,7 +36,7 @@ export default function Level(props) {
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el)));
     //  let play = new Button(45, 45, 10, 10, 1, "./img/gui/step_level.png");
-    let animateTest = new Animate(["./img/object/dorClose.png", "./img/object/dorClose.png", "./img/object/dorClose.png", "./img/object/dorClose.png"],30)
+    let animateTest = new Animate(["./img/player/runL.png", "./img/player/run.png", "./img/player/ladder.png"]);
 
     const preload = (p5) => {
 
