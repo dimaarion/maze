@@ -36,7 +36,7 @@ export default function Level(props) {
     let press = { pressUp: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el)));
     //  let play = new Button(45, 45, 10, 10, 1, "./img/gui/step_level.png");
-    let animateTest = new Animate(["./img/player/runL.png", "./img/player/run.png", "./img/player/ladder.png"]);
+    let animateTest = new Animate(["./img/player/runL.png", "./img/player/run.png", "./img/player/ladder.png"],54);
 
     const preload = (p5) => {
 
@@ -162,7 +162,8 @@ export default function Level(props) {
         imageMoney.setup(p5);
         action.create(p5);
         countKey.setup(p5);
-        animateTest.setupTest()
+        animateTest.setupTest();
+        
        
         
     };
@@ -222,7 +223,13 @@ export default function Level(props) {
         imageMoney.viewImage();
         countKey.viewText(player.key, 10, 5, 20, 255);
         //interface
-
+        animateTest.format = "one"
+        if (p5.mouseIsPressed === true) {
+            p5.frameCount = 0;
+          } else {
+           
+          }
+        p5.image(animateTest.sprite(p5),0,0,100,100);
 
 
     };

@@ -199,12 +199,8 @@ export default class Animate {
           return this.newArrImg;
         }else{
           return this.img;
-        }
-
-         
-      
+        } 
       })
-     console.log(this.img);
     } else {
 
       if (this.animated && this.img) {
@@ -253,92 +249,93 @@ export default class Animate {
 
   setupAnimate() {
 
+  
     if (Array.isArray(this.img)) {
-
-      this.img.map((el) => {
-        if (this.animated && el) {
-          this.newArrImg = new Array(this.frame);
-
-          this.widthI = el.width;
-          this.heightI = el.height;
-
-          if (this.orientation === 0) {
-            if (this.widthSp !== 0) {
-              el.resize(this.frame * this.widthSp, this.heightI);
-            } else {
-              this.widthSp = this.widthI / this.frame;
-            }
-          } else {
-            if (this.widthSp !== 0) {
-              el.resize(this.widthI, this.frame * this.widthSp);
-            } else {
-              this.widthSp = this.heightI / this.frame;
-            }
-          }
-
-          for (let i = 0; i < this.newArrImg.length; i++) {
-            if (this.orientation === 0) {
-              this.newArrImg[i] = el.get(
-                i * this.widthSp,
-                0,
-                this.widthSp,
-                this.heightI
-              );
-            } else {
-              this.newArrImg[i] = el.get(
-                0,
-                i * this.widthSp,
-                this.widthI,
-                this.widthSp
-              );
-            }
-          }
-        }
-      })
-
-    } else {
-
-      if (this.animated && this.img) {
-        this.newArrImg = new Array(this.frame);
-
-        this.widthI = this.img.width;
-        this.heightI = this.img.height;
-
-        if (this.orientation === 0) {
-          if (this.widthSp !== 0) {
-            this.img.resize(this.frame * this.widthSp, this.heightI);
-          } else {
-            this.widthSp = this.widthI / this.frame;
-          }
-        } else {
-          if (this.widthSp !== 0) {
-            this.img.resize(this.widthI, this.frame * this.widthSp);
-          } else {
-            this.widthSp = this.heightI / this.frame;
-          }
-        }
-
-        for (let i = 0; i < this.newArrImg.length; i++) {
-          if (this.orientation === 0) {
-            this.newArrImg[i] = this.img.get(
-              i * this.widthSp,
-              0,
-              this.widthSp,
-              this.heightI
-            );
-          } else {
-            this.newArrImg[i] = this.img.get(
-              0,
-              i * this.widthSp,
-              this.widthI,
-              this.widthSp
-            );
-          }
-        }
-      }
-    }
-
-
+      this.img = this.img.map((el) => {
+         if (el && this.animated) {
+           this.newArrImg = new Array(this.frame);
+           this.widthI = el.width;
+           this.heightI = el.height;
+ 
+           if (this.orientation === 0) {
+             if (this.widthSp !== 0) {
+               el.resize(this.frame * this.widthSp, this.heightI);
+             } else {
+               this.widthSp = this.widthI / this.frame;
+             }
+           } else {
+             if (this.widthSp !== 0) {
+               el.resize(this.widthI, this.frame * this.widthSp);
+             } else {
+               this.widthSp = this.heightI / this.frame;
+             }
+           }
+ 
+           for (let i = 0; i < this.newArrImg.length; i++) {
+             if (this.orientation === 0) {
+               this.newArrImg[i] = el.get(
+                 i * this.widthSp,
+                 0,
+                 this.widthSp,
+                 this.heightI
+               );
+             } else {
+               this.newArrImg[i] = el.get(
+                 0,
+                 i * this.widthSp,
+                 this.widthI,
+                 this.widthSp
+               );
+             }
+           }
+ 
+           return this.newArrImg;
+         }else{
+           return this.img;
+         } 
+       })
+     } else {
+ 
+       if (this.animated && this.img) {
+         this.newArrImg = new Array(this.frame);
+ 
+         this.widthI = this.img.width;
+         this.heightI = this.img.height;
+ 
+         if (this.orientation === 0) {
+           if (this.widthSp !== 0) {
+             this.img.resize(this.frame * this.widthSp, this.heightI);
+           } else {
+             this.widthSp = this.widthI / this.frame;
+           }
+         } else {
+           if (this.widthSp !== 0) {
+             this.img.resize(this.widthI, this.frame * this.widthSp);
+           } else {
+             this.widthSp = this.heightI / this.frame;
+           }
+         }
+ 
+         for (let i = 0; i < this.newArrImg.length; i++) {
+           if (this.orientation === 0) {
+             this.newArrImg[i] = this.img.get(
+               i * this.widthSp,
+               0,
+               this.widthSp,
+               this.heightI
+             );
+           } else {
+             this.newArrImg[i] = this.img.get(
+               0,
+               i * this.widthSp,
+               this.widthI,
+               this.widthSp
+             );
+           }
+         }
+       }
+     }
+ 
 
 
   }
@@ -461,8 +458,13 @@ export default class Animate {
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
+      if(this.format === "one"){
+        return this.img[0][p5.frameCount > this.img[0].length?this.img[0].length-1: p5.frameCount % this.img[0].length];
+      }else{
         return this.newArrImg[p5.frameCount % this.newArrImg.length];
-      } else {
+      } 
+        
+      }else {
         return this.img;
       }
     }
