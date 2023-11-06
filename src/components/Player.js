@@ -11,7 +11,7 @@ export default class Player extends Body {
     y = 100;
     joystick;
     static = false;
-    width = 20;
+    width = 0;
     height = 0;
     radius = 50;
     left = 0;
@@ -35,7 +35,7 @@ export default class Player extends Body {
     rotate = 0;
     header;
     header2;
-    velocity = 7;
+    velocity = 0.5;
     atanImg;
     atanIcon;
     money = 0;
@@ -78,8 +78,8 @@ export default class Player extends Body {
         this.animateJampRight.animateLoad(p5, "./img/player/jampRn.png");
         this.animateJampLeftK.animateLoad(p5, "./img/player/jampLk.png");
         this.animateLadderStatic.animateLoad(p5, "./img/player/ladderStatic2.png");
-        this.animateleft.animateLoad(p5, "./img/player/runL.png", 54);
-        this.animateRight.animateLoad(p5, "./img/player/run.png", 54);
+        this.animateleft.animateLoad(p5, "./img/player/runL.png", 24);
+        this.animateRight.animateLoad(p5, "./img/player/run.png", 24);
         this.animateFiceLeft.animateLoad(p5, "./img/player/stopLeft.png");
         this.animateFiceRight.animateLoad(p5, "./img/player/ficeRight.png");
         this.animateFice.animateLoad(p5, "./img/player/fice.png");
@@ -88,8 +88,8 @@ export default class Player extends Body {
 
 
     setup(world, scena) {
-        //this.fric = 1;
-        this.createRect(world, scena);
+       // this.fric = 1;
+        this.createEllipse(world, scena);
         this.animateJampLeft.setupAnimate();
         this.animateJampLeftK.setupAnimate();
         this.animateleft.setupAnimate();
@@ -100,7 +100,7 @@ export default class Player extends Body {
             return b.level = this.level;
         })
         this.gravity = scena.procentXY(0.5);
-        this.velocity = scena.procentXY(0.3);
+        this.velocity = scena.procentXY(this.velocity);
         // this.gravity = scena.size(this.gravity, scena.scale);
         // this.velocity = scena.size(this.velocity, scena.scale);
         //this.spriteAnimate("playerLeft", 24);
@@ -147,50 +147,64 @@ export default class Player extends Body {
 
 
 
-            if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collidePlatform === true) {
-                this.setVelosity(this.velocity, 0);
+            if (press.pressRight === "ArrowRight" && this.collidePlatform === true) {
+             
+                if(press.pressUp === "ArrowUp"){
+                    this.setVelosity(this.velocity, -this.gravity);
+                }else{
+                    this.setVelosity(this.velocity, 0);
+                }
                 // this.direction = 2;
-            }
-
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.collidePlatform === true) {
-                this.setVelosity(-this.velocity, 0);
+            }else if (press.pressLeft === "ArrowLeft" && this.collidePlatform === true) {
+                if(press.pressUp === "ArrowUp"){
+                    this.setVelosity(-this.velocity, -this.gravity);
+                }else{
+                    this.setVelosity(-this.velocity, 0);
+                }
+                
                 // this.direction = 1;
-
+            }else if (press.pressUp === "ArrowUp" && this.collidePlatform === true) {
+                if(p5.frameCount > 100){
+                     this.setVelosity(0, -this.gravity);
+                }
+                 if(p5.frameCount > 100 ){
+                    p5.frameCount = 0
+                 }
+                   //  this.direction = 3;
+            }else if(press.pressUp === "ArrowUp" && this.collidePlatform !== true){
+                
+            }else if(press.pressLeft === "ArrowLeft" && this.collidePlatform !== true){
+                
+            }else if(press.pressRight === "ArrowRight" && this.collidePlatform !== true){
+                
+            }else if(press.pressUp === 0 && press.pressRight === 0 && press.pressLeft === 0 && this.collidePlatform !== true){
+                
+            }else{
+                this.setVelosity(0, 0);
             }
-
-            if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collideLadder === true) {
-                this.setVelosity(this.velocity, 0);
-            }
-
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.collideLadder === true) {
-                this.setVelosity(-this.velocity, 0);
-            }
-
-
-            if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
-                this.setVelosity(this.velocity, -this.gravity);
-                // this.direction = 2;
-            }
-
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
-                this.setVelosity(-this.velocity, -this.gravity);
-                // this.direction = 1;
-            }
-
+            
+            
             if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.collidePlatform === true) {
-                this.setVelosity(this.velocity, -this.gravity);
-            }
-            if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.collidePlatform === true) {
-                this.setVelosity(-this.velocity, -this.gravity);
-            }
-
-
-            if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.collidePlatform === true) {
-                this.setVelosity(0, -this.gravity);
-            }
-            if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
-                this.setVelosity(0, -this.gravity);
+              //  this.setVelosity(this.velocity, -this.gravity);
+            }else if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.collidePlatform === true) {
+             //   this.setVelosity(-this.velocity, -this.gravity);
+            }else if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collideLadder === true) {
+            //    this.setVelosity(this.velocity, 0);
+            }else if (press.pressLeft === "ArrowLeft" && press.pressUp === 0 && this.collideLadder === true) {
+             //   this.setVelosity(-this.velocity, 0);
+            }else if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
+           //     this.setVelosity(this.velocity, -this.gravity);
+                // this.direction = 2;
+            }else if (press.pressLeft === "ArrowLeft" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
+              //  this.setVelosity(-this.velocity, -this.gravity);
+                // this.direction = 1;
+            }else if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.collidePlatform === true) {
+             //   this.setVelosity(0, -this.gravity);
+            }else if (press.pressRight !== "ArrowRight" && press.pressLeft !== "ArrowLeft" && press.pressUp === "ArrowUp" && this.collideLadder === true) {
+             //   this.setVelosity(0, -this.gravity);
                 //  this.direction = 3;
+            }else{
+              //  this.setVelosity(0, 0);
             }
 
 

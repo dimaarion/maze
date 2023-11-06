@@ -458,10 +458,11 @@ export default class Animate {
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
+        let speed = p5.floor(p5.frameCount / 2) ;
       if(this.format === "one"){
         return this.img[0][p5.frameCount > this.img[0].length?this.img[0].length-1: p5.frameCount % this.img[0].length];
       }else{
-        return this.newArrImg[p5.frameCount % this.newArrImg.length];
+        return this.newArrImg[speed % this.newArrImg.length];
       } 
         
       }else {
