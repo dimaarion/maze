@@ -12,7 +12,7 @@ export default class Animate {
   heightI = 100;
   widthSp = 0;
   format = 0;
-  rate = 1;
+  rate = 2;
   orientation = 0;
   p5;
   animated = true;
@@ -23,6 +23,7 @@ export default class Animate {
   world;
   speed = 2;
   count = 0;
+  countImg = 0;
   arrSprite = [];
   arrAnimate = [];
   position = [{ x: 0, y: 0 }];
@@ -458,9 +459,10 @@ export default class Animate {
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
-        let speed = p5.floor(p5.frameCount / 2) ;
+        this.count+= 1
+        let speed = p5.floor(this.count / this.rate) ;
       if(this.format === "one"){
-        return this.img[0][p5.frameCount > this.img[0].length?this.img[0].length-1: p5.frameCount % this.img[0].length];
+        return this.img[this.countImg][this.count > this.img[this.countImg].length?this.img[this.countImg].length-1: speed % this.img[this.countImg].length];
       }else{
         return this.newArrImg[speed % this.newArrImg.length];
       } 

@@ -162,7 +162,7 @@ export default function Level(props) {
         imageMoney.setup(p5);
         action.create(p5);
         countKey.setup(p5);
-        animateTest.setupTest();
+        animateTest.setupAnimate();
         
        
         
