@@ -12,7 +12,7 @@ export default class Animate {
   heightI = 100;
   widthSp = 0;
   format = 0;
-  rate = 2;
+  rate = 0.5;
   orientation = 0;
   p5;
   animated = true;
@@ -459,8 +459,8 @@ export default class Animate {
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
-        this.count+= 1
-        let speed = p5.floor(this.count / this.rate) ;
+        this.count+= this.rate
+        let speed = p5.floor(this.count);
       if(this.format === "one"){
         return this.img[this.countImg][this.count > this.img[this.countImg].length?this.img[this.countImg].length-1: speed % this.img[this.countImg].length];
       }else{

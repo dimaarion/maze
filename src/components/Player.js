@@ -55,8 +55,8 @@ export default class Player extends Body {
     animateFiceLeft = new Animate();
     animateleft = new Animate();
     animateRight = new Animate();
-    animateJampLeft = new Animate(["./img/player/jampL.png","./img/player/jampLn.png"],26);
-    animateJampRight = new Animate();
+    animateJampLeft = new Animate(["./img/player/jampL.png"],21);
+    animateJampRight = new Animate(["./img/player/jampR.png","./img/player/jampR.png"],21);
     animateJampLeftK = new Animate(["./img/player/jampLk.png"],11);
     animateFiceRight = new Animate();
     animateFice = new Animate();
@@ -76,7 +76,7 @@ export default class Player extends Body {
 
     loadImg(p5) {
         this.animateJampLeft.loadImg(p5);
-        this.animateJampRight.animateLoad(p5, "./img/player/jampRn.png");
+        this.animateJampRight.loadImg(p5);
         this.animateJampLeftK.loadImg(p5);
         this.animateLadderStatic.animateLoad(p5, "./img/player/ladderStatic2.png");
         this.animateleft.animateLoad(p5, "./img/player/runL.png", 24);
@@ -90,12 +90,15 @@ export default class Player extends Body {
 
     setup(world, scena) {
        // this.fric = 1;
-        this.createRect(world, scena);
-     //  this.animateJampLeft.countImg = 1
-        this.animateJampLeft.format = "one"
+        this.createEllipse(world, scena);
+        this.animateJampLeft.format = "one";
+        this.animateJampRight.format = "one";
         this.animateJampLeftK.format = "one"
+        this.animateJampRight.rate = 2;
+        this.animateJampLeft.rate = 2;
         this.animateJampLeft.setupAnimate();
         this.animateJampLeftK.setupAnimate();
+        this.animateJampRight.setupAnimate();
         this.animateleft.setupAnimate();
         this.animateFiceLeft.setupAnimate();
         this.animateFiceRight.setupAnimate();
@@ -156,7 +159,8 @@ export default class Player extends Body {
                 if(press.pressUp === "ArrowUp"){
                     this.setVelosity(this.velocity, -this.gravity);
                     if(this.collidePlatform === true){
-                        this.animateJampLeft.count = 0
+                        this.animateJampLeft.count = 0;
+                        this.animateJampRight.count = 0;
                      }
                 }else{
                     this.setVelosity(this.velocity, 0);
@@ -167,7 +171,8 @@ export default class Player extends Body {
                 if(press.pressUp === "ArrowUp"){
                     this.setVelosity(-this.velocity, -this.gravity);
                     if(this.collidePlatform === true){
-                        this.animateJampLeft.count = 0
+                        this.animateJampLeft.count = 0;
+                        this.animateJampRight.count = 0;
                      }
                 }else{
                     this.setVelosity(-this.velocity, 0);
@@ -178,7 +183,8 @@ export default class Player extends Body {
                  this.setVelosity(0, -this.gravity);
                
                  if(this.collidePlatform === true){
-                    this.animateJampLeft.count = 0
+                    this.animateJampLeft.count = 0;
+                    this.animateJampRight.count = 0;
                  }
                    //  this.direction = 3;
             }else if(press.pressUp === "ArrowUp" && this.collidePlatform !== true){
@@ -218,24 +224,16 @@ export default class Player extends Body {
                 this.spriteAnimate(p5, this.animateleft, this.width, this.height);
             }else if(this.direction === 1  && this.collidePlatform !== true){
                 this.spriteAnimate(p5, this.animateJampLeft, this.width, this.height);
-            } else if (this.direction === 2 && press.pressRight === 0 && press.pressUp === 0 && this.collideLadder === false) {//Вправо
+            }else if (this.direction === 2 && press.pressRight === 0 && press.pressUp === 0 && this.collidePlatform === true ) {
                 this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
-            } else if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collidePlatform === true) {
+            }else if (this.direction === 2 && press.pressRight === 0 && press.pressUp === "ArrowUp" && this.collidePlatform !== true ) {
+                this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
+            }else if (press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collidePlatform === true) {
                 this.spriteAnimate(p5, this.animateRight, this.width, this.height);
-            } else if (press.pressRight === "ArrowRight" && press.pressUp === "ArrowUp" && this.collideLadder === false) {
+            }else if(this.direction === 2  && this.collidePlatform !== true){
                 this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
-            } else if (this.direction === 2 && press.pressRight === 0 && press.pressUp === "ArrowUp" && this.collideLadder === false) {
-                this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
-            } else if (this.direction === 2 && press.pressRight === "ArrowRight" && press.pressUp === 0 && this.collideLadder === false) {
-                this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
-            } else if (press.pressRight === "ArrowRight" && this.collideLadder === false && this.collidePlatform === false) {
-                this.spriteAnimate(p5, this.animateJampRight, this.width, this.height);
-            } else if (this.collideLadder === true && press.pressUp === "ArrowUp") {
-                this.spriteAnimate(p5, this.animateLadder, this.width, this.height);
-            } else if (this.collideLadder === true && press.pressUp === 0) {
-                this.spriteAnimate(p5, this.animateLadderStatic, this.width, this.height);
-            }
-
+            } 
+       
         
             this.body.map((b, i) => {
                 b.level = this.level;
