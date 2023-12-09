@@ -4,14 +4,18 @@ export default class Scena {
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 15;
+    scale = 10;
     p5;
-    img = []
+    img = [];
     level = 0;
-    constructor(scena, img, level) {
+    id = [];
+    bg = "";
+    constructor(scena, img, level, id, bg) {
         this.scena = scena;
         this.img = img;
         this.level = level;
+        this.id = id;
+        this.bg = bg;
     }
 
 

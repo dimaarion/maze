@@ -1,10 +1,10 @@
 import Animate from "./Animate";
 import mobile from "mobile-detect";
 import Scena from "./Scena";
-
 export default class Interface {
     headBarImg = new Animate();
     moneyImg = new Animate();
+    playerImg = new Animate("./img/power/player.png");
     txtSize = 0.01;
     x = 0;
     y = 0;
@@ -18,6 +18,7 @@ export default class Interface {
     image = new Animate();
     // eslint-disable-next-line no-dupe-class-members
     scene = new Scena();
+    _gui;
 
     constructor(x, y, w, h, img = "") {
         this.x = x;
@@ -25,18 +26,23 @@ export default class Interface {
         this.w = w;
         this.h = h;
         this.img = img
-
+        this.md = new mobile(window.navigator.userAgent);
     }
 
     loadImg(p5) {
-        this.headBarImg.animateLoad(p5, "./img/headBar/Stats_Bar.png");
-        this.moneyImg.animateLoad(p5, "./img/money/moneySt.png");
-        this.image.animateLoad(p5, this.img)
+
+      //  this.headBarImg.animateLoad(p5, "./img/headBar/Stats_Bar.png");
+      //  this.moneyImg.animateLoad(p5, "./img/money/moneySt.png");
+      //  this.image.animateLoad(p5, this.img);
+        this.playerImg.loadImg(p5)
+
     }
+
+
+
 
     setup(p5) {
         this.p5 = p5;
-        this.md = new mobile(window.navigator.userAgent);
         this.scene.create(p5);
         if (this.md.mobile()) {
             if (p5.deviceOrientation === p5.LANDSCAPE) {
@@ -116,5 +122,22 @@ export default class Interface {
 
     headBar() {
 
+    }
+    view(p5,player){
+        if (p5.deviceOrientation === p5.LANDSCAPE) {
+            p5.push();
+            p5.stroke("#81e6ed");
+            p5.strokeWeight(40);
+            p5.line(120, 55, 120 + player.live ,55);
+            p5.stroke("red");
+            p5.strokeWeight(30);
+            p5.line(120, 55, 120 + player.body[0].live, 55);
+            p5.pop();
+            this.playerImg.spriteView(p5,5,5,100,100)
+        } else {
+
+
+
+        }
     }
 }

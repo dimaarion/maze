@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
       <Level  bg={[
-        { scena: scena_1,level:1, img: ["./img/scene/scena1.png"] },
-        { scena: scena_2,level:2, img: ["./img/scene/scena2.png"] },
-        { scena: scena_3,level:3, img: ["./img/scene/scena3.png"] }
+        { scena: scena_1,level:1, id:[65,33], bg:"./img/Tiles/bg1.png", img: ["./img/Tiles/stone.png","./img/Tiles/73.png"] },
+        { scena: scena_2,level:2,id:[65,33],bg:"./img/Tiles/bg1.png", img: ["./img/Tiles/stone.png","./img/Tiles/73.png"] },
+        { scena: scena_3,level:3,id:[65,33],bg:"./img/Tiles/bg1.png", img: ["./img/Tiles/stone.png","./img/Tiles/73.png"] }
       ]} />
     </div>
   );

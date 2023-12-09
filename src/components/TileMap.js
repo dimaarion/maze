@@ -10,15 +10,19 @@ export default class TileMap {
     y = 0;
     name = "";
     sprite = {};
+    spriteBg = {};
     level = 0;
-
+    id = 0;
+    bg = ""
     // eslint-disable-next-line no-useless-constructor
-    constructor(image,level,scena) {
+    constructor(image,level,scena,id,bg) {
 
       
        this.image = image;
        this.level = level;
        this.scena = scena;
+       this.id = id;
+       this.bg = bg;
        // this.x = x;
        // this.y = y;
         //  this.width = width;
@@ -27,6 +31,12 @@ export default class TileMap {
 
     preloadImage(p5) {
         this.sprite = p5.loadImage(this.image);
+        if(this.bg !== ""){
+            this.spriteBg = p5.loadImage(this.bg);
+        }else {
+            this.spriteBg = false;
+        }
+
     }
 
     setup(world, scena) {
@@ -49,19 +59,19 @@ export default class TileMap {
 
 
     view(p5) {
-        //  console.log(this.sprite)
-        try {
-            p5.image(this.sprite, this.x, this.y, this.scena.size(
-                this.scena.scena.width * this.scena.scena.tilewidth,
-                this.scena.scale
-            ), this.scena.size(
-                this.scena.scena.height * this.scena.scena.tileheight,
-                this.scena.scale
-            ));
-        } catch (error) {
+if(this.spriteBg){
+    try {
+        p5.image(this.spriteBg, -p5.width / 2, -p5.height / 2, this.scena.size(
+            this.scena.scena.width * this.scena.scena.tilewidth,
+            this.scena.scale
+        ), this.scena.size(
+            this.scena.scena.height * this.scena.scena.tileheight,
+            this.scena.scale
+        ));
+    } catch (error) {
 
-        }
-
+    }
+}
     }
 
     viewMap(p5, id, layers, platform) {
@@ -79,7 +89,7 @@ export default class TileMap {
             if (el === id && this.x > 0) {
                 p5.push()
                 p5.image(
-                    this.animate.sprite(),
+                    this.sprite,
                     this.x,
                     this.y,
                     this.scena.size(this.scena.scena.tilewidth + 1, this.scena.scale),

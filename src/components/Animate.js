@@ -12,7 +12,7 @@ export default class Animate {
   heightI = 100;
   widthSp = 0;
   format = 0;
-  rate = 0.5;
+  rate = 2;
   orientation = 0;
   p5;
   animated = true;
@@ -53,8 +53,10 @@ export default class Animate {
   }
 
 
-  loadImg(p5) {
-
+  loadImg(p5,img = undefined) {
+    if(img){
+      this.name = img
+    }
     if (Array.isArray(this.name)) {
       this.img = this.name.map((el) => p5.loadImage(el));
 
@@ -459,7 +461,7 @@ export default class Animate {
   sprite(p5) {
     if (this.img) {
       if (this.animated) {
-        this.count+= this.rate
+        this.count = p5.frameCount / this.rate
         let speed = p5.floor(this.count);
       if(this.format === "one"){
         return this.img[this.countImg][this.count > this.img[this.countImg].length?this.img[this.countImg].length-1: speed % this.img[this.countImg].length];
@@ -469,6 +471,22 @@ export default class Animate {
         
       }else {
         return this.img;
+      }
+    }
+  }
+  spriteArr(p5,n = 0) {
+    if (this.img) {
+      if (this.animated) {
+        this.count = p5.frameCount / this.rate
+        let speed = p5.floor(this.count);
+        if(this.format === "one"){
+          return this.img[this.countImg][this.count > this.img[n][this.countImg].length?this.img[n][this.countImg].length-1: speed % this.img[n][this.countImg].length];
+        }else{
+          return this.img[n][speed % this.img[n].length];
+        }
+
+      }else {
+        return this.img[n];
       }
     }
   }
