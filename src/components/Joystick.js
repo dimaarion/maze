@@ -1,4 +1,5 @@
 import Body from "./Body";
+import Eye from "./Eye";
 
 export default class Joystick {
     p5 = {};
@@ -19,69 +20,14 @@ export default class Joystick {
     snap
     _family
     _type
+    eye
 
-    constructor(label, x, y, w = 256, h = 256, minX = (-1), maxX = 1, minY = (-1), maxY = 1) {
-        this.label = label;
-        this.x = x
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.minX = minX;
-        this.maxX = maxX;
-        this.minY = minY;
-        this.maxY = maxY;
-
-        this.snap = true; // If true, snaps value back to 0 when not active
-
-        this._family = "slider";
-        this._type = "joystick";
+    constructor(){
 
     }
 
-    _active() {
-
-        if (this.snap) {
-            this.valX = (this.minX + this.maxX)/2;
-            this.valY = (this.minY + this.maxY)/2;
-            this.val  = {x: this.valX, y:this.valY};
-        }
-    }
-
-    _drawState(p5 ,fillBg, fillTrack, fillHandle, strokeBg, strokeTrack, strokeHandle) {
-        let xpos = p5.map(this.valX, this.minX, this.maxX, 8, this.w-24);
-        let ypos = p5.map(this.valY, this.minY, this.maxY, this.h-24, 8);
-
-        p5.push();
-        p5.strokeWeight(this._style.strokeWeight);
-        p5.rectMode(p5.CORNER);
-
-        // Render bg
-        p5.stroke(strokeBg);
-        p5.fill(fillBg);
-        p5.rect(this.x, this.y, this.w, this.h, this._style.rounding);
-
-        // Render circle (track)
-        p5.push();
-        p5.stroke(fillTrack);
-        let r = this.w*this._style.trackRatio;
-        if (this.w > this.h) {
-            r = this.h*this._style.trackRatio;
-        }
-
-        p5.ellipse(this.x+this.w/2, this.y+this.h/2, r)
-        p5.pop();
-
-        // Render handle
-        p5.push();
-        p5.stroke(strokeHandle);
-        p5.fill(fillHandle);
-
-        p5.ellipse(this.x+xpos+8,
-            this.y+ypos+8,
-            this._style.handleRadius,
-            this._style.handleRadius);
-        p5.pop();
-        p5.pop();
+    setup(x,y,r){
+        this.eye = new Eye(x,y,r);
     }
 
     createJoystick(p5, x = 100, y = 100, w = 256, h = 256, minX = (-1), maxX = 1, minY = (-1), maxY = 1) {
@@ -98,18 +44,12 @@ export default class Joystick {
       //  this._active()
         this.xPos = p5.map(this.valX, minX, maxX, -0.5, MAX_DEFLECT);
         this.yPos = p5.map(this.valY, minY, maxY, MAX_DEFLECT, 0.5);
-
+        this.eye.update(p5,p5.mouseX,p5.mouseY);
     }
 
 
     view(p5) {
-        p5.push();
-        p5.stroke("blue");
-        p5.strokeWeight(10);
-        p5.noFill()
-        p5.ellipse(this.x, this.y, 100, 100);
-        p5.pop();
-        p5.ellipse(this.xPosJ, this.yPosJ, 100, 100);
+        this.eye.display(p5)
     }
 
     mouseXRatio() {
