@@ -27,17 +27,22 @@ export default function Level(props) {
     const point = new Body("point");
     const interFace = new Interface();
     const action = new Scena();
-    const fakel = new Body("fakel", "./img/fakel/fakel.png");
-    const stone = new Body("stone", "./img/object/stone.png");
-    const key = new Body("key", "./img/object/key.png");
-    const dor = new Body("dor", "./img/object/dorOpen.png");
-    const meduza = new Body("meduza", "./img/object/meduza2.png", ["./img/object/meduza2.png"], 76);
-    const fugu = new Body("fugu","./img/object/fuguActive.png",["./img/object/fugu.png","./img/object/fugu2.png","./img/object/fuguActive2.png","./img/object/fuguActive.png"],20);
-    const dorClose = new Body("dorClose", "./img/object/dorClose.png");
-    let press = {pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
+    const fakel = new Body("fakel", ["./img/fakel/fakel.png"]);
+    const stone = new Body("stone", ["./img/object/stone.png"]);
+    const key = new Body("key", ["./img/object/key.png"]);
+    const dor = new Body("dor", ["./img/object/dorClose.png","./img/object/dorOpen.png"]);
+    const meduza = new Body("meduza",  ["./img/object/meduza2.png"], 76);
+    const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive2.png", "./img/object/fuguActive.png"], 20);
+    const dorClose = new Body("dorClose", ["./img/object/dorClose.png","./img/object/dorOpen.png"]);
+    let press = {attack:0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
     let p5 = {};
+    if(!window.localStorage.getItem("level")){
+       // player.level = 1
+    }else{
+      //  player.level = parseInt(window.localStorage.getItem("level"))
+    }
 
     const preload = (p5) => {
 
@@ -61,6 +66,7 @@ export default function Level(props) {
     function createObject(scena, engine, n) {
         return scena.filter((f) => f.level === n).map((el) => {
             engine.gravity.y = 0;
+            tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.createTile(map.id[i], "wall")));
             point.sensor = true;
             point.createRect(world, el);
             platformB.createRect(world, el);
@@ -74,18 +80,18 @@ export default function Level(props) {
             key.sensor = true;
             key.createRect(world, el);
             player.defaultKey = key.body.length;
+            player.sensorSize = 4
             player.setup(world, el);
-            dor.sensor = true;
+            player.createSensor();
             dor.createRect(world, el);
-            dorClose.sensor = true;
             dorClose.createRect(world, el);
             meduza.static = false;
             meduza.attack = meduza.attack + el.level
             meduza.createEllipse(world, el);
             fugu.static = false;
-            fugu.createEllipse(world,el);
+            fugu.createEllipse(world, el);
+            fugu.createSensor();
             fugu.attack = fugu.attack + el.level * 2;
-
             db.add(world, el);
 
             return world;
@@ -101,8 +107,9 @@ export default function Level(props) {
         if (pair.bodyA.typeObject === "level_" + n && pair.bodyB.label === "player") {
             player.level = n
             removeObject(engine, n - 1);
-            removeObject(engine, n + 1);
             createObject(scena, engine, n);
+            player.key = 0;
+            window.localStorage.setItem("level",n)
         }
     }
 
@@ -114,13 +121,38 @@ export default function Level(props) {
         world = engine.world;
         Engine.run(engine);
         let mst = 0;
+        fugu.animate.setupAnimate();
+        meduza.animate.setupAnimate();
 
+        function attack(pair){
+            if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
+                if (pair.bodyA.live > 0) {
+                    pair.bodyA.live -= pair.bodyB.attack;
+                    if(pair.bodyA.live < 5){
+                        Matter.Composite.remove(world,pair.bodyA);
+                        pair.bodyA.remove = true;
+                    }
+                }
+                setTimeout(()=>{
+                    Matter.Composite.remove(world,pair.bodyB);
+                    pair.bodyB.remove = true;
+                },10)
+
+            }
+
+            if(pair.bodyB.label === "player_attack" && pair.bodyA.label === "platform"){
+                pair.bodyB.remove = true;
+                Matter.Composite.remove(world,pair.bodyB);
+            }
+        }
         Events.on(engine, "collisionStart", function (event) {
+
+
             let pairs = event.pairs;
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-
+                attack(pair)
 
                 if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
                     if (Number.isInteger(mst)) {
@@ -146,7 +178,10 @@ export default function Level(props) {
                     pair.bodyA.remove = true;
                     if (player.key === key.body.length) {
                         // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
-                        // dorClose.body.map((el) => el.remove = true);
+                         dor.body.forEach((el) => {
+                             el.countImg = 1;
+                             el.isSensor = true;
+                         });
                     }
 
 
@@ -161,39 +196,46 @@ export default function Level(props) {
 
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
-                if (pair.bodyA.typeObject === "alive" && pair.bodyB.typeObject === "alive") {
-                    if (pair.bodyB.live > 10) {
+
+                if ((pair.bodyB.label === "fugu" || pair.bodyB.label === "fugu_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+                   // pair.bodyB.isStatic = true;
+                    pair.bodyB.collision = true;
+                }
+
+                if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
+                    if (pair.bodyB.live > 5) {
                         pair.bodyB.live -= pair.bodyA.attack;
                     }
-                }else {
-
                 }
-                if (pair.bodyB.label === "fugu_sensor" && pair.bodyA.label === "player") {
-                    pair.bodyB.collision = true;
-                }else {
+                if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
+                    if (pair.bodyA.live > 5) {
+                        pair.bodyA.live -= pair.bodyB.attack;
+                    }
+                }
+                attack(pair)
+            }
+        });
+
+        Events.on(engine, "collisionEnd", function (event) {
+            let pairs = event.pairs;
+
+            for (let i = 0; i < pairs.length; i++) {
+                let pair = pairs[i];
+
+                if (pair.bodyB.label === "fugu" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+                  //  pair.bodyB.isStatic = false;
                     pair.bodyB.collision = false;
                 }
 
-                if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
-                    if (pair.bodyB.live > 10 && Matter.Body.getSpeed(pair.bodyA) > 1) {
-                        pair.bodyB.live -= pair.bodyA.attack;
-                    }
-                }
-                if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
 
-                    if (pair.bodyA.live > 10) {
-                        pair.bodyA.live -= pair.bodyB.attack;
-                    }
-                }else {
-
-                }
             }
+
+
         });
-        if (player.level === 1) {
-            createObject(scena, engine, 1);
-        }
+
+        createObject(scena, engine, player.level);
         action.create(p5);
-        interFace.setup(p5)
+        scena.filter((f)=>f.level === player.level).forEach((el)=>interFace.setup(p5,el))
 
 
     };
@@ -212,7 +254,13 @@ export default function Level(props) {
         if (e.key === "ArrowDown") {
             press.pressDown = e.key
         }
+        if (e.key === "Control") {
+            press.attack = e.key
+           // player.createAttack()
+        }
         press.rePress = 0;
+
+       player.press = press;
     }
 
     const keyReleased = (e) => {
@@ -229,12 +277,15 @@ export default function Level(props) {
         if (e.key === "ArrowDown") {
             press.pressDown = 0
         }
-
+        if (e.key === "Control") {
+           // press.attack = 0
+        }
         press.rePress = 1;
 
     }
 
     const mousePressed = (e) => {
+
 
     }
 
@@ -255,31 +306,33 @@ export default function Level(props) {
         p5.push();
         player.translates(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.view(p5)))
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap(p5, map.id[i], "wall")));
+        dor.sprite(p5);
+        dorClose.sprite(p5);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
         //   tileMap.map((el) => el.view(p5));
         // ladder.draw(p5);
-
         stone.spriteAnimate(p5, stone.animate);
         //  stone.viewRect(p5)
         // platformB.viewRect(p5)
-        meduza.viewXp(p5);
-        player.viewXp(p5)
-        fugu.viewXp(p5);
         key.sprite(p5);
-        dor.sprite(p5);
         meduza.spriteAnimateArr(p5);
-        dorClose.sprite(p5);
         fakel.spriteAnimate(p5, fakel.animate);
         player.draw(p5, world, press);
         // platform.viewRect(p5)
-        fugu.movementLeftRight(p5,"player",2,3);
+        fugu.movementLeftRight(p5);
+        fugu.viewAttacks(p5,2,3)
         meduza.movementUpDown(p5);
+        meduza.viewXp(p5);
+        player.viewXp(p5)
+        fugu.viewXp(p5);
         money.draw(p5);
+
+
         p5.pop();
-
-        player.joystick.view(p5);
-
-        interFace.view(p5, player);
+        if (md.mobile()) {
+            player.joystick.view(p5);
+        }
+        interFace.view(p5, player, key);
 
 
     };

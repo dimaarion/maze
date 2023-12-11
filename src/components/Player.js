@@ -63,6 +63,9 @@ export default class Player extends Body {
     animateLadder = new Animate();
     animateLadderStatic = new Animate();
     joystick = new Joystick();
+    live = 50;
+    speedLive = 0.01;
+    attack = 10
 
     // eslint-disable-next-line no-useless-constructor
     constructor(props) {
@@ -70,6 +73,11 @@ export default class Player extends Body {
         this.static = false;
         this.sizeImage = {width: 150, height: 150};
         this.speedAn = 2;
+        this.animateleft.rate = 3;
+        this.animateFiceLeft.rate = 10;
+        this.animateFiceRight.rate = 10;
+        this.animateFice.rate = 10;
+        this.animateRight.rate = 3;
 
     }
 
@@ -89,17 +97,21 @@ export default class Player extends Body {
     setup(world, scena) {
         // this.fric = 1;
         this.createEllipse(world, scena);
-       // this.body2 = Matter.Bodies.circle(0,0,200,{width:200,height:200,label:"sensor"});
-       // this.compound = Matter.Body.create({
-       //     parts:[this.body[0],this.body2]
-      //  })
-    //    this.body = this.compound.parts.filter((f)=>f.label=== "player");
-      //  this.body2 = this.compound.parts.filter((f)=>f.label=== "sensor");
-       // console.log(this.body2)
-        this.animateleft.rate = 3;
-        this.animateFiceLeft.rate = 3;
-        this.animateFiceRight.rate = 3;
-        this.animateRight.rate = 3;
+        /*
+        this.body2 = Matter.Bodies.circle(this.body[0].position.x,this.body[0].position.y,this.body[0].width * this.sensorSize,{width:this.body[0].width * this.sensorSize,height:this.body[0].height * this.sensorSize,label:"sensor",isSensor:true});
+     let composite = Matter.Constraint.create({
+            bodyA:this.body[0],
+            bodyB:this.body2
+        })
+        Matter.World.add(world,[this.body2,composite]);
+     console.log(this.body2)*/
+        // this.compound = Matter.Body.create({
+        //     parts:[this.body[0],this.body2]
+        //  })
+        //    this.body = this.compound.parts.filter((f)=>f.label=== "player");
+        //  this.body2 = this.compound.parts.filter((f)=>f.label=== "sensor");
+        // console.log(this.body2)
+
         this.animateleft.setupAnimate();
         this.animateFiceLeft.setupAnimate();
         this.animateFiceRight.setupAnimate();
@@ -116,7 +128,7 @@ export default class Player extends Body {
         // this.spriteAnimate("player", 1, 1)
         this.xJ = this.percentX(80);
         this.yJ = this.percentY(80);
-        this.live = 500
+        this.joystick.setup(this.xJ, this.yJ, scena.size(50,scena.scale));
     }
 
 
@@ -138,10 +150,10 @@ export default class Player extends Body {
             this.collideLadder = this.collides(world, "ladder", 0);
             this.colldeLevel = this.collides(world, "level_2", 0);
 
-            this.joystick.createJoystick(p5,this.xJ,this.yJ);
+            this.joystick.createJoystick(p5, this.xJ, this.yJ);
 
 
-            if(this.body[0].live > 10){
+            if (this.body[0].live > 10) {
                 if (press.pressRight === "ArrowRight") {
                     if (press.pressUp === "ArrowUp") {
                         this.setVelosity(this.velocity, -this.gravity);
@@ -166,25 +178,24 @@ export default class Player extends Body {
                     this.setVelosity(0, 0);
                 }
 
-                if (p5.mouseIsPressed === true) {
-                    if (Math.sign(this.joystick.xPos) === -1) {
-                        this.direction = 1;
-                    }else {
-                        this.direction = 2;
+                if (p5.touches[0]) {
+                    if (p5.touches[0].x > p5.width / 2) {
+                        if (Math.sign(this.joystick.xPos) === -1) {
+                            this.direction = 1;
+                        } else {
+                            this.direction = 2;
+                        }
+
+                        this.joystick.yPosJ = p5.touches[0].y;
+                        this.joystick.xPosJ = p5.touches[0].x;
+
+                        this.setVelosity(p5.constrain(this.joystick.xPos, -this.percent(this.speed / 2), this.percent(this.speed / 2)), p5.constrain(this.joystick.yPos, -this.percent(this.speed / 2), this.percent(this.speed / 2)));
                     }
 
-                    this.joystick.yPosJ = p5.mouseY;
-                    this.joystick.xPosJ = p5.mouseX;
-
-                    this.setVelosity(p5.constrain(this.joystick.xPos, -this.percent(this.speed / 2),this.percent(this.speed / 2)) , p5.constrain(this.joystick.yPos, -this.percent(this.speed / 2),this.percent(this.speed / 2)))
-
                 }
-            }else {
-                this.setVelosity(0,1);
+            } else {
+                this.body.map((b) => this.setPosition(b.startX, b.startY));
             }
-
-
-
 
 
             if (press.pressRight === "ArrowRight") {
@@ -207,10 +218,7 @@ export default class Player extends Body {
             } else if (this.getVelocity()[0].x > 0) {
                 this.spriteAnimate(p5, this.animateRight, this.width, this.height);
             }
-           // this.body2.map((b, i) => {
-                //    p5.rect(b.position.x,b.position.y,b.width,b.height)
-             //   }
-           // )
+
 
             this.body.map((b, i) => {
                     b.level = this.level;
@@ -222,14 +230,4 @@ export default class Player extends Body {
     }
 
 
-    translate(world) {
-        if (world !== undefined) {
-            world.bodies.map((el) => Matter.Body.translate(el, {
-                x: -this.body[0].position.x + (window.innerWidth / 2 - this.body[0].width / 2),
-                y: -this.body[0].position.y + window.innerHeight / 2
-            }))
-        }
-
-
-    }
 }

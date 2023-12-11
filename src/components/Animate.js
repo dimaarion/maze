@@ -53,8 +53,8 @@ export default class Animate {
   }
 
 
-  loadImg(p5,img = undefined) {
-    if(img){
+  loadImg(p5,img) {
+    if(Array.isArray(img)){
       this.name = img
     }
     if (Array.isArray(this.name)) {
@@ -64,7 +64,6 @@ export default class Animate {
       this.img = p5.loadImage(this.name);
 
     }
-
   }
 
 
@@ -251,8 +250,6 @@ export default class Animate {
   }
 
   setupAnimate() {
-
-  
     if (Array.isArray(this.img)) {
       this.img = this.img.map((el) => {
          if (el && this.animated) {
@@ -262,34 +259,52 @@ export default class Animate {
  
            if (this.orientation === 0) {
              if (this.widthSp !== 0) {
-               el.resize(this.frame * this.widthSp, this.heightI);
+               try {
+                 el.resize(this.frame * this.widthSp, this.heightI);
+               }catch (e) {
+
+               }
+
              } else {
                this.widthSp = this.widthI / this.frame;
              }
            } else {
              if (this.widthSp !== 0) {
-               el.resize(this.widthI, this.frame * this.widthSp);
+
+               try {
+                 el.resize(this.widthI, this.frame * this.widthSp);
+               }catch (e) {
+
+               }
+
              } else {
                this.widthSp = this.heightI / this.frame;
              }
            }
  
            for (let i = 0; i < this.newArrImg.length; i++) {
-             if (this.orientation === 0) {
-               this.newArrImg[i] = el.get(
-                 i * this.widthSp,
-                 0,
-                 this.widthSp,
-                 this.heightI
-               );
-             } else {
-               this.newArrImg[i] = el.get(
-                 0,
-                 i * this.widthSp,
-                 this.widthI,
-                 this.widthSp
-               );
+             try {
+               if (this.orientation === 0) {
+
+                 this.newArrImg[i] = el.get(
+                     i * this.widthSp,
+                     0,
+                     this.widthSp,
+                     this.heightI
+                 );
+               } else {
+                 this.newArrImg[i] = el.get(
+                     0,
+                     i * this.widthSp,
+                     this.widthI,
+                     this.widthSp
+                 );
+               }
+             }catch (e) {
+
              }
+
+
            }
  
            return this.newArrImg;
@@ -486,7 +501,8 @@ export default class Animate {
         }
 
       }else {
-        return this.img[n];
+        return this.img[0][n];
+
       }
     }
   }
