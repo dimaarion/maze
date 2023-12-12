@@ -143,7 +143,7 @@ if(this.spriteBg){
             }
         });
 */
-        this.p5.image(this.pI, -this.scena.size(this.scena.scena.tilewidth,this.scena.scale),0,this.scena.size(this.scena.scenaWidth,this.scena.scale),this.scena.size(this.scena.scenaHeigiht,this.scena.scale))
+        this.p5.image(this.pI, -this.scena.size(this.scena.scena.tilewidth,this.scena.scale),-this.scena.size(5,this.scena.scale),this.scena.size(this.scena.scenaWidth,this.scena.scale),this.scena.size(this.scena.scenaHeigiht,this.scena.scale))
 
 
     }

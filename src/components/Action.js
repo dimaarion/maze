@@ -7,4 +7,8 @@ export default class Action{
         }
         return a;
     }
+
+    percent(num,pr) {
+        return num * pr / 100;
+    }
 }

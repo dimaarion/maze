@@ -22,9 +22,6 @@ export default class Joystick {
     _type
     eye
 
-    constructor(){
-
-    }
 
     setup(x,y,r){
         this.eye = new Eye(x,y,r);

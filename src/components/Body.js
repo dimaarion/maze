@@ -1,5 +1,6 @@
 import Matter from "matter-js";
 import Animate from "./Animate";
+import Bubble from "./Bubble";
 
 export default class Body {
 
@@ -38,6 +39,7 @@ export default class Body {
     speedLive = 0;
     bodies = [];
     countAttack = -1;
+    bubble = new Bubble();
 
     constructor(name, imgArr = [], frame = 0) {
         this.name = name;
@@ -96,18 +98,31 @@ export default class Body {
         }
     }
 
-    spriteAnimateArr(p5, w = 0, h = 0) {
+
+
+    
+    spriteAnimateArr(p5,n = 0, w = 0, h = 0) {
         try {
             w = this.scena.size(w, this.scena.scale);
             h = this.scena.size(h, this.scena.scale);
 
-            this.body.filter((f) => f.remove === false).forEach((b, i) => p5.image(this.animate.spriteArr(p5), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
+            this.body.filter((f) => f.remove === false).forEach((b, i) => p5.image(this.animate.spriteArr(p5,n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
 
         } catch (error) {
 
         }
     }
+    spriteAnimateArrIn(p5,b,n = 0, w = 0, h = 0) {
+        try {
+            w = this.scena.size(w, this.scena.scale);
+            h = this.scena.size(h, this.scena.scale);
 
+            p5.image(this.animate.spriteArr(p5,n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h);
+
+        } catch (error) {
+
+        }
+    }
 
     collides(world, name, n = 0) {
         if (world !== undefined) {
@@ -180,6 +195,18 @@ export default class Body {
 
         Matter.World.add(this.world, this.body);
         //  Matter.World.add(this.world, this.sensors);
+    }
+
+    createBubble(p5,n){
+        this.body.forEach((b)=>{
+            this.bubble.parametr = 1;
+            this.bubble.x = b.position.x;
+            this.bubble.y = b.position.y;
+            this.bubble.xs = b.position.x;
+            this.bubble.ys = b.position.y;
+            this.bubble.bubbleNum = n;
+            this.bubble.setup(p5,this.scena);
+        })
     }
 
     createBody(b, scena) {
@@ -273,6 +300,7 @@ return bd;
     createEllipse(world, scena) {
         this.scena = scena;
         this.world = world;
+        this.animate.setupAnimate();
         if (scena.getObjects(this.name)) {
             this.getObj = scena.getObjects(this.name);
             this.body = this.getObj.map((b) => this.createBody(b, scena));
@@ -382,10 +410,18 @@ return bd;
     sprite(p5,n = 0) {
         if (this.world !== undefined) {
             p5.rectMode(p5.CENTER);
+        
             if(this.image){
-                this.body.filter((f) => f.remove === false).map((b) => p5.image(this.image, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
+                this.body.filter((f) => f.remove === false).forEach((b) => p5.image(this.image, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
             }else if(Array.isArray(this.animate.img) && this.frame === 0){
-                this.body.filter((f) => f.remove === false).map((b) => p5.image(this.animate.spriteArr(p5,b.countImg), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
+                p5.push();
+                p5.angleMode(p5.DEGREES);
+                this.body.filter((f) => f.remove === false).forEach((b) => {
+                    p5.translate( b.position.x - b.width / 2, b.position.y - b.height / 2);
+                    p5.rotate(b.rotation);
+                    p5.image(this.animate.spriteArr(p5,b.countImg), 0, 0, b.width, b.height)
+                });
+                p5.pop();
             }
 
         }
@@ -420,7 +456,9 @@ return bd;
             }
                 if (count === 1) {
                     Matter.Body.setVelocity(b, {x: -this.speedMonster, y: 0})
+    
                 } else if (count === 2) {
+                   
                     Matter.Body.setVelocity(b, {x: this.speedMonster, y: 0})
                 }
 
@@ -437,14 +475,14 @@ return bd;
             if (b.collision) {
                 p5.image(this.animate.spriteArr(p5, n1), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
             } else {
-                p5.image(this.animate.spriteArr(p5, 1), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                this.spriteAnimateArrIn(p5,b,1);
             }
 
         } else {
             if (b.collision) {
                 p5.image(this.animate.spriteArr(p5, n2), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
             } else {
-                p5.image(this.animate.spriteArr(p5, 0), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+                this.spriteAnimateArrIn(p5,b,0);
             }
 
         }
@@ -463,6 +501,11 @@ return bd;
         }
 
     }
+
+viewBubble(){
+    this.bubble.view();
+}
+
 
     viewXp(p5) {
         // p5.rectMode(p5.CORNER)
@@ -487,7 +530,7 @@ return bd;
                     p5.pop();
                 }
                 if (el.label === "player") {
-                if (el.live < this.live) {
+                if (el.live < 10) {
                     el.live += this.scena.size(el.speedLive,this.scena.scale)
                 }
                 }

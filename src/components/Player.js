@@ -62,6 +62,7 @@ export default class Player extends Body {
     animateFice = new Animate();
     animateLadder = new Animate();
     animateLadderStatic = new Animate();
+    // eslint-disable-next-line no-dupe-class-members
     joystick = new Joystick();
     live = 50;
     speedLive = 0.01;
@@ -220,7 +221,7 @@ export default class Player extends Body {
             }
 
 
-            this.body.map((b, i) => {
+            this.body.forEach((b, i) => {
                     b.level = this.level;
                 }
             )

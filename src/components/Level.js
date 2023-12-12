@@ -1,4 +1,4 @@
-import Matter, {Engine, Composite, Events} from "matter-js";
+import Matter, { Engine, Composite, Events, Pair } from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
@@ -8,9 +8,9 @@ import Money from './Money';
 import Interface from './Interface';
 import Ladder from "./Ladder";
 import TileMap from "./TileMap";
-import Animate from "./Animate";
-import Joystick from "./Joystick";
 import Database from "./Database";
+import Bubble from "./Bubble";
+import Action from "./Action";
 
 
 export default function Level(props) {
@@ -19,6 +19,8 @@ export default function Level(props) {
     let world;
     let md = new mobile(window.navigator.userAgent);
     const scena = props.bg.map((el) => new Scena(el.scena, el.img, el.level, el.id, el.bg));
+    const action = new Action();
+    const bubble = new Bubble();
     const player = new Player("player");
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
@@ -26,23 +28,20 @@ export default function Level(props) {
     const ladder = new Ladder("ladder");
     const point = new Body("point");
     const interFace = new Interface();
-    const action = new Scena();
     const fakel = new Body("fakel", ["./img/fakel/fakel.png"]);
     const stone = new Body("stone", ["./img/object/stone.png"]);
     const key = new Body("key", ["./img/object/key.png"]);
-    const dor = new Body("dor", ["./img/object/dorClose.png","./img/object/dorOpen.png"]);
-    const meduza = new Body("meduza",  ["./img/object/meduza2.png"], 76);
+    const dor = new Body("dor", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
+    const meduza = new Body("meduza", ["./img/object/meduza2.png"], 76);
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive2.png", "./img/object/fuguActive.png"], 20);
-    const dorClose = new Body("dorClose", ["./img/object/dorClose.png","./img/object/dorOpen.png"]);
-    let press = {attack:0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
+    const dorClose = new Body("dorClose", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
+    const hp = new Body("hp", ["./img/object/hp.png"])
+    let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-    let p5 = {};
-    if(!window.localStorage.getItem("level")){
-       // player.level = 1
-    }else{
-      //  player.level = parseInt(window.localStorage.getItem("level"))
-    }
+
+    player.level = db.get().level;
+    player.live = db.get().live;
 
     const preload = (p5) => {
 
@@ -59,6 +58,7 @@ export default function Level(props) {
         meduza.preloadImage(p5);
         interFace.loadImg(p5);
         fugu.preloadImage(p5);
+        hp.preloadImage(p5);
 
     }
 
@@ -92,8 +92,11 @@ export default function Level(props) {
             fugu.createEllipse(world, el);
             fugu.createSensor();
             fugu.attack = fugu.attack + el.level * 2;
-            db.add(world, el);
-
+            hp.sensor = true;
+            hp.createEllipse(world, el);
+            db.create(world, el);
+            db.cleaner()
+           
             return world;
         })
     }
@@ -109,84 +112,112 @@ export default function Level(props) {
             removeObject(engine, n - 1);
             createObject(scena, engine, n);
             player.key = 0;
-            window.localStorage.setItem("level",n)
+            window.localStorage.setItem("level", n)
+            db.setLevel(n);
         }
     }
 
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-        p5 = p5;
         scena.map((el) => el.create(p5));
         engine = Engine.create();
         world = engine.world;
         Engine.run(engine);
         let mst = 0;
-        fugu.animate.setupAnimate();
-        meduza.animate.setupAnimate();
+        let moneyCount = db.get().money;
 
-        function attack(pair){
+        //  fugu.animate.setupAnimate();
+        //  meduza.animate.setupAnimate();
+        //  hp.animate.setupAnimate();
+
+        function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
                 if (pair.bodyA.live > 0) {
                     pair.bodyA.live -= pair.bodyB.attack;
-                    if(pair.bodyA.live < 5){
-                        Matter.Composite.remove(world,pair.bodyA);
+                    if (pair.bodyA.live < 5) {
+                        Matter.Composite.remove(world, pair.bodyA);
                         pair.bodyA.remove = true;
                     }
                 }
-                setTimeout(()=>{
-                    Matter.Composite.remove(world,pair.bodyB);
+                setTimeout(() => {
+                    Matter.Composite.remove(world, pair.bodyB);
                     pair.bodyB.remove = true;
-                },10)
+                }, 10)
 
             }
 
-            if(pair.bodyB.label === "player_attack" && pair.bodyA.label === "platform"){
+            if (pair.bodyB.label === "player_attack" && pair.bodyA.label === "platform") {
                 pair.bodyB.remove = true;
-                Matter.Composite.remove(world,pair.bodyB);
+                Matter.Composite.remove(world, pair.bodyB);
             }
         }
-        Events.on(engine, "collisionStart", function (event) {
 
+
+        function moneyStart(pair) {
+            if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
+
+
+                moneyCount++
+                db.setMoney(moneyCount)
+
+                if (Number.isInteger(mst)) {
+                    mst = window.localStorage.getItem("money");
+                    // eslint-disable-next-line use-isnan
+                    mst = Number.parseInt(mst);
+                    mst++;
+                } else {
+                    mst = 0;
+                }
+                window.localStorage.setItem("money", mst);
+                player.money = window.localStorage.getItem("money");
+
+                Composite.remove(world, pair.bodyA)
+                pair.bodyA.remove = true;
+
+
+            }
+        }
+
+        function keyStart(pair) {
+            if (pair.bodyA.label === "key" && pair.bodyB.label === "player") {
+                player.key++;
+                Composite.remove(world, pair.bodyA);
+                pair.bodyA.remove = true;
+                if (player.key === key.body.length) {
+                    // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
+                    dor.body.forEach((el) => {
+                        el.countImg = 1;
+                        el.isSensor = true;
+                    });
+                }
+
+
+            }
+        }
+
+
+        function hpStart(pair) {
+            if (pair.bodyB.label === "hp" && pair.bodyA.label === "player") {
+                pair.bodyA.live += action.percent(db.get().live,30);
+                Composite.remove(world,pair.bodyB);
+                pair.bodyB.remove = true;
+                if(pair.bodyA.live > db.get().liveMax){
+                    pair.bodyA.live = db.get().liveMax;
+                }
+            }
+        }
+
+
+        Events.on(engine, "collisionStart", function (event) {
 
             let pairs = event.pairs;
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                attack(pair)
-
-                if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
-                    if (Number.isInteger(mst)) {
-                        mst = window.localStorage.getItem("money");
-                        // eslint-disable-next-line use-isnan
-                        mst = Number.parseInt(mst);
-                        mst++;
-                    } else {
-                        mst = 0;
-                    }
-                    window.localStorage.setItem("money", mst);
-                    player.money = window.localStorage.getItem("money");
-
-                    Composite.remove(world, pair.bodyA)
-                    pair.bodyA.remove = true;
-
-
-                }
-
-                if (pair.bodyA.label === "key" && pair.bodyB.label === "player") {
-                    player.key++;
-                    Composite.remove(world, pair.bodyA);
-                    pair.bodyA.remove = true;
-                    if (player.key === key.body.length) {
-                        // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
-                         dor.body.forEach((el) => {
-                             el.countImg = 1;
-                             el.isSensor = true;
-                         });
-                    }
-
-
-                }
-
+                attack(pair);
+                moneyStart(pair);
+                keyStart(pair);
+                hpStart(pair)
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
         });
@@ -198,7 +229,7 @@ export default function Level(props) {
                 let pair = pairs[i];
 
                 if ((pair.bodyB.label === "fugu" || pair.bodyB.label === "fugu_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
-                   // pair.bodyB.isStatic = true;
+                    // pair.bodyB.isStatic = true;
                     pair.bodyB.collision = true;
                 }
 
@@ -223,7 +254,7 @@ export default function Level(props) {
                 let pair = pairs[i];
 
                 if (pair.bodyB.label === "fugu" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
-                  //  pair.bodyB.isStatic = false;
+                    //  pair.bodyB.isStatic = false;
                     pair.bodyB.collision = false;
                 }
 
@@ -234,10 +265,16 @@ export default function Level(props) {
         });
 
         createObject(scena, engine, player.level);
-        action.create(p5);
-        scena.filter((f)=>f.level === player.level).forEach((el)=>interFace.setup(p5,el))
+        bubble.bubbleNum = 10;
+        bubble.x = 10;
+        bubble.y = 100
+        scena.filter((f) => f.level === player.level).forEach((el) => {
+            interFace.setup(p5, el);
+            bubble.setup(p5, el);
 
+        })
 
+        hp.createBubble(p5, 20);
     };
 
 
@@ -256,11 +293,11 @@ export default function Level(props) {
         }
         if (e.key === "Control") {
             press.attack = e.key
-           // player.createAttack()
+            // player.createAttack()
         }
         press.rePress = 0;
 
-       player.press = press;
+        player.press = press;
     }
 
     const keyReleased = (e) => {
@@ -278,7 +315,7 @@ export default function Level(props) {
             press.pressDown = 0
         }
         if (e.key === "Control") {
-           // press.attack = 0
+            // press.attack = 0
         }
         press.rePress = 1;
 
@@ -309,6 +346,7 @@ export default function Level(props) {
         dor.sprite(p5);
         dorClose.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
+        bubble.view();
         //   tileMap.map((el) => el.view(p5));
         // ladder.draw(p5);
         stone.spriteAnimate(p5, stone.animate);
@@ -320,26 +358,29 @@ export default function Level(props) {
         player.draw(p5, world, press);
         // platform.viewRect(p5)
         fugu.movementLeftRight(p5);
-        fugu.viewAttacks(p5,2,3)
+        fugu.viewAttacks(p5, 2, 3)
         meduza.movementUpDown(p5);
         meduza.viewXp(p5);
         player.viewXp(p5)
         fugu.viewXp(p5);
         money.draw(p5);
+        hp.viewBubble();
+        hp.sprite(p5);
+        hp.setRotate(50);
 
 
         p5.pop();
         if (md.mobile()) {
             player.joystick.view(p5);
         }
-        interFace.view(p5, player, key);
+        interFace.view(p5, player, key, db);
 
 
     };
 
 
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
-                   keyReleased={keyReleased} preload={preload} draw={draw}/>
+        keyReleased={keyReleased} preload={preload} draw={draw} />
 
 
 }
