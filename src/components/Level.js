@@ -126,9 +126,12 @@ export default function Level(props) {
         let mst = 0;
         let moneyCount = db.get().money;
 
-        //  fugu.animate.setupAnimate();
-        //  meduza.animate.setupAnimate();
-        //  hp.animate.setupAnimate();
+        fugu.animate.setupAnimate();
+        meduza.animate.setupAnimate();
+        hp.animate.setupAnimate();
+        key.animate.setupAnimate();
+        dor.animate.setupAnimate();
+        dorClose.animate.setupAnimate();
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
@@ -263,8 +266,11 @@ export default function Level(props) {
 
 
         });
+       
+         createObject(scena, engine, player.level);
+       
+       
 
-        createObject(scena, engine, player.level);
         bubble.bubbleNum = 10;
         bubble.x = 10;
         bubble.y = 100
@@ -336,15 +342,14 @@ export default function Level(props) {
     }
 
     const draw = (p5) => {
+        
         p5.background("aqua");
         p5.rectMode(p5.CENTER);
-
-
         p5.push();
         player.translates(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.view(p5)))
-        dor.sprite(p5);
-        dorClose.sprite(p5);
+       dor.sprite(p5);
+       dorClose.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
         bubble.view();
         //   tileMap.map((el) => el.view(p5));
@@ -352,7 +357,7 @@ export default function Level(props) {
         stone.spriteAnimate(p5, stone.animate);
         //  stone.viewRect(p5)
         // platformB.viewRect(p5)
-        key.sprite(p5);
+        key.sprite(p5,0);
         meduza.spriteAnimateArr(p5);
         fakel.spriteAnimate(p5, fakel.animate);
         player.draw(p5, world, press);
@@ -366,7 +371,7 @@ export default function Level(props) {
         money.draw(p5);
         hp.viewBubble();
         hp.sprite(p5);
-        hp.setRotate(50);
+        
 
 
         p5.pop();

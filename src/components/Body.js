@@ -19,7 +19,7 @@ export default class Body {
     count = 0;
     rest = 0.2;
     levelCount = 0;
-    sizeImage = {width: 0, height: 0};
+    sizeImage = { width: 0, height: 0 };
     frame = 0;
     speedAn = 0.4;
     imgArr = [];
@@ -52,7 +52,7 @@ export default class Body {
 
     preloadImage(p5) {
 
-        if (this.imgArr.length > 0) {
+        if (Array.isArray(this.imgArr)) {
             if (this.frame > 0) {
                 this.animate.animated = true;
             }
@@ -100,24 +100,24 @@ export default class Body {
 
 
 
-    
-    spriteAnimateArr(p5,n = 0, w = 0, h = 0) {
+
+    spriteAnimateArr(p5, n = 0, w = 0, h = 0) {
         try {
             w = this.scena.size(w, this.scena.scale);
             h = this.scena.size(h, this.scena.scale);
 
-            this.body.filter((f) => f.remove === false).forEach((b, i) => p5.image(this.animate.spriteArr(p5,n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
+            this.body.filter((f) => f.remove === false).forEach((b, i) => p5.image(this.animate.spriteArr(p5, n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
 
         } catch (error) {
 
         }
     }
-    spriteAnimateArrIn(p5,b,n = 0, w = 0, h = 0) {
+    spriteAnimateArrIn(p5, b, n = 0, w = 0, h = 0) {
         try {
             w = this.scena.size(w, this.scena.scale);
             h = this.scena.size(h, this.scena.scale);
 
-            p5.image(this.animate.spriteArr(p5,n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h);
+            p5.image(this.animate.spriteArr(p5, n), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h);
 
         } catch (error) {
 
@@ -127,7 +127,7 @@ export default class Body {
     collides(world, name, n = 0) {
         if (world !== undefined) {
             let c = false;
-           world.bodies.filter((el) => el.label === name || el.typeObject === name).forEach((b) => {
+            world.bodies.filter((el) => el.label === name || el.typeObject === name).forEach((b) => {
                 let colige = Matter.Collision.collides(this.body[n], b);
                 if (colige !== null) {
                     if (colige.collided) {
@@ -160,10 +160,10 @@ export default class Body {
             display: "start",
             activeB: 0,
             money: 0,
-            countImg:0,
+            countImg: 0,
             collision: false,
             live: this.live,
-            speedLive:this.speedLive,
+            speedLive: this.speedLive,
             attack: this.attack,
             rotation: b.rotation,
             sprite: this.image,
@@ -178,7 +178,6 @@ export default class Body {
     createRect(world, scena) {
         this.world = world;
         this.scena = scena;
-        this.animate.setupAnimate();
         if (scena.getObjects(this.name)) {
             this.getObj = scena.getObjects(this.name);
             this.body = this.getObj.map((b) =>
@@ -197,15 +196,15 @@ export default class Body {
         //  Matter.World.add(this.world, this.sensors);
     }
 
-    createBubble(p5,n){
-        this.body.forEach((b)=>{
+    createBubble(p5, n) {
+        this.body.forEach((b) => {
             this.bubble.parametr = 1;
             this.bubble.x = b.position.x;
             this.bubble.y = b.position.y;
             this.bubble.xs = b.position.x;
             this.bubble.ys = b.position.y;
             this.bubble.bubbleNum = n;
-            this.bubble.setup(p5,this.scena);
+            this.bubble.setup(p5, this.scena);
         })
     }
 
@@ -232,25 +231,25 @@ export default class Body {
 
     createSensor() {
         this.sensors = this.body.map((b) => {
-                let body2 = Matter.Bodies.circle(
-                    b.position.x,
-                    b.position.y,
-                    b.width * this.sensorSize,
-                    {
-                        width: b.width * this.sensorSize,
-                        height: b.height * this.sensorSize,
-                        isSensor: true,
-                        label: this.name + "_sensor",
-                        typeObject: "sensor",
-                        collision: false,
-                        startX: b.startX,
-                        startY: b.startY,
-                        remove:b.remove
-                    }
-                )
+            let body2 = Matter.Bodies.circle(
+                b.position.x,
+                b.position.y,
+                b.width * this.sensorSize,
+                {
+                    width: b.width * this.sensorSize,
+                    height: b.height * this.sensorSize,
+                    isSensor: true,
+                    label: this.name + "_sensor",
+                    typeObject: "sensor",
+                    collision: false,
+                    startX: b.startX,
+                    startY: b.startY,
+                    remove: b.remove
+                }
+            )
 
-                return body2;
-            }
+            return body2;
+        }
         )
 
         Matter.World.add(this.world, this.sensors);
@@ -260,39 +259,39 @@ export default class Body {
         let bodies = [];
         this.countAttack++
         this.attackBody = this.body.map((b) => {
-              let bd = Matter.Bodies.circle(
-                    b.position.x,
-                    b.position.y,
-                    b.width / 5,
-                    {
-                        width: b.width / 5,
-                        height: b.height / 5,
-                        isSensor: true,
-                        label: this.name + "_attack",
-                        typeObject: "attack",
-                        collision: false,
-                        startX: b.startX,
-                        startY: b.startY,
-                        remove:false,
-                        attack:b.attack
-                    }
-                )
-this.bodies.push(bd);
-return bd;
-            }
+            let bd = Matter.Bodies.circle(
+                b.position.x,
+                b.position.y,
+                b.width / 5,
+                {
+                    width: b.width / 5,
+                    height: b.height / 5,
+                    isSensor: true,
+                    label: this.name + "_attack",
+                    typeObject: "attack",
+                    collision: false,
+                    startX: b.startX,
+                    startY: b.startY,
+                    remove: false,
+                    attack: b.attack
+                }
+            )
+            this.bodies.push(bd);
+            return bd;
+        }
         )
 
         Matter.World.add(this.world, this.attackBody);
 
 
-            if(this.direction === 0 || this.direction === 1){
-                Matter.Body.setVelocity(this.attackBody[0],{x:-10,y:0})
-            }else {
-                Matter.Body.setVelocity(this.attackBody[0],{x:10,y:0})
-            }
-        if(this.countAttack > 1){
-         //   Matter.Composite.remove(this.world,this.attackBody[this.countAttack - 1])
-          //  this.attackBody[this.countAttack - 1].remove = true
+        if (this.direction === 0 || this.direction === 1) {
+            Matter.Body.setVelocity(this.attackBody[0], { x: -10, y: 0 })
+        } else {
+            Matter.Body.setVelocity(this.attackBody[0], { x: 10, y: 0 })
+        }
+        if (this.countAttack > 1) {
+            //   Matter.Composite.remove(this.world,this.attackBody[this.countAttack - 1])
+            //  this.attackBody[this.countAttack - 1].remove = true
         }
 
     }
@@ -300,7 +299,6 @@ return bd;
     createEllipse(world, scena) {
         this.scena = scena;
         this.world = world;
-        this.animate.setupAnimate();
         if (scena.getObjects(this.name)) {
             this.getObj = scena.getObjects(this.name);
             this.body = this.getObj.map((b) => this.createBody(b, scena));
@@ -328,14 +326,14 @@ return bd;
     }
 
     setVelosity(x, y) {
-        this.body.map((b) => Matter.Body.setVelocity(b, {x: x, y: y}));
+        this.body.map((b) => Matter.Body.setVelocity(b, { x: x, y: y }));
     }
 
     setPosition(x, y) {
         if (this.world !== undefined) {
             this.world.bodies
                 .filter((f) => f.label === this.name)
-                .map((b) => Matter.Body.setPosition(b, {x: x, y: y}));
+                .map((b) => Matter.Body.setPosition(b, { x: x, y: y }));
         }
     }
 
@@ -407,19 +405,19 @@ return bd;
         }
     }
 
-    sprite(p5,n = 0) {
+    sprite(p5, n = 0) {
         if (this.world !== undefined) {
             p5.rectMode(p5.CENTER);
-        
-            if(this.image){
+
+            if (this.image) {
                 this.body.filter((f) => f.remove === false).forEach((b) => p5.image(this.image, b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
-            }else if(Array.isArray(this.animate.img) && this.frame === 0){
+            } else if (Array.isArray(this.animate.img) && this.frame === 0) {
                 p5.push();
                 p5.angleMode(p5.DEGREES);
                 this.body.filter((f) => f.remove === false).forEach((b) => {
-                    p5.translate( b.position.x - b.width / 2, b.position.y - b.height / 2);
+                    p5.translate(b.position.x - b.width / 2, b.position.y - b.height / 2);
                     p5.rotate(b.rotation);
-                    p5.image(this.animate.spriteArr(p5,b.countImg), 0, 0, b.width, b.height)
+                    p5.image(this.animate.spriteArr(p5, b.countImg), 0, 0, b.width, b.height)
                 });
                 p5.pop();
             }
@@ -428,17 +426,17 @@ return bd;
     }
 
     movementUpDown(p5) {
-        this.body.filter((f)=>f.remove === false).forEach((b, i) => {
+        this.body.filter((f) => f.remove === false).forEach((b, i) => {
             let count = 0;
-            if (this.scena.size(this.getSpeed()[i],this.scena.scale) < 0.5) {
+            if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
                 count = p5.random(1, 3);
                 count = p5.floor(count)
             }
             if (b.live > 10) {
                 if (count === 1) {
-                    Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster})
+                    Matter.Body.setVelocity(b, { x: 0, y: -this.speedMonster })
                 } else if (count === 2) {
-                    Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster})
+                    Matter.Body.setVelocity(b, { x: 0, y: this.speedMonster })
                 }
             }
 
@@ -447,46 +445,51 @@ return bd;
 
 
     movementLeftRight(p5) {
-
-        this.body.filter((f)=>f.remove === false).forEach((b, i) => {
-            let count = 0;
-            if (this.scena.size(this.getSpeed()[i],this.scena.scale) < 0.5) {
-                count = p5.random(1, 3);
-                count = p5.floor(count)
-            }
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+                let count = 0;
+                if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
+                    count = p5.random(1, 3);
+                    count = p5.floor(count)
+                }
                 if (count === 1) {
-                    Matter.Body.setVelocity(b, {x: -this.speedMonster, y: 0})
-    
+                    Matter.Body.setVelocity(b, { x: -this.speedMonster, y: 0 })
+
                 } else if (count === 2) {
-                   
-                    Matter.Body.setVelocity(b, {x: this.speedMonster, y: 0})
+
+                    Matter.Body.setVelocity(b, { x: this.speedMonster, y: 0 })
                 }
 
 
 
 
-        })
+            })
+        }
+
 
     }
 
-    viewAttacks(p5, n1, n2){
-        this.body.filter((f)=>f.remove === false).forEach((b, i) => {
-        if (Matter.Body.getVelocity(b).x > 0) {
-            if (b.collision) {
-                p5.image(this.animate.spriteArr(p5, n1), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
-            } else {
-                this.spriteAnimateArrIn(p5,b,1);
-            }
+    viewAttacks(p5, n1, n2) {
+        if (Array.isArray(this.body)) {
+        this.body.filter((f) => f.remove === false).forEach((b, i) => {
+            if (Matter.Body.getVelocity(b).x > 0) {
+                if (b.collision) {
+                    this.spriteAnimateArrIn(p5, b, n1);
+                } else {
+                    this.spriteAnimateArrIn(p5, b, 1);
+                }
 
-        } else {
-            if (b.collision) {
-                p5.image(this.animate.spriteArr(p5, n2), b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
             } else {
-                this.spriteAnimateArrIn(p5,b,0);
-            }
+                if (b.collision) {
+                    this.spriteAnimateArrIn(p5, b, n2);
 
-        }
+                } else {
+                    this.spriteAnimateArrIn(p5, b, 0);
+                }
+
+            }
         })
+    }
     }
 
     activeImage(p5, n1, n2) {
@@ -502,15 +505,18 @@ return bd;
 
     }
 
-viewBubble(){
-    this.bubble.view();
-}
+    viewBubble() {
+        this.body.filter((b)=>b.remove === false).forEach((el)=>{
+            this.bubble.view();
+        })
+        
+    }
 
 
     viewXp(p5) {
         // p5.rectMode(p5.CORNER)
         if (this.body) {
-            this.body.filter((f)=>f.remove === false).forEach((el, i) => {
+            this.body.filter((f) => f.remove === false).forEach((el, i) => {
                 if (this.sensors) {
                     //  Matter.Body.setPosition(this.sensors[i],{x:el.position.x + 10 ,y:el.position.y });
                     // el.collision = this.sensors[i].collision;
@@ -524,52 +530,52 @@ viewBubble(){
                 if (el.label !== "player") {
                     p5.push();
                     p5.fill("red")
-                    p5.rect(el.position.x, el.position.y - this.scena.size(10,this.scena.scale),this.scena.size(el.live / 5,this.scena.scale), this.scena.size(2,this.scena.scale));
-                 //   p5.textSize(32);
-                  //  p5.text(el.collision, el.position.x, el.position.y);
+                    p5.rect(el.position.x, el.position.y - this.scena.size(10, this.scena.scale), this.scena.size(el.live / 5, this.scena.scale), this.scena.size(2, this.scena.scale));
+                    //   p5.textSize(32);
+                    //  p5.text(el.collision, el.position.x, el.position.y);
                     p5.pop();
                 }
                 if (el.label === "player") {
-                if (el.live < 10) {
-                    el.live += this.scena.size(el.speedLive,this.scena.scale)
-                }
+                    if (el.live < 10) {
+                        el.live += this.scena.size(el.speedLive, this.scena.scale)
+                    }
                 }
 
             });
             if (this.sensors) {
-                this.sensors.filter((f)=>f.remove === false).forEach((b,i) => {
-                    Matter.Body.setPosition(b, {x: this.body[i].position.x, y: this.body[i].position.y});
+                this.sensors.filter((f) => f.remove === false).forEach((b, i) => {
+                    Matter.Body.setPosition(b, { x: this.body[i].position.x, y: this.body[i].position.y });
                 });
                 this.sensors.forEach((b, i) => {
-                     //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
-                    }
+                    //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
+                }
                 )
             }
             if (this.attackBody) {
-                this.attackBody.filter((f)=>f.remove === false).forEach((b,i) => {
-                    if(this.press.attack === 0){
-                        if(this.direction === 0 || this.direction === 1){
-                            Matter.Body.setPosition(b, {x: this.body[i].position.x - this.scena.size(7,this.scena.scale), y: this.body[i].position.y + this.scena.size(2,this.scena.scale)});
-                        }else{
-                            Matter.Body.setPosition(b, {x: this.body[i].position.x + this.scena.size(7,this.scena.scale), y: this.body[i].position.y + this.scena.size(2,this.scena.scale)});
+                this.attackBody.filter((f) => f.remove === false).forEach((b, i) => {
+                    if (this.press.attack === 0) {
+                        if (this.direction === 0 || this.direction === 1) {
+                            Matter.Body.setPosition(b, { x: this.body[i].position.x - this.scena.size(7, this.scena.scale), y: this.body[i].position.y + this.scena.size(2, this.scena.scale) });
+                        } else {
+                            Matter.Body.setPosition(b, { x: this.body[i].position.x + this.scena.size(7, this.scena.scale), y: this.body[i].position.y + this.scena.size(2, this.scena.scale) });
                         }
-                        }else {
-                      //  Matter.Body.setVelocity(b,{x:-10,y:0})
+                    } else {
+                        //  Matter.Body.setVelocity(b,{x:-10,y:0})
                     }
 
                 });
-                this.attackBody.filter((f)=>f.remove === false).forEach((b, i) => {
+                this.attackBody.filter((f) => f.remove === false).forEach((b, i) => {
                     p5.push()
                     p5.fill("green");
                     p5.noStroke();
-                    if(this.direction === 0 || this.direction === 1){
-                          p5.ellipse(b.position.x - this.scena.size(7,this.scena.scale), b.position.y + this.scena.size(2,this.scena.scale), b.width, b.height);
-                    }else{
-                          p5.ellipse(b.position.x + this.scena.size(7,this.scena.scale), b.position.y + this.scena.size(2,this.scena.scale), b.width, b.height);
+                    if (this.direction === 0 || this.direction === 1) {
+                        p5.ellipse(b.position.x - this.scena.size(7, this.scena.scale), b.position.y + this.scena.size(2, this.scena.scale), b.width, b.height);
+                    } else {
+                        p5.ellipse(b.position.x + this.scena.size(7, this.scena.scale), b.position.y + this.scena.size(2, this.scena.scale), b.width, b.height);
                     }
 
                     p5.pop()
-                    }
+                }
                 )
             }
 
@@ -597,7 +603,7 @@ viewBubble(){
 
 
     collidePointCircle = function (p5, x, y, cx, cy, d) {
-//2d
+        //2d
 
         if (p5.dist(x, y, cx, cy) <= d / 2) {
             return true;
