@@ -36,6 +36,7 @@ export default function Level(props) {
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive2.png", "./img/object/fuguActive.png"], 20);
     const dorClose = new Body("dorClose", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
     const hp = new Body("hp", ["./img/object/hp.png"])
+    const shark = new Body("shark",["./img/object/shark/shark2.png","./img/object/shark/shark.png","./img/object/shark/shark2.png","./img/object/shark/shark.png"],4,10);
     let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
@@ -59,6 +60,9 @@ export default function Level(props) {
         interFace.loadImg(p5);
         fugu.preloadImage(p5);
         hp.preloadImage(p5);
+       // shark.speedMonster = 0.5
+        shark.preloadImage(p5)
+
 
     }
 
@@ -94,6 +98,9 @@ export default function Level(props) {
             fugu.attack = fugu.attack + el.level * 2;
             hp.sensor = true;
             hp.createEllipse(world, el);
+            shark.static = false;
+            shark.createRect(world,el);
+            shark.createSensor()
             db.create(world, el);
             db.cleaner()
            
@@ -132,6 +139,7 @@ export default function Level(props) {
         key.animate.setupAnimate();
         dor.animate.setupAnimate();
         dorClose.animate.setupAnimate();
+        shark.animate.setupAnimate();
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
@@ -210,6 +218,35 @@ export default function Level(props) {
             }
         }
 
+        function direction(pair,name){
+            if (pair.bodyA.typeObject === "left" && pair.bodyB.label === name) {
+                pair.bodyB.direction = 1;
+
+            }
+            if (pair.bodyA.typeObject === "right" && pair.bodyB.label === name) {
+                pair.bodyB.direction = 0;
+
+            }
+        }
+
+        function sensorAttack(pair,name, bol){
+            if ((pair.bodyB.label === name || pair.bodyB.label === name + "_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+                pair.bodyB.collision = bol;
+                if(name === "shark"){
+                    let pos = action.getPositions(p5,pair.bodyA.position.x,pair.bodyA.position.y,pair.bodyB.position.x,pair.bodyB.position.y);
+                    let speed = shark.speedMonster * 10;
+                    let x = action.getSpeed(pos.x,speed);
+                    let y = action.getSpeed(pos.y,speed);
+                    Matter.Body.setVelocity(pair.bodyB,{x:x,y:y})
+
+                }
+
+               // Matter.Body.setVelocity(pair.bodyB,{x:(pair.bodyA.position.x - pair.bodyB.position.x) / 1000,y:pair.bodyB.position.y })
+              //  pair.bodyA.position.x - pair.bodyB.position.x
+              //  pair.vX = pair.bodyA.position.x ;
+              //  pair.vy = pair.bodyA.position.y ;
+            }
+        }
 
         Events.on(engine, "collisionStart", function (event) {
 
@@ -220,7 +257,9 @@ export default function Level(props) {
                 attack(pair);
                 moneyStart(pair);
                 keyStart(pair);
-                hpStart(pair)
+                hpStart(pair);
+                direction(pair,"shark")
+                direction(pair,"fugu")
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
         });
@@ -231,10 +270,9 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                if ((pair.bodyB.label === "fugu" || pair.bodyB.label === "fugu_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
-                    // pair.bodyB.isStatic = true;
-                    pair.bodyB.collision = true;
-                }
+                sensorAttack(pair,"fugu",true)
+                sensorAttack(pair,"shark",true)
+
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     if (pair.bodyB.live > 5) {
@@ -256,11 +294,8 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                if (pair.bodyB.label === "fugu" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
-                    //  pair.bodyB.isStatic = false;
-                    pair.bodyB.collision = false;
-                }
-
+                sensorAttack(pair,"fugu",false)
+                sensorAttack(pair,"shark",false)
 
             }
 
@@ -362,8 +397,9 @@ export default function Level(props) {
         fakel.spriteAnimate(p5, fakel.animate);
         player.draw(p5, world, press);
         // platform.viewRect(p5)
-        fugu.movementLeftRight(p5);
-        fugu.viewAttacks(p5, 2, 3)
+        fugu.movementLeftRight();
+        fugu.viewAttacks(2, 3)
+        fugu.spriteAnimateArr(p5);
         meduza.movementUpDown(p5);
         meduza.viewXp(p5);
         player.viewXp(p5)
@@ -371,6 +407,10 @@ export default function Level(props) {
         money.draw(p5);
         hp.viewBubble();
         hp.sprite(p5);
+        shark.movementLeftRight();
+        shark.viewAttacks(3,2)
+        shark.spriteAnimateArr(p5);
+
         
 
 
