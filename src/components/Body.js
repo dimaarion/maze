@@ -16,6 +16,7 @@ export default class Body {
     scena;
     image = "";
     fric = 0.1;
+    frictionAir = 0.1;
     count = 0;
     rest = 0.2;
     levelCount = 0;
@@ -41,6 +42,7 @@ export default class Body {
     bodies = [];
     countAttack = -1;
     bubble = new Bubble();
+    gravityStab = 0;
 
     constructor(name, imgArr = [], frame = 0, rate = 2) {
         this.name = name;
@@ -155,6 +157,7 @@ export default class Body {
             isSensor: this.sensor,
             restitution: this.rest,
             friction: this.fric,
+            frictionAir: this.frictionAir,
             typeObject: b.type,
             speedBodyDop: 0,
             level: 1,
@@ -409,7 +412,7 @@ export default class Body {
         }
     }
 
-    sprite(p5, n = 0) {
+    sprite(p5, n = 0,r = false) {
         if (this.world !== undefined) {
             p5.rectMode(p5.CENTER);
 
@@ -420,7 +423,7 @@ export default class Body {
                 p5.angleMode(p5.DEGREES);
                 this.body.filter((f) => f.remove === false).forEach((b) => {
                     p5.translate(b.position.x - b.width / 2, b.position.y - b.height / 2);
-                    p5.rotate(b.rotation);
+                    r?p5.rotate(b.angle):p5.rotate(b.rotation);
                     p5.image(this.animate.spriteArr(p5, b.countImg), 0, 0, b.width, b.height)
                 });
                 p5.pop();
@@ -436,30 +439,81 @@ export default class Body {
                 count = p5.random(1, 3);
                 count = p5.floor(count)
             }
-            if (b.live > 10) {
                 if (count === 1) {
                     Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster})
                 } else if (count === 2) {
                     Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster})
                 }
-            }
+
 
         })
     }
 
 
     movementLeftRight() {
+        function movie(b, s,g){
+            if (b.direction === 0) {
+                Matter.Body.setVelocity(b, {x: -s, y: g})
+            } else if (b.direction === 1) {
+                Matter.Body.setVelocity(b, {x: s, y: g})
+            }else {
+                Matter.Body.setVelocity(b, {x: -s, y: g})
+            }
+            if(Matter.Body.getVelocity(b).x > 0){
+                b.countImg = 1;
+            }else {
+                b.countImg = 0;
+            }
+        }
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+
+                if(b.label !== "shark"){
+                    movie(b,this.speedMonster,this.gravityStab)
+                }
+
+
+            })
+        }
+
+    }
+
+    gravity(n = 2){
+        this.body.forEach((b)=>{
+                Matter.Body.setVelocity(b,{x:0,y:n});
+
+        })
+    }
+
+    jamp(p5){
+        this.body.forEach((b)=>{
+           let count = p5.frameCount % 100
+            if(count > 50){
+                Matter.Body.setVelocity(b,{x:0,y:-this.speedMonster});
+            }else {
+                Matter.Body.setVelocity(b,{x:0,y:this.speedMonster * 2});
+            }
+            //
+        })
+    }
+
+
+    movement() {
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
                 if(!b.collision){
                     if (b.direction === 0) {
-                        Matter.Body.setVelocity(b, {x: -this.speedMonster, y: 0})
+                        Matter.Body.setVelocity(b, {x: -this.speedMonster, y: this.gravityStab})
                     } else if (b.direction === 1) {
-                        Matter.Body.setVelocity(b, {x: this.speedMonster, y: 0})
+                        Matter.Body.setVelocity(b, {x: this.speedMonster, y: this.gravityStab})
+                    }else if (b.direction === 2) {
+                        Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster})
+                    }else if (b.direction === 3) {
+                        Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster})
                     }else {
-                        Matter.Body.setVelocity(b, {x: -this.speedMonster, y: 0})
+                        Matter.Body.setVelocity(b, {x: -this.speedMonster, y: this.gravityStab})
                     }
-                    if(Matter.Body.getVelocity(b).x > 0){
+                    if(Matter.Body.getVelocity(b).x > 0 || Matter.Body.getVelocity(b).y > 0){
                         b.countImg = 1;
                     }else {
                         b.countImg = 0;
@@ -469,7 +523,6 @@ export default class Body {
 
             })
         }
-
 
     }
 

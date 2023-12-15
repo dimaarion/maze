@@ -98,20 +98,7 @@ export default class Player extends Body {
     setup(world, scena) {
         // this.fric = 1;
         this.createEllipse(world, scena);
-        /*
-        this.body2 = Matter.Bodies.circle(this.body[0].position.x,this.body[0].position.y,this.body[0].width * this.sensorSize,{width:this.body[0].width * this.sensorSize,height:this.body[0].height * this.sensorSize,label:"sensor",isSensor:true});
-     let composite = Matter.Constraint.create({
-            bodyA:this.body[0],
-            bodyB:this.body2
-        })
-        Matter.World.add(world,[this.body2,composite]);
-     console.log(this.body2)*/
-        // this.compound = Matter.Body.create({
-        //     parts:[this.body[0],this.body2]
-        //  })
-        //    this.body = this.compound.parts.filter((f)=>f.label=== "player");
-        //  this.body2 = this.compound.parts.filter((f)=>f.label=== "sensor");
-        // console.log(this.body2)
+
 
         this.animateleft.setupAnimate();
         this.animateFiceLeft.setupAnimate();
@@ -123,10 +110,6 @@ export default class Player extends Body {
         })
         this.gravity = this.percent(this.speed / 2);
         this.velocity = this.percent(this.speed / 2);
-        // this.gravity = scena.size(this.gravity, scena.scale);
-        // this.velocity = scena.size(this.velocity, scena.scale);
-        //this.spriteAnimate("playerLeft", 24);
-        // this.spriteAnimate("player", 1, 1)
         this.xJ = this.percentX(80);
         this.yJ = this.percentY(80);
         this.joystick.setup(this.xJ, this.yJ, scena.size(50,scena.scale));
@@ -154,7 +137,7 @@ export default class Player extends Body {
             this.joystick.createJoystick(p5, this.xJ, this.yJ);
 
 
-            if (this.body[0].live > 10) {
+
                 if (press.pressRight === "ArrowRight") {
                     if (press.pressUp === "ArrowUp") {
                         this.setVelosity(this.velocity, -this.gravity);
@@ -176,7 +159,7 @@ export default class Player extends Body {
                 } else if (press.pressDown === "ArrowDown") {
                     this.setVelosity(0, this.gravity);
                 } else {
-                    this.setVelosity(0, 0);
+                    this.setVelosity(0, this.gravityStab);
                 }
 
                 if (p5.touches[0]) {
@@ -194,9 +177,7 @@ export default class Player extends Body {
                     }
 
                 }
-            } else {
-                this.body.map((b) => this.setPosition(b.startX, b.startY));
-            }
+            if (this.body[0].live < 10) {this.body.map((b) => this.setPosition(b.startX, b.startY));}
 
 
             if (press.pressRight === "ArrowRight") {
