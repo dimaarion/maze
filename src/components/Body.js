@@ -471,6 +471,9 @@ export default class Body {
                 if(b.label !== "shark"){
                     movie(b,this.speedMonster,this.gravityStab)
                 }
+                if(b.label === "shark" && b.collision === false){
+                    movie(b,this.speedMonster,this.gravityStab)
+                }
 
 
             })

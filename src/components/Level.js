@@ -1,4 +1,4 @@
-import Matter, { Engine, Composite, Events, Pair } from "matter-js";
+import Matter, {Engine, Composite, Events, Pair} from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
@@ -36,16 +36,15 @@ export default function Level(props) {
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 20);
     const dorClose = new Body("dorClose", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
     const hp = new Body("hp", ["./img/object/hp.png"]);
-    const ej = new Body("ej",["./img/object/еj/ej.png","./img/object/еj/ej.png"]);
-    const shark = new Body("shark",["./img/object/shark/shark2.png","./img/object/shark/shark.png","./img/object/shark/shark3.png","./img/object/shark/shark4.png"],4,10);
-    let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
+    const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
+    const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 4, 10);
+    let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
     player.level = 2;
     player.live = db.get().live;
-    ej.speedMonster = 0.05
-    ej.gravityStab = 1
+
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)))
@@ -63,7 +62,7 @@ export default function Level(props) {
         fugu.preloadImage(p5);
         hp.preloadImage(p5);
         ej.preloadImage(p5);
-       // shark.speedMonster = 0.5
+        // shark.speedMonster = 0.5
         shark.preloadImage(p5)
 
 
@@ -102,14 +101,13 @@ export default function Level(props) {
             hp.sensor = true;
             hp.createEllipse(world, el);
             shark.static = false;
-            shark.createRect(world,el);
+            shark.createRect(world, el);
             shark.createSensor();
-          //  ej.sensor = true;
-            ej.static = false;
-            ej.createRect(world,el);
+            ej.sensor = true;
+            ej.createRect(world, el);
             db.create(world, el);
 
-           
+
             return world;
         })
     }
@@ -216,16 +214,16 @@ export default function Level(props) {
 
         function hpStart(pair) {
             if (pair.bodyB.label === "hp" && pair.bodyA.label === "player") {
-                pair.bodyA.live += action.percent(db.get().live,30);
-                Composite.remove(world,pair.bodyB);
+                pair.bodyA.live += action.percent(db.get().live, 30);
+                Composite.remove(world, pair.bodyB);
                 pair.bodyB.remove = true;
-                if(pair.bodyA.live > db.get().liveMax){
+                if (pair.bodyA.live > db.get().liveMax) {
                     pair.bodyA.live = db.get().liveMax;
                 }
             }
         }
 
-        function direction(pair,name){
+        function direction(pair, name) {
             if (pair.bodyA.typeObject === "left" && pair.bodyB.label === name) {
                 pair.bodyB.direction = 1;
 
@@ -244,17 +242,30 @@ export default function Level(props) {
             }
         }
 
-        function sensorAttack(pair,name, bol){
+        function sensorAttack(pair, name, bol) {
             if ((pair.bodyB.label === name || pair.bodyB.label === name + "_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
                 pair.bodyB.collision = bol;
-                if(name === "shark"){
-                    let pos = action.getPositions(p5,pair.bodyA.position.x,pair.bodyA.position.y,pair.bodyB.position.x,pair.bodyB.position.y);
+                if (name === "shark") {
+                    let pos = action.getPositions(p5, pair.bodyA.position.x, pair.bodyA.position.y, pair.bodyB.position.x, pair.bodyB.position.y);
                     let speed = shark.speedMonster * 2;
-                  parseInt(pos.x.toString().replace(/-/,""))
-                    Matter.Body.setVelocity(pair.bodyB,{x:p5.constrain(pos.x, -speed, speed),y:p5.constrain(pos.y, -speed, speed)})
+                    parseInt(pos.x.toString().replace(/-/, ""))
+                    Matter.Body.setVelocity(pair.bodyB, {
+                        x: p5.constrain(pos.x, -speed, speed),
+                        y: p5.constrain(pos.y, -speed, speed)
+                    })
                 }
+            }
+        }
 
-
+        function setSensor(pair, bol) {
+            if (pair.bodyB.typeObject === "alive" && pair.bodyA.typeObject === "alive") {
+                if (pair.bodyB.isStatic === true) {
+                    pair.bodyB.isSensor = true;
+                   pair.bodyB.isStatic = bol;
+                }
+                if (pair.bodyA.isStatic === true) {
+                 //  pair.bodyA.isSensor = bol;
+                }
             }
         }
 
@@ -268,9 +279,10 @@ export default function Level(props) {
                 moneyStart(pair);
                 keyStart(pair);
                 hpStart(pair);
-                direction(pair,"shark")
-                direction(pair,"fugu")
-                direction(pair,"ej")
+                direction(pair, "shark");
+                direction(pair, "fugu");
+                direction(pair, "ej");
+
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
         });
@@ -281,9 +293,10 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                sensorAttack(pair,"fugu",true)
-                sensorAttack(pair,"shark",true)
-                sensorAttack(pair,"ej",true)
+                sensorAttack(pair, "fugu", true);
+                sensorAttack(pair, "shark", true);
+                sensorAttack(pair, "ej", true);
+
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     if (pair.bodyB.live > 5) {
@@ -305,17 +318,17 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                sensorAttack(pair,"fugu",false)
-                sensorAttack(pair,"shark",false)
-                sensorAttack(pair,"ej",false)
+                sensorAttack(pair, "fugu", false);
+                sensorAttack(pair, "shark", false);
+                sensorAttack(pair, "ej", false);
+
             }
 
 
         });
-       
-         createObject(scena, engine, player.level);
-       
-       
+
+        createObject(scena, engine, player.level);
+
 
         bubble.bubbleNum = 10;
         bubble.x = 10;
@@ -384,14 +397,14 @@ export default function Level(props) {
 
 
     const draw = (p5) => {
-        
+
         p5.background("aqua");
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.view(p5)))
-       dor.sprite(p5);
-       dorClose.sprite(p5);
+        dor.sprite(p5);
+        dorClose.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
         bubble.view();
         //   tileMap.map((el) => el.view(p5));
@@ -399,7 +412,7 @@ export default function Level(props) {
         stone.spriteAnimate(p5, stone.animate);
         //  stone.viewRect(p5)
         // platformB.viewRect(p5)
-        key.sprite(p5,0);
+        key.sprite(p5, 0);
         meduza.spriteAnimateArr(p5);
         fakel.spriteAnimate(p5, fakel.animate);
         player.draw(p5, world, press);
@@ -415,14 +428,10 @@ export default function Level(props) {
         hp.viewBubble();
         hp.sprite(p5);
         shark.movementLeftRight();
-        shark.viewAttacks(2,3)
+        shark.viewAttacks(2, 3)
         shark.spriteAnimateArr(p5);
-        ej.movementLeftRight()
-        ej.spriteAnimateArr(p5);
-      //  ej.gravity()
-
-
-        
+        ej.spriteAnimateArr(p5, 0, 10, 10);
+        //  ej.gravity()
 
 
         p5.pop();
@@ -436,7 +445,7 @@ export default function Level(props) {
 
 
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
-        keyReleased={keyReleased} preload={preload} draw={draw} />
+                   keyReleased={keyReleased} preload={preload} draw={draw}/>
 
 
 }
