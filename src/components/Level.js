@@ -38,6 +38,7 @@ export default function Level(props) {
     const hp = new Body("hp", ["./img/object/hp.png"]);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 4, 10);
+    const ocoptus = new Body("ocoptus",["./img/object/ocoptus.png"],40);
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
@@ -63,7 +64,8 @@ export default function Level(props) {
         hp.preloadImage(p5);
         ej.preloadImage(p5);
         // shark.speedMonster = 0.5
-        shark.preloadImage(p5)
+        shark.preloadImage(p5);
+        ocoptus.preloadImage(p5);
 
 
     }
@@ -105,6 +107,7 @@ export default function Level(props) {
             shark.createSensor();
             ej.sensor = true;
             ej.createRect(world, el);
+            ocoptus.createEllipse(world,el);
             db.create(world, el);
 
 
@@ -145,6 +148,7 @@ export default function Level(props) {
         dorClose.animate.setupAnimate();
         shark.animate.setupAnimate();
         ej.animate.setupAnimate();
+        ocoptus.animate.setupAnimate();
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
@@ -431,6 +435,7 @@ export default function Level(props) {
         shark.viewAttacks(2, 3)
         shark.spriteAnimateArr(p5);
         ej.spriteAnimateArr(p5, 0, 10, 10);
+        ocoptus.spriteAnimateArr(p5);
         //  ej.gravity()
 
 
