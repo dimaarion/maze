@@ -433,7 +433,8 @@ export default class Body {
     }
 
     movementUpDown(p5) {
-        this.body.filter((f) => f.remove === false).forEach((b, i) => {
+        if(Array.isArray(this.body)){
+              this.body.filter((f) => f.remove === false).forEach((b, i) => {
             let count = 0;
             if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
                 count = p5.random(1, 3);
@@ -447,6 +448,8 @@ export default class Body {
 
 
         })
+        }
+      
     }
 
 
@@ -562,16 +565,19 @@ export default class Body {
     }
 
     viewBubble() {
-        this.body.filter((b) => b.remove === false).forEach((el) => {
+        if(Array.isArray(this.body)){
+             this.body.filter((b) => b.remove === false).forEach((el) => {
             this.bubble.view();
         })
+        }
+       
 
     }
 
 
     viewXp(p5) {
         // p5.rectMode(p5.CORNER)
-        if (this.body) {
+        if (Array.isArray( this.body)) {
             this.body.filter((f) => f.remove === false).forEach((el, i) => {
                 if (this.sensors) {
                     //  Matter.Body.setPosition(this.sensors[i],{x:el.position.x + 10 ,y:el.position.y });

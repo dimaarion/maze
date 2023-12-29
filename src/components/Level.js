@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Matter, {Engine, Composite, Events, Pair} from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
@@ -14,7 +15,6 @@ import Action from "./Action";
 
 
 export default function Level(props) {
-
     let engine;
     let world;
     let md = new mobile(window.navigator.userAgent);
@@ -449,8 +449,9 @@ export default function Level(props) {
     };
 
 
-    return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
+    return <Sketch  setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
                    keyReleased={keyReleased} preload={preload} draw={draw}/>
+                 
 
 
 }
