@@ -13,11 +13,13 @@ function App() {
   useEffect(() => {
     const timer = setInterval(() => {
      //setSeconds(seconds => seconds + 1);
-      console.log(document.getElementsByClassName("App")[0].style.display = "none")
+
       if(document.getElementsByTagName("canvas")[0]){
-       console.log(document.getElementsByClassName("App")[0].style.display = "fixed")
+         document.querySelector("#loading").classList.remove("active");
+         document.querySelector("#loading").classList.add("hidden");
       }else{
-      
+          document.querySelector("#loading").classList.add("active");
+
       }
 
     }, 10);
@@ -28,6 +30,7 @@ function App() {
   
   return (
     <div className="App">
+        <div id="loading" className={"active"}><img className={"spinner"} src={"./img/gui/spiner.gif"}/></div>
          <Level bg={[
             { scena: scena_1, level: 1, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"] },
             { scena: scena_2, level: 2, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"] },

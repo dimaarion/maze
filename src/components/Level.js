@@ -38,22 +38,22 @@ export default function Level(props) {
     const hp = new Body("hp", ["./img/object/hp.png"]);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 4, 10);
-    const ocoptus = new Body("ocoptus",["./img/object/ocoptus.png"],40);
+    const ocoptus = new Body("ocoptus",["./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png"],60);
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
     player.level = 2;
     player.live = db.get().live;
-
+    ocoptus.static = false;
+    ocoptus.gravityStab = 0.1
+    ocoptus.rotating = true;
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)))
         player.loadImg(p5);
         money.loadImg(p5);
         ladder.loadImg(p5);
-        fakel.frame = 30;
-        fakel.preloadImage(p5);
         stone.preloadImage(p5);
         key.preloadImage(p5);
         dor.preloadImage(p5);
@@ -81,10 +81,6 @@ export default function Level(props) {
             platform.createRect(world, el);
             ladder.setup(world, el);
             money.setup(world, el);
-            fakel.sensor = true;
-            fakel.createRect(world, el);
-            stone.static = false;
-            stone.createRect(world, el);
             key.sensor = true;
             key.createRect(world, el);
             player.defaultKey = key.body.length;
@@ -207,7 +203,7 @@ export default function Level(props) {
                     // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
                     dor.body.forEach((el) => {
                         el.countImg = 1;
-                        el.isSensor = true;
+                      //  el.isSensor = true;
                     });
                 }
 
@@ -246,30 +242,25 @@ export default function Level(props) {
             }
         }
 
-        function sensorAttack(pair, name, bol) {
+        function sensorAttack(pair, name, bol, persecution = false,speedDop = 2) {
             if ((pair.bodyB.label === name || pair.bodyB.label === name + "_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
                 pair.bodyB.collision = bol;
-                if (name === "shark") {
+                if (persecution === true) {
                     let pos = action.getPositions(p5, pair.bodyA.position.x, pair.bodyA.position.y, pair.bodyB.position.x, pair.bodyB.position.y);
-                    let speed = shark.speedMonster * 2;
-                    parseInt(pos.x.toString().replace(/-/, ""))
+                    let speed = pair.bodyB.speedBody * speedDop;
                     Matter.Body.setVelocity(pair.bodyB, {
                         x: p5.constrain(pos.x, -speed, speed),
                         y: p5.constrain(pos.y, -speed, speed)
                     })
+                    pair.bodyB.vX = pos.x;
+                    pair.bodyB.vY = pos.y;
                 }
             }
         }
 
         function setSensor(pair, bol) {
             if (pair.bodyB.typeObject === "alive" && pair.bodyA.typeObject === "alive") {
-                if (pair.bodyB.isStatic === true) {
-                    pair.bodyB.isSensor = true;
-                   pair.bodyB.isStatic = bol;
-                }
-                if (pair.bodyA.isStatic === true) {
-                 //  pair.bodyA.isSensor = bol;
-                }
+
             }
         }
 
@@ -286,6 +277,7 @@ export default function Level(props) {
                 direction(pair, "shark");
                 direction(pair, "fugu");
                 direction(pair, "ej");
+                direction(pair, "ocoptus");
 
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
@@ -298,8 +290,9 @@ export default function Level(props) {
                 let pair = pairs[i];
 
                 sensorAttack(pair, "fugu", true);
-                sensorAttack(pair, "shark", true);
+                sensorAttack(pair, "shark", true,true,2);
                 sensorAttack(pair, "ej", true);
+                sensorAttack(pair, "ocoptus", true,true,1);
 
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
@@ -323,8 +316,9 @@ export default function Level(props) {
                 let pair = pairs[i];
 
                 sensorAttack(pair, "fugu", false);
-                sensorAttack(pair, "shark", false);
+                sensorAttack(pair, "shark", false,true);
                 sensorAttack(pair, "ej", false);
+                sensorAttack(pair, "ocoptus", false,true);
 
             }
 
@@ -411,31 +405,30 @@ export default function Level(props) {
         dorClose.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
         bubble.view();
-        //   tileMap.map((el) => el.view(p5));
-        // ladder.draw(p5);
         stone.spriteAnimate(p5, stone.animate);
-        //  stone.viewRect(p5)
-        // platformB.viewRect(p5)
         key.sprite(p5, 0);
         meduza.spriteAnimateArr(p5);
-        fakel.spriteAnimate(p5, fakel.animate);
         player.draw(p5, world, press);
         // platform.viewRect(p5)
         fugu.movementLeftRight();
         fugu.viewAttacks(3, 2)
         fugu.spriteAnimateArr(p5);
+        fugu.viewXp(p5);
         meduza.movementUpDown(p5);
         meduza.viewXp(p5);
         player.viewXp(p5)
-        fugu.viewXp(p5);
         money.draw(p5);
         hp.viewBubble();
         hp.sprite(p5);
-        shark.movementLeftRight();
+        shark.movementLeftRight("shark");
         shark.viewAttacks(2, 3)
         shark.spriteAnimateArr(p5);
         ej.spriteAnimateArr(p5, 0, 10, 10);
+      //  ocoptus.moveView(0,1,2,3,4);
         ocoptus.spriteAnimateArr(p5);
+        ///ocoptus.movementLeftRight("ocoptus");
+
+
         //  ej.gravity()
 
 

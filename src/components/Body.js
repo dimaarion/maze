@@ -37,11 +37,12 @@ export default class Body {
     sensorSize = 3;
     press = 0;
     compound;
-    speedMonster = 0.02;
+    speedMonster = 0.2;
     speedLive = 0;
     bodies = [];
     countAttack = -1;
     bubble = new Bubble();
+    rotating = false;
     gravityStab = 0;
 
     constructor(name, imgArr = [], frame = 0, rate = 2) {
@@ -51,6 +52,7 @@ export default class Body {
         this.animate.frame = frame;
         this.rate = rate;
         this.animate.rate = rate;
+
     }
 
 
@@ -63,7 +65,7 @@ export default class Body {
             this.animate.loadImg(p5, this.imgArr);
         }
         this.speedMonster = this.percent(this.speedMonster / 2);
-        this.speedMonster = this.percent(this.speedMonster / 2);
+        this.gravityStab = this.percent(this.gravityStab / 2);
         this.attack = this.percent(this.attack / 2);
     }
 
@@ -107,8 +109,16 @@ export default class Body {
         try {
             w = this.scena.size(w, this.scena.scale);
             h = this.scena.size(h, this.scena.scale);
-
-            this.body.filter((f) => f.remove === false).forEach((b, i) => p5.image(this.animate.spriteArr(p5, b.countImg), (b.position.x - b.width / 2) - w / 2, (b.position.y - b.height / 2) - h / 2, b.width + w, b.height + h));
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+                p5.push();
+                p5.translate(b.position.x, b.position.y);
+                if(this.rotating){
+                    b.angle = -p5.atan2(b.vX,b.vY)
+                    p5.rotate(-p5.atan2(b.vX,b.vY));
+                }
+                p5.image(this.animate.spriteArr(p5, b.countImg), (-b.width / 2) - w / 2, (-b.height / 2) - h / 2, b.width + w, b.height + h);
+                p5.pop();
+            });
 
         } catch (error) {
 
@@ -165,12 +175,13 @@ export default class Body {
             activeB: 0,
             money: 0,
             countImg: 0,
-            direction:0,
-            vX:0,
-            vY:0,
+            direction: 0,
+            vX: 0,
+            vY: 0,
             collision: false,
             live: this.live,
             speedLive: this.speedLive,
+            speedBody: this.speedMonster,
             attack: this.attack,
             rotation: b.rotation,
             sprite: this.image,
@@ -412,7 +423,7 @@ export default class Body {
         }
     }
 
-    sprite(p5, n = 0,r = false) {
+    sprite(p5, n = 0, r = false) {
         if (this.world !== undefined) {
             p5.rectMode(p5.CENTER);
 
@@ -423,7 +434,7 @@ export default class Body {
                 p5.angleMode(p5.DEGREES);
                 this.body.filter((f) => f.remove === false).forEach((b) => {
                     p5.translate(b.position.x - b.width / 2, b.position.y - b.height / 2);
-                    r?p5.rotate(b.angle):p5.rotate(b.rotation);
+                    r ? p5.rotate(b.angle) : p5.rotate(b.rotation);
                     p5.image(this.animate.spriteArr(p5, b.countImg), 0, 0, b.width, b.height)
                 });
                 p5.pop();
@@ -433,49 +444,17 @@ export default class Body {
     }
 
     movementUpDown(p5) {
-        if(Array.isArray(this.body)){
-              this.body.filter((f) => f.remove === false).forEach((b, i) => {
-            let count = 0;
-            if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
-                count = p5.random(1, 3);
-                count = p5.floor(count)
-            }
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+                let count = 0;
+                if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
+                    count = p5.random(1, 3);
+                    count = p5.floor(count)
+                }
                 if (count === 1) {
                     Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster})
                 } else if (count === 2) {
                     Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster})
-                }
-
-
-        })
-        }
-      
-    }
-
-
-    movementLeftRight() {
-        function movie(b, s,g){
-            if (b.direction === 0) {
-                Matter.Body.setVelocity(b, {x: -s, y: g})
-            } else if (b.direction === 1) {
-                Matter.Body.setVelocity(b, {x: s, y: g})
-            }else {
-                Matter.Body.setVelocity(b, {x: -s, y: g})
-            }
-            if(Matter.Body.getVelocity(b).x > 0){
-                b.countImg = 1;
-            }else {
-                b.countImg = 0;
-            }
-        }
-        if (Array.isArray(this.body)) {
-            this.body.filter((f) => f.remove === false).forEach((b, i) => {
-
-                if(b.label !== "shark"){
-                    movie(b,this.speedMonster,this.gravityStab)
-                }
-                if(b.label === "shark" && b.collision === false){
-                    movie(b,this.speedMonster,this.gravityStab)
                 }
 
 
@@ -484,20 +463,77 @@ export default class Body {
 
     }
 
-    gravity(n = 2){
-        this.body.forEach((b)=>{
-                Matter.Body.setVelocity(b,{x:0,y:n});
+    moveView(n1 = 0, n2 = 1, n3 = 2, n4 = 3, n5 = 4) {
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+                if (Matter.Body.getVelocity(b).x < 0.1) {
+                    b.countImg = n1;
+                } else if (Matter.Body.getVelocity(b).x > 0.1) {
+                    b.countImg = n2;
+                } else if (Matter.Body.getVelocity(b).x > Matter.Body.getVelocity(b).y) {
+                    b.countImg = n1;
+                } else if (Matter.Body.getVelocity(b).y < 0.1) {
+                    b.countImg = n3;
+                } else if (Matter.Body.getVelocity(b).y > 0.1) {
+                    b.countImg = n4;
+                } else if (Matter.Body.getVelocity(b).y > Matter.Body.getVelocity(b).x) {
+                    b.countImg = n4;
+                } else if (Matter.Body.getVelocity(b).y === 0) {
+                    b.countImg = n5;
+                }
+            })
+        }
+    }
+
+    movementLeftRight(name) {
+        function movie(b, s, g) {
+            if (b.direction === 0) {
+                Matter.Body.setVelocity(b, {x: -s, y: g})
+            } else if (b.direction === 1) {
+                Matter.Body.setVelocity(b, {x: s, y: g})
+            } else {
+                Matter.Body.setVelocity(b, {x: -s, y: g})
+            }
+            if (Matter.Body.getVelocity(b).x > 0) {
+                b.countImg = 1;
+            } else {
+                b.countImg = 0;
+            }
+        }
+
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+
+                if (b.label !== name) {
+                    movie(b, this.speedMonster, this.gravityStab)
+                }
+                if (b.label === name && b.collision === false) {
+                    movie(b, this.speedMonster, this.gravityStab)
+                }
+
+
+            })
+        }
+
+    }
+
+    gravity() {
+        this.body.forEach((b, i) => {
+            if (b.collision === false) {
+                Matter.Body.setVelocity(b, {x: 0, y: this.gravityStab});
+            }
+
 
         })
     }
 
-    jamp(p5){
-        this.body.forEach((b)=>{
-           let count = p5.frameCount % 100
-            if(count > 50){
-                Matter.Body.setVelocity(b,{x:0,y:-this.speedMonster});
-            }else {
-                Matter.Body.setVelocity(b,{x:0,y:this.speedMonster * 2});
+    jamp(p5) {
+        this.body.forEach((b) => {
+            let count = p5.frameCount % 100
+            if (count > 50) {
+                Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster});
+            } else {
+                Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster * 2});
             }
             //
         })
@@ -507,21 +543,21 @@ export default class Body {
     movement() {
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
-                if(!b.collision){
+                if (!b.collision) {
                     if (b.direction === 0) {
                         Matter.Body.setVelocity(b, {x: -this.speedMonster, y: this.gravityStab})
                     } else if (b.direction === 1) {
                         Matter.Body.setVelocity(b, {x: this.speedMonster, y: this.gravityStab})
-                    }else if (b.direction === 2) {
+                    } else if (b.direction === 2) {
                         Matter.Body.setVelocity(b, {x: 0, y: this.speedMonster})
-                    }else if (b.direction === 3) {
+                    } else if (b.direction === 3) {
                         Matter.Body.setVelocity(b, {x: 0, y: -this.speedMonster})
-                    }else {
+                    } else {
                         Matter.Body.setVelocity(b, {x: -this.speedMonster, y: this.gravityStab})
                     }
-                    if(Matter.Body.getVelocity(b).x > 0 || Matter.Body.getVelocity(b).y > 0){
+                    if (Matter.Body.getVelocity(b).x > 0 || Matter.Body.getVelocity(b).y > 0) {
                         b.countImg = 1;
-                    }else {
+                    } else {
                         b.countImg = 0;
                     }
                 }
@@ -537,7 +573,7 @@ export default class Body {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
                 if (Matter.Body.getVelocity(b).x > 0) {
                     if (b.collision) {
-                      b.countImg = n1;
+                        b.countImg = n1;
                     }
 
                 } else {
@@ -565,19 +601,19 @@ export default class Body {
     }
 
     viewBubble() {
-        if(Array.isArray(this.body)){
-             this.body.filter((b) => b.remove === false).forEach((el) => {
-            this.bubble.view();
-        })
+        if (Array.isArray(this.body)) {
+            this.body.filter((b) => b.remove === false).forEach((el) => {
+                this.bubble.view();
+            })
         }
-       
+
 
     }
 
 
     viewXp(p5) {
         // p5.rectMode(p5.CORNER)
-        if (Array.isArray( this.body)) {
+        if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((el, i) => {
                 if (this.sensors) {
                     //  Matter.Body.setPosition(this.sensors[i],{x:el.position.x + 10 ,y:el.position.y });

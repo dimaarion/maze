@@ -1,83 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .App {
-  text-align: center;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.active {
+    position: fixed;
+    margin: auto;
+    top: -300px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
 
-.button {
-  position: fixed;
-}
-
-.react-p5 {
-  position: fixed;
-}
-
-.head-level {
-  margin: auto;
-  top: 3%;
-  left: 0;
-  right: 0;
-  font-size: 50pt;
-  color: #fff;
-}
-
-.body-level{
-  top: 20%;
-  padding-left: 80px;
-  padding-right: 80px;
-  cursor: pointer;
-}
-.tb-level{
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 50%;
-  height: 50%;
-  font-size: 45pt;
-  cursor: pointer;
-}
-.settings{
 
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.hidden{
+    display: none;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@media (max-width: 1400px) {
-  .head-level {font-size: 5vw;}
-  .tb-level{font-size: 4vw;}
-}
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.spinner{
+    width: 100%;
 }
