@@ -113,8 +113,10 @@ export default class Body {
                 p5.push();
                 p5.translate(b.position.x, b.position.y);
                 if(this.rotating){
-                    b.angle = -p5.atan2(b.vX,b.vY)
-                    p5.rotate(-p5.atan2(b.vX,b.vY));
+                    b.rotation = p5.atan2(b.vX,b.vY);
+                    b.angle = -b.rotation;
+                    p5.rotate(-b.rotation);
+
                 }
                 p5.image(this.animate.spriteArr(p5, b.countImg), (-b.width / 2) - w / 2, (-b.height / 2) - h / 2, b.width + w, b.height + h);
                 p5.pop();

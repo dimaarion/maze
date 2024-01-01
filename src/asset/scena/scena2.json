@@ -1025,12 +1025,12 @@
                  "height":30,
                  "id":383,
                  "name":"ocoptus",
-                 "rotation":0,
+                 "rotation":90,
                  "type":"alive",
                  "visible":true,
                  "width":30,
-                 "x":1210.66666666667,
-                 "y":565.333333333333
+                 "x":1137.33333333334,
+                 "y":558.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",

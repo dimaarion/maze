@@ -48,6 +48,7 @@ export default function Level(props) {
     ocoptus.static = false;
     ocoptus.gravityStab = 0.1
     ocoptus.rotating = true;
+
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)))
