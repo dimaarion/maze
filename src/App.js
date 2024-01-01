@@ -13,12 +13,11 @@ function App() {
   useEffect(() => {
     const timer = setInterval(() => {
      //setSeconds(seconds => seconds + 1);
-
       if(document.getElementsByTagName("canvas")[0]){
          document.querySelector("#loading").classList.remove("active");
          document.querySelector("#loading").classList.add("hidden");
       }else{
-          document.querySelector("#loading").classList.add("active");
+         document.querySelector("#loading").classList.add("active");
 
       }
 

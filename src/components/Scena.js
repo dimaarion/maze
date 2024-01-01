@@ -41,7 +41,7 @@ export default class Scena {
         return arrObject;
     }
 
-    getObjectsType(name, type) {
+    getObjectsNameType(name, type) {
         let layers = this.scena.layers;
         let nameObject = name;
         let arrObject = [];
@@ -50,6 +50,11 @@ export default class Scena {
             .filter((f) => f !== undefined);
         layersObjects.map((x, i) =>x.filter((f2) => f2.name === nameObject && f2.type === type).map((x2, j) => (arrObject[j] = x2)));
         return arrObject;
+    }
+    getObjectsType(type) {
+        let layers = this.scena.layers;
+        let layersObjects = layers.filter((f)=>f.type === type).map((x) => x);
+        return layersObjects;
     }
 
     getObject(name) {

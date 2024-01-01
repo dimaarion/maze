@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import Matter, {Engine, Composite, Events, Pair} from "matter-js";
+import Matter, {Engine, Composite, Events} from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
@@ -28,7 +27,6 @@ export default function Level(props) {
     const ladder = new Ladder("ladder");
     const point = new Body("point");
     const interFace = new Interface();
-    const fakel = new Body("fakel", ["./img/fakel/fakel.png"]);
     const stone = new Body("stone", ["./img/object/stone.png"]);
     const key = new Body("key", ["./img/object/key.png"]);
     const dor = new Body("dor", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
@@ -37,8 +35,8 @@ export default function Level(props) {
     const dorClose = new Body("dorClose", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
     const hp = new Body("hp", ["./img/object/hp.png"]);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
-    const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 4, 10);
-    const ocoptus = new Body("ocoptus",["./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png","./img/object/ocoptus.png"],60);
+    const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 60, 1);
+    const ocoptus = new Body("ocoptus",["./img/object/ocoptusPasive.png","./img/object/ocoptus.png","./img/object/ocoptusAttack.png"],60);
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
@@ -51,7 +49,8 @@ export default function Level(props) {
 
     const preload = (p5) => {
 
-        tileMap.map((el) => el.map((map) => map.preloadImage(p5)))
+        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
+        tileMap.map((el) => el.filter((f)=>f.scena.level === player.level).map((map) => map.loadBg(p5,"bgTest")))
         player.loadImg(p5);
         money.loadImg(p5);
         ladder.loadImg(p5);
@@ -255,13 +254,21 @@ export default function Level(props) {
                     })
                     pair.bodyB.vX = pos.x;
                     pair.bodyB.vY = pos.y;
+                    
                 }
             }
         }
 
-        function setSensor(pair, bol) {
-            if (pair.bodyB.typeObject === "alive" && pair.bodyA.typeObject === "alive") {
+        function setSensor(pair,name, ) {
+            if (pair.bodyB.label === "alive") {
 
+            }
+        }
+
+        function animationSprite(pair,name,n){
+            if (pair.bodyB.label === name) {
+                pair.bodyB.countImg = n;
+              //  pair.bodyA.countImg = n;
             }
         }
 
@@ -279,6 +286,7 @@ export default function Level(props) {
                 direction(pair, "fugu");
                 direction(pair, "ej");
                 direction(pair, "ocoptus");
+                
 
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
@@ -294,14 +302,17 @@ export default function Level(props) {
                 sensorAttack(pair, "shark", true,true,2);
                 sensorAttack(pair, "ej", true);
                 sensorAttack(pair, "ocoptus", true,true,1);
+                
 
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
+                    pair.bodyA.attackActive = true;
                     if (pair.bodyB.live > 5) {
                         pair.bodyB.live -= pair.bodyA.attack;
                     }
                 }
                 if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
+                    pair.bodyB.attackActive = true;
                     if (pair.bodyA.live > 5) {
                         pair.bodyA.live -= pair.bodyB.attack;
                     }
@@ -320,7 +331,16 @@ export default function Level(props) {
                 sensorAttack(pair, "shark", false,true);
                 sensorAttack(pair, "ej", false);
                 sensorAttack(pair, "ocoptus", false,true);
-
+                
+                if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
+                    pair.bodyA.attackActive = false;
+                   
+                }
+                if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
+                    pair.bodyB.attackActive = false;
+                   
+                }
+                
             }
 
 
@@ -401,16 +421,15 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.view(p5)))
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView()));
         dor.sprite(p5);
         dorClose.sprite(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()))
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
         bubble.view();
         stone.spriteAnimate(p5, stone.animate);
-        key.sprite(p5, 0);
+        key.spriteAnimateArr(p5);
         meduza.spriteAnimateArr(p5);
         player.draw(p5, world, press);
-        // platform.viewRect(p5)
         fugu.movementLeftRight();
         fugu.viewAttacks(3, 2)
         fugu.spriteAnimateArr(p5);
@@ -422,18 +441,15 @@ export default function Level(props) {
         hp.viewBubble();
         hp.sprite(p5);
         shark.movementLeftRight("shark");
-        shark.viewAttacks(2, 3)
+        shark.viewAttacks(2,3,2,3,0);
         shark.spriteAnimateArr(p5);
         ej.spriteAnimateArr(p5, 0, 10, 10);
-      //  ocoptus.moveView(0,1,2,3,4);
+        ocoptus.viewAttacks(1,1,2,2,0);
         ocoptus.spriteAnimateArr(p5);
-        ///ocoptus.movementLeftRight("ocoptus");
-
-
-        //  ej.gravity()
-
+        
 
         p5.pop();
+
         if (md.mobile()) {
             player.joystick.view(p5);
         }
