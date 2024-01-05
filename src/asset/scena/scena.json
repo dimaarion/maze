@@ -366,8 +366,8 @@
                  "type":"right",
                  "visible":true,
                  "width":13.5,
-                 "x":732.5,
-                 "y":104.5
+                 "x":683.166666666667,
+                 "y":135.166666666667
                 }, 
                 {
                  "height":135,
@@ -750,26 +750,32 @@
          "name":"dor",
          "objects":[
                 {
-                 "height":82,
+                 "height":150,
                  "id":308,
                  "name":"dorClose",
+                 "properties":[
+                        {
+                         "name":"img",
+                         "type":"file",
+                         "value":"..\/..\/..\/public\/img\/object\/dorClose.png"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":50,
-                 "x":795.738053637099,
-                 "y":81.645022586863
+                 "width":150,
+                 "x":697.404720303766,
+                 "y":364.645022586863
                 }, 
                 {
-                 "height":100,
+                 "height":150,
                  "id":327,
                  "name":"dor",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":50,
-                 "x":750.583333333333,
-                 "y":376.375
+                 "width":150,
+                 "x":847.916666666666,
+                 "y":401.708333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -814,8 +820,8 @@
                  "type":"player",
                  "visible":true,
                  "width":15.4814355984242,
-                 "x":768.130218451269,
-                 "y":120.136682816546
+                 "x":776.130218451269,
+                 "y":336.136682816546
                 }],
          "opacity":1,
          "properties":[
