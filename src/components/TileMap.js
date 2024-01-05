@@ -47,8 +47,9 @@ export default class TileMap {
 
     loadBg(p5) {
         this.imageObject = this.scena.getObjectsType("imagelayer");
-         this.imageBg = this.imageObject.map((el)=>p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")))
-    }
+        this.imageBg = this.imageObject.map((el)=>p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")))
+    console.log(this.imageBg)
+        }
 
     setup(p5, world, scena) {
         this.scena = scena;
@@ -123,7 +124,10 @@ export default class TileMap {
 
 
     imageBgView() {
-        this.imageBg.map((el,i)=>this.p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale),this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale),this.scena.size(el.width, this.scena.scale),this.scena.size(el.height, this.scena.scale))) 
+        if(Array.isArray(this.imageBg)){
+             this.imageBg.map((el,i)=>this.p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale),this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale),this.scena.size(el.width, this.scena.scale),this.scena.size(el.height, this.scena.scale))) 
+        }
+       
     }
 
     viewMap() {

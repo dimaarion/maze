@@ -217,14 +217,14 @@ export default class Body {
     }
 
     createBubble(p5, n) {
-        this.body.forEach((b) => {
+        this.body.forEach((b,i) => {
             this.bubble.parametr = 1;
-            this.bubble.x = b.position.x;
-            this.bubble.y = b.position.y;
-            this.bubble.xs = b.position.x;
-            this.bubble.ys = b.position.y;
+            this.bubble.x[i] = b.position.x;
+            this.bubble.y[i] = b.position.y;
+            this.bubble.xs[i] = b.position.x;
+            this.bubble.ys[i] = b.position.y;
             this.bubble.bubbleNum = n;
-            this.bubble.setup(p5, this.scena);
+            this.bubble.setup(p5, this.scena,i);
         })
     }
 
@@ -614,8 +614,8 @@ export default class Body {
 
     viewBubble() {
         if (Array.isArray(this.body)) {
-            this.body.filter((b) => b.remove === false).forEach((el) => {
-                this.bubble.view();
+            this.body.filter((b) => b.remove === false).forEach((el,i) => {
+                this.bubble.view(i);
             })
         }
 

@@ -7,13 +7,13 @@ export default class Bubble extends Action {
     p5;
     speed = 1;
     scena;
-    x = window.innerWidth;
-    y = window.innerHeight;
-    xs = 0;
-    ys = 0;
+    x = [window.innerWidth];
+    y = [window.innerHeight];
+    xs = [0];
+    ys = [0];
     parametr = 0
 
-    setup(p5, scena) {
+    setup(p5, scena,j) {
         this.p5 = p5;
         this.scena = scena;
     
@@ -21,8 +21,8 @@ export default class Bubble extends Action {
         //make random bubble objects {x,y,size,speed}
         for (var i = 0; i < this.bubbleNum; i++) {
             this.bubbles[i] = {
-                x: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale),this.scena.size(this.x, this.scena.scale)):this.p5.random(this.xs, this.x),
-                y: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale), this.scena.size(this.y, this.scena.scale)):this.p5.random(this.y),
+                x: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale),this.scena.size(this.x, this.scena.scale)):this.p5.random(this.xs[j], this.x[j]),
+                y: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale), this.scena.size(this.y, this.scena.scale)):this.p5.random(this.y[j]),
                 size: this.p5.random(3, 10),
                 speed: 0
             };
@@ -31,20 +31,20 @@ export default class Bubble extends Action {
     }
 
 
-    view() {
+    view(n) {
 
         this.bubbles.forEach((bub, index) => {
             this.moveBubbles(bub);
             if (bub.y < -10) {
-                this.newBubble(index)
+                this.newBubble(index,n)
             };
         });
     }
     //makes a new bubble at a specified index once its off screen
-    newBubble(index) {
+    newBubble(index,j) {
         this.bubbles[index] = {
-            x: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale),this.scena.size(this.x, this.scena.scale)):this.p5.random(this.xs, this.x),
-            y: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale), this.scena.size(this.y, this.scena.scale)):this.p5.random(this.y),
+            x: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale),this.scena.size(this.x, this.scena.scale)):this.p5.random(this.xs[j], this.x[j]),
+            y: this.parametr === 0?this.p5.random(this.scena.size(this.scena.scale), this.scena.size(this.y, this.scena.scale)):this.p5.random(this.y[j]),
             size: this.p5.random(3, 10),
             speed: 0
         };
