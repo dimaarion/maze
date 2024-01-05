@@ -24,24 +24,22 @@ export default function Level(props) {
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
-    const ladder = new Ladder("ladder");
     const point = new Body("point");
     const interFace = new Interface();
-    const stone = new Body("stone", ["./img/object/stone.png"]);
     const key = new Body("key", ["./img/object/key.png"]);
     const dor = new Body("dor", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
     const meduza = new Body("meduza", ["./img/object/meduza2.png"], 76);
-    const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 20);
+    const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 60);
     const dorClose = new Body("dorClose", ["./img/object/dorClose.png", "./img/object/dorOpen.png"]);
     const hp = new Body("hp", ["./img/object/hp.png"]);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
-    const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png"], 60, 1);
+    const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png","./img/object/shark/sharkAttack.png","./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus",["./img/object/ocoptusPasive.png","./img/object/ocoptus.png","./img/object/ocoptusAttack.png"],60);
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
-    player.level = 2;
+    player.level = 1;
     player.live = db.get().live;
     ocoptus.static = false;
     ocoptus.gravityStab = 0.1
@@ -50,11 +48,9 @@ export default function Level(props) {
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
-        tileMap.map((el) => el.filter((f)=>f.scena.level === player.level).map((map) => map.loadBg(p5,"bgTest")))
+        tileMap.map((el) => el.filter((f)=>f.scena.level === player.level).map((map) => map.loadBg(p5)))
         player.loadImg(p5);
         money.loadImg(p5);
-        ladder.loadImg(p5);
-        stone.preloadImage(p5);
         key.preloadImage(p5);
         dor.preloadImage(p5);
         dorClose.preloadImage(p5);
@@ -79,7 +75,6 @@ export default function Level(props) {
             point.createRect(world, el);
             platformB.createRect(world, el);
             platform.createRect(world, el);
-            ladder.setup(world, el);
             money.setup(world, el);
             key.sensor = true;
             key.createRect(world, el);
@@ -201,9 +196,9 @@ export default function Level(props) {
                 pair.bodyA.remove = true;
                 if (player.key === key.body.length) {
                     // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
-                    dor.body.forEach((el) => {
+                    dor.body.filter((f)=>f.label === "dor").forEach((el) => {
                         el.countImg = 1;
-                      //  el.isSensor = true;
+                        el.isSensor = true;
                     });
                 }
 
@@ -317,7 +312,7 @@ export default function Level(props) {
                         pair.bodyA.live -= pair.bodyB.attack;
                     }
                 }
-                attack(pair)
+
             }
         });
 
@@ -426,7 +421,6 @@ export default function Level(props) {
         dorClose.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
         bubble.view();
-        stone.spriteAnimate(p5, stone.animate);
         key.spriteAnimateArr(p5);
         meduza.spriteAnimateArr(p5);
         player.draw(p5, world, press);
@@ -441,9 +435,9 @@ export default function Level(props) {
         hp.viewBubble();
         hp.sprite(p5);
         shark.movementLeftRight("shark");
-        shark.viewAttacks(2,3,2,3,0);
-        shark.spriteAnimateArr(p5);
-        ej.spriteAnimateArr(p5, 0, 10, 10);
+        shark.viewAttacks(2,3,5,5);
+        shark.spriteAnimateArr(p5,20,10);
+        ej.spriteAnimateArr(p5,10, 10);
         ocoptus.viewAttacks(1,1,2,2,0);
         ocoptus.spriteAnimateArr(p5);
         

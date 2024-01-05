@@ -3,13 +3,14 @@ import Level from './components/Level';
 import scena_1 from "./asset/scena/scena.json";
 import scena_2 from "./asset/scena/scena2.json";
 import scena_3 from "./asset/scena/scena3.json"
+import Database from "./components/Database";
 import { useEffect, useState } from 'react';
 
 
 function App() {
   const [seconds, setSeconds] = useState(1);
   const [load, setLoad] = useState(0);
-
+let db = new Database();
   useEffect(() => {
     const timer = setInterval(() => {
      //setSeconds(seconds => seconds + 1);
@@ -30,6 +31,7 @@ function App() {
   return (
     <div className="App">
         <div id="loading" className={"active"}><img className={"spinner"} src={"./img/gui/spiner.gif"}/></div>
+        <div className={"position-absolute m-auto top-0 end-0 col-1"} onClick={()=>db.cleaner()}><img className={"w-100"} src={"./img/gui/buttons/click/restart.png"}/></div>
          <Level bg={[
             { scena: scena_1, level: 1, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"] },
             { scena: scena_2, level: 2, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"] },
