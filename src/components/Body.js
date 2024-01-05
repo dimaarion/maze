@@ -105,11 +105,11 @@ export default class Body {
     }
 
 
-    spriteAnimateArr(p5, n = 0, w = 0, h = 0) {
+    spriteAnimateArr(p5, w = 0, h = 0) {
         try {
             w = this.scena.size(w, this.scena.scale);
             h = this.scena.size(h, this.scena.scale);
-            this.body.filter((f) => f.remove === false).forEach((b, i) => {
+            this.body.filter((f) => f.remove === false && f.label === this.name).forEach((b, i) => {
                 p5.push();
                 p5.translate(b.position.x, b.position.y);
                 if (this.rotating && b.collision) {
