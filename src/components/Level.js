@@ -425,7 +425,7 @@ export default function Level(props) {
         player.draw(p5, world, press);
         fugu.movementLeftRight();
         fugu.viewAttacks(3, 2)
-        fugu.spriteAnimateArr(p5);
+        fugu.spriteAnimateArr(p5,20,20);
         fugu.viewXp(p5);
         meduza.movementUpDown(p5);
         meduza.viewXp(p5);

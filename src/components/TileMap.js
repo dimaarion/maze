@@ -47,8 +47,7 @@ export default class TileMap {
 
     loadBg(p5) {
         this.imageObject = this.scena.getObjectsType("imagelayer");
-        this.imageBg = this.imageObject.map((el)=>p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")))
-    console.log(this.imageBg)
+        this.imageBg = this.imageObject.map((el)=>p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")));
         }
 
     setup(p5, world, scena) {

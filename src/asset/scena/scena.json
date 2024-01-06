@@ -399,13 +399,13 @@
                  "y":505.870565353672
                 }, 
                 {
-                 "height":20,
+                 "height":30,
                  "id":324,
                  "name":"fugu",
                  "rotation":0,
                  "type":"alive",
                  "visible":true,
-                 "width":40,
+                 "width":30,
                  "x":358.56466288995,
                  "y":147.096183863115
                 }, 
