@@ -6,6 +6,7 @@ export default class Database{
         speed:1,
         attack:10,
         live:50,
+        speedLive:0.01,
         liveMax:50,
         x:0,
         y:0,
@@ -16,24 +17,6 @@ export default class Database{
         rightRest:"./img/player/rightRest.png",
         leftSwim:"./img/player/leftSwim.png",
         rightSwim:"./img/player/rightSwim.png",
-        money:0,
-        frame:6
-    },{
-        id:"meduza",
-        xp:100,
-        speed:1,
-        attack:20,
-        x:0,
-        y:0,
-        live:50,
-        liveMax:50,
-        width:20,
-        height:20,
-        level:1,
-        leftRest:"./img/object/meduza2.png",
-        rightRest:"./img/object/meduza2.png",
-        leftSwim:"./img/object/meduza2.png",
-        rightSwim:"./img/object/meduza2.png",
         money:0,
         frame:6
     }]

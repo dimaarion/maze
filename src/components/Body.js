@@ -115,8 +115,14 @@ export default class Body {
                 if (this.rotating && b.collision) {
                     b.rotation = -p5.atan2(b.vX, b.vY);
                 }
-                b.angle = b.rotation;
-                p5.rotate(b.rotation);
+                if(this.rotating){
+                    b.angle = b.rotation - 90;
+                    p5.rotate(b.rotation - 1.6);
+                }else {
+                    b.angle = b.rotation;
+                    p5.rotate(b.rotation);
+                }
+
                 p5.image(this.animate.spriteArr(p5, b.countImg), (-b.width / 2) - w / 2, (-b.height / 2) - h / 2, b.width + w, b.height + h);
                 p5.pop();
             });
@@ -418,9 +424,14 @@ export default class Body {
     viewRect(p5) {
         if (this.world !== undefined) {
             p5.rectMode(p5.CENTER);
+
             this.world.bodies
                 .filter((f) => f.label === this.name)
-                .map((b) => p5.rect(b.position.x, b.position.y, b.width, b.height));
+                .forEach((b) => {
+                    p5.translate(b.position.x, b.position.y);
+                    p5.rotate(b.rotation - 1.6)
+                    p5.rect(0, 0, b.width, b.height)
+                });
         }
     }
 
@@ -446,18 +457,14 @@ export default class Body {
 
     movementUpDown(p5) {
         if (Array.isArray(this.body)) {
-            this.body.filter((f) => f.remove === false).forEach((b, i) => {
-                let count = 0;
-                if (this.scena.size(this.getSpeed()[i], this.scena.scale) < 0.5) {
-                    count = p5.random(1, 3);
-                    count = p5.floor(count)
+            this.body.filter((f) => f.remove === false && f.label === this.name).forEach((b, i) => {
+                if(b.direction === 2){
+                    Matter.Body.setVelocity(b, { x: 0, y: this.gravityStab});
+                }else if(b.direction === 3){
+                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab});
+                }else {
+                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab});
                 }
-                if (count === 1) {
-                    Matter.Body.setVelocity(b, { x: 0, y: -this.speedMonster })
-                } else if (count === 2) {
-                    Matter.Body.setVelocity(b, { x: 0, y: this.speedMonster })
-                }
-
 
             })
         }
@@ -646,7 +653,7 @@ export default class Body {
                     p5.pop();
                 }
                 if (el.label === "player") {
-                    if (el.live < 10) {
+                    if (el.live < this.live) {
                         el.live += this.scena.size(el.speedLive, this.scena.scale)
                     }
                 }
@@ -700,6 +707,24 @@ export default class Body {
 
     }
 
+    recoveryLive(){
+        if (Array.isArray(this.body)) {
+            this.body.filter((f) => f.remove === false && f.label === this.name).forEach((el, i) => {
+                if (el.live < this.live) {
+                    el.live += this.scena.size(el.speedLive, this.scena.scale);
+                }
+            })
+        }
+        if (this.sensors) {
+            this.sensors.filter((f) => f.remove === false).forEach((b, i) => {
+                Matter.Body.setPosition(b, { x: this.body[i].position.x, y: this.body[i].position.y });
+            });
+            this.sensors.forEach((b, i) => {
+                    //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
+                }
+            )
+        }
+    }
 
     view() {
         if (Array.isArray(this.body)) {

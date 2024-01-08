@@ -29,22 +29,29 @@ export default function Level(props) {
     const key = new Body("key", ["./img/object/key.png"]);
     const dorClose = new Body("dorClose");
     const dor = new Body("dor", ["./img/Tiles/levelAClose.png", "./img/Tiles/levelAOpen.png"]);
-    const meduza = new Body("meduza", ["./img/object/meduza2.png"], 76);
+    const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 60);
     const hp = new Body("hp", ["./img/object/hp.png","./img/object/hp.png"],60);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
+    const ej2 = new Body("ej2", ["./img/object/еj/ej2.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
+    const kalmar = new Body("kalmar",["./img/object/kalmar/kalmarP.png","./img/object/kalmar/kalmarR.png","./img/object/kalmar/kalmarL.png","./img/object/kalmar/attackL.png"],60);
     let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
-    player.level = db.get().level;
+    player.level = 2;
     player.live = db.get().live;
+    player.speedLive = db.get().speedLive
     ocoptus.static = false;
     ocoptus.gravityStab = 0.1
     ocoptus.rotating = true;
-    dor.sensor = true
+    kalmar.rotating = true;
+    kalmar.static= false;
+    ej2.static = false;
+    meduza.gravityStab = 0.1
+    ej2.gravityStab = 0.1
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -61,6 +68,8 @@ export default function Level(props) {
         // shark.speedMonster = 0.5
         shark.preloadImage(p5);
         ocoptus.preloadImage(p5);
+        kalmar.preloadImage(p5);
+        ej2.preloadImage(p5);
 
 
     }
@@ -98,6 +107,8 @@ export default function Level(props) {
             ej.createRect(world, el);
             ocoptus.createEllipse(world, el);
             dorClose.createRect(world, el);
+            kalmar.createRect(world,el);
+            ej2.createEllipse(world,el);
             db.create(world, el);
 
 
@@ -137,7 +148,10 @@ export default function Level(props) {
         dor.animate.setupAnimate();
         shark.animate.setupAnimate();
         ej.animate.setupAnimate();
+        ej2.animate.setupAnimate();
         ocoptus.animate.setupAnimate();
+        kalmar.animate.setupAnimate();
+
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
@@ -196,10 +210,9 @@ export default function Level(props) {
                     // Matter.Body.setPosition(point.getTypeObject("level_2", 0), { x: point.getTypeObject("exit", 0).position.x, y: point.getTypeObject("exit", 0).position.y });
                     dor.body.filter((f) => f.label === "dor").forEach((el) => {
                         el.countImg = 1;
-                    });
-                    dorClose.body.filter((f) => f.label === "dorClose").forEach((el) => {
                         el.isSensor = true;
                     });
+
                 }
 
 
@@ -280,7 +293,10 @@ export default function Level(props) {
                 direction(pair, "shark");
                 direction(pair, "fugu");
                 direction(pair, "ej");
+                direction(pair, "ej2");
                 direction(pair, "ocoptus");
+                direction(pair,"meduza");
+                direction(pair,"kalmar");
 
 
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
@@ -297,7 +313,8 @@ export default function Level(props) {
                 sensorAttack(pair, "shark", true, true, 2);
                 sensorAttack(pair, "ej", true);
                 sensorAttack(pair, "ocoptus", true, true, 1);
-
+                sensorAttack(pair, "kalmar", true, true, 3);
+                sensorAttack(pair, "ej2", true, true, 3);
 
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
@@ -326,6 +343,8 @@ export default function Level(props) {
                 sensorAttack(pair, "shark", false, true);
                 sensorAttack(pair, "ej", false);
                 sensorAttack(pair, "ocoptus", false, true);
+                sensorAttack(pair, "kalmar", false, true);
+                sensorAttack(pair, "ej2", false, true);
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     pair.bodyA.attackActive = false;
@@ -416,20 +435,19 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView()));
-        dor.sprite(p5);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(dor.body[0].countImg + 1)));
+       // dor.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
         bubble.view();
         key.spriteAnimateArr(p5);
+        meduza.movementUpDown(p5)
         meduza.spriteAnimateArr(p5);
         player.draw(p5, world, press);
         fugu.movementLeftRight();
         fugu.viewAttacks(3, 2)
         fugu.spriteAnimateArr(p5,20,20);
         fugu.viewXp(p5);
-        meduza.movementUpDown(p5);
-        meduza.viewXp(p5);
-        player.viewXp(p5)
+        player.recoveryLive();
         money.draw(p5);
         hp.viewBubble();
         hp.spriteAnimateArr(p5);
@@ -439,6 +457,12 @@ export default function Level(props) {
         ej.spriteAnimateArr(p5, 10, 10);
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
         ocoptus.spriteAnimateArr(p5);
+        kalmar.viewAttacks(2,2,3,3);
+        kalmar.spriteAnimateArr(p5,50,50);
+        ej2.spriteAnimateArr(p5,10,10);
+ej2.gravity();
+
+
 
 
         p5.pop();

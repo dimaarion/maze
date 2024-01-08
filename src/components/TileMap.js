@@ -20,6 +20,7 @@ export default class TileMap {
     imgRez;
     imageObject = [{}];
     imageBg;
+
     // eslint-disable-next-line no-useless-constructor
     constructor(image, level, scena, id, bg) {
 
@@ -47,8 +48,8 @@ export default class TileMap {
 
     loadBg(p5) {
         this.imageObject = this.scena.getObjectsType("imagelayer");
-        this.imageBg = this.imageObject.map((el)=>p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")));
-        }
+        this.imageBg = this.imageObject.map((el) => p5.loadImage(el.image.replace(/\./g, "").replace(/\/{3}/, "").replace(/public/, ".").replace(/png/, ".png").replace(/jpg/, ".jpg")));
+    }
 
     setup(p5, world, scena) {
         this.scena = scena;
@@ -63,8 +64,6 @@ export default class TileMap {
             }
 
         }*/
-
-
 
 
     }
@@ -93,7 +92,7 @@ export default class TileMap {
         let index = 0;
 
         this.pI = this.p5.createImage(this.scena.scenaWidth, this.scena.scenaHeigiht, this.p5.RGBA);
-        let center = { x: this.scena.scenaWidth / 2, y: this.scena.scenaHeigiht / 2 }
+        let center = {x: this.scena.scenaWidth / 2, y: this.scena.scenaHeigiht / 2}
 
         this.scena.getObjectData(layers).map((el, i) => {
             col++;
@@ -117,16 +116,22 @@ export default class TileMap {
             }
         })
         this.imageView = this.pI
-     
+
     }
 
+    img(el,i) {
+        return this.p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale), this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale), this.scena.size(el.width, this.scena.scale), this.scena.size(el.height, this.scena.scale))
+
+    }
+    imageBgView(n) {
 
 
-    imageBgView() {
-        if(Array.isArray(this.imageBg)){
-             this.imageBg.map((el,i)=>this.p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale),this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale),this.scena.size(el.width, this.scena.scale),this.scena.size(el.height, this.scena.scale))) 
+        if (Array.isArray(this.imageBg)) {
+            this.imageBg.filter((f,j)=>j !== n).forEach((el, i) => {
+                        this.img(el,i);
+            })
         }
-       
+
     }
 
     viewMap() {
@@ -163,7 +168,6 @@ export default class TileMap {
         } catch (error) {
 
         }
-
 
 
     }

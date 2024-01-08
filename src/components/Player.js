@@ -64,8 +64,6 @@ export default class Player extends Body {
     animateLadderStatic = new Animate();
     // eslint-disable-next-line no-dupe-class-members
     joystick = new Joystick();
-    live = 50;
-    speedLive = 0.01;
     attack = 10
 
     // eslint-disable-next-line no-useless-constructor
