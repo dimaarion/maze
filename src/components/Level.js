@@ -11,9 +11,12 @@ import TileMap from "./TileMap";
 import Database from "./Database";
 import Bubble from "./Bubble";
 import Action from "./Action";
+import Timer from "./Timer";
 
 
 export default function Level(props) {
+    let simpleTimer;
+    let elapsedSeconds = 0;
     let engine;
     let world;
     let md = new mobile(window.navigator.userAgent);
@@ -31,27 +34,28 @@ export default function Level(props) {
     const dor = new Body("dor", ["./img/Tiles/levelAClose.png", "./img/Tiles/levelAOpen.png"]);
     const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 60);
-    const hp = new Body("hp", ["./img/object/hp.png","./img/object/hp.png"],60);
+    const hp = new Body("hp", ["./img/object/hp.png", "./img/object/hp.png"], 60);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
     const ej2 = new Body("ej2", ["./img/object/еj/ej2.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
-    const kalmar = new Body("kalmar",["./img/object/kalmar/kalmarP.png","./img/object/kalmar/kalmarR.png","./img/object/kalmar/kalmarL.png","./img/object/kalmar/attackL.png"],60);
+    const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
+    const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png"], 30);
     let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-
-    player.level = 2;
+    platform.static = true;
+    platformB.static = true;
+    player.level = db.get().level;
     player.live = db.get().live;
-    player.speedLive = db.get().speedLive
-    ocoptus.static = false;
+    player.speedLive = db.get().speedLive;
     ocoptus.gravityStab = 0.1
     ocoptus.rotating = true;
     kalmar.rotating = true;
-    kalmar.static= false;
-    ej2.static = false;
     meduza.gravityStab = 0.1
-    ej2.gravityStab = 0.1
+    ej2.gravityStab = 0.1;
+    crab.gravityStab = 0.1;
+    console.log(crab.direction)
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -70,6 +74,7 @@ export default function Level(props) {
         ocoptus.preloadImage(p5);
         kalmar.preloadImage(p5);
         ej2.preloadImage(p5);
+        crab.preloadImage(p5);
 
 
     }
@@ -107,8 +112,9 @@ export default function Level(props) {
             ej.createRect(world, el);
             ocoptus.createEllipse(world, el);
             dorClose.createRect(world, el);
-            kalmar.createRect(world,el);
-            ej2.createEllipse(world,el);
+            kalmar.createRect(world, el);
+            ej2.createEllipse(world, el);
+            crab.createRect(world, el);
             db.create(world, el);
 
 
@@ -127,13 +133,14 @@ export default function Level(props) {
             removeObject(engine, n - 1);
             createObject(scena, engine, n);
             player.key = 0;
-            window.localStorage.setItem("level", n)
             db.setLevel(n);
         }
     }
 
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+        simpleTimer = new Timer(p5,1000);
+        simpleTimer.start();
         scena.map((el) => el.create(p5));
         engine = Engine.create();
         world = engine.world;
@@ -141,16 +148,17 @@ export default function Level(props) {
         let mst = 0;
         let moneyCount = db.get().money;
 
-        fugu.animate.setupAnimate();
-        meduza.animate.setupAnimate();
-        hp.animate.setupAnimate();
-        key.animate.setupAnimate();
-        dor.animate.setupAnimate();
-        shark.animate.setupAnimate();
-        ej.animate.setupAnimate();
-        ej2.animate.setupAnimate();
-        ocoptus.animate.setupAnimate();
-        kalmar.animate.setupAnimate();
+        fugu.setupAnimate(p5);
+        meduza.setupAnimate(p5);
+        hp.setupAnimate(p5);
+        key.setupAnimate(p5);
+        dor.setupAnimate(p5);
+        shark.setupAnimate(p5);
+        ej.setupAnimate(p5);
+        ej2.setupAnimate(p5);
+        ocoptus.setupAnimate(p5);
+        kalmar.setupAnimate(p5);
+        crab.setupAnimate(p5);
 
 
         function attack(pair) {
@@ -295,8 +303,9 @@ export default function Level(props) {
                 direction(pair, "ej");
                 direction(pair, "ej2");
                 direction(pair, "ocoptus");
-                direction(pair,"meduza");
-                direction(pair,"kalmar");
+                direction(pair, "meduza");
+                direction(pair, "kalmar");
+                direction(pair, "crab");
 
 
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
@@ -312,6 +321,7 @@ export default function Level(props) {
                 sensorAttack(pair, "fugu", true);
                 sensorAttack(pair, "shark", true, true, 2);
                 sensorAttack(pair, "ej", true);
+                sensorAttack(pair, "crab", true);
                 sensorAttack(pair, "ocoptus", true, true, 1);
                 sensorAttack(pair, "kalmar", true, true, 3);
                 sensorAttack(pair, "ej2", true, true, 3);
@@ -342,6 +352,7 @@ export default function Level(props) {
                 sensorAttack(pair, "fugu", false);
                 sensorAttack(pair, "shark", false, true);
                 sensorAttack(pair, "ej", false);
+                sensorAttack(pair, "crab", false);
                 sensorAttack(pair, "ocoptus", false, true);
                 sensorAttack(pair, "kalmar", false, true);
                 sensorAttack(pair, "ej2", false, true);
@@ -373,6 +384,7 @@ export default function Level(props) {
         })
 
         hp.createBubble(p5, 20);
+        crab.createBubble(p5,20)
     };
 
 
@@ -436,7 +448,7 @@ export default function Level(props) {
         p5.push();
         player.translates(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(dor.body[0].countImg + 1)));
-       // dor.sprite(p5);
+        // dor.sprite(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
         bubble.view();
         key.spriteAnimateArr(p5);
@@ -444,8 +456,8 @@ export default function Level(props) {
         meduza.spriteAnimateArr(p5);
         player.draw(p5, world, press);
         fugu.movementLeftRight();
-        fugu.viewAttacks(3, 2)
-        fugu.spriteAnimateArr(p5,20,20);
+        fugu.viewAttacks(3, 2,3,2);
+        fugu.spriteAnimateArr(p5, 20, 20);
         fugu.viewXp(p5);
         player.recoveryLive();
         money.draw(p5);
@@ -457,10 +469,15 @@ export default function Level(props) {
         ej.spriteAnimateArr(p5, 10, 10);
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
         ocoptus.spriteAnimateArr(p5);
-        kalmar.viewAttacks(2,2,3,3);
-        kalmar.spriteAnimateArr(p5,50,50);
-        ej2.spriteAnimateArr(p5,10,10);
-ej2.gravity();
+        kalmar.viewAttacks(2, 2, 3, 3);
+        kalmar.spriteAnimateArr(p5, 50, 50);
+        ej2.spriteAnimateArr(p5, 10, 10);
+        ej2.gravity();
+        crab.movementLeftRight(20);    
+        crab.spriteAnimateArr(p5, 20, 20);
+        crab.viewBubble()
+        crab.gravity();
+       
 
 
 
@@ -472,8 +489,28 @@ ej2.gravity();
         }
         interFace.view(p5, player, key, db);
 
+        updateTimer();
+        
 
+        p5.fill(255);
+        
+        p5.text(crab.elapsedSeconds, p5.width/2, p5.height/2);
     };
+
+
+    function restartTimer(n){
+        if(elapsedSeconds >= n){
+            elapsedSeconds = 0
+        }
+    }
+
+
+    function updateTimer() {
+        if( simpleTimer.expired() ) {
+            elapsedSeconds++;
+            simpleTimer.start();
+        }
+      }
 
 
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}

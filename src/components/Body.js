@@ -1,6 +1,7 @@
 import Matter from "matter-js";
 import Animate from "./Animate";
 import Bubble from "./Bubble";
+import Timer from "./Timer";
 
 export default class Body {
 
@@ -8,7 +9,7 @@ export default class Body {
     world;
     getObj;
     body;
-    static = true;
+    static = false;
     sensor = false;
     slope = 0.9;
     hit = false;
@@ -44,6 +45,8 @@ export default class Body {
     bubble = new Bubble();
     rotating = false;
     gravityStab = 0;
+    simpleTimer;
+    elapsedSeconds = 0;
 
     constructor(name, imgArr = [], frame = 0, rate = 2) {
         this.name = name;
@@ -67,6 +70,11 @@ export default class Body {
         this.speedMonster = this.percent(this.speedMonster / 2);
         this.gravityStab = this.percent(this.gravityStab / 2);
         this.attack = this.percent(this.attack / 2);
+    }
+
+    setupAnimate(p5) {
+        this.createTimer(p5, 1000);
+        this.animate.setupAnimate();
     }
 
     percent(n) {
@@ -115,18 +123,13 @@ export default class Body {
                 if (this.rotating && b.collision) {
                     b.rotation = -p5.atan2(b.vX, b.vY);
                 }
-                if(this.rotating){
-                    b.angle = b.rotation - 90;
-                    p5.rotate(b.rotation - 1.6);
-                }else {
-                    b.angle = b.rotation;
-                    p5.rotate(b.rotation);
-                }
 
+                b.angle = b.rotation;
+                p5.rotate(b.rotation);
                 p5.image(this.animate.spriteArr(p5, b.countImg), (-b.width / 2) - w / 2, (-b.height / 2) - h / 2, b.width + w, b.height + h);
                 p5.pop();
             });
-
+            this.updateTimer();
         } catch (error) {
 
         }
@@ -200,6 +203,25 @@ export default class Body {
         }
     }
 
+    createTimer(p5, duration, start = false) {
+        this.simpleTimer = new Timer(p5, duration, start);
+        this.simpleTimer.start();
+    }
+
+    restartTimer(n = 59) {
+        if (this.elapsedSeconds > n) {
+            this.elapsedSeconds = 1
+        }
+    }
+
+
+    updateTimer() {
+        if (this.simpleTimer.expired()) {
+            this.elapsedSeconds++;
+            this.simpleTimer.start();
+        }
+    }
+
 
     createRect(world, scena) {
         this.world = world;
@@ -223,14 +245,14 @@ export default class Body {
     }
 
     createBubble(p5, n) {
-        this.body.forEach((b,i) => {
+        this.body.forEach((b, i) => {
             this.bubble.parametr = 1;
             this.bubble.x[i] = b.position.x;
             this.bubble.y[i] = b.position.y;
             this.bubble.xs[i] = b.position.x;
             this.bubble.ys[i] = b.position.y;
             this.bubble.bubbleNum = n;
-            this.bubble.setup(p5, this.scena,i);
+            this.bubble.setup(p5, this.scena, i);
         })
     }
 
@@ -458,12 +480,12 @@ export default class Body {
     movementUpDown(p5) {
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false && f.label === this.name).forEach((b, i) => {
-                if(b.direction === 2){
-                    Matter.Body.setVelocity(b, { x: 0, y: this.gravityStab});
-                }else if(b.direction === 3){
-                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab});
-                }else {
-                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab});
+                if (b.direction === 2) {
+                    Matter.Body.setVelocity(b, { x: 0, y: this.gravityStab });
+                } else if (b.direction === 3) {
+                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab });
+                } else {
+                    Matter.Body.setVelocity(b, { x: 0, y: -this.gravityStab });
                 }
 
             })
@@ -495,7 +517,7 @@ export default class Body {
 
 
 
-    movementLeftRight(name) {
+    movementLeftRight(name, num = 2) {
         function movie(b, s, g) {
             if (b.direction === 0) {
                 Matter.Body.setVelocity(b, { x: -s, y: g })
@@ -511,11 +533,23 @@ export default class Body {
             }
         }
 
+        if (Number.isInteger(name)) {
+            this.restartTimer(name)
+        }
+
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
-
                 if (b.label !== name) {
-                    movie(b, this.speedMonster, this.gravityStab)
+                    if (Number.isInteger(name)) {
+                        if (this.elapsedSeconds < name / 2) {
+                            movie(b, this.speedMonster, this.gravityStab)
+                        }else{
+                            b.countImg = num;
+                        }
+                    }else{
+                        movie(b, this.speedMonster, this.gravityStab)
+                    }
+                    
                 }
                 if (b.label === name && b.collision === false) {
                     movie(b, this.speedMonster, this.gravityStab)
@@ -530,7 +564,7 @@ export default class Body {
     gravity() {
         this.body.forEach((b, i) => {
             if (b.collision === false) {
-                Matter.Body.setVelocity(b, { x: 0, y: this.gravityStab });
+                Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: this.gravityStab });
             }
 
 
@@ -597,7 +631,7 @@ export default class Body {
                             b.countImg = n4;
                         }
                     }
-                }else{
+                } else {
                     b.countImg = n5;
                 }
 
@@ -621,7 +655,7 @@ export default class Body {
 
     viewBubble() {
         if (Array.isArray(this.body)) {
-            this.body.filter((b) => b.remove === false).forEach((el,i) => {
+            this.body.filter((b) => b.remove === false).forEach((el, i) => {
                 this.bubble.view(i);
             })
         }
@@ -707,7 +741,7 @@ export default class Body {
 
     }
 
-    recoveryLive(){
+    recoveryLive() {
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false && f.label === this.name).forEach((el, i) => {
                 if (el.live < this.live) {
@@ -720,8 +754,8 @@ export default class Body {
                 Matter.Body.setPosition(b, { x: this.body[i].position.x, y: this.body[i].position.y });
             });
             this.sensors.forEach((b, i) => {
-                    //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
-                }
+                //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
+            }
             )
         }
     }
