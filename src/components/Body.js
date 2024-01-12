@@ -188,6 +188,7 @@ export default class Body {
             direction: 0,
             vX: 0,
             vY: 0,
+            defaultPosition:{x:scena.size(b.x, scena.scale),y:scena.size(b.y, scena.scale)},
             collision: false,
             live: this.live,
             speedLive: this.speedLive,
@@ -445,16 +446,15 @@ export default class Body {
     }
 
     viewRect(p5) {
-        if (this.world !== undefined) {
-            p5.rectMode(p5.CENTER);
 
-            this.world.bodies
-                .filter((f) => f.label === this.name)
-                .forEach((b) => {
-                    p5.translate(b.position.x, b.position.y);
-                    p5.rotate(b.rotation - 1.6)
-                    p5.rect(0, 0, b.width, b.height)
+        if (this.world !== undefined) {
+
+
+            this.body.forEach((b) => {
+                    p5.rectMode(p5.CENTER);
+                    p5.rect(b.position.x, b.position.y, b.width, b.height)
                 });
+
         }
     }
 
@@ -578,9 +578,9 @@ export default class Body {
             Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
         }
         if(name === "bubble"){
-            console.log(b.collision)
+
             if(b.collision){
-             Matter.Body.setPosition(b,{x:obj.body[i].position.x,y:obj.body[i].position.y - obj.body[i].height / 2})
+             Matter.Body.setPosition(b,{x:b.defaultPosition.x,y:b.defaultPosition.y})
             }else {
                 Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
             }

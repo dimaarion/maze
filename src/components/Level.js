@@ -60,6 +60,7 @@ export default function Level(props) {
     crab.gravityStab = 0.1;
     gubka.sensor = true;
     bubbleM.gravityStab = 0.5;
+    bubbleM.sensor = true;
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -483,6 +484,8 @@ export default function Level(props) {
         shark.viewAttacks(2, 3, 5, 5);
         shark.spriteAnimateArr(p5, 20, 10);
         ej.spriteAnimateArr(p5, 10, 10);
+        bubbleM.moveUp("bubble")
+
         gubka.spriteAnimateArr(p5);
         gubka.moveUp("move")
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
@@ -495,7 +498,6 @@ export default function Level(props) {
         crab.spriteAnimateArr(p5, 20, 20);
         crab.viewBubble()
         crab.gravity();
-        bubbleM.moveUp("bubble",gubka)
         bubbleM.viewRect(p5)
 
 
