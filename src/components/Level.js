@@ -1,4 +1,4 @@
-import Matter, { Engine, Composite, Events } from "matter-js";
+import Matter, {Engine, Composite, Events} from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
@@ -41,7 +41,10 @@ export default function Level(props) {
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
     const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
     const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png"], 30);
-    let press = { attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1 };
+    const gubka = new Body("gubka", ["./img/object/gubka.png"], 60)
+    const bubbleM = new Body("bubble");
+
+    let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
     platform.static = true;
@@ -55,7 +58,8 @@ export default function Level(props) {
     meduza.gravityStab = 0.1
     ej2.gravityStab = 0.1;
     crab.gravityStab = 0.1;
-    console.log(crab.direction)
+    gubka.sensor = true;
+    bubbleM.gravityStab = 0.5;
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -75,6 +79,8 @@ export default function Level(props) {
         kalmar.preloadImage(p5);
         ej2.preloadImage(p5);
         crab.preloadImage(p5);
+        gubka.preloadImage(p5);
+        bubbleM.preloadImage(p5);
 
 
     }
@@ -115,6 +121,8 @@ export default function Level(props) {
             kalmar.createRect(world, el);
             ej2.createEllipse(world, el);
             crab.createRect(world, el);
+            gubka.createRect(world, el);
+            bubbleM.createEllipse(world,el);
             db.create(world, el);
 
 
@@ -139,7 +147,7 @@ export default function Level(props) {
 
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-        simpleTimer = new Timer(p5,1000);
+        simpleTimer = new Timer(p5, 1000);
         simpleTimer.start();
         scena.map((el) => el.create(p5));
         engine = Engine.create();
@@ -159,6 +167,8 @@ export default function Level(props) {
         ocoptus.setupAnimate(p5);
         kalmar.setupAnimate(p5);
         crab.setupAnimate(p5);
+        gubka.setupAnimate(p5);
+        bubbleM.setupAnimate(p5)
 
 
         function attack(pair) {
@@ -307,6 +317,9 @@ export default function Level(props) {
                 direction(pair, "kalmar");
                 direction(pair, "crab");
 
+                if(pair.bodyB.label === "bubble" && pair.bodyA.label === "platform"){
+                    pair.bodyB.collision = true;
+                }
 
                 scena.filter((f) => f.level > 0).map((el) => collideLevel(removeObject, createObject, player, pair, el.level))
             }
@@ -365,6 +378,9 @@ export default function Level(props) {
                     pair.bodyB.attackActive = false;
 
                 }
+                if(pair.bodyB.label === "bubble" && pair.bodyA.label === "platform"){
+                    pair.bodyB.collision = false;
+                }
 
             }
 
@@ -384,7 +400,7 @@ export default function Level(props) {
         })
 
         hp.createBubble(p5, 20);
-        crab.createBubble(p5,20)
+        crab.createBubble(p5, 20)
     };
 
 
@@ -456,7 +472,7 @@ export default function Level(props) {
         meduza.spriteAnimateArr(p5);
         player.draw(p5, world, press);
         fugu.movementLeftRight();
-        fugu.viewAttacks(3, 2,3,2);
+        fugu.viewAttacks(3, 2, 3, 2);
         fugu.spriteAnimateArr(p5, 20, 20);
         fugu.viewXp(p5);
         player.recoveryLive();
@@ -467,55 +483,50 @@ export default function Level(props) {
         shark.viewAttacks(2, 3, 5, 5);
         shark.spriteAnimateArr(p5, 20, 10);
         ej.spriteAnimateArr(p5, 10, 10);
+        gubka.spriteAnimateArr(p5);
+        gubka.moveUp("move")
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
         ocoptus.spriteAnimateArr(p5);
         kalmar.viewAttacks(2, 2, 3, 3);
         kalmar.spriteAnimateArr(p5, 50, 50);
         ej2.spriteAnimateArr(p5, 10, 10);
         ej2.gravity();
-        crab.movementLeftRight(20);    
+        crab.movementLeftRight(20);
         crab.spriteAnimateArr(p5, 20, 20);
         crab.viewBubble()
         crab.gravity();
-       
-
-
+        bubbleM.moveUp("bubble",gubka)
+        bubbleM.viewRect(p5)
 
 
         p5.pop();
+
 
         if (md.mobile()) {
             player.joystick.view(p5);
         }
         interFace.view(p5, player, key, db);
-
         updateTimer();
-        
-
-        p5.fill(255);
-        
-        p5.text(crab.elapsedSeconds, p5.width/2, p5.height/2);
     };
 
 
-    function restartTimer(n){
-        if(elapsedSeconds >= n){
+    function restartTimer(n) {
+        if (elapsedSeconds >= n) {
             elapsedSeconds = 0
         }
     }
 
 
     function updateTimer() {
-        if( simpleTimer.expired() ) {
+        if (simpleTimer.expired()) {
             elapsedSeconds++;
             simpleTimer.start();
         }
-      }
+    }
 
 
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
-        keyReleased={keyReleased} preload={preload} draw={draw} />
-
+                   keyReleased={keyReleased} preload={preload} draw={draw}/>
 
 
 }

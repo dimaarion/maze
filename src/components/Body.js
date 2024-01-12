@@ -265,6 +265,7 @@ export default class Body {
         )
     }
 
+
     createPlayer(world, scena, n = 0) {
         this.scena = scena;
         this.world = world;
@@ -570,6 +571,24 @@ export default class Body {
 
         })
     }
+
+    moveUp(name,obj){
+        this.body.forEach((b, i) => {
+        if(name === "move"){
+            Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
+        }
+        if(name === "bubble"){
+            console.log(b.collision)
+            if(b.collision){
+             Matter.Body.setPosition(b,{x:obj.body[i].position.x,y:obj.body[i].position.y - obj.body[i].height / 2})
+            }else {
+                Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
+            }
+
+        }
+        })
+    }
+
 
     jamp(p5) {
         this.body.forEach((b) => {
