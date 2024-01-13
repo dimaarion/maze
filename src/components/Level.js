@@ -34,22 +34,23 @@ export default function Level(props) {
     const dor = new Body("dor", ["./img/Tiles/levelAClose.png", "./img/Tiles/levelAOpen.png"]);
     const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 60);
-    const hp = new Body("hp", ["./img/object/hp.png", "./img/object/hp.png"], 60);
+    const hp = new Body("hp", ["./img/object/hp.png", "./img/object/hp.png"]);
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
     const ej2 = new Body("ej2", ["./img/object/еj/ej2.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
     const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
     const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png"], 30);
-    const gubka = new Body("gubka", ["./img/object/gubka.png"], 60)
-    const bubbleM = new Body("bubble");
+    const gubka = new Body("gubka", ["./img/object/gubka2.png"])
+    const bubbleM = new Body("bubble",["./img/object/bubble/bubble.png"],60);
+    const chest = new Body("chest",["./img/object/chest/1.png","./img/object/chest/2.png"]);
 
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
     platform.static = true;
     platformB.static = true;
-    player.level = db.get().level;
+    player.level = 2;
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     ocoptus.gravityStab = 0.1
@@ -61,6 +62,8 @@ export default function Level(props) {
     gubka.sensor = true;
     bubbleM.gravityStab = 0.5;
     bubbleM.sensor = true;
+    chest.sensor = true;
+    dor.static = true;
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -82,6 +85,7 @@ export default function Level(props) {
         crab.preloadImage(p5);
         gubka.preloadImage(p5);
         bubbleM.preloadImage(p5);
+        chest.preloadImage(p5);
 
 
     }
@@ -122,10 +126,11 @@ export default function Level(props) {
             kalmar.createRect(world, el);
             ej2.createEllipse(world, el);
             crab.createRect(world, el);
+            crab.createAttack(5)
             gubka.createRect(world, el);
             bubbleM.createEllipse(world,el);
+            chest.createRect(world,el)
             db.create(world, el);
-
 
             return world;
         })
@@ -169,7 +174,8 @@ export default function Level(props) {
         kalmar.setupAnimate(p5);
         crab.setupAnimate(p5);
         gubka.setupAnimate(p5);
-        bubbleM.setupAnimate(p5)
+        bubbleM.setupAnimate(p5);
+        chest.setupAnimate(p5);
 
 
         function attack(pair) {
@@ -197,26 +203,15 @@ export default function Level(props) {
 
         function moneyStart(pair) {
             if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
-
-
                 moneyCount++
                 db.setMoney(moneyCount)
-
-                if (Number.isInteger(mst)) {
-                    mst = window.localStorage.getItem("money");
-                    // eslint-disable-next-line use-isnan
-                    mst = Number.parseInt(mst);
-                    mst++;
-                } else {
-                    mst = 0;
-                }
-                window.localStorage.setItem("money", mst);
-                player.money = window.localStorage.getItem("money");
-
                 Composite.remove(world, pair.bodyA)
                 pair.bodyA.remove = true;
-
-
+            }
+            if (pair.bodyA.label === "player" && pair.bodyB.label === "chest" && pair.bodyB.countImg === 0) {
+                moneyCount = moneyCount + pair.bodyB.width;
+                db.setMoney(moneyCount)
+                pair.bodyB.countImg = 1;
             }
         }
 
@@ -354,6 +349,13 @@ export default function Level(props) {
                     }
                 }
 
+                if (pair.bodyB.typeObject === "attack" && pair.bodyA.label === "player") {
+                    if (pair.bodyA.live > 5) {
+                        pair.bodyA.live -= pair.bodyB.attack;
+                    }
+                }
+
+
             }
         });
 
@@ -485,20 +487,22 @@ export default function Level(props) {
         shark.spriteAnimateArr(p5, 20, 10);
         ej.spriteAnimateArr(p5, 10, 10);
         bubbleM.moveUp("bubble")
-
+        bubbleM.spriteAnimateArr(p5);
         gubka.spriteAnimateArr(p5);
         gubka.moveUp("move")
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
-        ocoptus.spriteAnimateArr(p5);
+        ocoptus.spriteAnimateArr(p5,30,30);
         kalmar.viewAttacks(2, 2, 3, 3);
         kalmar.spriteAnimateArr(p5, 50, 50);
         ej2.spriteAnimateArr(p5, 10, 10);
         ej2.gravity();
-        crab.movementLeftRight(20);
+        crab.movementLeftRight("timer");
+        crab.attackBodyView(p5,"timer")
         crab.spriteAnimateArr(p5, 20, 20);
         crab.viewBubble()
         crab.gravity();
-        bubbleM.viewRect(p5)
+
+        chest.spriteAnimateArr(p5);
 
 
         p5.pop();

@@ -85,7 +85,7 @@ export default class Interface {
             p5.noStroke();
             p5.fill(255)
             p5.textSize(this.scene.size(5, this.scene.scale))
-            p5.text(db.get().money,this.scene.size(48, this.scene.scale),this.scene.size(6.5, this.scene.scale))
+            p5.text(p5.round(db.get().money),this.scene.size(48, this.scene.scale),this.scene.size(6.5, this.scene.scale))
             p5.text(db.get().level,this.scene.size(27.5, this.scene.scale),this.scene.size(6.5, this.scene.scale))
             p5.pop();
             this.playerImg.spriteView(p5, this.scene.size(1, this.scene.scale), this.scene.size(1, this.scene.scale), this.scene.size(25, this.scene.scale), this.scene.size(25, this.scene.scale))

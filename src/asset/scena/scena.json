@@ -16,7 +16,7 @@
         }, 
         {
          "id":43,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelAClose.png",
+         "image":"..\/..\/..\/public\/img\/Tiles\/levelAOpen.png",
          "name":"bg2",
          "offsetx":1,
          "offsety":1,
@@ -79,26 +79,26 @@
                  "y":69.5128314563874
                 }, 
                 {
-                 "height":39.794734397624,
+                 "height":23.1280677309574,
                  "id":309,
                  "name":"platform",
                  "rotation":0,
                  "type":"top",
                  "visible":true,
-                 "width":485.298163131934,
-                 "x":366.691550230927,
-                 "y":200.739668671457
+                 "width":480.298163131934,
+                 "x":371.691550230927,
+                 "y":208.739668671457
                 }, 
                 {
-                 "height":32.4614010642907,
+                 "height":17.4614010642907,
                  "id":310,
                  "name":"platform",
                  "rotation":0,
                  "type":"bottom",
                  "visible":true,
-                 "width":509.164850445976,
-                 "x":188.941075949171,
-                 "y":309.231964171254
+                 "width":469.831517112643,
+                 "x":200.607742615838,
+                 "y":324.231964171254
                 }, 
                 {
                  "height":26.4614010642907,
@@ -123,15 +123,15 @@
                  "y":548.168411611006
                 }, 
                 {
-                 "height":148.866438797157,
+                 "height":131.533105463824,
                  "id":314,
                  "name":"platform",
                  "rotation":0,
                  "type":"left",
                  "visible":true,
-                 "width":28.5636686637365,
+                 "width":22.5636686637365,
                  "x":215.516616133682,
-                 "y":193.572184723197
+                 "y":210.90551805653
                 }, 
                 {
                  "height":98.2777013223568,
@@ -156,37 +156,37 @@
                  "y":110.532849082387
                 }, 
                 {
-                 "height":167.866,
+                 "height":127.199333333333,
                  "id":357,
                  "name":"platform",
                  "rotation":0,
                  "type":"right",
                  "visible":true,
-                 "width":28.5637,
-                 "x":186.21815,
-                 "y":192.567
+                 "width":14.2303666666667,
+                 "x":200.551483333333,
+                 "y":222.233666666667
                 }, 
                 {
-                 "height":32.4614,
+                 "height":24.7947333333333,
                  "id":358,
                  "name":"platform",
                  "rotation":0,
                  "type":"top",
                  "visible":true,
-                 "width":509.832,
-                 "x":188.584,
+                 "width":458.832,
+                 "x":212.250666666667,
                  "y":331.2693
                 }, 
                 {
-                 "height":9.86599999999999,
+                 "height":4.19933333333331,
                  "id":359,
                  "name":"platform",
                  "rotation":0,
                  "type":"bottom",
                  "visible":true,
-                 "width":58.5637,
-                 "x":184.71815,
-                 "y":186.317
+                 "width":25.8970333333334,
+                 "x":208.384816666667,
+                 "y":209.650333333333
                 }, 
                 {
                  "height":19.1280666666667,
@@ -374,8 +374,8 @@
                  "type":"right",
                  "visible":true,
                  "width":13.5,
-                 "x":688.25,
-                 "y":474.791666666667
+                 "x":611.75,
+                 "y":472.791666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -785,7 +785,7 @@
          "name":"dor",
          "objects":[
                 {
-                 "height":65.5,
+                 "height":79,
                  "id":308,
                  "name":"dor",
                  "properties":[
@@ -798,8 +798,8 @@
                  "type":"",
                  "visible":true,
                  "width":24,
-                 "x":705.5,
-                 "y":484.5
+                 "x":617,
+                 "y":480
                 }, 
                 {
                  "gid":7,
@@ -990,7 +990,7 @@
          "y":0
         }],
  "nextlayerid":44,
- "nextobjectid":361,
+ "nextobjectid":362,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

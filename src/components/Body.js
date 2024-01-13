@@ -47,6 +47,7 @@ export default class Body {
     gravityStab = 0;
     simpleTimer;
     elapsedSeconds = 0;
+    timerActive = 20;
 
     constructor(name, imgArr = [], frame = 0, rate = 2) {
         this.name = name;
@@ -305,10 +306,14 @@ export default class Body {
         Matter.World.add(this.world, this.sensors);
     }
 
-    createAttack() {
+    createAttack(n) {
+        let a = [];
+        for (let i = 0; i < n; i++){
+            a[i] = i;
+        }
         this.countAttack++
         this.attackBody = this.body.map((b) => {
-            let bd = Matter.Bodies.circle(
+            let bd = a.map((el)=>Matter.Bodies.circle(
                 b.position.x,
                 b.position.y,
                 b.width / 5,
@@ -316,6 +321,7 @@ export default class Body {
                     width: b.width / 5,
                     height: b.height / 5,
                     isSensor: true,
+                    isStatic: false,
                     label: this.name + "_attack",
                     typeObject: "attack",
                     collision: false,
@@ -324,24 +330,14 @@ export default class Body {
                     remove: false,
                     attack: b.attack
                 }
-            )
+            ))
             this.bodies.push(bd);
             return bd;
         }
         )
 
-        Matter.World.add(this.world, this.attackBody);
+        Matter.World.add(this.world, this.attackBody[0]);
 
-
-        if (this.direction === 0 || this.direction === 1) {
-            Matter.Body.setVelocity(this.attackBody[0], { x: -10, y: 0 })
-        } else {
-            Matter.Body.setVelocity(this.attackBody[0], { x: 10, y: 0 })
-        }
-        if (this.countAttack > 1) {
-            //   Matter.Composite.remove(this.world,this.attackBody[this.countAttack - 1])
-            //  this.attackBody[this.countAttack - 1].remove = true
-        }
 
     }
 
@@ -534,15 +530,17 @@ export default class Body {
             }
         }
 
-        if (Number.isInteger(name)) {
-            this.restartTimer(name)
-        }
+    if (Number.isInteger(this.timerActive)) {
+        this.restartTimer(this.timerActive)
+    }
+
+
 
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
                 if (b.label !== name) {
-                    if (Number.isInteger(name)) {
-                        if (this.elapsedSeconds < name / 2) {
+                    if (Number.isInteger(this.timerActive) && name === "timer") {
+                        if (this.elapsedSeconds < this.timerActive / 2) {
                             movie(b, this.speedMonster, this.gravityStab)
                         }else{
                             b.countImg = num;
@@ -578,9 +576,8 @@ export default class Body {
             Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
         }
         if(name === "bubble"){
-
             if(b.collision){
-             Matter.Body.setPosition(b,{x:b.defaultPosition.x,y:b.defaultPosition.y})
+             Matter.Body.setPosition(b,{x:b.startX + b.width / 2,y:b.startY + b.width / 2})
             }else {
                 Matter.Body.setVelocity(b, { x: Matter.Body.getVelocity(b).x, y: -this.gravityStab });
             }
@@ -721,42 +718,41 @@ export default class Body {
                 }
                 )
             }
-            if (this.attackBody) {
-                this.attackBody.filter((f) => f.remove === false).forEach((b, i) => {
-                    if (this.press.attack === 0) {
-                        if (this.direction === 0 || this.direction === 1) {
-                            Matter.Body.setPosition(b, {
-                                x: this.body[i].position.x - this.scena.size(7, this.scena.scale),
-                                y: this.body[i].position.y + this.scena.size(2, this.scena.scale)
-                            });
-                        } else {
-                            Matter.Body.setPosition(b, {
-                                x: this.body[i].position.x + this.scena.size(7, this.scena.scale),
-                                y: this.body[i].position.y + this.scena.size(2, this.scena.scale)
-                            });
-                        }
-                    } else {
-                        //  Matter.Body.setVelocity(b,{x:-10,y:0})
-                    }
 
-                });
-                this.attackBody.filter((f) => f.remove === false).forEach((b, i) => {
-                    p5.push()
-                    p5.fill("green");
-                    p5.noStroke();
-                    if (this.direction === 0 || this.direction === 1) {
-                        p5.ellipse(b.position.x - this.scena.size(7, this.scena.scale), b.position.y + this.scena.size(2, this.scena.scale), b.width, b.height);
-                    } else {
-                        p5.ellipse(b.position.x + this.scena.size(7, this.scena.scale), b.position.y + this.scena.size(2, this.scena.scale), b.width, b.height);
-                    }
-
-                    p5.pop()
-                }
-                )
-            }
 
         }
 
+
+    }
+
+    attackBodyView(p5,t = "sensor"){
+        function movie(b,bd){
+            Matter.Body.setPosition(b,{x:p5.random(bd.position.x -  bd.width, bd.position.x + bd.width),y:p5.random(bd.position.y,bd.position.y - bd.width)})
+        }
+            this.attackBody.forEach((el, i) => {
+                el.forEach((b)=>{
+                        this.body.forEach((bd)=>{
+                            if(t === "sensor"){
+                                if(bd.collision === false){
+                                    Matter.Body.setPosition(b,{x:bd.position.x,y:bd.position.y})
+                                }else {
+                                    movie(b,bd)
+                                }
+                            }else if(t === "timer"){
+                                if (this.elapsedSeconds < this.timerActive / 2) {
+                                    movie(b,bd)
+                                }
+                                p5.push()
+                                p5.fill("Coral");
+                                p5.noStroke();
+                                p5.ellipse(b.position.x, b.position.y, b.width, b.height);
+                                p5.pop()
+                            }
+                        })
+                })
+
+                }
+            )
 
     }
 
