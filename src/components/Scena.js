@@ -4,7 +4,7 @@ export default class Scena {
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
-    scale = 15;
+    scale = 8;
     p5;
     img = [];
     level = 0;
