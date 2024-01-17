@@ -50,7 +50,7 @@ export default function Level(props) {
     const db = new Database();
     platform.static = true;
     platformB.static = true;
-    player.level = 2;
+    player.level = 1;
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     ocoptus.gravityStab = 0.1
