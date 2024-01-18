@@ -335,8 +335,10 @@ export default class Body {
             return bd;
         }
         )
+if(this.attackBody[0]){
+    Matter.World.add(this.world, this.attackBody[0]);
+}
 
-        Matter.World.add(this.world, this.attackBody[0]);
 
 
     }

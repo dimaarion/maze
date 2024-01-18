@@ -48,11 +48,11 @@ export default function Level(props) {
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-    platform.static = true;
-    platformB.static = true;
-    player.level = 1;
+    player.level = 4;
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
+    platform.static = true;
+    platformB.static = true;
     ocoptus.gravityStab = 0.1
     ocoptus.rotating = true;
     kalmar.rotating = true;
@@ -64,6 +64,14 @@ export default function Level(props) {
     bubbleM.sensor = true;
     chest.sensor = true;
     dor.static = true;
+    ej.sensor = true;
+    hp.sensor = true;
+    fugu.attack = fugu.attack + player.level * 2;
+    meduza.attack = meduza.attack + player.level
+    player.sensor = false;
+    player.sensorSize = 4;
+    point.sensor = true;
+    key.sensor = true;
     const preload = (p5) => {
 
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
@@ -94,32 +102,22 @@ export default function Level(props) {
     function createObject(scena, engine, n) {
         return scena.filter((f) => f.level === n).map((el) => {
             engine.gravity.y = 0;
+
             tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.createTile(map.id[i], "wall")));
-            point.sensor = true;
             point.createRect(world, el);
             platformB.createRect(world, el);
             platform.createRect(world, el);
             money.setup(world, el);
-            key.sensor = true;
             key.createRect(world, el);
-            player.defaultKey = key.body.length;
-            player.sensorSize = 4
             player.setup(world, el);
             player.createSensor();
             dor.createRect(world, el);
-            meduza.static = false;
-            meduza.attack = meduza.attack + el.level
             meduza.createEllipse(world, el);
-            fugu.static = false;
             fugu.createEllipse(world, el);
             fugu.createSensor();
-            fugu.attack = fugu.attack + el.level * 2;
-            hp.sensor = true;
             hp.createEllipse(world, el);
-            shark.static = false;
             shark.createRect(world, el);
             shark.createSensor();
-            ej.sensor = true;
             ej.createRect(world, el);
             ocoptus.createEllipse(world, el);
             dorClose.createRect(world, el);
@@ -131,7 +129,7 @@ export default function Level(props) {
             bubbleM.createEllipse(world,el);
             chest.createRect(world,el)
             db.create(world, el);
-
+            player.defaultKey = key.body.length;
             return world;
         })
     }
@@ -187,10 +185,7 @@ export default function Level(props) {
                         pair.bodyA.remove = true;
                     }
                 }
-                setTimeout(() => {
-                    Matter.Composite.remove(world, pair.bodyB);
-                    pair.bodyB.remove = true;
-                }, 10)
+
 
             }
 
@@ -203,10 +198,20 @@ export default function Level(props) {
 
         function moneyStart(pair) {
             if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
-                moneyCount++
-                db.setMoney(moneyCount)
-                Composite.remove(world, pair.bodyA)
-                pair.bodyA.remove = true;
+
+                if(pair.bodyA.label === "money"){
+                    Composite.remove(world, pair.bodyA)
+                     pair.bodyA.remove = true;
+                    moneyCount++
+                    db.setMoney(moneyCount)
+
+                }
+
+                 //   Matter.Body.setPosition(pair.bodyA,{x:-99999,y:-999999})
+                  //  Composite.remove(world, pair.bodyA)
+                   // pair.bodyA.remove = true;
+
+
             }
             if (pair.bodyA.label === "player" && pair.bodyB.label === "chest" && pair.bodyB.countImg === 0) {
                 moneyCount = moneyCount + pair.bodyB.width;
@@ -300,8 +305,8 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                attack(pair);
                 moneyStart(pair);
+                attack(pair);
                 keyStart(pair);
                 hpStart(pair);
                 direction(pair, "shark");
@@ -326,7 +331,7 @@ export default function Level(props) {
 
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
-
+                moneyStart(pair);
                 sensorAttack(pair, "fugu", true);
                 sensorAttack(pair, "shark", true, true, 2);
                 sensorAttack(pair, "ej", true);
@@ -483,7 +488,7 @@ export default function Level(props) {
         hp.viewBubble();
         hp.spriteAnimateArr(p5);
         shark.movementLeftRight("shark");
-        shark.viewAttacks(2, 3, 5, 5);
+        shark.viewAttacks(2, 3, 4, 5);
         shark.spriteAnimateArr(p5, 20, 10);
         ej.spriteAnimateArr(p5, 10, 10);
         bubbleM.moveUp("bubble")
@@ -501,7 +506,7 @@ export default function Level(props) {
         crab.spriteAnimateArr(p5, 20, 20);
         crab.viewBubble()
         crab.gravity();
-
+//platform.viewRect(p5)
         chest.spriteAnimateArr(p5);
 
 
