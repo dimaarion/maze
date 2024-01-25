@@ -18,7 +18,8 @@ export default class Database{
         leftSwim:"./img/player/leftSwim.png",
         rightSwim:"./img/player/rightSwim.png",
         money:0,
-        frame:6
+        frame:6,
+        key:0
     }]
 
     create(world,scene){
@@ -83,6 +84,17 @@ export default class Database{
         })
         if(window.localStorage.getItem("base")){
              return window.localStorage.setItem("base",JSON.stringify(this.base))
+        }else{
+            return [{}]
+        }
+    }
+
+    setKey(n){
+        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
+            el.key = n;
+        })
+        if(window.localStorage.getItem("base")){
+            return window.localStorage.setItem("base",JSON.stringify(this.base))
         }else{
             return [{}]
         }

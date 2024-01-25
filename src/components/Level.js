@@ -40,10 +40,17 @@ export default function Level(props) {
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
     const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
-    const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png"], 30);
+    const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png", "./img/object/vodovorot/1.png"], 30);
     const gubka = new Body("gubka", ["./img/object/gubka2.png"])
-    const bubbleM = new Body("bubble",["./img/object/bubble/bubble.png"],60);
-    const chest = new Body("chest",["./img/object/chest/1.png","./img/object/chest/2.png"]);
+    const bubbleM = new Body("bubble", ["./img/object/bubble/bubble.png"], 60);
+    const chest = new Body("chest", ["./img/object/chest/1.png", "./img/object/chest/2.png"]);
+    const food = new Body("food", ["./img/object/food/red.png"], 60);
+    const foodGreen = new Body("food", ["./img/object/food/green.png"], 60);
+    const ugri = new Body("ugri", ["./img/object/ugri/ugriL.png","./img/object/ugri/ugriR.png"], 60);
+    const anglerfish = new Body("anglerfish", ["./img/object/Anglerfish/left.png","./img/object/Anglerfish/right.png","./img/object/Anglerfish/leftA.png","./img/object/Anglerfish/rightA.png"], 60);
+    const goldFish = new Body("goldFish", ["./img/object/goldFish/left.png","./img/object/goldFish/right.png"], 60);
+
+
 
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
@@ -66,9 +73,6 @@ export default function Level(props) {
     dor.static = true;
     ej.sensor = true;
     hp.sensor = true;
-    fugu.attack = fugu.attack + player.level * 2;
-    meduza.attack = meduza.attack + player.level
-    player.sensor = false;
     player.sensorSize = 4;
     point.sensor = true;
     key.sensor = true;
@@ -94,7 +98,11 @@ export default function Level(props) {
         gubka.preloadImage(p5);
         bubbleM.preloadImage(p5);
         chest.preloadImage(p5);
-
+        food.preloadImage(p5);
+        foodGreen.preloadImage(p5);
+        ugri.preloadImage(p5);
+        anglerfish.preloadImage(p5);
+        goldFish.preloadImage(p5);
 
     }
 
@@ -124,17 +132,23 @@ export default function Level(props) {
             kalmar.createRect(world, el);
             ej2.createEllipse(world, el);
             crab.createRect(world, el);
-            crab.createAttack(5)
             gubka.createRect(world, el);
-            bubbleM.createEllipse(world,el);
-            chest.createRect(world,el)
+            bubbleM.createEllipse(world, el);
+            chest.createRect(world, el)
             db.create(world, el);
+            food.createFood("hp", world, el, platform, 10, 3);
+            foodGreen.createFood("hp", world, el, platform, 10, 3);
+            ugri.createRect(world,el);
+            anglerfish.createRect(world,el);
+            goldFish.createRect(world,el);
             player.defaultKey = key.body.length;
+
             return world;
         })
     }
 
     function removeObject(engine, n) {
+        console.log(engine.world.bodies.filter((f) => f.level === n))
         Composite.remove(world, engine.world.bodies.filter((f) => f.level === n))
     }
 
@@ -142,6 +156,7 @@ export default function Level(props) {
     function collideLevel(removeObject, createObject, player, pair, n) {
         if (pair.bodyA.typeObject === "level_" + n && pair.bodyB.label === "player") {
             player.level = n
+
             removeObject(engine, n - 1);
             createObject(scena, engine, n);
             player.key = 0;
@@ -174,24 +189,26 @@ export default function Level(props) {
         gubka.setupAnimate(p5);
         bubbleM.setupAnimate(p5);
         chest.setupAnimate(p5);
+        food.setupAnimate(p5);
+        foodGreen.setupAnimate(p5);
+        ugri.setupAnimate(p5);
+        anglerfish.setupAnimate(p5);
+        goldFish.setupAnimate(p5);
 
 
         function attack(pair) {
-            if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player_attack") {
-                if (pair.bodyA.live > 0) {
-                    pair.bodyA.live -= pair.bodyB.attack;
-                    if (pair.bodyA.live < 5) {
-                        Matter.Composite.remove(world, pair.bodyA);
-                        pair.bodyA.remove = true;
+            if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player") {
+                    if (pair.bodyB.live > 5) {
+                        pair.bodyB.live -= pair.bodyA.attack;
+                        pair.bodyA.attackActive = true;
                     }
-                }
-
-
             }
+            if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
+                    if (pair.bodyA.live > 5) {
+                        pair.bodyA.live -= pair.bodyB.attack;
+                        pair.bodyB.attackActive = true;
+                    }
 
-            if (pair.bodyB.label === "player_attack" && pair.bodyA.label === "platform") {
-                pair.bodyB.remove = true;
-                Matter.Composite.remove(world, pair.bodyB);
             }
         }
 
@@ -199,19 +216,13 @@ export default function Level(props) {
         function moneyStart(pair) {
             if (pair.bodyA.label === "money" && pair.bodyB.label === "player") {
 
-                if(pair.bodyA.label === "money"){
+                if (pair.bodyA.label === "money") {
                     Composite.remove(world, pair.bodyA)
-                     pair.bodyA.remove = true;
+                    pair.bodyA.remove = true;
                     moneyCount++
                     db.setMoney(moneyCount)
 
                 }
-
-                 //   Matter.Body.setPosition(pair.bodyA,{x:-99999,y:-999999})
-                  //  Composite.remove(world, pair.bodyA)
-                   // pair.bodyA.remove = true;
-
-
             }
             if (pair.bodyA.label === "player" && pair.bodyB.label === "chest" && pair.bodyB.countImg === 0) {
                 moneyCount = moneyCount + pair.bodyB.width;
@@ -248,41 +259,52 @@ export default function Level(props) {
                     pair.bodyA.live = db.get().liveMax;
                 }
             }
+            if (pair.bodyB.typeObject === "hp" && pair.bodyA.label === "player") {
+                pair.bodyA.live += action.percent(db.get().live, 10);
+                Composite.remove(world, pair.bodyB);
+                pair.bodyB.remove = true;
+                if (pair.bodyA.live > db.get().liveMax) {
+                    pair.bodyA.live = db.get().liveMax;
+                }
+            }
         }
 
-        function direction(pair, name) {
-            if (pair.bodyA.typeObject === "left" && pair.bodyB.label === name) {
+        function direction(pair) {
+            if (pair.bodyA.typeObject === "left" && pair.bodyB.typeObject === "alive") {
                 pair.bodyB.direction = 1;
 
             }
-            if (pair.bodyA.typeObject === "right" && pair.bodyB.label === name) {
+            if (pair.bodyA.typeObject === "right" && pair.bodyB.typeObject === "alive") {
                 pair.bodyB.direction = 0;
 
             }
-            if (pair.bodyA.typeObject === "top" && pair.bodyB.label === name) {
+            if (pair.bodyA.typeObject === "top" && pair.bodyB.typeObject === "alive") {
                 pair.bodyB.direction = 2;
 
             }
-            if (pair.bodyA.typeObject === "bottom" && pair.bodyB.label === name) {
+            if (pair.bodyA.typeObject === "bottom" && pair.bodyB.typeObject === "alive") {
                 pair.bodyB.direction = 3;
 
             }
         }
 
-        function sensorAttack(pair, name, bol, persecution = false, speedDop = 2) {
-            if ((pair.bodyB.label === name || pair.bodyB.label === name + "_sensor") && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+        function sensorAttack(pair, bol) {
+            if (pair.bodyB.typeObject === "alive" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
                 pair.bodyB.collision = bol;
-                if (persecution === true) {
-                    let pos = action.getPositions(p5, pair.bodyA.position.x, pair.bodyA.position.y, pair.bodyB.position.x, pair.bodyB.position.y);
-                    let speed = pair.bodyB.speedBody * speedDop;
-                    Matter.Body.setVelocity(pair.bodyB, {
-                        x: p5.constrain(pos.x, -speed, speed),
-                        y: p5.constrain(pos.y, -speed, speed)
-                    })
-                    pair.bodyB.vX = pos.x;
-                    pair.bodyB.vY = pos.y;
+            }
+        }
 
-                }
+        function persecution(pair,name,bol,speedDop = 2) {
+            if (pair.bodyB.label === name && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+                let pos = action.getPositions(p5, pair.bodyA.position.x, pair.bodyA.position.y, pair.bodyB.position.x, pair.bodyB.position.y);
+                let speed = pair.bodyB.speedBody * speedDop;
+                Matter.Body.setVelocity(pair.bodyB, {
+                    x: p5.constrain(pos.x, -speed, speed),
+                    y: p5.constrain(pos.y, -speed, speed)
+                })
+                pair.bodyB.vX = pos.x;
+                pair.bodyB.vY = pos.y;
+
             }
         }
 
@@ -305,20 +327,9 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
 
-                moneyStart(pair);
-                attack(pair);
-                keyStart(pair);
-                hpStart(pair);
-                direction(pair, "shark");
-                direction(pair, "fugu");
-                direction(pair, "ej");
-                direction(pair, "ej2");
-                direction(pair, "ocoptus");
-                direction(pair, "meduza");
-                direction(pair, "kalmar");
-                direction(pair, "crab");
+                direction(pair);
 
-                if(pair.bodyB.label === "bubble" && pair.bodyA.label === "platform"){
+                if (pair.bodyB.label === "bubble" && pair.bodyA.label === "platform") {
                     pair.bodyB.collision = true;
                 }
 
@@ -331,35 +342,15 @@ export default function Level(props) {
 
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
+                attack(pair);
                 moneyStart(pair);
-                sensorAttack(pair, "fugu", true);
-                sensorAttack(pair, "shark", true, true, 2);
-                sensorAttack(pair, "ej", true);
-                sensorAttack(pair, "crab", true);
-                sensorAttack(pair, "ocoptus", true, true, 1);
-                sensorAttack(pair, "kalmar", true, true, 3);
-                sensorAttack(pair, "ej2", true, true, 3);
-
-
-                if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
-                    pair.bodyA.attackActive = true;
-                    if (pair.bodyB.live > 5) {
-                        pair.bodyB.live -= pair.bodyA.attack;
-                    }
-                }
-                if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
-                    pair.bodyB.attackActive = true;
-                    if (pair.bodyA.live > 5) {
-                        pair.bodyA.live -= pair.bodyB.attack;
-                    }
-                }
-
-                if (pair.bodyB.typeObject === "attack" && pair.bodyA.label === "player") {
-                    if (pair.bodyA.live > 5) {
-                        pair.bodyA.live -= pair.bodyB.attack;
-                    }
-                }
-
+                hpStart(pair);
+                keyStart(pair);
+                sensorAttack(pair, true);
+                persecution(pair,"ej2",true,2);
+                persecution(pair,"shark",true,2);
+                persecution(pair,"ocoptus",true,2);
+                persecution(pair,"anglerfish",true,2);
 
             }
         });
@@ -369,14 +360,11 @@ export default function Level(props) {
 
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
-
-                sensorAttack(pair, "fugu", false);
-                sensorAttack(pair, "shark", false, true);
-                sensorAttack(pair, "ej", false);
-                sensorAttack(pair, "crab", false);
-                sensorAttack(pair, "ocoptus", false, true);
-                sensorAttack(pair, "kalmar", false, true);
-                sensorAttack(pair, "ej2", false, true);
+                sensorAttack(pair, false);
+                persecution(pair,"ej2",false,2)
+                persecution(pair,"shark",false,2)
+                persecution(pair,"ocoptus",false,2)
+                persecution(pair,"anglerfish",false,2)
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     pair.bodyA.attackActive = false;
@@ -386,7 +374,7 @@ export default function Level(props) {
                     pair.bodyB.attackActive = false;
 
                 }
-                if(pair.bodyB.label === "bubble" && pair.bodyA.label === "platform"){
+                if (pair.bodyB.label === "bubble" && pair.bodyA.label === "platform") {
                     pair.bodyB.collision = false;
                 }
 
@@ -482,7 +470,6 @@ export default function Level(props) {
         fugu.movementLeftRight();
         fugu.viewAttacks(3, 2, 3, 2);
         fugu.spriteAnimateArr(p5, 20, 20);
-        fugu.viewXp(p5);
         player.recoveryLive();
         money.draw(p5);
         hp.viewBubble();
@@ -496,23 +483,26 @@ export default function Level(props) {
         gubka.spriteAnimateArr(p5);
         gubka.moveUp("move")
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
-        ocoptus.spriteAnimateArr(p5,30,30);
+        ocoptus.spriteAnimateArr(p5, 30, 30);
         kalmar.viewAttacks(2, 2, 3, 3);
         kalmar.spriteAnimateArr(p5, 50, 50);
         ej2.spriteAnimateArr(p5, 10, 10);
         ej2.gravity();
         crab.movementLeftRight("timer");
-        crab.attackBodyView(p5,"timer")
         crab.spriteAnimateArr(p5, 20, 20);
-        crab.viewBubble()
         crab.gravity();
-//platform.viewRect(p5)
         chest.spriteAnimateArr(p5);
-
-
+        food.foodView();
+        foodGreen.foodView();
+        ugri.movementLeftRight();
+        ugri.spriteAnimateArr(p5,60,60);
+        anglerfish.viewAttacks(1,0,3,2)
+        anglerfish.movementLeftRight("anglerfish");
+        anglerfish.spriteAnimateArr(p5,60,60);
+        goldFish.movementLeftRight();
+        goldFish.spriteAnimateArr(p5,10,10);
+      //  platform.viewRect(p5)
         p5.pop();
-
-
         if (md.mobile()) {
             player.joystick.view(p5);
         }
