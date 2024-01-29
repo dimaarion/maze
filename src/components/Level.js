@@ -12,6 +12,7 @@ import Database from "./Database";
 import Bubble from "./Bubble";
 import Action from "./Action";
 import Timer from "./Timer";
+import Button from "./Button";
 
 
 export default function Level(props) {
@@ -23,12 +24,13 @@ export default function Level(props) {
     const scena = props.bg.map((el) => new Scena(el.scena, el.img, el.level, el.id, el.bg));
     const action = new Action();
     const bubble = new Bubble();
-    const player = new Player("player");
+    const player = new Player("player", ["./img/player/leftSwim.png", "./img/player/rightSwim.png", "./img/player/leftRest.png", "./img/player/rightRest.png", 6]);
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
     const point = new Body("point");
     const interFace = new Interface();
+    const mapsButton = new Button(95, 20, 5, 5, 0, "./img/gui/map.png");
     const key = new Body("key", ["./img/object/key.png"]);
     const dorClose = new Body("dorClose");
     const dor = new Body("dor", ["./img/Tiles/levelAClose.png", "./img/Tiles/levelAOpen.png"]);
@@ -46,16 +48,16 @@ export default function Level(props) {
     const chest = new Body("chest", ["./img/object/chest/1.png", "./img/object/chest/2.png"]);
     const food = new Body("food", ["./img/object/food/red.png"], 60);
     const foodGreen = new Body("food", ["./img/object/food/green.png"], 60);
-    const ugri = new Body("ugri", ["./img/object/ugri/ugriL.png","./img/object/ugri/ugriR.png"], 60);
-    const anglerfish = new Body("anglerfish", ["./img/object/Anglerfish/left.png","./img/object/Anglerfish/right.png","./img/object/Anglerfish/leftA.png","./img/object/Anglerfish/rightA.png"], 60);
-    const goldFish = new Body("goldFish", ["./img/object/goldFish/left.png","./img/object/goldFish/right.png"], 60);
-
+    const ugri = new Body("ugri", ["./img/object/ugri/ugriL.png", "./img/object/ugri/ugriR.png"], 60);
+    const anglerfish = new Body("anglerfish", ["./img/object/Anglerfish/left.png", "./img/object/Anglerfish/right.png", "./img/object/Anglerfish/leftA.png", "./img/object/Anglerfish/rightA.png"], 60);
+    const goldFish = new Body("goldFish", ["./img/object/goldFish/left.png", "./img/object/goldFish/right.png"], 60);
+    const blueSlime = new Body("blue-slime", ["./img/object/goldFish/right.png"], 13, 10);
 
 
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-    player.level = 4;
+    player.level = db.get().level;
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     platform.static = true;
@@ -76,11 +78,9 @@ export default function Level(props) {
     player.sensorSize = 4;
     point.sensor = true;
     key.sensor = true;
-    const preload = (p5) => {
 
-        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
-        tileMap.map((el) => el.map((map) => map.loadBg(p5)))
-        player.loadImg(p5);
+    function preloadObject(p5) {
+        player.preloadImage(p5);
         money.loadImg(p5);
         key.preloadImage(p5);
         dor.preloadImage(p5);
@@ -89,7 +89,6 @@ export default function Level(props) {
         fugu.preloadImage(p5);
         hp.preloadImage(p5);
         ej.preloadImage(p5);
-        // shark.speedMonster = 0.5
         shark.preloadImage(p5);
         ocoptus.preloadImage(p5);
         kalmar.preloadImage(p5);
@@ -103,6 +102,130 @@ export default function Level(props) {
         ugri.preloadImage(p5);
         anglerfish.preloadImage(p5);
         goldFish.preloadImage(p5);
+        blueSlime.preloadImage(p5);
+        mapsButton.loadImage(p5);
+    }
+
+    function createBody(world, el) {
+        point.createRect(world, el);
+        platformB.createRect(world, el);
+        platform.createRect(world, el);
+        money.setup(world, el);
+        key.createRect(world, el);
+        player.createEllipse(world,el);
+        player.createSensor();
+        player.createJoystick(el);
+        dor.createRect(world, el);
+        meduza.createEllipse(world, el);
+        fugu.createEllipse(world, el);
+        hp.createEllipse(world, el);
+        shark.createRect(world, el);
+        ej.createRect(world, el);
+        ocoptus.createEllipse(world, el);
+        dorClose.createRect(world, el);
+        kalmar.createRect(world, el);
+        ej2.createEllipse(world, el);
+        crab.createRect(world, el);
+        gubka.createRect(world, el);
+        bubbleM.createEllipse(world, el);
+        chest.createRect(world, el)
+        db.create(world, el);
+        food.createFood("hp", world, el, platform, 10, 3);
+        foodGreen.createFood("hp", world, el, platform, 10, 3);
+        ugri.createRect(world, el);
+        anglerfish.createRect(world, el);
+        goldFish.createRect(world, el);
+        blueSlime.createRect(world, el);
+    }
+
+    function createAnimate(p5) {
+        player.setupSprite(p5);
+        fugu.setupSprite(p5);
+         meduza.setupSprite(p5);
+         hp.setupSprite(p5);
+        key.setupSprite(p5);
+        dor.setupSprite(p5);
+        shark.setupSprite(p5);
+        ej.setupSprite(p5);
+        ej2.setupSprite(p5);
+        ocoptus.setupSprite(p5);
+        kalmar.setupSprite(p5);
+        crab.setupSprite(p5);
+        gubka.setupSprite(p5);
+        bubbleM.setupSprite(p5);
+        chest.setupSprite(p5);
+        food.setupSprite(p5);
+        foodGreen.setupSprite(p5);
+        ugri.setupSprite(p5);
+        anglerfish.setupSprite(p5);
+        goldFish.setupSprite(p5);
+        blueSlime.setupSprite(p5);
+        mapsButton.create(p5);
+    }
+
+    function view(p5) {
+        p5.background("aqua");
+        p5.rectMode(p5.CENTER);
+        p5.push();
+        player.translates(p5);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(dor.body[0].countImg + 1)));
+        // dor.sprite(p5);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
+        bubble.view();
+        key.spriteAnimateArr(p5);
+        meduza.movementUpDown(p5)
+        meduza.spriteAnimateArr(p5);
+       // player.draw(p5, world, press);
+       // player.spriteAnimateArr(p5);
+        fugu.movementLeftRight();
+        fugu.viewAttacks(3, 2, 3, 2);
+        fugu.spriteAnimateArr(p5, 20, 20);
+        player.recoveryLive();
+        money.draw(p5);
+        hp.viewBubble();
+        hp.spriteAnimateArr(p5);
+        shark.movementLeftRight("shark");
+        shark.viewAttacks(2, 3, 5, 4);
+        shark.spriteAnimateArr(p5, 20, 10);
+        ej.spriteAnimateArr(p5, 10, 10);
+        bubbleM.moveUp("bubble")
+        bubbleM.spriteAnimateArr(p5);
+        gubka.spriteAnimateArr(p5);
+        gubka.moveUp("move")
+        ocoptus.viewAttacks(1, 1, 2, 2, 0);
+        ocoptus.spriteAnimateArr(p5, 30, 30);
+        kalmar.viewAttacks(2, 2, 3, 3);
+        kalmar.spriteAnimateArr(p5, 50, 50);
+        ej2.spriteAnimateArr(p5, 10, 10);
+        ej2.gravity();
+        crab.movementLeftRight("timer");
+        crab.spriteAnimateArr(p5, 20, 20);
+        crab.gravity();
+        chest.spriteAnimateArr(p5);
+        food.foodView();
+        foodGreen.foodView();
+        ugri.movementLeftRight();
+        ugri.spriteAnimateArr(p5, 60, 60);
+        anglerfish.viewAttacks(1, 0, 3, 2)
+        anglerfish.movementLeftRight("anglerfish");
+        anglerfish.spriteAnimateArr(p5, 30, 30);
+        goldFish.movementLeftRight();
+        goldFish.spriteAnimateArr(p5, 10, 10);
+        blueSlime.spriteAnimateArr(p5, 0, 0);
+        //  platform.viewRect(p5)
+        p5.pop();
+        if (md.mobile()) {
+            player.joystick.view(p5);
+        }
+        interFace.view(p5, player, key, db);
+        updateTimer();
+    }
+
+    const preload = (p5) => {
+
+        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
+        tileMap.map((el) => el.map((map) => map.loadBg(p5)))
+        preloadObject(p5);
 
     }
 
@@ -111,36 +234,8 @@ export default function Level(props) {
         return scena.filter((f) => f.level === n).map((el) => {
             engine.gravity.y = 0;
 
-            tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.createTile(map.id[i], "wall")));
-            point.createRect(world, el);
-            platformB.createRect(world, el);
-            platform.createRect(world, el);
-            money.setup(world, el);
-            key.createRect(world, el);
-            player.setup(world, el);
-            player.createSensor();
-            dor.createRect(world, el);
-            meduza.createEllipse(world, el);
-            fugu.createEllipse(world, el);
-            fugu.createSensor();
-            hp.createEllipse(world, el);
-            shark.createRect(world, el);
-            shark.createSensor();
-            ej.createRect(world, el);
-            ocoptus.createEllipse(world, el);
-            dorClose.createRect(world, el);
-            kalmar.createRect(world, el);
-            ej2.createEllipse(world, el);
-            crab.createRect(world, el);
-            gubka.createRect(world, el);
-            bubbleM.createEllipse(world, el);
-            chest.createRect(world, el)
-            db.create(world, el);
-            food.createFood("hp", world, el, platform, 10, 3);
-            foodGreen.createFood("hp", world, el, platform, 10, 3);
-            ugri.createRect(world,el);
-            anglerfish.createRect(world,el);
-            goldFish.createRect(world,el);
+            // tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.createTile(map.id[i], "wall")));
+            createBody(world, el)
             player.defaultKey = key.body.length;
 
             return world;
@@ -174,40 +269,21 @@ export default function Level(props) {
         Engine.run(engine);
         let mst = 0;
         let moneyCount = db.get().money;
-
-        fugu.setupAnimate(p5);
-        meduza.setupAnimate(p5);
-        hp.setupAnimate(p5);
-        key.setupAnimate(p5);
-        dor.setupAnimate(p5);
-        shark.setupAnimate(p5);
-        ej.setupAnimate(p5);
-        ej2.setupAnimate(p5);
-        ocoptus.setupAnimate(p5);
-        kalmar.setupAnimate(p5);
-        crab.setupAnimate(p5);
-        gubka.setupAnimate(p5);
-        bubbleM.setupAnimate(p5);
-        chest.setupAnimate(p5);
-        food.setupAnimate(p5);
-        foodGreen.setupAnimate(p5);
-        ugri.setupAnimate(p5);
-        anglerfish.setupAnimate(p5);
-        goldFish.setupAnimate(p5);
+        createAnimate(p5);
 
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player") {
-                    if (pair.bodyB.live > 5) {
-                        pair.bodyB.live -= pair.bodyA.attack;
-                        pair.bodyA.attackActive = true;
-                    }
+                if (pair.bodyB.live > 5) {
+                    pair.bodyB.live -= pair.bodyA.attack;
+                    pair.bodyA.attackActive = true;
+                }
             }
             if (pair.bodyB.typeObject === "alive" && pair.bodyA.label === "player") {
-                    if (pair.bodyA.live > 5) {
-                        pair.bodyA.live -= pair.bodyB.attack;
-                        pair.bodyB.attackActive = true;
-                    }
+                if (pair.bodyA.live > 5) {
+                    pair.bodyA.live -= pair.bodyB.attack;
+                    pair.bodyB.attackActive = true;
+                }
 
             }
         }
@@ -228,6 +304,13 @@ export default function Level(props) {
                 moneyCount = moneyCount + pair.bodyB.width;
                 db.setMoney(moneyCount)
                 pair.bodyB.countImg = 1;
+            }
+            if (pair.bodyA.label === "player" && pair.bodyB.label === "goldFish") {
+                pair.bodyB.remove = true;
+                moneyCount = moneyCount + 100;
+                Composite.remove(world, pair.bodyB)
+                db.setMoney(moneyCount)
+
             }
         }
 
@@ -294,7 +377,7 @@ export default function Level(props) {
             }
         }
 
-        function persecution(pair,name,bol,speedDop = 2) {
+        function persecution(pair, name, bol, speedDop = 2) {
             if (pair.bodyB.label === name && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
                 let pos = action.getPositions(p5, pair.bodyA.position.x, pair.bodyA.position.y, pair.bodyB.position.x, pair.bodyB.position.y);
                 let speed = pair.bodyB.speedBody * speedDop;
@@ -347,10 +430,10 @@ export default function Level(props) {
                 hpStart(pair);
                 keyStart(pair);
                 sensorAttack(pair, true);
-                persecution(pair,"ej2",true,2);
-                persecution(pair,"shark",true,2);
-                persecution(pair,"ocoptus",true,2);
-                persecution(pair,"anglerfish",true,2);
+                persecution(pair, "ej2", true, 2);
+                persecution(pair, "shark", true, 2);
+                persecution(pair, "ocoptus", true, 2);
+                persecution(pair, "anglerfish", true, 2);
 
             }
         });
@@ -361,10 +444,10 @@ export default function Level(props) {
             for (let i = 0; i < pairs.length; i++) {
                 let pair = pairs[i];
                 sensorAttack(pair, false);
-                persecution(pair,"ej2",false,2)
-                persecution(pair,"shark",false,2)
-                persecution(pair,"ocoptus",false,2)
-                persecution(pair,"anglerfish",false,2)
+                persecution(pair, "ej2", false, 2)
+                persecution(pair, "shark", false, 2)
+                persecution(pair, "ocoptus", false, 2)
+                persecution(pair, "anglerfish", false, 2)
 
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     pair.bodyA.attackActive = false;
@@ -444,70 +527,19 @@ export default function Level(props) {
     }
 
     const mousePressed = (e) => {
-
+        mapsButton.mousePress();
 
     }
 
     const mouseReleased = () => {
-
+        mapsButton.mouseRelass(1)
     }
 
 
     const draw = (p5) => {
+        view(p5);
 
-        p5.background("aqua");
-        p5.rectMode(p5.CENTER);
-        p5.push();
-        player.translates(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(dor.body[0].countImg + 1)));
-        // dor.sprite(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
-        bubble.view();
-        key.spriteAnimateArr(p5);
-        meduza.movementUpDown(p5)
-        meduza.spriteAnimateArr(p5);
-        player.draw(p5, world, press);
-        fugu.movementLeftRight();
-        fugu.viewAttacks(3, 2, 3, 2);
-        fugu.spriteAnimateArr(p5, 20, 20);
-        player.recoveryLive();
-        money.draw(p5);
-        hp.viewBubble();
-        hp.spriteAnimateArr(p5);
-        shark.movementLeftRight("shark");
-        shark.viewAttacks(2, 3, 4, 5);
-        shark.spriteAnimateArr(p5, 20, 10);
-        ej.spriteAnimateArr(p5, 10, 10);
-        bubbleM.moveUp("bubble")
-        bubbleM.spriteAnimateArr(p5);
-        gubka.spriteAnimateArr(p5);
-        gubka.moveUp("move")
-        ocoptus.viewAttacks(1, 1, 2, 2, 0);
-        ocoptus.spriteAnimateArr(p5, 30, 30);
-        kalmar.viewAttacks(2, 2, 3, 3);
-        kalmar.spriteAnimateArr(p5, 50, 50);
-        ej2.spriteAnimateArr(p5, 10, 10);
-        ej2.gravity();
-        crab.movementLeftRight("timer");
-        crab.spriteAnimateArr(p5, 20, 20);
-        crab.gravity();
-        chest.spriteAnimateArr(p5);
-        food.foodView();
-        foodGreen.foodView();
-        ugri.movementLeftRight();
-        ugri.spriteAnimateArr(p5,60,60);
-        anglerfish.viewAttacks(1,0,3,2)
-        anglerfish.movementLeftRight("anglerfish");
-        anglerfish.spriteAnimateArr(p5,60,60);
-        goldFish.movementLeftRight();
-        goldFish.spriteAnimateArr(p5,10,10);
-      //  platform.viewRect(p5)
-        p5.pop();
-        if (md.mobile()) {
-            player.joystick.view(p5);
-        }
-        interFace.view(p5, player, key, db);
-        updateTimer();
+        mapsButton.draw(p5);
     };
 
 

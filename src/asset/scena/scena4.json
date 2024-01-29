@@ -2090,8 +2090,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":5,
-                 "x":231.833333333333,
-                 "y":338.833333333334
+                 "x":327.833333333333,
+                 "y":333.833333333334
                 }, 
                 {
                  "height":16.5,
@@ -2314,15 +2314,15 @@
                  "y":829.75
                 }, 
                 {
-                 "height":6,
+                 "height":0.772727272727252,
                  "id":603,
                  "name":"ugri",
                  "rotation":0,
                  "type":"alive",
                  "visible":true,
-                 "width":151,
-                 "x":100,
-                 "y":320
+                 "width":204.125,
+                 "x":122.454545454545,
+                 "y":347.954545454545
                 }, 
                 {
                  "height":40,
@@ -2332,8 +2332,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":40,
-                 "x":90,
-                 "y":338
+                 "x":315,
+                 "y":208
                 }, 
                 {
                  "height":24.3455,
@@ -2343,19 +2343,30 @@
                  "type":"alive",
                  "visible":true,
                  "width":60.8637,
-                 "x":279.56815,
-                 "y":443.82725
+                 "x":434.56815,
+                 "y":402.32725
                 }, 
                 {
                  "height":10,
                  "id":606,
                  "name":"goldFish",
                  "rotation":0,
-                 "type":"",
+                 "type":"alive",
                  "visible":true,
                  "width":10,
-                 "x":93,
-                 "y":244
+                 "x":92.5,
+                 "y":316
+                }, 
+                {
+                 "height":20,
+                 "id":607,
+                 "name":"blue-slime",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":20,
+                 "x":87.5,
+                 "y":276.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2795,7 +2806,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":607,
+ "nextobjectid":608,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

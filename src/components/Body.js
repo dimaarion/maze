@@ -76,7 +76,7 @@ export default class Body {
         this.attack = this.percent(this.attack / 2);
     }
 
-    setupAnimate(p5) {
+    setupSprite(p5) {
         this.p5 = p5;
         this.createTimer(p5, 1000);
         this.animate.setupAnimate();
@@ -310,7 +310,6 @@ export default class Body {
     createPlayer(world, scena, n = 0) {
         this.scena = scena;
         this.world = world;
-        this.animate.setupAnimate()
         if (scena.getObjects(this.name)) {
             this.getObj = scena.getObjects(this.name);
             this.body = this.getObj.filter((f, i) => i === n).map((b) => this.createBody(b, scena));

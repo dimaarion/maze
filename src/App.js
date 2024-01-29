@@ -9,32 +9,15 @@ import {useEffect, useState} from 'react';
 
 
 function App() {
-    const [seconds, setSeconds] = useState(1);
-    const [load, setLoad] = useState(0);
     let db = new Database();
-    useEffect(() => {
-        const timer = setInterval(() => {
-            //setSeconds(seconds => seconds + 1);
-            if (document.getElementsByTagName("canvas")[0]) {
-                document.querySelector("#loading").classList.remove("active");
-                document.querySelector("#loading").classList.add("hidden");
-            } else {
-                document.querySelector("#loading").classList.add("active");
-
-            }
-
-        }, 10);
-        // очистка интервала
-        return () => clearInterval(timer);
-    });
-
-
+let loadImg = <div id="loading" className={"active"}><img className={"spinner"} src={"./img/gui/spiner.gif"}/></div>;
     return (
         <div className="App">
-            <div id="loading" className={"active"}><img className={"spinner"} src={"./img/gui/spiner.gif"}/></div>
+            <div id="p5_loading" className="loadingclass">{loadImg}</div>
             <div className={"position-absolute m-auto top-0 end-0 col-1"} onClick={() => db.cleaner()}><img
                 className={"w-100"} src={"./img/gui/buttons/click/restart.png"}/></div>
-            <Level bg={[
+
+           <Level bg={[
                 {scena: scena_1, level: 1, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
                 {scena: scena_2, level: 2, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
                 {scena: scena_3, level: 3, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},

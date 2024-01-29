@@ -103,6 +103,11 @@ export default class Player extends Body {
         this.animateFiceRight.setupAnimate();
         this.animateRight.setupAnimate();
         this.animateFice.setupAnimate();
+       this.createJoystick(scena);
+    }
+
+
+    createJoystick(scena){
         this.body.map((b) => {
             return b.level = this.level;
         })
@@ -113,29 +118,10 @@ export default class Player extends Body {
         this.joystick.setup(this.xJ, this.yJ, scena.size(50,scena.scale));
     }
 
-
     draw(p5, world, press) {
         if (Array.isArray(this.body)) {
-
-            //  this.translate(world);
             this.setRotate(0);
-
-
-            if (this.collides(world, "platform_b", 0)) {
-                this.collidePlatform = this.collides(world, "platform_b", 0);
-            } else if (this.collides(world, "stone", 0)) {
-                this.collidePlatform = this.collides(world, "stone", 0);
-            } else {
-                this.collidePlatform = false;
-            }
-            this.collideKey = this.collides(world, "key", 0);
-            this.collideLadder = this.collides(world, "ladder", 0);
-            this.colldeLevel = this.collides(world, "level_2", 0);
-
             this.joystick.createJoystick(p5, this.xJ, this.yJ);
-
-
-
                 if (press.pressRight === "ArrowRight") {
                     if (press.pressUp === "ArrowUp") {
                         this.setVelosity(this.velocity, -this.gravity);
@@ -185,20 +171,6 @@ export default class Player extends Body {
             if (press.pressLeft === "ArrowLeft") {
                 this.direction = 1;
             }
-
-
-            if (this.direction === 0) {
-                this.spriteAnimate(p5, this.animateFice, this.width, this.height);
-            } else if (this.direction === 1 && this.getVelocity()[0].x === 0) {
-                this.spriteAnimate(p5, this.animateFiceLeft, this.width, this.height);
-            } else if (this.getVelocity()[0].x < 0) {
-                this.spriteAnimate(p5, this.animateleft, this.width, this.height);
-            } else if (this.direction === 2 && this.getVelocity()[0].x === 0) {
-                this.spriteAnimate(p5, this.animateFiceRight, this.width, this.height);
-            } else if (this.getVelocity()[0].x > 0) {
-                this.spriteAnimate(p5, this.animateRight, this.width, this.height);
-            }
-
 
             this.body.forEach((b, i) => {
                     b.level = this.level;

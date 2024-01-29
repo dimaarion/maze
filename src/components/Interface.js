@@ -36,10 +36,6 @@ export default class Interface {
     }
 
     loadImg(p5) {
-
-        //  this.headBarImg.animateLoad(p5, "./img/headBar/Stats_Bar.png");
-        //  this.moneyImg.animateLoad(p5, "./img/money/moneySt.png");
-        //  this.image.animateLoad(p5, this.img);
         this.playerImg.loadImg(p5);
         this.key.loadImg(p5);
         this.moneyImg.loadImg(p5);
