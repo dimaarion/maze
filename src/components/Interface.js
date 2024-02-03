@@ -2,6 +2,7 @@ import Animate from "./Animate";
 import mobile from "mobile-detect";
 import Scena from "./Scena";
 import Action from "./Action";
+import playerIcon from "../asset/scena/playerIion.json"
 
 
 export default class Interface {
@@ -29,6 +30,7 @@ export default class Interface {
     frameSettings;
     arrowLeftPlayer;
     arrowRightPlayer;
+    iconP = [];
 
     constructor(x, y, w, h, img = "") {
         this.x = x;
@@ -46,6 +48,7 @@ export default class Interface {
         this.frameSettings = p5.loadImage("./img/gui/frames/level select.png");
         this.arrowLeftPlayer = p5.loadImage("./img/gui/buttons/click/left.png");
         this.arrowRightPlayer = p5.loadImage("./img/gui/buttons/click/right.png");
+        this.iconP = playerIcon.map((el)=>p5.loadImage(el.img[0]));
     }
 
 
@@ -58,7 +61,7 @@ export default class Interface {
         if (!Number.isInteger(this.money)) {
             this.money = 0
         }
-       
+       console.log(this.iconP)
        
     }
 
@@ -102,5 +105,6 @@ export default class Interface {
         p5.image(this.frameSettings,this.scene.procentX(10),this.scene.size(30, this.scene.scale),this.scene.procentX(80),this.scene.size(100, this.scene.scale));
         p5.image(this.arrowLeftPlayer,this.scene.procentX(12),this.scene.size(35, this.scene.scale),this.scene.size(10, this.scene.scale),this.scene.size(10, this.scene.scale));
         p5.image(this.arrowRightPlayer,this.scene.procentX(85.5),this.scene.size(35, this.scene.scale),this.scene.size(10, this.scene.scale),this.scene.size(10, this.scene.scale));
+   // this.iconP.map((el,i)=>p5.image(el,this.scene.procentX(85.5 + i * 2),this.scene.size(35, this.scene.scale),this.scene.size(10, this.scene.scale),this.scene.size(10, this.scene.scale)))
     }
 }
