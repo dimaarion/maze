@@ -127,7 +127,7 @@ export default class TileMap {
 
 
         if (Array.isArray(this.imageBg)) {
-            this.imageBg.filter((f,j)=>j !== n).forEach((el, i) => {
+            this.imageBg.forEach((el, i) => {
                         this.img(el,i);
             })
         }

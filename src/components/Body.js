@@ -93,6 +93,7 @@ export default class Body {
     percentY(n) {
         return window.innerHeight * n / 100;
     }
+
     percentSceneX(n) {
         return this.scena.scenaWidth * n / 100;
     }
@@ -263,13 +264,13 @@ export default class Body {
         let a = this.action.arrayCount(n);
 
         this.food = a.map((b) => Matter.Bodies.circle(
-          this.p5.random( obj.body[this.p5.floor(this.p5.random(0,obj.body.length - 1))].position.x,obj.body[obj.body.length - 1].position.x),
-            this.p5.random( obj.body[this.p5.floor(this.p5.random(0,obj.body.length - 1))].position.y,obj.body[obj.body.length - 1].position.y),
+            this.p5.random(obj.body[this.p5.floor(this.p5.random(0, obj.body.length - 1))].position.x, obj.body[obj.body.length - 1].position.x),
+            this.p5.random(obj.body[this.p5.floor(this.p5.random(0, obj.body.length - 1))].position.y, obj.body[obj.body.length - 1].position.y),
             scena.size(r, scena.scale),
             {
                 width: scena.size(r, scena.scale),
                 label: this.name,
-                level:scena.level,
+                level: scena.level,
                 typeObject: type,
                 collision: false,
                 remove: false
@@ -279,10 +280,13 @@ export default class Body {
     }
 
 
-    foodView(){
-       this.food.filter((f)=>f.remove === false).forEach((b)=>{
-           this.p5.image(this.animate.sprite(this.p5),b.position.x - b.width / 2,b.position.y - b.width / 2,b.width * 2,b.width * 2)
-       })
+    foodView() {
+        if(Array.isArray(this.food)){
+            this.food.filter((f) => f.remove === false).forEach((b) => {
+                this.p5.image(this.animate.sprite(this.p5), b.position.x - b.width / 2, b.position.y - b.width / 2, b.width * 2, b.width * 2)
+            })
+        }
+
     }
 
     createBubble(p5, n) {
@@ -329,7 +333,7 @@ export default class Body {
                         height: b.height * this.sensorSize,
                         isSensor: true,
                         label: this.name + "_sensor",
-                        level:this.scena.level,
+                        level: this.scena.level,
                         typeObject: "sensor",
                         collision: false,
                         startX: b.startX,
@@ -345,7 +349,7 @@ export default class Body {
         Matter.World.add(this.world, this.sensors);
     }
 
-    createAttack(n,x = 0,w = 2) {
+    createAttack(n, x = 0, w = 2) {
 
         let a = [];
         for (let i = 0; i < n; i++) {
@@ -366,7 +370,7 @@ export default class Body {
                         label: this.name + "_attack",
                         typeObject: "attack",
                         collision: false,
-                        level:this.scena.level,
+                        level: this.scena.level,
                         startX: b.startX,
                         startY: b.startY,
                         remove: false,
@@ -602,29 +606,34 @@ export default class Body {
     }
 
     gravity() {
-        this.body.forEach((b, i) => {
-            if (b.collision === false) {
-                Matter.Body.setVelocity(b, {x: Matter.Body.getVelocity(b).x, y: this.gravityStab});
-            }
+        if (Array.isArray(this.body)) {
+            this.body.forEach((b, i) => {
+                if (b.collision === false) {
+                    Matter.Body.setVelocity(b, {x: Matter.Body.getVelocity(b).x, y: this.gravityStab});
+                }
 
 
-        })
+            })
+        }
     }
 
     moveUp(name, obj) {
-        this.body.forEach((b, i) => {
-            if (name === "move") {
-                Matter.Body.setVelocity(b, {x: Matter.Body.getVelocity(b).x, y: -this.gravityStab});
-            }
-            if (name === "bubble") {
-                if (this.collides(this.world,"platform",i)) {
-                    Matter.Body.setPosition(b, {x: b.startX + b.width / 2, y: b.startY + b.width / 2})
-                } else {
+        if (Array.isArray(this.body)) {
+            this.body.forEach((b, i) => {
+                if (name === "move") {
                     Matter.Body.setVelocity(b, {x: Matter.Body.getVelocity(b).x, y: -this.gravityStab});
                 }
+                if (name === "bubble") {
+                    if (this.collides(this.world, "platform", i)) {
+                        Matter.Body.setPosition(b, {x: b.startX + b.width / 2, y: b.startY + b.width / 2})
+                    } else {
+                        Matter.Body.setVelocity(b, {x: Matter.Body.getVelocity(b).x, y: -this.gravityStab});
+                    }
 
-            }
-        })
+                }
+            })
+        }
+
     }
 
 
@@ -766,10 +775,11 @@ export default class Body {
 
     }
 
-    attackBodyView(p5, t = "sensor",x = 0,y = 0,countImg = 0) {
-              x = this.percentSceneX(x);
-              y = this.percentSceneY(y)
-        function movie(b, bd,x,y,img) {
+    attackBodyView(p5, t = "sensor", x = 0, y = 0, countImg = 0) {
+        x = this.percentSceneX(x);
+        y = this.percentSceneY(y)
+
+        function movie(b, bd, x, y, img) {
             Matter.Body.setPosition(b, {
                 x: bd.position.x + x,
                 y: bd.position.y + y
@@ -777,8 +787,8 @@ export default class Body {
             p5.push()
             p5.fill("Coral");
             p5.noStroke();
-           // p5.rect(b.position.x, b.position.y, b.width, b.height);
-            p5.image(img.spriteArr(p5,countImg), (bd.position.x + x) - b.width / 2,(bd.position.y + y) - b.height / 2,b.width, b.height)
+            // p5.rect(b.position.x, b.position.y, b.width, b.height);
+            p5.image(img.spriteArr(p5, countImg), (bd.position.x + x) - b.width / 2, (bd.position.y + y) - b.height / 2, b.width, b.height)
             p5.pop()
         }
 
@@ -789,12 +799,12 @@ export default class Body {
                             if (bd.collision === false) {
                                 Matter.Body.setPosition(b, {x: bd.position.x, y: bd.position.y})
                             } else {
-                                movie(b, bd,x,y,this.animate);
+                                movie(b, bd, x, y, this.animate);
 
                             }
                         } else if (t === "timer") {
                             if (this.elapsedSeconds < this.timerActive / 2) {
-                                movie(b, bd,x,y,this.animate);
+                                movie(b, bd, x, y, this.animate);
                             }
 
                         }
@@ -863,5 +873,9 @@ export default class Body {
         }
         return false;
     };
+
+    setImage(count, n) {
+        this.body[n].countImg = count;
+    }
 
 }

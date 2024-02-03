@@ -4,10 +4,34 @@
  "layers":[
         {
          "id":35,
-         "image":"..\/..\/..\/public\/img\/Tiles\/1_game_background\/layers\/bg.png",
-         "name":"bg1",
-         "offsetx":-523,
-         "offsety":-255,
+         "image":"..\/..\/..\/public\/img\/Tiles\/levelALeft.png",
+         "name":"left",
+         "offsetx":-2998.98737373737,
+         "offsety":1.00404040404032,
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":45,
+         "image":"..\/..\/..\/public\/img\/Tiles\/levelALeftTop.png",
+         "name":"leftTop",
+         "offsetx":-2999.61237373737,
+         "offsety":-2998.99595959596,
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":44,
+         "image":"..\/..\/..\/public\/img\/Tiles\/levelATop.png",
+         "name":"top",
+         "offsetx":0.10353535353579,
+         "offsety":-2998.81414141414,
          "opacity":1,
          "type":"imagelayer",
          "visible":true,
@@ -17,19 +41,7 @@
         {
          "id":43,
          "image":"..\/..\/..\/public\/img\/Tiles\/levelAOpen.png",
-         "name":"bg2",
-         "offsetx":1,
-         "offsety":1,
-         "opacity":1,
-         "type":"imagelayer",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "id":41,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelAClose.png",
-         "name":"bg",
+         "name":"open",
          "offsetx":1,
          "offsety":1,
          "opacity":1,
@@ -68,7 +80,7 @@
                  "y":98.127286870381
                 }, 
                 {
-                 "height":56.5687386008334,
+                 "height":42.9020719341667,
                  "id":242,
                  "name":"platform",
                  "rotation":0,
@@ -86,8 +98,8 @@
                  "type":"top",
                  "visible":true,
                  "width":480.298163131934,
-                 "x":371.691550230927,
-                 "y":208.739668671457
+                 "x":369.691550230927,
+                 "y":198.239668671457
                 }, 
                 {
                  "height":17.4614010642907,
@@ -167,7 +179,7 @@
                  "y":222.233666666667
                 }, 
                 {
-                 "height":24.7947333333333,
+                 "height":15.7947333333333,
                  "id":358,
                  "name":"platform",
                  "rotation":0,
@@ -356,7 +368,7 @@
                  "y":490.778943124447
                 }, 
                 {
-                 "height":318.75,
+                 "height":441.25,
                  "id":331,
                  "name":"point",
                  "rotation":0,
@@ -774,7 +786,7 @@
          "name":"dor",
          "objects":[
                 {
-                 "height":79,
+                 "height":83.5,
                  "id":308,
                  "name":"dor",
                  "properties":[
@@ -786,9 +798,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":24,
-                 "x":617,
-                 "y":480
+                 "width":97.5,
+                 "x":689,
+                 "y":480.75
                 }, 
                 {
                  "gid":7,
@@ -979,7 +991,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":44,
+ "nextlayerid":46,
  "nextobjectid":362,
  "orientation":"orthogonal",
  "renderorder":"right-down",

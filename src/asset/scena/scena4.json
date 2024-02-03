@@ -435,7 +435,7 @@
                  "id":507,
                  "name":"platform",
                  "rotation":0,
-                 "type":"",
+                 "type":"left",
                  "visible":true,
                  "width":49.3952,
                  "x":143.8024,
@@ -1827,6 +1827,17 @@
                  "width":94.6667,
                  "x":886.66665,
                  "y":527.3333
+                }, 
+                {
+                 "height":62.6667,
+                 "id":608,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"right",
+                 "visible":true,
+                 "width":14.6667,
+                 "x":400.16665,
+                 "y":191.66665
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2332,8 +2343,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":40,
-                 "x":315,
-                 "y":208
+                 "x":262,
+                 "y":195.5
                 }, 
                 {
                  "height":24.3455,
@@ -2365,8 +2376,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":20,
-                 "x":87.5,
-                 "y":276.5
+                 "x":99.5,
+                 "y":251
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2806,7 +2817,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":608,
+ "nextobjectid":609,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

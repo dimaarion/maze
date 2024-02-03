@@ -13,17 +13,32 @@ export default class Database{
         width:10,
         height:10,
         level:1,
-        leftRest:"./img/player/leftRest.png",
-        rightRest:"./img/player/rightRest.png",
-        leftSwim:"./img/player/leftSwim.png",
-        rightSwim:"./img/player/rightSwim.png",
+        img:["./img/player/leftRest.png", "./img/player/rightRest.png", "./img/player/leftSwim.png", "./img/player/rightSwim.png"],
+        rate:6,
         money:0,
         frame:6,
+        key:0
+    },{
+        id:"fugu",
+        xp:100,
+        speed:1,
+        attack:10,
+        live:50,
+        speedLive:0.01,
+        liveMax:50,
+        x:0,
+        y:0,
+        width:10,
+        height:10,
+        level:1,
+        img:["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"],
+        rate:2,
+        money:0,
+        frame:60,
         key:0
     }]
 
     create(world,scene){
-
         this.base.forEach((el)=>{
             el.x = scene.getObjects("player")[0].x;
             el.y = scene.getObjects("player")[0].y;
@@ -31,7 +46,6 @@ export default class Database{
         if(!window.localStorage.getItem("base")){
               window.localStorage.setItem("base",JSON.stringify(this.base))
         }
-      
 
     }
 
@@ -42,6 +56,7 @@ export default class Database{
         }else{
              return this.base.filter((f)=>f.id === this.name)[0];
         }
+
       
     }
 
@@ -92,6 +107,18 @@ export default class Database{
     setKey(n){
         this.base.filter((f)=>f.id === this.name).forEach((el)=>{
             el.key = n;
+        })
+        if(window.localStorage.getItem("base")){
+            return window.localStorage.setItem("base",JSON.stringify(this.base))
+        }else{
+            return [{}]
+        }
+    }
+
+    setImage(n = [],f){
+        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
+            el.img = n;
+            el.frame = f;
         })
         if(window.localStorage.getItem("base")){
             return window.localStorage.setItem("base",JSON.stringify(this.base))

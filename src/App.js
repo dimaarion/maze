@@ -1,4 +1,6 @@
 import './App.css';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import Level from './components/Level';
 import scena_1 from "./asset/scena/scena.json";
 import scena_2 from "./asset/scena/scena2.json";
@@ -10,21 +12,22 @@ import {useEffect, useState} from 'react';
 
 function App() {
     let db = new Database();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 let loadImg = <div id="loading" className={"active"}><img className={"spinner"} src={"./img/gui/spiner.gif"}/></div>;
-    return (
+    return <>
         <div className="App">
             <div id="p5_loading" className="loadingclass">{loadImg}</div>
-            <div className={"position-absolute m-auto top-0 end-0 col-1"} onClick={() => db.cleaner()}><img
-                className={"w-100"} src={"./img/gui/buttons/click/restart.png"}/></div>
-
-           <Level bg={[
+            <Level bg={[
                 {scena: scena_1, level: 1, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
                 {scena: scena_2, level: 2, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
                 {scena: scena_3, level: 3, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
                 {scena: scena_4, level: 4, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]}
             ]}/>
         </div>
-    );
+    </>
 }
 
 export default App;
