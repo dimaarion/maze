@@ -1,6 +1,5 @@
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+
 import Level from './components/Level';
 import scena_1 from "./asset/scena/scena.json";
 import scena_2 from "./asset/scena/scena2.json";

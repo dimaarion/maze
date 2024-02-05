@@ -31,7 +31,7 @@ export default function Level(props) {
     const money = new Money("money");
     const point = new Body("point");
     const interFace = new Interface();
-    const mapsButton = new Button(95, 0, 5, 5, 0, "./img/gui/buttons/click/settings.png");
+    const mapsButton = new Button(95, 1, 4, 4, 0, "./img/gui/map.png");
     const key = new Body("key", ["./img/object/key.png"]);
     const dor = new Body("dor", ["./img/object/dor.png"]);
     const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
@@ -59,9 +59,10 @@ export default function Level(props) {
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
-    console.log(window.localStorage.getItem("base"));
-    db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
-    player.level = 1
+db.cleaner()
+
+    //db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
+    player.level = db.get().level
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     player.imgArr = db.get().img;
@@ -111,7 +112,7 @@ export default function Level(props) {
         anglerfish.preloadImage(p5);
         goldFish.preloadImage(p5);
         blueSlime.preloadImage(p5);
-        mapsButton.loadImage(p5);
+
     }
 
     function createBody(world, el) {
@@ -167,7 +168,7 @@ export default function Level(props) {
         anglerfish.setupSprite(p5);
         goldFish.setupSprite(p5);
         blueSlime.setupSprite(p5);
-        mapsButton.create(p5);
+
 
     }
 
@@ -235,7 +236,7 @@ export default function Level(props) {
         tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
         tileMap.map((el) => el.map((map) => map.loadBg(p5)))
         preloadObject(p5);
-
+        mapsButton.loadImage(p5);
     }
 
 
@@ -488,7 +489,8 @@ export default function Level(props) {
         })
 
         hp.createBubble(p5, 20);
-        crab.createBubble(p5, 20)
+        crab.createBubble(p5, 20);
+
     };
 
 
@@ -552,7 +554,7 @@ export default function Level(props) {
     const draw = (p5) => {
         view(p5);
         mapsButton.draw(p5);
-        interFace.settings(p5);
+     //   interFace.settings(p5);
     };
 
 

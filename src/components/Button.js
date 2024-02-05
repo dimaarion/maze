@@ -25,11 +25,8 @@ export default class Button {
     }
 
     loadImage(p5) {
-        this.image = p5.loadImage(this.img);
-    }
-
-    create(p5) {
         this.p5 = p5;
+        this.image = p5.loadImage(this.img);
         this.scena.create(p5);
         this.md = new mobile(window.navigator.userAgent);
 
@@ -52,8 +49,9 @@ export default class Button {
             this.w = this.scena.procentX(this.w);
             this.h = this.scena.procentX(this.h);
         }
-
     }
+
+
 
     collidePointRect = function (pointX, pointY, x, y, xW, yW) {
         return pointX >= x && // right of the left edge AND
@@ -87,6 +85,7 @@ export default class Button {
             p5.rect(this.x, this.y, this.w, this.h);
         } else {
             try {
+               // console.log(this.image)
                 p5.image(this.image, this.x, this.y, this.w, this.h);
             } catch (error) {
 
