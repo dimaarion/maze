@@ -6,32 +6,37 @@ import Body from './Body';
 import Player from './Player';
 import Money from './Money';
 import Interface from './Interface';
-import Ladder from "./Ladder";
+
 import TileMap from "./TileMap";
 import Database from "./Database";
 import Bubble from "./Bubble";
 import Action from "./Action";
 import Timer from "./Timer";
 import Button from "./Button";
-import {compose} from "redux";
+
+import Sprite from "./Sprite";
+
 
 
 export default function Level(props) {
+    const action = new Action();
     let simpleTimer;
     let elapsedSeconds = 0;
     let engine;
     let world;
     let md = new mobile(window.navigator.userAgent);
+    let img1, img2;
+    let mapImage = action.maps.map((el)=>new Sprite(el, 25, 25, 50, 50));
+    const mapsButton = new Button(95, 1, 4, 4, true,"./img/gui/buttons/click/map.png",true);
+    const interFace = new Interface();
+
     const scena = props.bg.map((el) => new Scena(el.scena, el.img, el.level, el.id, el.bg));
-    const action = new Action();
     const bubble = new Bubble();
     const player = new Player("player");
     const platform = new Body("platform");
     const platformB = new Body("platform_b");
     const money = new Money("money");
     const point = new Body("point");
-    const interFace = new Interface();
-    const mapsButton = new Button(95, 1, 4, 4, 0, "./img/gui/map.png");
     const key = new Body("key", ["./img/object/key.png"]);
     const dor = new Body("dor", ["./img/object/dor.png"]);
     const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
@@ -54,15 +59,14 @@ export default function Level(props) {
     const blueSlime = new Body("blue-slime", ["./img/object/slim/slim.png"], 60);
 
 
-
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
-db.cleaner()
+    db.cleaner()
 
     //db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
-    player.level = db.get().level
+    player.level = 2
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     player.imgArr = db.get().img;
@@ -76,7 +80,7 @@ db.cleaner()
     meduza.gravityStab = 0.1
     ej2.gravityStab = 0.1;
     crab.gravityStab = 0.1;
-   // gubka.sensor = true;
+    // gubka.sensor = true;
     bubbleM.gravityStab = 0.5;
     bubbleM.sensor = true;
     chest.sensor = true;
@@ -86,9 +90,14 @@ db.cleaner()
     player.sensorSize = 4;
     point.sensor = true;
     key.sensor = true;
+    blueSlime.sensor = true;
+    blueSlime.static = true;
 
+    // Загрузка изображения
 
     function preloadObject(p5) {
+        img1 = p5.loadImage('./img/power/1-2.png');
+        img2 = p5.loadImage('./img/power/1.png');
         player.preloadImage(p5);
         money.loadImg(p5);
         key.preloadImage(p5);
@@ -103,7 +112,7 @@ db.cleaner()
         kalmar.preloadImage(p5);
         ej2.preloadImage(p5);
         crab.preloadImage(p5);
-      //  gubka.preloadImage(p5);
+        //  gubka.preloadImage(p5);
         bubbleM.preloadImage(p5);
         chest.preloadImage(p5);
         food.preloadImage(p5);
@@ -115,13 +124,15 @@ db.cleaner()
 
     }
 
+    // Создание объекта
+
     function createBody(world, el) {
         point.createRect(world, el);
         platformB.createRect(world, el);
         platform.createRect(world, el);
         money.setup(world, el);
         key.createRect(world, el);
-        player.createEllipse(world,el);
+        player.createEllipse(world, el);
         player.createSensor();
         player.createJoystick(el);
         dor.createRect(world, el);
@@ -134,7 +145,7 @@ db.cleaner()
         kalmar.createRect(world, el);
         ej2.createEllipse(world, el);
         crab.createRect(world, el);
-      //  gubka.createRect(world, el);
+        //  gubka.createRect(world, el);
         bubbleM.createEllipse(world, el);
         chest.createRect(world, el)
         db.create(world, el);
@@ -146,11 +157,14 @@ db.cleaner()
         blueSlime.createRect(world, el);
     }
 
+
+    // Обработка изображения
+
     function createAnimate(p5) {
         player.setupSprite(p5);
         fugu.setupSprite(p5);
-         meduza.setupSprite(p5);
-         hp.setupSprite(p5);
+        meduza.setupSprite(p5);
+        hp.setupSprite(p5);
         key.setupSprite(p5);
         dor.setupSprite(p5);
         shark.setupSprite(p5);
@@ -159,7 +173,7 @@ db.cleaner()
         ocoptus.setupSprite(p5);
         kalmar.setupSprite(p5);
         crab.setupSprite(p5);
-      //  gubka.setupSprite(p5);
+        //  gubka.setupSprite(p5);
         bubbleM.setupSprite(p5);
         chest.setupSprite(p5);
         food.setupSprite(p5);
@@ -172,15 +186,18 @@ db.cleaner()
 
     }
 
+    // Отображение объектов
+
     function view(p5) {
         p5.background("aqua");
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
+        dor.spriteAnimateArr(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView()));
 
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
-        dor.spriteAnimateArr(p5);
+        //tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
+
         bubble.view();
         key.spriteAnimateArr(p5);
         meduza.movementUpDown(p5)
@@ -200,8 +217,8 @@ db.cleaner()
         ej.spriteAnimateArr(p5, 10, 10);
         bubbleM.moveUp("bubble")
         bubbleM.spriteAnimateArr(p5);
-      //  gubka.spriteAnimateArr(p5);
-      //  gubka.moveUp("move")
+        //  gubka.spriteAnimateArr(p5);
+        //  gubka.moveUp("move")
         ocoptus.viewAttacks(1, 1, 2, 2, 0);
         ocoptus.spriteAnimateArr(p5, 30, 30);
         kalmar.viewAttacks(2, 2, 3, 3);
@@ -221,24 +238,15 @@ db.cleaner()
         anglerfish.spriteAnimateArr(p5, 30, 30);
         goldFish.movementLeftRight();
         goldFish.spriteAnimateArr(p5, 10, 10);
-        blueSlime.spriteAnimateArr(p5, 0, 0);
+        blueSlime.spriteAnimateArr(p5, 30, 40);
         //  platform.viewRect(p5)
         p5.pop();
         if (md.mobile()) {
-            player.joystick.view(p5);
+            player.joystick.view(p5, img1, img2);
         }
         interFace.view(p5, player, key, db);
         updateTimer();
     }
-
-    const preload = (p5) => {
-
-        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
-        tileMap.map((el) => el.map((map) => map.loadBg(p5)))
-        preloadObject(p5);
-        mapsButton.loadImage(p5);
-    }
-
 
     function createObject(scena, engine, n) {
         return scena.filter((f) => f.level === n).map((el) => {
@@ -251,6 +259,7 @@ db.cleaner()
             return world;
         })
     }
+
 
     function removeObject(engine, n) {
         console.log(engine.world.bodies.filter((f) => f.level === n))
@@ -269,18 +278,11 @@ db.cleaner()
         }
     }
 
-    const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-        simpleTimer = new Timer(p5, 1000);
-        simpleTimer.start();
-        scena.map((el) => el.create(p5));
-        engine = Engine.create();
-        world = engine.world;
-        Engine.run(engine);
+// События объектов
+
+    function events(p5) {
         let mst = 0;
         let moneyCount = db.get().money;
-        createAnimate(p5);
-
 
         function attack(pair) {
             if (pair.bodyA.typeObject === "alive" && pair.bodyB.label === "player") {
@@ -323,6 +325,7 @@ db.cleaner()
 
             }
         }
+
 
         function keyStart(pair) {
             if (pair.bodyA.label === "key" && pair.bodyB.label === "player") {
@@ -386,6 +389,7 @@ db.cleaner()
                 pair.bodyB.collision = bol;
             }
         }
+
 
         function persecution(pair, name, bol, speedDop = 2) {
             if (pair.bodyB.label === name && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
@@ -479,6 +483,37 @@ db.cleaner()
         createObject(scena, engine, player.level);
 
 
+    }
+
+// Основной код
+    const preload = (p5) => {
+
+        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
+        tileMap.map((el) => el.map((map) => map.loadBg(p5)))
+        preloadObject(p5);
+        mapsButton.loadImage(p5);
+        mapImage.forEach((el)=>{
+            el.load(p5);
+        })
+
+    }
+
+
+    const setup = (p5, canvasParentRef) => {
+        p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+        simpleTimer = new Timer(p5, 1000);
+        simpleTimer.start();
+        scena.map((el) => el.create(p5));
+        engine = Engine.create();
+        world = engine.world;
+        Engine.run(engine);
+
+        createAnimate(p5);
+        events(p5);
+
+        mapsButton.create(p5);
+        player.joystickButton.create(p5);
+
         bubble.bubbleNum = 10;
         bubble.x = 10;
         bubble.y = 100
@@ -494,17 +529,34 @@ db.cleaner()
     };
 
 
+    const draw = (p5) => {
+        view(p5);
+        mapsButton.draw(p5);
+        player.joystickButton.draw(p5);
+
+        mapImage.forEach((el,i)=>{
+            if(mapsButton.valueActive && player.level === (i + 1)){
+                el.view(p5)
+            }
+
+        })
+
+    };
+
+    // Основной код
+    // Функциии событий
+
     const keyPressed = (e) => {
         if (e.key === "ArrowUp") {
             press.pressUp = e.key
         }
         if (e.key === "ArrowRight") {
             press.pressRight = e.key;
-            player.setImage(3,0)
+            player.setImage(3, 0)
         }
         if (e.key === "ArrowLeft") {
             press.pressLeft = e.key;
-            player.setImage(2,0)
+            player.setImage(2, 0)
         }
         if (e.key === "ArrowDown") {
             press.pressDown = e.key
@@ -549,13 +601,6 @@ db.cleaner()
     const mouseReleased = () => {
         mapsButton.mouseRelass(1)
     }
-
-
-    const draw = (p5) => {
-        view(p5);
-        mapsButton.draw(p5);
-     //   interFace.settings(p5);
-    };
 
 
     function restartTimer(n) {

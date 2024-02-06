@@ -3,7 +3,7 @@ import Body from "./Body";
 import Animate from "./Animate";
 import Joystick from "./Joystick";
 import Database from "./Database";
-
+import Button from "./Button";
 export default class Player extends Body {
     body = {};
     body2 = {};
@@ -13,7 +13,6 @@ export default class Player extends Body {
     m = {};
     x = 100;
     y = 100;
-    joystick;
     static = false;
     width = 0;
     height = 0;
@@ -58,8 +57,8 @@ export default class Player extends Body {
     elapsedMinutes = 0;
     colideMoney = false;
     db = new Database();
-
     joystick = new Joystick();
+    joystickButton = new Button(50,50,50,50,true,false,false,true);
     attack = 10
 
     // eslint-disable-next-line no-useless-constructor
@@ -81,10 +80,8 @@ export default class Player extends Body {
     }
 
 
-    setup(world, scena) {
-        // this.fric = 1;
-        this.createEllipse(world, scena);
-        this.createJoystick(scena);
+    create(p5) {
+        this.joystickButton.create(p5);
     }
 
 
@@ -102,7 +99,11 @@ export default class Player extends Body {
     draw(p5, world, press) {
         if (Array.isArray(this.body)) {
             this.setRotate(0);
-            this.joystick.createJoystick(p5, this.xJ, this.yJ);
+
+            if(this.joystickButton.valueActive){
+                this.joystick.createJoystick(p5, this.xJ, this.yJ);
+            }
+
             if (press.pressRight === "ArrowRight") {
                 this.direction = 2;
                 if (press.pressUp === "ArrowUp") {
@@ -129,7 +130,7 @@ export default class Player extends Body {
                 this.setVelosity(0, this.gravityStab);
             }
 
-            if (p5.touches[0]) {
+            if (p5.touches[0] && this.joystickButton.valueActive) {
                 if (p5.touches[0].x > p5.width / 2) {
                     if (Math.sign(this.joystick.xPos) === -1) {
                         this.direction = 1;

@@ -42,8 +42,8 @@ export default class Joystick {
     }
 
 
-    view(p5) {
-        this.eye.display(p5)
+    view(p5,img1,img2) {
+        this.eye.display(p5,img1,img2);
     }
 
 

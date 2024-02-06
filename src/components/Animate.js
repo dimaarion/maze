@@ -489,6 +489,8 @@ export default class Animate {
       }
     }
   }
+
+
   spriteArr(p5,n = 0) {
     if (this.img) {
       if (this.animated) {

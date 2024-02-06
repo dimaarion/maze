@@ -1,5 +1,7 @@
 export default class Action{
 
+    maps = ['./img/Tiles/mapL1.png','./img/Tiles/mapL2.png','./img/Tiles/mapL3.png','./img/Tiles/mapL4.png']
+
     arrayCount(n) {
         let a = [];
         for (let i = 0; i < n; i++) {
@@ -25,4 +27,6 @@ export default class Action{
     getSpeed(pos,speed){
         return pos > speed?speed:pos;
     }
+
+
 }
