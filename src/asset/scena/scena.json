@@ -3,42 +3,6 @@
  "infinite":false,
  "layers":[
         {
-         "id":35,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelALeft.png",
-         "name":"left",
-         "offsetx":-2998.98737373737,
-         "offsety":1.00404040404032,
-         "opacity":1,
-         "type":"imagelayer",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "id":45,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelALeftTop.png",
-         "name":"leftTop",
-         "offsetx":-2999.61237373737,
-         "offsety":-2998.99595959596,
-         "opacity":1,
-         "type":"imagelayer",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "id":44,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelATop.png",
-         "name":"top",
-         "offsetx":0.10353535353579,
-         "offsety":-2998.81414141414,
-         "opacity":1,
-         "type":"imagelayer",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
          "id":43,
          "image":"..\/..\/..\/public\/img\/Tiles\/levelAOpen.png",
          "name":"open",
@@ -353,11 +317,11 @@
                  "type":"exit",
                  "visible":true,
                  "width":15.751018641794,
-                 "x":756.62131749254,
-                 "y":512.815457302522
+                 "x":756.954650825873,
+                 "y":516.815457302522
                 }, 
                 {
-                 "height":70.2998679694048,
+                 "height":83.6332013027381,
                  "id":199,
                  "name":"point",
                  "rotation":0,
@@ -365,7 +329,7 @@
                  "visible":true,
                  "width":37.5511810382523,
                  "x":743.207082731238,
-                 "y":490.778943124447
+                 "y":477.445609791114
                 }, 
                 {
                  "height":441.25,
@@ -377,6 +341,17 @@
                  "width":13.5,
                  "x":683.166666666667,
                  "y":135.166666666667
+                }, 
+                {
+                 "height":88.3333333333333,
+                 "id":362,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":10.3333333333334,
+                 "x":674.333333333333,
+                 "y":476
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -912,7 +887,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -953,8 +928,8 @@
                  "type":"player",
                  "visible":true,
                  "width":15.4814355984242,
-                 "x":706.630218451269,
-                 "y":145.136682816546
+                 "x":483.963551784602,
+                 "y":501.136682816546
                 }],
          "opacity":1,
          "properties":[
@@ -992,7 +967,7 @@
          "y":0
         }],
  "nextlayerid":46,
- "nextobjectid":362,
+ "nextobjectid":363,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

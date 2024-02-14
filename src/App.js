@@ -20,10 +20,10 @@ let loadImg = <div id="loading" className={"active"}><img className={"spinner"} 
         <div className="App">
             <div id="p5_loading" className="loadingclass">{loadImg}</div>
             <Level bg={[
-                {scena: scena_1, level: 1, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
-                {scena: scena_2, level: 2, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
-                {scena: scena_3, level: 3, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]},
-                {scena: scena_4, level: 4, id: [0], bg: "./img/Tiles/bg1.png", img: ["./img/Tiles/tiles.png"]}
+                {scena: scena_1, level: 1, id: [0], bg: "", img: [""]},
+                {scena: scena_2, level: 2, id: [0], bg: "", img: [""]},
+                {scena: scena_3, level: 3, id: [0], bg: "", img: [""]},
+                {scena: scena_4, level: 4, id: [0], bg: "", img: [""]}
             ]}/>
         </div>
     </>

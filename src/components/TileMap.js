@@ -119,16 +119,15 @@ export default class TileMap {
 
     }
 
-    img(el,i) {
-        return this.p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale), this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale), this.scena.size(el.width, this.scena.scale), this.scena.size(el.height, this.scena.scale))
+    img(p5,el,i) {
+        return p5.image(el, this.scena.size(this.imageObject[i].x, this.scena.scale) + this.scena.size(this.imageObject[i].offsetx, this.scena.scale), this.scena.size(this.imageObject[i].y, this.scena.scale) + this.scena.size(this.imageObject[i].offsety, this.scena.scale), this.scena.size(el.width, this.scena.scale), this.scena.size(el.height, this.scena.scale))
 
     }
-    imageBgView(n) {
 
-
+    imageBgView(p5) {
         if (Array.isArray(this.imageBg)) {
             this.imageBg.forEach((el, i) => {
-                        this.img(el,i);
+                        this.img(p5,el,i);
             })
         }
 

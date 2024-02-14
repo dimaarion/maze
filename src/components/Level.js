@@ -38,7 +38,7 @@ export default function Level(props) {
     const money = new Money("money");
     const point = new Body("point");
     const key = new Body("key", ["./img/object/key.png"]);
-    const dor = new Body("dor", ["./img/object/dor.png"]);
+    const dor = new Body("dor", ["./img/object/dorFish.png","./img/object/dorFishActive.png","./img/object/dorFishLeftAttack.png","./img/object/dorFishTopAttack.png","./img/object/dorFishRightAttack.png","./img/object/dorFishbottomAttack.png"],60);
     const meduza = new Body("meduza", ["./img/object/meduza.png"], 60);
     const fugu = new Body("fugu", ["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"], 60);
     const hp = new Body("hp", ["./img/object/hp.png", "./img/object/hp.png"]);
@@ -63,10 +63,10 @@ export default function Level(props) {
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
 
-    db.cleaner()
+   // db.cleaner()
 
     //db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
-    player.level = 2
+    player.level = 4
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     player.imgArr = db.get().img;
@@ -135,7 +135,7 @@ export default function Level(props) {
         player.createEllipse(world, el);
         player.createSensor();
         player.createJoystick(el);
-        dor.createRect(world, el);
+        dor.createEllipse(world, el);
         meduza.createEllipse(world, el);
         fugu.createEllipse(world, el);
         hp.createEllipse(world, el);
@@ -183,7 +183,6 @@ export default function Level(props) {
         goldFish.setupSprite(p5);
         blueSlime.setupSprite(p5);
 
-
     }
 
     // Отображение объектов
@@ -193,10 +192,8 @@ export default function Level(props) {
         p5.rectMode(p5.CENTER);
         p5.push();
         player.translates(p5);
-        dor.spriteAnimateArr(p5);
-        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView()));
-
-        //tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.viewMap()));
+        dor.spriteAnimateArr(p5,50,50);
+        tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(p5)));
 
         bubble.view();
         key.spriteAnimateArr(p5);
@@ -390,6 +387,13 @@ export default function Level(props) {
             }
         }
 
+        function sensorDor(pair,n = 1) {
+            if (pair.bodyB.label === "dor" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
+                pair.bodyB.countImg = n;
+            }
+
+        }
+
 
         function persecution(pair, name, bol, speedDop = 2) {
             if (pair.bodyB.label === name && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
@@ -448,7 +452,7 @@ export default function Level(props) {
                 persecution(pair, "shark", true, 2);
                 persecution(pair, "ocoptus", true, 2);
                 persecution(pair, "anglerfish", true, 2);
-
+                sensorDor(pair,1);
             }
         });
 
@@ -462,7 +466,7 @@ export default function Level(props) {
                 persecution(pair, "shark", false, 2)
                 persecution(pair, "ocoptus", false, 2)
                 persecution(pair, "anglerfish", false, 2)
-
+                sensorDor(pair,0);
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
                     pair.bodyA.attackActive = false;
 
@@ -488,7 +492,6 @@ export default function Level(props) {
 // Основной код
     const preload = (p5) => {
 
-        tileMap.map((el) => el.map((map) => map.preloadImage(p5)));
         tileMap.map((el) => el.map((map) => map.loadBg(p5)))
         preloadObject(p5);
         mapsButton.loadImage(p5);
