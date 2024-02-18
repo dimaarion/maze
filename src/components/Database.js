@@ -18,35 +18,17 @@ export default class Database{
         money:0,
         frame:6,
         key:0
-    },{
-        id:"fugu",
-        xp:100,
-        speed:1,
-        attack:10,
-        live:50,
-        speedLive:0.01,
-        liveMax:50,
-        x:0,
-        y:0,
-        width:10,
-        height:10,
-        level:1,
-        img:["./img/object/fugu.png", "./img/object/fugu2.png", "./img/object/fuguActive.png", "./img/object/fuguActive2.png"],
-        rate:2,
-        money:0,
-        frame:60,
-        key:0
     }]
 
     create(world,scene){
         this.base.forEach((el)=>{
-            el.x = scene.getObjects("player")[0].x;
-            el.y = scene.getObjects("player")[0].y;
+            el.x = scene.map((el)=>el.getObjects("player")[0].x);
+            el.y = scene.map((el)=>el.getObjects("player")[0].y);
         })
         if(!window.localStorage.getItem("base")){
               window.localStorage.setItem("base",JSON.stringify(this.base))
         }
-
+console.log(window.localStorage.getItem("base"))
     }
 
 

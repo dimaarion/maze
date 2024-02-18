@@ -540,20 +540,14 @@ export default class Body {
     moveView(n1 = 0, n2 = 1, n3 = 2, n4 = 3, n5 = 4) {
         if (Array.isArray(this.body)) {
             this.body.filter((f) => f.remove === false).forEach((b, i) => {
-                if (Matter.Body.getVelocity(b).x < 0.1) {
+                if (b.direction === 1) {
                     b.countImg = n1;
-                } else if (Matter.Body.getVelocity(b).x > 0.1) {
+                } else if (b.direction === 2) {
                     b.countImg = n2;
-                } else if (Matter.Body.getVelocity(b).x > Matter.Body.getVelocity(b).y) {
-                    b.countImg = n1;
-                } else if (Matter.Body.getVelocity(b).y < 0.1) {
+                } else if (b.direction === 3) {
                     b.countImg = n3;
-                } else if (Matter.Body.getVelocity(b).y > 0.1) {
+                } else if (b.direction === 4) {
                     b.countImg = n4;
-                } else if (Matter.Body.getVelocity(b).y > Matter.Body.getVelocity(b).x) {
-                    b.countImg = n4;
-                } else if (Matter.Body.getVelocity(b).y === 0) {
-                    b.countImg = n5;
                 }
             })
         }
@@ -617,7 +611,7 @@ export default class Body {
         }
     }
 
-    moveUp(name, obj) {
+    moveUp(name) {
         if (Array.isArray(this.body)) {
             this.body.forEach((b, i) => {
                 if (name === "move") {

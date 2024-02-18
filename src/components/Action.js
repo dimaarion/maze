@@ -1,6 +1,6 @@
 export default class Action{
 
-    maps = ['./img/Tiles/mapL1.png','./img/Tiles/mapL2.png','./img/Tiles/mapL3.png','./img/Tiles/mapL4.png']
+    maps = ['./img/Tiles/mapL1.png','./img/Tiles/mapL2.png','./img/Tiles/mapL3.png','./img/Tiles/mapL4.png','./img/Tiles/mapL5.png']
 
     arrayCount(n) {
         let a = [];

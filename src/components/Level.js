@@ -45,10 +45,10 @@ export default function Level(props) {
     const ej = new Body("ej", ["./img/object/еj/ej.png", "./img/object/еj/ej.png"]);
     const ej2 = new Body("ej2", ["./img/object/еj/ej2.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
-    const ocoptus = new Body("ocoptus", ["./img/object/ocoptusPasive.png", "./img/object/ocoptus.png", "./img/object/ocoptusAttack.png"], 60);
+    const ocoptus = new Body("ocoptus", ["./img/object/ocoptusTop.png", "./img/object/ocoptusUp.png"], 60);
     const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
     const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png", "./img/object/vodovorot/1.png"], 30);
-    const gubka = new Body("gubka", ["./img/object/gubka2.png"])
+    const gubka = new Body("gubka", ["./img/object/gubka.png"])
     const bubbleM = new Body("bubble", ["./img/object/bubble/bubble.png"], 60);
     const chest = new Body("chest", ["./img/object/chest/1.png", "./img/object/chest/2.png"]);
     const food = new Body("food", ["./img/object/food/red.png"], 60);
@@ -57,16 +57,17 @@ export default function Level(props) {
     const anglerfish = new Body("anglerfish", ["./img/object/Anglerfish/left.png", "./img/object/Anglerfish/right.png", "./img/object/Anglerfish/leftA.png", "./img/object/Anglerfish/rightA.png"], 60);
     const goldFish = new Body("goldFish", ["./img/object/goldFish/left.png", "./img/object/goldFish/right.png"], 60);
     const blueSlime = new Body("blue-slime", ["./img/object/slim/slim.png"], 60);
+    const savePosition = new Body("save-position",["./img/object/flafSave.png"]);
 
 
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-
-   // db.cleaner()
+    db.cleaner()
 
     //db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
-    player.level = 4
+    db.create(world, scena);
+    player.level = 1
     player.live = db.get().live;
     player.speedLive = db.get().speedLive;
     player.imgArr = db.get().img;
@@ -74,13 +75,14 @@ export default function Level(props) {
     player.rate = db.get().rate
     platform.static = true;
     platformB.static = true;
-    ocoptus.gravityStab = 0.1
-    ocoptus.rotating = true;
+    ocoptus.gravityStab = 0.5
+    ocoptus.rotating = false;
+    ocoptus.sensor = true;
     kalmar.rotating = true;
     meduza.gravityStab = 0.1
     ej2.gravityStab = 0.1;
     crab.gravityStab = 0.1;
-    // gubka.sensor = true;
+    gubka.sensor = true;
     bubbleM.gravityStab = 0.5;
     bubbleM.sensor = true;
     chest.sensor = true;
@@ -92,6 +94,11 @@ export default function Level(props) {
     key.sensor = true;
     blueSlime.sensor = true;
     blueSlime.static = true;
+    meduza.sensor = true;
+    fugu.sensor = true;
+    savePosition.static = true;
+    savePosition.sensor = true;
+   // shark.sensor = true;
 
     // Загрузка изображения
 
@@ -112,7 +119,7 @@ export default function Level(props) {
         kalmar.preloadImage(p5);
         ej2.preloadImage(p5);
         crab.preloadImage(p5);
-        //  gubka.preloadImage(p5);
+        gubka.preloadImage(p5);
         bubbleM.preloadImage(p5);
         chest.preloadImage(p5);
         food.preloadImage(p5);
@@ -121,6 +128,7 @@ export default function Level(props) {
         anglerfish.preloadImage(p5);
         goldFish.preloadImage(p5);
         blueSlime.preloadImage(p5);
+        savePosition.preloadImage(p5);
 
     }
 
@@ -132,6 +140,7 @@ export default function Level(props) {
         platform.createRect(world, el);
         money.setup(world, el);
         key.createRect(world, el);
+     //   player.setPosition(el.size(db.get().x,el.scale),el.size(db.get().y,el.scale));
         player.createEllipse(world, el);
         player.createSensor();
         player.createJoystick(el);
@@ -145,16 +154,16 @@ export default function Level(props) {
         kalmar.createRect(world, el);
         ej2.createEllipse(world, el);
         crab.createRect(world, el);
-        //  gubka.createRect(world, el);
+        gubka.createRect(world, el);
         bubbleM.createEllipse(world, el);
         chest.createRect(world, el)
-        db.create(world, el);
         food.createFood("hp", world, el, platform, 10, 3);
         foodGreen.createFood("hp", world, el, platform, 10, 3);
         ugri.createRect(world, el);
         anglerfish.createRect(world, el);
         goldFish.createRect(world, el);
         blueSlime.createRect(world, el);
+        savePosition.createEllipse(world,el);
     }
 
 
@@ -173,7 +182,7 @@ export default function Level(props) {
         ocoptus.setupSprite(p5);
         kalmar.setupSprite(p5);
         crab.setupSprite(p5);
-        //  gubka.setupSprite(p5);
+        gubka.setupSprite(p5);
         bubbleM.setupSprite(p5);
         chest.setupSprite(p5);
         food.setupSprite(p5);
@@ -182,6 +191,7 @@ export default function Level(props) {
         anglerfish.setupSprite(p5);
         goldFish.setupSprite(p5);
         blueSlime.setupSprite(p5);
+        savePosition.setupSprite(p5);
 
     }
 
@@ -193,6 +203,9 @@ export default function Level(props) {
         p5.push();
         player.translates(p5);
         dor.spriteAnimateArr(p5,50,50);
+        bubbleM.moveUp("bubble")
+        bubbleM.spriteAnimateArr(p5);
+        gubka.spriteAnimateArr(p5);
         tileMap.map((el) => el.filter((f) => f.level === player.level).map((map, i) => map.imageBgView(p5)));
 
         bubble.view();
@@ -212,11 +225,8 @@ export default function Level(props) {
         shark.viewAttacks(2, 3, 5, 4);
         shark.spriteAnimateArr(p5, 20, 10);
         ej.spriteAnimateArr(p5, 10, 10);
-        bubbleM.moveUp("bubble")
-        bubbleM.spriteAnimateArr(p5);
-        //  gubka.spriteAnimateArr(p5);
-        //  gubka.moveUp("move")
-        ocoptus.viewAttacks(1, 1, 2, 2, 0);
+        ocoptus.moveView(0, 1,0,1,1 );
+        ocoptus.movementUpDown(p5);
         ocoptus.spriteAnimateArr(p5, 30, 30);
         kalmar.viewAttacks(2, 2, 3, 3);
         kalmar.spriteAnimateArr(p5, 50, 50);
@@ -236,6 +246,7 @@ export default function Level(props) {
         goldFish.movementLeftRight();
         goldFish.spriteAnimateArr(p5, 10, 10);
         blueSlime.spriteAnimateArr(p5, 30, 40);
+        savePosition.spriteAnimateArr(p5);
         //  platform.viewRect(p5)
         p5.pop();
         if (md.mobile()) {
@@ -422,6 +433,15 @@ export default function Level(props) {
             }
         }
 
+       function save(pair){
+           if (pair.bodyB.label === "save-position" && pair.bodyA.label === "player") {
+               scena.filter((el)=>el.level === player.level).forEach((el)=>{
+                   db.setPosition(pair.bodyB.position.x,pair.bodyB.position.y)
+               })
+             //
+           }
+        }
+
         Events.on(engine, "collisionStart", function (event) {
 
             let pairs = event.pairs;
@@ -429,7 +449,7 @@ export default function Level(props) {
                 let pair = pairs[i];
 
                 direction(pair);
-
+                save(pair);
                 if (pair.bodyB.label === "bubble" && pair.bodyA.label === "platform") {
                     pair.bodyB.collision = true;
                 }
@@ -450,7 +470,7 @@ export default function Level(props) {
                 sensorAttack(pair, true);
                 persecution(pair, "ej2", true, 2);
                 persecution(pair, "shark", true, 2);
-                persecution(pair, "ocoptus", true, 2);
+              //  persecution(pair, "ocoptus", true, 2);
                 persecution(pair, "anglerfish", true, 2);
                 sensorDor(pair,1);
             }
@@ -464,7 +484,7 @@ export default function Level(props) {
                 sensorAttack(pair, false);
                 persecution(pair, "ej2", false, 2)
                 persecution(pair, "shark", false, 2)
-                persecution(pair, "ocoptus", false, 2)
+              //  persecution(pair, "ocoptus", false, 2)
                 persecution(pair, "anglerfish", false, 2)
                 sensorDor(pair,0);
                 if (pair.bodyB.typeObject === "player" && pair.bodyA.label === "alive") {
@@ -513,7 +533,6 @@ export default function Level(props) {
 
         createAnimate(p5);
         events(p5);
-
         mapsButton.create(p5);
         player.joystickButton.create(p5);
 

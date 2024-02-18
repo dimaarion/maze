@@ -4,7 +4,7 @@
  "layers":[
         {
          "id":22,
-         "image":"..\/..\/..\/public\/img\/Tiles\/level4Open.png",
+         "image":"..\/..\/..\/public\/img\/Tiles\/level4.png",
          "name":"bgOpen",
          "offsetx":1,
          "offsety":1,
@@ -21,7 +21,7 @@
          "name":"wall",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":60,
          "x":0,
          "y":0
@@ -215,7 +215,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":235.496534932454,
+                 "width":262.16320159912,
                  "x":983.234005691308,
                  "y":136.343928245374
                 }, 
@@ -1343,7 +1343,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1365,7 +1365,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1387,7 +1387,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -2165,7 +2165,7 @@
                  "type":"alive",
                  "visible":true,
                  "width":20,
-                 "x":748.773,
+                 "x":857.773,
                  "y":574.227333333333
                 }, 
                 {
@@ -2176,8 +2176,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":20,
-                 "x":579.333333333333,
-                 "y":1282
+                 "x":448.666666666666,
+                 "y":1262
                 }, 
                 {
                  "height":20,
@@ -2187,8 +2187,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":20,
-                 "x":1278.5,
-                 "y":976.166666666666
+                 "x":1520.83333333333,
+                 "y":1753.16666666667
                 }, 
                 {
                  "height":5,
@@ -2926,6 +2926,28 @@
                  "width":5,
                  "x":1569.5,
                  "y":1045.5
+                }, 
+                {
+                 "height":20,
+                 "id":732,
+                 "name":"bubble",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":20,
+                 "x":1039.66666666667,
+                 "y":929.666666666667
+                }, 
+                {
+                 "height":20,
+                 "id":733,
+                 "name":"bubble",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":20,
+                 "x":206,
+                 "y":813
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3090,8 +3112,8 @@
                  "type":"",
                  "visible":true,
                  "width":12.1727,
-                 "x":863.246983333334,
-                 "y":584.91365
+                 "x":780.580316666667,
+                 "y":565.580316666667
                 }, 
                 {
                  "ellipse":true,
@@ -3952,7 +3974,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":732,
+ "nextobjectid":734,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",
