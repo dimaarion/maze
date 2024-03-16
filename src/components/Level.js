@@ -63,7 +63,7 @@ export default function Level(props) {
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
     let tileMap = scena.map((el) => el.img.map((image) => new TileMap(image, el.level, el, el.id, el.bg)));
     const db = new Database();
-    db.cleaner()
+   // db.cleaner()
 
     //db.setImage(["./img/object/fugu/left.png", "./img/object/fugu/right.png", "./img/object/fugu/leftS.png", "./img/object/fugu/rightS.png"],60);
     db.create(world, scena);
