@@ -1,6 +1,6 @@
 import Sketch from "react-p5";
 import {Engine} from "matter-js";
-import scena_1 from "./asset/scena/scena.json";
+import scena_1 from "../asset/scena/scena_1.json";
 import Player from "./Player";
 
 const player = new Player("player");
@@ -13,6 +13,8 @@ function setup(p5, canvasParentRef) {
     let engine = Engine.create();
     let world = engine.world;
     Engine.run(engine);
+
+
 }
 
 
