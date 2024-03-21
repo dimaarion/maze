@@ -8,7 +8,7 @@ import scena_4 from "./asset/scena/scena4.json"
 import scena_5 from "./asset/scena/scena5.json"
 import Database from "./components/Database";
 import {useEffect, useState} from 'react';
-import World from "./components/World";
+
 
 
 function App() {
@@ -21,7 +21,7 @@ let loadImg = <div id="loading" className={"active"}><img className={"spinner"} 
     return <>
         <div className="App">
             <div id="p5_loading" className="loadingclass">{loadImg}</div>
-            <World/>
+
         </div>
     </>
 }
