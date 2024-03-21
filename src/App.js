@@ -8,6 +8,7 @@ import scena_4 from "./asset/scena/scena4.json"
 import scena_5 from "./asset/scena/scena5.json"
 import Database from "./components/Database";
 import {useEffect, useState} from 'react';
+import World from "./components/World";
 
 
 function App() {
@@ -20,13 +21,7 @@ let loadImg = <div id="loading" className={"active"}><img className={"spinner"} 
     return <>
         <div className="App">
             <div id="p5_loading" className="loadingclass">{loadImg}</div>
-            <Level bg={[
-                {scena: scena_1, level: 1, id: [0], bg: "", img: [""]},
-                {scena: scena_2, level: 2, id: [0], bg: "", img: [""]},
-                {scena: scena_3, level: 3, id: [0], bg: "", img: [""]},
-                {scena: scena_4, level: 4, id: [0], bg: "", img: [""]},
-                {scena: scena_5, level: 5, id: [0], bg: "", img: [""]}
-            ]}/>
+            <World/>
         </div>
     </>
 }
