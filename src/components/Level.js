@@ -19,7 +19,7 @@ import Sprite from "./Sprite";
 
 
 export default function Level(props) {
-    const action = new Action();
+   /* const action = new Action();
     let simpleTimer;
     let elapsedSeconds = 0;
     let engine;
@@ -99,10 +99,11 @@ export default function Level(props) {
     savePosition.static = true;
     savePosition.sensor = true;
    // shark.sensor = true;
-
+*/
     // Загрузка изображения
 
     function preloadObject(p5) {
+        /*
         img1 = p5.loadImage('./img/power/1-2.png');
         img2 = p5.loadImage('./img/power/1.png');
         player.preloadImage(p5);
@@ -129,12 +130,13 @@ export default function Level(props) {
         goldFish.preloadImage(p5);
         blueSlime.preloadImage(p5);
         savePosition.preloadImage(p5);
-
+*/
     }
 
     // Создание объекта
 
     function createBody(world, el) {
+        /*
         point.createRect(world, el);
         platformB.createRect(world, el);
         platform.createRect(world, el);
@@ -163,13 +165,14 @@ export default function Level(props) {
         anglerfish.createRect(world, el);
         goldFish.createRect(world, el);
         blueSlime.createRect(world, el);
-        savePosition.createEllipse(world,el);
+        savePosition.createEllipse(world,el);*/
     }
 
 
     // Обработка изображения
 
     function createAnimate(p5) {
+        /*
         player.setupSprite(p5);
         fugu.setupSprite(p5);
         meduza.setupSprite(p5);
@@ -191,13 +194,14 @@ export default function Level(props) {
         anglerfish.setupSprite(p5);
         goldFish.setupSprite(p5);
         blueSlime.setupSprite(p5);
-        savePosition.setupSprite(p5);
+        savePosition.setupSprite(p5);*/
 
     }
 
     // Отображение объектов
 
     function view(p5) {
+        /*
         p5.background("aqua");
         p5.rectMode(p5.CENTER);
         p5.push();
@@ -253,9 +257,9 @@ export default function Level(props) {
             player.joystick.view(p5, img1, img2);
         }
         interFace.view(p5, player, key, db);
-        updateTimer();
+        updateTimer();*/
     }
-
+/*
     function createObject(scena, engine, n) {
         return scena.filter((f) => f.level === n).map((el) => {
             engine.gravity.y = 0;
@@ -643,5 +647,5 @@ export default function Level(props) {
     return <Sketch setup={setup} keyPressed={keyPressed} mouseReleased={mouseReleased} mousePressed={mousePressed}
                    keyReleased={keyReleased} preload={preload} draw={draw}/>
 
-
+*/
 }

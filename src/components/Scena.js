@@ -10,16 +10,13 @@ export default class Scena {
     level = 0;
     id = [];
     bg = "";
-    constructor(scena, img, level, id, bg) {
+    constructor(scena) {
         this.scena = scena;
-        this.img = img;
-        this.level = level;
-        this.id = id;
-        this.bg = bg;
     }
 
 
-    create(p5) {
+    create(p5,level = 1) {
+        this.level = level
         this.p5 = p5;
         if (this.scena) {
             this.scenaWidth = this.scena.width * this.scena.tileheight;
