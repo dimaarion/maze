@@ -4,6 +4,7 @@ import Animate from "./Animate";
 import Joystick from "./Joystick";
 import Database from "./Database";
 import Button from "./Button";
+
 export default class Player extends Body {
     body = {};
     body2 = {};
