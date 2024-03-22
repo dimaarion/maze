@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/1_game_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/1_game_background/layers/bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/2_game_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/2_game_background/layers/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/3_game_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/3_game_background/layers/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/4_game_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/4_game_background/layers/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/Tiles/level2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level3.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/Tiles/level3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level3Close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level3Open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level4.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/Tiles/level4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level4Close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level4Open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/levelA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/levelAClose2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/levelAOpen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/levelBClose.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/levelBOpen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/level_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/scena1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/Tiles/tiles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/PlayLeft_BTN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/PlayRight_BTN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/PlayUp_BTN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/Play_BTN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/Settings_BTN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/Stats_Bar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/Table_03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/Window.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/restart_level.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/gui/step_level.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/headBar/Stats_Bar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/Settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/Table.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/levelPanel/Window.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/money/money.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/money/money.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/money/moneySt.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/money/moneySt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/0de74da3bcee217e5bac706608edf79f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/1623456250_5-phonoteka_org-p-metall-budushchego-tekstura-krasivo-5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/Anglerfish/left.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/Anglerfish/left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/Anglerfish/leftA.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/Anglerfish/leftA.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/Anglerfish/right.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/Anglerfish/right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/Anglerfish/rightA.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/Anglerfish/rightA.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/bubble/bubble.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/bubble/bubble.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/bubble/bubbleS.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/bubble/bubbleS.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/bubbleUnd.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/bubbleUnd.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/chest/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/chest/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/chest/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/chest/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/crab/crab.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/crab/crab.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/crab/crabA.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/crab/crabA.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/crab/crabP.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/crab/crabP.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFish.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFish.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFishActive.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFishActive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFishLeftAttack.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFishLeftAttack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFishRightAttack.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFishRightAttack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFishTopAttack.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFishTopAttack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/dorFishbottomAttack.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/dorFishbottomAttack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/flafSave.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/flafSave.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/flagSave.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/flagSave.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/food/green.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/green/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/food/red.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/food/red/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/1673194936_grizly-club-p-besshovnaya-tekstura-cheshui-5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish 20Active - Ready.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish 20Active - Ready.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_BaseColor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_Displacement.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_Metallic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_Normal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_Occlusion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/Cartoon_Eye_Brown/Cartoon_Eye_Brown_Roughness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/FishColor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/FishNormal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20 - Ready.blend5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20Active - Ready.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20Active - Ready.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20Active - Ready.blend2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fish 20Active - Ready.blend3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fishSpeed 20 - Ready.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fishSpeed 20 - Ready.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fishSpeed 20 - Ready.blend2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/fish/fishSpeed 20 - Ready.blend3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/left.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fugu/left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/leftS.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fugu/leftS.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/right.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fugu/right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/rightS.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fugu/rightS.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu/фугу.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fugu2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fuguActive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/fuguActive2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/goldFish/left.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/goldFish/left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/goldFish/right.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/goldFish/right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/gubka.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/gubka.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/hp.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/hp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/attack/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/attack/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/attack/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/jellyfish/attack/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attack/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/attackR/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/left/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/passive/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/kalmar/right/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/key.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/key.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/meduza.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/meduza.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/meduza2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/meduza2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ocoptusTop.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/ocoptusTop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ocoptusUp.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/ocoptusUp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/1.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/shark.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/shark.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/shark2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/shark2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/shark3.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/shark3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/shark4.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/shark4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/sharkAttack.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/sharkAttack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/shark/sharkAttackR.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/shark/sharkAttackR.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/slim/slim.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/slim/slim.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/stone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/left/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/right/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/ugriL.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/ugri/ugriL.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/ugri/ugriR.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/ugri/ugriR.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/vodovorot/Новая папка/0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/еj/ej.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/еj/ej.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/еj/ej2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/object/еj/ej2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/NewProject.autosave.scml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_027.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_030.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_032.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_033.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_036.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_037.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_039.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_042.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_045.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_050.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player/player_061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/playerHandLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/playerHandRightpngкопия.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/playerLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/player_atlas_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/playerlegLeftpngкопия.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/playerlegRight.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/run.autosave.scml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/images/run.scml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/leftRest.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/player/leftRest.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/leftSwim.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/player/leftSwim.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/libs/1.0.0/createjs.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/rightRest.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/player/rightRest.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/player/rightSwim.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/player/rightSwim.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/asset/scena/scena.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/scena/scena5.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/asset/scena/scena5.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Body.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Body.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Interface.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Interface.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TileMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TileMap.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2dzjmEzjrt8Qlko8ELhmoLN9pBx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="" />
+      <created>1711017962003</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711017962003</updated>
+      <workItem from="1711017965896" duration="82000" />
+      <workItem from="1711018060919" duration="87000" />
+      <workItem from="1711018152432" duration="4816000" />
+      <workItem from="1711027491885" duration="15528000" />
+      <workItem from="1711051828427" duration="4853000" />
+      <workItem from="1711061216081" duration="4558000" />
+    </task>
+    <task id="LOCAL-00001" summary="dimaarion/maze_2">
+      <created>1711049550736</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711049550736</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dimaarion/maze_2" />
+    <option name="LAST_COMMIT_MESSAGE" value="dimaarion/maze_2" />
+  </component>
+</project>
