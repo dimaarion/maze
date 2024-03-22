@@ -61,7 +61,7 @@ export default class Interface {
         if (!Number.isInteger(this.money)) {
             this.money = 0
         }
-       console.log(this.iconP)
+     //  console.log(this.iconP)
        
     }
 

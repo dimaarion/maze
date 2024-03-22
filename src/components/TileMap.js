@@ -22,14 +22,9 @@ export default class TileMap {
     imageBg;
 
     // eslint-disable-next-line no-useless-constructor
-    constructor(image, level, scena, id, bg) {
-
-
-        this.image = image;
+    constructor(level, scena) {
         this.level = level;
         this.scena = scena;
-        this.id = id;
-        this.bg = bg;
         // this.x = x;
         // this.y = y;
         //  this.width = width;

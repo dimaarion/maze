@@ -4,7 +4,7 @@
  "layers":[
         {
          "id":31,
-         "image":"..\/..\/..\/public\/img\/Tiles\/level_5.png",
+         "image":"..\/..\/..\/public\/img\/Tiles\/level5.png",
          "name":"maze",
          "offsetx":1,
          "offsety":1,

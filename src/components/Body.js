@@ -823,7 +823,7 @@ export default class Body {
                 Matter.Body.setPosition(b, {x: this.body[i].position.x, y: this.body[i].position.y});
             });
             this.sensors.forEach((b, i) => {
-                    //   p5.ellipse(b.position.x , b.position.y, b.width, b.height);
+                       this.p5.ellipse(b.position.x , b.position.y, b.width, b.height);
                 }
             )
         }

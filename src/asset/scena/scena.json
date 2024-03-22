@@ -4,7 +4,7 @@
  "layers":[
         {
          "id":43,
-         "image":"..\/..\/..\/public\/img\/Tiles\/levelAOpen.png",
+         "image":"..\/..\/..\/public\/img\/Tiles\/level.png",
          "name":"open",
          "offsetx":1,
          "offsety":1,
@@ -138,9 +138,9 @@
                  "rotation":0,
                  "type":"bottom",
                  "visible":true,
-                 "width":25.8970333333334,
-                 "x":208.384816666667,
-                 "y":209.650333333333
+                 "width":21.533396969697,
+                 "x":200.930271212122,
+                 "y":209.468515151515
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -412,13 +412,24 @@
                 {
                  "height":30,
                  "id":367,
-                 "name":"ej",
+                 "name":"ej2",
                  "rotation":0,
                  "type":"alive",
                  "visible":true,
                  "width":30,
-                 "x":472,
-                 "y":151.333333333333
+                 "x":470,
+                 "y":146.666666666667
+                }, 
+                {
+                 "height":30,
+                 "id":368,
+                 "name":"crab",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30,
+                 "x":403.666666666667,
+                 "y":230.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -956,7 +967,7 @@
          "y":0
         }],
  "nextlayerid":47,
- "nextobjectid":368,
+ "nextobjectid":369,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

@@ -59,20 +59,20 @@ export default function Game() {
     const ej2 = new Body("ej2", ["./img/object/еj/ej2.png"]);
     const shark = new Body("shark", ["./img/object/shark/shark2.png", "./img/object/shark/shark.png", "./img/object/shark/shark3.png", "./img/object/shark/shark4.png", "./img/object/shark/sharkAttack.png", "./img/object/shark/sharkAttackR.png"], 60, 1);
     const ocoptus = new Body("ocoptus", ["./img/object/ocoptusTop.png", "./img/object/ocoptusUp.png"], 60);
-    const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
-    const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png", "./img/object/vodovorot/1.png"], 30);
+   // const kalmar = new Body("kalmar", ["./img/object/kalmar/kalmarP.png", "./img/object/kalmar/kalmarR.png", "./img/object/kalmar/kalmarL.png", "./img/object/kalmar/attackL.png"], 60);
+    const crab = new Body("crab", ["./img/object/crab/crab.png", "./img/object/crab/crab.png", "./img/object/crab/crabP.png", "./img/object/crab/crabA.png"], 30);
     const gubka = new Body("gubka", ["./img/object/gubka.png"])
     const bubbleM = new Body("bubble", ["./img/object/bubble/bubble.png"], 60);
     const chest = new Body("chest", ["./img/object/chest/1.png", "./img/object/chest/2.png"]);
-    const food = new Body("food", ["./img/object/food/red.png"], 60);
-    const foodGreen = new Body("food", ["./img/object/food/green.png"], 60);
+  //  const food = new Body("food", ["./img/object/food/red.png"], 60);
+   // const foodGreen = new Body("food", ["./img/object/food/green.png"], 60);
     const ugri = new Body("ugri", ["./img/object/ugri/ugriL.png", "./img/object/ugri/ugriR.png"], 60);
     const anglerfish = new Body("anglerfish", ["./img/object/Anglerfish/left.png", "./img/object/Anglerfish/right.png", "./img/object/Anglerfish/leftA.png", "./img/object/Anglerfish/rightA.png"], 60);
     const goldFish = new Body("goldFish", ["./img/object/goldFish/left.png", "./img/object/goldFish/right.png"], 60);
     const blueSlime = new Body("blue-slime", ["./img/object/slim/slim.png"], 60);
     const savePosition = new Body("save-position",["./img/object/flafSave.png"]);
     const db = new Database();
-
+    const map = level.map((el)=>new TileMap(el.level,el.scene))
     let press = {attack: 0, pressUp: 0, pressDown: 0, pressLeft: 0, pressRight: 0, rePress: 1};
 
     player.live = db.get().live;
@@ -84,7 +84,7 @@ export default function Game() {
     ocoptus.gravityStab = 0.5
     ocoptus.rotating = false;
     ocoptus.sensor = true;
-    kalmar.rotating = true;
+   // kalmar.rotating = true;
     meduza.gravityStab = 0.1
     ej2.gravityStab = 0.1;
     crab.gravityStab = 0.1;
@@ -108,6 +108,11 @@ export default function Game() {
     savePosition.sensor = true;
 
     function preload(p5) {
+        map.forEach((el)=>{
+            el.loadBg(p5);
+        })
+        crab.preloadImage(p5);
+        anglerfish.preloadImage(p5);
         interFace.loadImg(p5);
         player.preloadImage(p5);
         money.preloadImage(p5);
@@ -117,10 +122,18 @@ export default function Game() {
         fugu.preloadImage(p5);
         hp.preloadImage(p5);
         ej.preloadImage(p5);
+        ej2.preloadImage(p5);
+        gubka.preloadImage(p5);
+        bubbleM.preloadImage(p5);
+        ocoptus.preloadImage(p5);
+        chest.preloadImage(p5);
+        ugri.preloadImage(p5);
+        shark.preloadImage(p5);
+
     }
 
     function createElementsGame(p5,num){
-        level.filter((f)=>f.level === num).forEach((el)=>{
+        function elements(p5,el) {
             el.scene.create(p5,el.level)
             player.level = el.level
             player.createEllipse(world, el.scene)
@@ -132,14 +145,25 @@ export default function Game() {
             point.createRect(world,el.scene);
             key.createRect(world,el.scene);
             dor.createRect(world,el.scene);
-            meduza.createEllipse(world,el.scene);
             fugu.createEllipse(world,el.scene);
             hp.createEllipse(world,el.scene);
             ej.createEllipse(world,el.scene);
-
-
+            shark.createEllipse(world,el.scene);
+            ocoptus.createEllipse(world,el.scene);
+            crab.createEllipse(world,el.scene);
+            ej2.createEllipse(world,el.scene);
+            gubka.createEllipse(world,el.scene);
+            bubbleM.createEllipse(world,el.scene);
+            chest.createRect(world,el.scene);
+            ugri.createEllipse(world,el.scene);
             interFace.setup(p5, el.scene);
             bubble.setup(p5, el.scene);
+            meduza.createEllipse(world,el.scene);
+            anglerfish.createEllipse(world,el.scene);
+        }
+
+        level.filter((f)=>f.level === num).forEach((el)=>{
+            elements(p5,el);
         })
     }
 
@@ -150,15 +174,26 @@ export default function Game() {
         Engine.run(engine);
         engine.gravity.y = 0;
         simpleTimer = new Timer(p5, 1000);
-        simpleTimer.start();
         player.setupSprite(p5);
+        anglerfish.setupSprite(p5);
+        simpleTimer.start();
+        chest.setupSprite(p5);
         money.setupSprite(p5);
         key.setupSprite(p5);
         dor.setupSprite(p5);
         meduza.setupSprite(p5);
         fugu.setupSprite(p5);
         hp.setupSprite(p5);
+        shark.setupSprite(p5);
+        ugri.setupSprite(p5);
+        ocoptus.setupSprite(p5);
+        crab.setupSprite(p5);
+        ej2.setupSprite(p5);
+        gubka.setupSprite(p5);
+        bubbleM.setupSprite(p5);
         ej.setupSprite(p5);
+
+
 
         bubble.bubbleNum = 10;
         bubble.x = 10;
@@ -167,7 +202,7 @@ export default function Game() {
         hp.createBubble(p5, 20);
         //  crab.createBubble(p5, 20);
         events(p5)
-        //  console.log(world)
+
     }
 
     function draw(p5) {
@@ -175,10 +210,15 @@ export default function Game() {
         p5.rectMode(p5.CENTER);
         p5.push();
 
-
         player.translates(p5);
+        bubbleM.moveUp("bubble")
+        bubbleM.spriteAnimateArr(p5);
+        gubka.spriteAnimateArr(p5);
+        map.filter((f)=>f.level === player.level).forEach((el)=>{
+            el.imageBgView(p5)
+        });
         player.draw(p5, world, press);
-        platform.viewRect(p5);
+       // platform.viewRect(p5);
         money.spriteAnimateArr(p5);
         key.spriteAnimateArr(p5);
         dor.spriteAnimateArr(p5);
@@ -190,12 +230,27 @@ export default function Game() {
         hp.viewBubble();
         hp.spriteAnimateArr(p5);
         ej.spriteAnimateArr(p5, 10, 10);
-
-
-
-        point.viewRect(p5)
+        shark.movementLeftRight("shark");
+        shark.viewAttacks(2, 3, 5, 4);
+        shark.spriteAnimateArr(p5, 50, 10);
+        ocoptus.moveView(0, 1,0,1,1 );
+        ocoptus.movementUpDown(p5);
+        ocoptus.spriteAnimateArr(p5, 30, 30);
+        crab.movementLeftRight("timer");
+        crab.spriteAnimateArr(p5, 20, 20);
+        crab.gravity();
+        ej2.spriteAnimateArr(p5, 10, 10);
+        ej2.gravity();
+        chest.spriteAnimateArr(p5);
+        ugri.movementLeftRight();
+        ugri.spriteAnimateArr(p5, 60, 60);
+        anglerfish.viewAttacks(1, 0, 3, 2)
+        anglerfish.movementLeftRight("anglerfish");
+        anglerfish.spriteAnimateArr(p5, 30, 30);
+        //point.viewRect(p5)
 
         player.spriteAnimateArr(p5);
+        player.recoveryLive();
         bubble.view();
         p5.pop();
         mapsButton.draw(p5);
@@ -312,8 +367,9 @@ export default function Game() {
         }
 
         function sensorAttack(pair, bol) {
-            if (pair.bodyB.typeObject === "alive" && (pair.bodyA.label === "player_sensor" || pair.bodyA.label === "player")) {
-                pair.bodyB.collision = bol;
+            if (pair.bodyA.typeObject === "alive" && (pair.bodyB.label === "player_sensor" || pair.bodyB.label === "player")) {
+
+                pair.bodyA.collision = bol;
             }
         }
 
