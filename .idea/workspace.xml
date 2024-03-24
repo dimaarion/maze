@@ -99,7 +99,7 @@
       <workItem from="1711149272143" duration="5869000" />
       <workItem from="1711195065442" duration="20859000" />
       <workItem from="1711225383089" duration="10765000" />
-      <workItem from="1711266194525" duration="29992000" />
+      <workItem from="1711266194525" duration="30368000" />
     </task>
     <task id="LOCAL-00001" summary="dimaarion/maze_2">
       <created>1711049550736</created>
@@ -108,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711049550736</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="dimaarion/maze_2">
+      <created>1711302602397</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711302602397</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
