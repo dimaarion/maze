@@ -2,9 +2,9 @@ export default class Action{
 
     maps = ['./img/Tiles/mapL1.png','./img/Tiles/mapL2.png','./img/Tiles/mapL3.png','./img/Tiles/mapL4.png','./img/Tiles/mapL5.png']
 
-    arrayCount(n) {
+    arrayCount(c = 0,n) {
         let a = [];
-        for (let i = 0; i < n; i++) {
+        for (let i = c; i < n; i++) {
             a[i] = i + 1;
         }
         return a;

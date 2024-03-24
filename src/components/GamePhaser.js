@@ -2,7 +2,7 @@ import Phaser from "phaser"
 import {useEffect, useRef, useState} from "react";
 import Scena from "./Scena";
 import level from "../asset/scena/scena.json"
-import {getObjects} from "../action";
+import {getObjects, arrayCount} from "../action";
 
 export default function GamePhaser() {
     const phaserRef = useRef(null);
@@ -13,6 +13,7 @@ export default function GamePhaser() {
             type: Phaser.AUTO,
             width: window.innerWidth,
             height: window.innerHeight,
+            backgroundColor: "#5DACD8",
             physics: {
                 default: 'matter',
                 matter: {
@@ -34,6 +35,7 @@ export default function GamePhaser() {
 
         const game = new Phaser.Game(config);
 
+
         let player2;
         let player;
         let map
@@ -41,7 +43,8 @@ export default function GamePhaser() {
         let cursor;
         let cam
         let speed = 8
-        let fugu = []
+        let fugu = [];
+        let meduza = [];
 
         function smoothMoveCameraTowards(target, smoothFactor, cam) {
             if (smoothFactor === undefined) {
@@ -54,15 +57,29 @@ export default function GamePhaser() {
         function preload() {
             this.load.image('tiles', './img/Tiles/level.png');
             this.load.tilemapTiledJSON('map', './asset/scena/scena.json');
+            this.load.tilemapTiledJSON('map2', './img/Tiles/desert.json');
             this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
-            this.load.spritesheet('money', './img/money/money2.png', {frameWidth: 50, frameHeight: 50});
-            this.load.spritesheet('fugu', './img/object/fugu/left.png', {frameWidth: 200, frameHeight: 150});
+            this.load.spritesheet('money', './img/money/money.png', {frameWidth: 200, frameHeight: 200});
+            this.load.spritesheet('fugu', './img/object/fugu/fuguAll.png', {frameWidth: 200, frameHeight: 150});
+            this.load.spritesheet('meduza', './img/object/fugu/fuguAll.png', {frameWidth: 200, frameHeight: 150});
 
         }
 
         function create() {
-
             map = this.add.tilemap('map');
+            this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
+                if (bodyA.label === "fugu" && bodyB.label === "right") {
+                    bodyA.gameObject.play("fugu_L")
+                    bodyA.direction = 1;
+                }else if (bodyA.label === "fugu" && bodyB.label === "left") {
+                    bodyA.direction = 0;
+                    bodyA.gameObject.play("fugu_R")
+                }
+
+            });
+
+
+
             let tiles = map.addTilesetImage('level', 'tiles');
             layer = map.createLayer('map', tiles);
             let walls = map.createLayer('walls', tiles);
@@ -83,20 +100,25 @@ export default function GamePhaser() {
             })
             this.anims.create({
                 key: 'fugu_L',
-                frames: "fugu",
-                frameRate: 10,
+                frames: this.anims.generateFrameNumbers('fugu', {frames: arrayCount(0,59)}),
+                frameRate: 30,
                 repeat: -1,
-            })
+            });
+            this.anims.create({
+                key: 'fugu_R',
+                frames: this.anims.generateFrameNumbers('fugu', {frames: arrayCount(59,118)}),
+                frameRate: 30,
+                repeat: -1,
+            });
 
             let money = map.createFromObjects("money", {key: "money"})
 
 
             fugu = getObjects(map, "fugu").map((b) => {
-                return this.matter.add.sprite(b.x, b.y, "fugu").play("fugu_L").setCircle(b.width / 2, {
+                return this.matter.add.sprite(b.x, b.y, "fugu").play("fugu_R").setCircle(b.width / 2, {
                     isSensor: true,
-                    label: "fugu",
+                    label: b.name,
                     direction: 0,
-                    key:"fugu_L"
                 }).setFixedRotation();
             })
             getObjects(map, "point").forEach((b) => {
@@ -112,40 +134,31 @@ export default function GamePhaser() {
                 .setFixedRotation()
                 .setFrictionAir(0.05)
                 .setMass(30)
-            this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
-                if (bodyA.label === "fugu" && bodyB.label === "right") {
-                    bodyA.direction = 1;
-                    bodyA.key = "fugu_L";
-                }else if (bodyA.label === "fugu" && bodyB.label === "left") {
-                    bodyA.direction = 0;
-                    bodyA.key = "fugu_R";
-                }
-                console.log(bodyB.label)
-            });
+
 
             this.anims.play('spin', money);
 
             this.anims.create({
                 key: 'left_p',
-                frames: this.anims.generateFrameNumbers('player', {frames: [6, 7, 8, 9, 10, 11]}),
+                frames: this.anims.generateFrameNumbers('player', {frames: arrayCount(6,11)}),
                 frameRate: 6,
                 repeat: -1
             });
             this.anims.create({
                 key: 'right_p',
-                frames: this.anims.generateFrameNumbers('player', {frames: [0, 1, 2, 3, 4, 5]}),
+                frames: this.anims.generateFrameNumbers('player', {frames: arrayCount(0,5)}),
                 frameRate: 6,
                 repeat: -1
             });
             this.anims.create({
                 key: 'right',
-                frames: this.anims.generateFrameNumbers('player', {frames: [12, 13, 14, 15, 16, 17]}),
+                frames: this.anims.generateFrameNumbers('player', {frames: arrayCount(12,17)}),
                 frameRate: 6,
                 repeat: -1
             });
             this.anims.create({
                 key: 'left',
-                frames: this.anims.generateFrameNumbers('player', {frames: [18, 19, 20, 21, 22, 23]}),
+                frames: this.anims.generateFrameNumbers('player', {frames: arrayCount(18,23)}),
                 frameRate: 6,
                 repeat: -1
             });
@@ -177,14 +190,18 @@ export default function GamePhaser() {
                 }
             });
 
+
+
         }
 
         function update() {
 
             fugu.forEach((el) => {
+             //   el.play("fugu_R")
                 if (el.body.direction === 0) {
                     el.setVelocity(1, 0)
                 } else {
+                 //  el.play("fugu_L")
                     el.setVelocity(-1, 0)
                 }
             })
