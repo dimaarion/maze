@@ -60,16 +60,17 @@ export default class Body {
         this.rate = rate;
         this.animate.rate = rate;
 
+
     }
 
 
-    preloadImage(p5) {
+    preloadImage() {
 
         if (Array.isArray(this.imgArr)) {
             if (this.frame > 0) {
-                this.animate.animated = true;
+              //  this.animate.animated = true;
             }
-            this.animate.loadImg(p5, this.imgArr);
+         //   this.animate.loadImg(p5, this.imgArr);
         }
         this.speedMonster = this.percent(this.speedMonster / 2);
         this.gravityStab = this.percent(this.gravityStab / 2);
@@ -103,16 +104,14 @@ export default class Body {
     }
 
 
-    translates(p5) {
+    translates() {
         if (this.world !== undefined) {
-            this.body.map((b) =>
-                p5.translate(
-                    -b.position.x + (p5.windowWidth / 2 - b.width / 2),
-                    -b.position.y + p5.windowHeight / 2
-                )
+            this.body.map((b) => Matter.Body.translate(b, {x: - b.position.x + (window.innerWidth / 2 - b.width / 2), y: -b.position.y + window.innerHeight / 2})
             );
         }
     }
+
+
 
 
     spriteAnimate(p5, img, w = 0, h = 0) {
@@ -213,8 +212,14 @@ export default class Body {
             sprite: this.image,
             remove: false,
             startX: scena.size(b.x, scena.scale),
-            startY: scena.size(b.y, scena.scale)
-
+            startY: scena.size(b.y, scena.scale),
+            render: {
+                sprite: {
+                    texture: this.imgArr[0],
+                    xScale:1,
+                    yScale:1
+                }
+            }
         }
     }
 
@@ -821,11 +826,10 @@ export default class Body {
         if (this.sensors) {
             this.sensors.filter((f) => f.remove === false).forEach((b, i) => {
                 Matter.Body.setPosition(b, {x: this.body[i].position.x, y: this.body[i].position.y});
-            });
-            this.sensors.forEach((b, i) => {
-                       this.p5.ellipse(b.position.x , b.position.y, b.width, b.height);
-                }
-            )
+              //  this.p5.ellipse(b.position.x , b.position.y, b.width, b.height);
+            })
+
+
         }
     }
 

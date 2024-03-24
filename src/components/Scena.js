@@ -10,14 +10,21 @@ export default class Scena {
     level = 0;
     id = [];
     bg = "";
-    constructor(scena) {
+    constructor(scena,level) {
         this.scena = scena;
+        this.setup(level)
     }
 
 
+
     create(p5,level = 1) {
-        this.level = level
         this.p5 = p5;
+        this.setup(level)
+
+    }
+
+    setup(level){
+        this.level = level
         if (this.scena) {
             this.scenaWidth = this.scena.width * this.scena.tileheight;
             this.scenaHeigiht = this.scena.height * this.scena.tileheight;
@@ -25,8 +32,8 @@ export default class Scena {
                 this.scena.width * this.scena.tileheight +
                 this.scena.height * this.scena.tileheight;
         }
-
     }
+
 
     getObjects(name) {
         let nameObject = name;
@@ -34,6 +41,7 @@ export default class Scena {
         let layersObjects = this.scena.layers
             .map((x) => x.objects)
             .filter((f) => f !== undefined);
+
         layersObjects.map((x, i) => x.filter((f2) => f2.name === nameObject).map((x2, j) => (arrObject[j] = x2)));
         return arrObject;
     }
