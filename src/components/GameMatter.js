@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Engine, Render, Bodies, World,Events } from 'matter-js'
 
 import Scena from './Scena';
-import Player from './Player';
+import Player from './PlayerS';
 import scena from "../asset/scena/scena.json"
 import scena2 from "../asset/scena/scena2.json"
 import scena3 from "../asset/scena/scena3.json"

@@ -1,7 +1,7 @@
-import Body from "./Body";
+import Body from "./BodyS";
 import Animate from "./Animate";
 
-export default class Money extends Body{
+export default class MoneyS extends Body{
 
     animate = new Animate();
 

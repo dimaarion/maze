@@ -4,7 +4,7 @@ import Bubble from "./Bubble";
 import Timer from "./Timer";
 import Action from "./Action";
 
-export default class Body {
+export default class BodyS {
     p5;
     name;
     world;

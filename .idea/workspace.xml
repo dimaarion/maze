@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2">
+    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/action/Event.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/Body.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/Fugu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/Money.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/Player.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/Point.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scene/Preloader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scene/Scene_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scene/StartMenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/action/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/money/money2.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/money/money2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/scena/scena2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/asset/scena/scena2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Anomaly.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Anomaly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Body.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BodyS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GameMatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GameMatter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/GamePhaser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GamePhaser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Joystick.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Joystick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Ladder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Ladder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Level.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Level.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Money.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MoneyS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlayerS.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,32 +49,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitToolBoxStore">
-    <option name="projectConfigVersion" value="5" />
-  </component>
   <component name="ProjectId" id="2dzjmEzjrt8Qlko8ELhmoLN9pBx" />
-  <component name="ProjectLevelVcsManager">
-    <OptionsSetting value="false" id="Update" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Code With Me" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2021.1.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\React\maze_2\public" />
-    </key>
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,12 +76,7 @@
       <workItem from="1711027491885" duration="15528000" />
       <workItem from="1711051828427" duration="4853000" />
       <workItem from="1711061216081" duration="4558000" />
-      <workItem from="1711095622268" duration="8344000" />
-      <workItem from="1711149272143" duration="5869000" />
-      <workItem from="1711195065442" duration="20859000" />
-      <workItem from="1711225383089" duration="10765000" />
-      <workItem from="1711266194525" duration="30857000" />
-      <workItem from="1711311611245" duration="7340000" />
+      <workItem from="1711395052299" duration="3228000" />
     </task>
     <task id="LOCAL-00001" summary="dimaarion/maze_2">
       <created>1711049550736</created>
@@ -80,51 +85,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711049550736</updated>
     </task>
-    <task id="LOCAL-00002" summary="dimaarion/maze_2">
-      <created>1711302602397</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1711302602397</updated>
-    </task>
-    <task id="LOCAL-00003" summary="dimaarion/maze_2">
-      <created>1711303188307</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1711303188307</updated>
-    </task>
-    <task id="LOCAL-00004" summary="dimaarion/maze_2">
-      <created>1711303210768</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1711303210768</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="dimaarion/maze_2" />
     <option name="LAST_COMMIT_MESSAGE" value="dimaarion/maze_2" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

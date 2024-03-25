@@ -1,4 +1,4 @@
-import Body from "./Body";
+import Body from "./BodyS";
 import Eye from "./Eye";
 import Action from "./Action";
 

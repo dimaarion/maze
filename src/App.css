@@ -3,6 +3,11 @@ body {
     padding: 0;
 }
 
+canvas{
+    position: fixed;
+    margin: 0;
+    padding: 0;
+}
 .App {
     position: fixed;
     margin: 0;

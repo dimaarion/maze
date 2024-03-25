@@ -1,11 +1,11 @@
 import Matter from "matter-js";
-import Body from "./Body";
+import Body from "./BodyS";
 import Animate from "./Animate";
 import Joystick from "./Joystick";
 import Database from "./Database";
 import Button from "./Button";
 
-export default class Player extends Body {
+export default class PlayerS extends Body {
     body = {};
     body2 = {};
     scena = {};

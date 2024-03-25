@@ -1,4 +1,4 @@
-import Body from "./Body";
+import Body from "./BodyS";
 import Animate from "./Animate";
 
 export default class Ladder extends Body{

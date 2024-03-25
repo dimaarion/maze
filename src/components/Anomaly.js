@@ -1,4 +1,4 @@
-import Body from "./Body";
+import Body from "./BodyS";
 export default class Anomaly extends Body {
     size = 15;
     xoff = 0.0;

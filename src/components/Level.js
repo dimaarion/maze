@@ -2,9 +2,9 @@ import Matter, {Engine, Composite, Events} from "matter-js";
 import mobile from "mobile-detect";
 import Sketch from 'react-p5';
 import Scena from './Scena';
-import Body from './Body';
-import Player from './Player';
-import Money from './Money';
+import Body from './BodyS';
+import Player from './PlayerS';
+import Money from './MoneyS';
 import Interface from './Interface';
 
 import TileMap from "./TileMap";
