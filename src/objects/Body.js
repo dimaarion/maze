@@ -1,12 +1,14 @@
 import {getObjects} from "../action";
 
 export default class Body{
+    label
     speed
     body
     name
-    constructor(name, speed = 0) {
+    constructor(name,label = "", speed = 0) {
         this.name = name;
         this.speed = speed;
+        this.label = label;
     }
     rectangle(t,map,options = {}){
         return getObjects(map, this.name).map((b) => {
@@ -23,6 +25,23 @@ export default class Body{
         this.body.forEach((el) => {
            el.setScale(s1,s2);
         })
+    }
+
+    sensors(t,options){
+       this.body = this.body.map((b)=>{
+            let sx = b.width / 2;
+            let sy = b.height / 2;
+            const playerBody = t.matter.bodies.circle(sx,sy,b.width/2)
+            let sensors = t.matter.bodies.circle(sx,sy,b.width,Object.assign({label:this.label},options))
+            const compoundBody = t.matter.body.create({
+                parts: [
+                    playerBody, sensors
+                ],
+            });
+          return   b.setExistingBody(compoundBody).setName(this.name).setFixedRotation().setPosition(b.x, b.y);
+
+        })
+
     }
 
     draw(){

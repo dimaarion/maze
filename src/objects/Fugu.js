@@ -1,8 +1,8 @@
 import Body from "./Body";
 import {arrayCount} from "../action";
 export default class Fugu extends Body{
-    constructor(name,speed) {
-        super(name,speed);
+    constructor(name,label,speed) {
+        super(name,label,speed);
     }
     body = []
 

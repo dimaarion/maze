@@ -36,28 +36,10 @@ export default class Player {
         });
         this.playerController = {
             matterSprite: el.matter.add.sprite(getObjects(map,"player")[0].x, getObjects(map,"player")[0].y, 'player'),
-            blocked: {
-                left: false,
-                right: false,
-                bottom: false
-            },
-            numTouching: {
-                left: 0,
-                right: 0,
-                bottom: 0
-            },
             sensors:null,
-            time: {
-                leftDown: 0,
-                rightDown: 0
-            },
-            lastJumpedAt: 0,
-            speed: {
-                run: 7,
-                jump: 10
-            },
             label:"player"
         };
+
         let sx = this.playerController.matterSprite.width / 2;
         let sy = this.playerController.matterSprite.height / 2;
         const playerBody = el.matter.bodies.circle(sx,sy,this.playerController.matterSprite.width/2)
@@ -67,10 +49,9 @@ export default class Player {
                 playerBody, this.playerController.sensors
             ],
         });
-        this.body = this.playerController.matterSprite.setExistingBody(compoundBody).setName("player")
-            .setFixedRotation().setPosition(getObjects(map,"player")[0].x, getObjects(map,"player")[0].y)
-       console.log(this.body)
-        this.body.play("right_p")
+        this.body = this.playerController.matterSprite.setExistingBody(compoundBody).setName("player").setFixedRotation().setPosition(getObjects(map,"player")[0].x, getObjects(map,"player")[0].y);
+
+        this.body.play("right_p");
         let p = this.body
         el.input.keyboard.on('keydown', function (event) {
             if (event.key === "ArrowRight") {

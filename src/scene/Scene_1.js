@@ -14,7 +14,7 @@ export default class Scene_1 extends Phaser.Scene {
 
    player = new Player(8);
    money = new Money("money");
-   fugu = new Fugu("fugu",5);
+   fugu = new Fugu("fugu","alive",5);
    point = new Point("point");
 
    g = new Game();
@@ -31,6 +31,7 @@ export default class Scene_1 extends Phaser.Scene {
         let walls = this.map.createLayer('walls', tiles);
         this.g.setup(this)
         this.matter.world.convertTilemapLayer(walls);
+        this.fugu.sensors(this,{isSensor:true})
     }
 
     update(time, delta) {
