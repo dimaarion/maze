@@ -353,6 +353,17 @@
                  "width":30,
                  "x":988.030303030303,
                  "y":944.58846969697
+                }, 
+                {
+                 "height":450.217,
+                 "id":372,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"level_2",
+                 "visible":true,
+                 "width":30,
+                 "x":2427.42424242424,
+                 "y":1393.07331818182
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -847,15 +858,15 @@
          "name":"player",
          "objects":[
                 {
-                 "height":15.4814355984242,
+                 "height":32,
                  "id":263,
                  "name":"player",
                  "rotation":0,
                  "type":"player",
                  "visible":true,
-                 "width":15.4814355984242,
-                 "x":2114.82718814823,
-                 "y":313.848804028668
+                 "width":32,
+                 "x":2093.61506693611,
+                 "y":1589.60637978624
                 }],
          "opacity":1,
          "properties":[
@@ -893,7 +904,7 @@
          "y":0
         }],
  "nextlayerid":49,
- "nextobjectid":372,
+ "nextobjectid":373,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

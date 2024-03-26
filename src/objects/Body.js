@@ -15,7 +15,13 @@ export default class Body{
     }
     sprite(t,map,options = {}){
         return getObjects(map, this.name).map((b) => {
-            return  t.matter.add.sprite(b.x,b.y,this.name,Object.assign({label: b.type, width:b.width, height:b.height}, options))
+            return  t.matter.add.sprite(b.x + b.width / 2,b.y + b.height / 2,this.name,Object.assign({label: b.type, width:b.width, height:b.height}, options))
+        })
+    }
+
+    scale(s1 = 1,s2 = 1){
+        this.body.forEach((el) => {
+           el.setScale(s1,s2);
         })
     }
 

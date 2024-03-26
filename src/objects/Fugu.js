@@ -5,7 +5,7 @@ export default class Fugu extends Body{
         super(name,speed);
     }
     body = []
-    scale = 1
+
 
     setup(el,map){
         this.body = this.sprite(el,map)
@@ -27,7 +27,7 @@ export default class Fugu extends Body{
                 isSensor: true,
                 label: "alive",
                 direction: 0,
-            }).setFixedRotation().setScale(this.scale,this.scale);
+            }).setFixedRotation();
         })
 
 

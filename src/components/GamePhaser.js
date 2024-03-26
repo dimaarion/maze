@@ -6,6 +6,7 @@ import {getObjects, arrayCount} from "../action";
 import Scene_1 from "../scene/Scene_1";
 import Preloader from "../scene/Preloader";
 import StartMenu from "../scene/StartMenu";
+import Scene_2 from "../scene/Scene_2";
 
 export default function GamePhaser() {
     const phaserRef = useRef(null);
@@ -25,11 +26,11 @@ export default function GamePhaser() {
                         y: 0
                     },
                     debug: {
-                        hullColor: '#ffffff'
+                      //  hullColor: '#ffffff'
                     }
                 }
             },
-            scene:[Preloader,StartMenu, Scene_1],
+            scene:[Preloader,StartMenu, Scene_1,Scene_2],
         };
 
         const game = new Phaser.Game(config);

@@ -18,7 +18,7 @@ import scena from "../asset/scena/scena.json"
 import scena2 from "../asset/scena/scena2.json"
 import scena3 from "../asset/scena/scena3.json"
 
-export default function Game() {
+export default function GameS() {
     let engine;
     let world;
 
