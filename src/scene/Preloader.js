@@ -25,6 +25,7 @@ export default class Preloader extends Phaser.Scene{
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.image("hp","./img/object/hp.png");
+        this.load.image("ej-direct","./img/object/еj/ejD.png");
     }
 
     create(){

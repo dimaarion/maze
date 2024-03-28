@@ -9,12 +9,21 @@ export default class Player {
     liveStatic = 300
     live = this.liveStatic;
     money = 0;
+    x = 0;
+    y = 0;
     constructor(speed = 1) {
         this.speed = speed
     }
 
 
     setup(el, map) {
+        if(this.x === 0){
+            this.x = getObjects(map, "player")[0].x;
+        }
+
+        if(this.y === 0){
+            this.y = getObjects(map, "player")[0].y;
+        }
 
         el.anims.create({
             key: 'left_p',
@@ -41,7 +50,7 @@ export default class Player {
             repeat: -1
         });
         this.playerController = {
-            matterSprite: el.matter.add.sprite(getObjects(map, "player")[0].x, getObjects(map, "player")[0].y, 'player'),
+            matterSprite: el.matter.add.sprite(this.x, this.y, 'player'),
             options: {
                 label: 'player',
                 friction: 0,

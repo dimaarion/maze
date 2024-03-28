@@ -55,11 +55,14 @@ export default class Database {
     }
 
     setMoney(n) {
-        this.base.money = n;
-        if (window.localStorage.getItem("base")) {
-            return window.localStorage.setItem("base", JSON.stringify(this.base))
-        } else {
-            return this.base;
+            return window.localStorage.setItem("money", n.toString())
+    }
+
+    getMoney(){
+        if(window.localStorage.getItem("money")){
+            return Number.parseInt(window.localStorage.getItem("money"));
+        }else {
+            return 0;
         }
     }
 

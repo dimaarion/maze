@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2" />
+    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2">
+      <change afterPath="$PROJECT_DIR$/src/objects/EjDirect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena22.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena22.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/action/Event.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/action/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/Body.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Body.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/Hp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Hp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/Preloader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Preloader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/Scene_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene_1.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,6 +88,7 @@
       <workItem from="1711311611245" duration="7340000" />
       <workItem from="1711469786880" duration="24835000" />
       <workItem from="1711535136789" duration="36273000" />
+      <workItem from="1711627118173" duration="10184000" />
     </task>
     <task id="LOCAL-00001" summary="dimaarion/maze_2">
       <created>1711049550736</created>
@@ -104,7 +118,21 @@
       <option name="project" value="LOCAL" />
       <updated>1711303210768</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="dimaarion/maze_2">
+      <created>1711627381185</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711627381185</updated>
+    </task>
+    <task id="LOCAL-00006" summary="dimaarion/maze_2">
+      <created>1711627411332</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711627411332</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
