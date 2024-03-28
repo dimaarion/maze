@@ -71,6 +71,7 @@ export default class Event {
                     pair.bodyA.live = pair.bodyA.live - pair.bodyB.attack;
                     this.db.setLive(pair.bodyA.live);
                     if (pair.bodyA.live < 10) {
+                        this.db.setLive(15);
                         pair.bodyA.gameObject.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
                     }
                 }
@@ -83,7 +84,7 @@ export default class Event {
 
                 if (pair.bodyA.label === "player" && pair.bodyB.label === "hp") {
                     if(pair.bodyA.live < pair.bodyA.liveStatic){
-                        pair.bodyA.live = pair.bodyA.live + 30;
+                        pair.bodyA.live = pair.bodyA.live + pair.bodyB.live;
                         this.db.setLive(pair.bodyA.live);
                         pair.bodyB.gameObject.destroy();
                     }

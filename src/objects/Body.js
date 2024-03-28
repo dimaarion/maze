@@ -1,3 +1,4 @@
+import Phaser from "phaser"
 import {getObjects} from "../action";
 
 export default class Body{
@@ -51,6 +52,36 @@ export default class Body{
           return   b.setExistingBody(compoundBody).setPosition(getObjects(t.map,this.name)[i].x + getObjects(t.map,this.name)[i].width / 2, getObjects(t.map,this.name)[i].y + getObjects(t.map,this.name)[i].height / 2).setSize(getObjects(t.map,this.name)[i].width,getObjects(t.map,this.name)[i].height).setName(this.name).setFixedRotation();
         })
 
+    }
+
+    constrainVelocity (sprite, maxVelocity)
+    { let x = 0;
+        let y = 0
+        if (!sprite || !sprite.body)
+        { return; }
+
+        let angle, currVelocitySqr, vx, vy;
+        vx = sprite.body.velocity.x;
+        vy = sprite.body.velocity.y;
+        currVelocitySqr = vx * vx + vy * vy;
+
+        if (currVelocitySqr > maxVelocity * maxVelocity)
+        {
+            angle = Math.atan2(vy, vx);
+            vx = Math.cos(angle) * maxVelocity;
+            vy = Math.sin(angle) * maxVelocity;
+            sprite.body.velocity.x = vx;
+            sprite.body.velocity.y = vy;
+        }
+    }
+
+    persecute(t,player){
+        this.constrainVelocity(player,5)
+        this.body.forEach((b)=>{
+            let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
+           // b.setVelocity(b.x - player.position.x,b.y - player.position.y)
+
+        })
     }
 
     draw(){
