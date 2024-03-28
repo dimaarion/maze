@@ -1,115 +1,113 @@
-export default class Database{
+import {getObjects} from "../action";
+
+export default class Database {
     name = 'default';
-    base = [{
-        id:"default",
-        xp:100,
-        speed:1,
-        attack:10,
-        live:50,
-        speedLive:0.01,
-        liveMax:50,
-        x:0,
-        y:0,
-        width:10,
-        height:10,
-        level:1,
-        img:["./img/player/leftRest.png", "./img/player/rightRest.png", "./img/player/leftSwim.png", "./img/player/rightSwim.png"],
-        rate:6,
-        money:0,
-        frame:6,
-        key:0
-    }]
-
-    create(world,scene){
-        this.base.forEach((el)=>{
-            el.x = scene.map((el)=>el.getObjects("player")[0].x);
-            el.y = scene.map((el)=>el.getObjects("player")[0].y);
-        })
-        if(!window.localStorage.getItem("base")){
-              window.localStorage.setItem("base",JSON.stringify(this.base))
-        }
-console.log(window.localStorage.getItem("base"))
+    base = {
+        id: "default",
+        xp: 300,
+        speed: 1,
+        attack: 10,
+        live: 300,
+        speedLive: 0.01,
+        liveMax: 300,
+        x: 0,
+        y: 0,
+        width: 10,
+        height: 10,
+        level: 1,
+        img: ["./img/player/leftRest.png", "./img/player/rightRest.png", "./img/player/leftSwim.png", "./img/player/rightSwim.png"],
+        rate: 6,
+        money: 0,
+        frame: 6,
+        key: 0
     }
 
+    create(map) {
 
-    get(){
-        if(window.localStorage.getItem("base")){
-            return JSON.parse(window.localStorage.getItem("base")).filter((f)=>f.id === this.name)[0];
-        }else{
-             return this.base.filter((f)=>f.id === this.name)[0];
-        }
+        this.base.x = getObjects(map, "player")[0].x;
+        this.base.y = getObjects(map, "player")[0].y;
 
-      
-    }
-
-    setPosition(x,y){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.x = x;
-            el.y = y;
-        })
-        if(window.localStorage.getItem("base")){
-             return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
+        if (!window.localStorage.getItem("base")) {
+            window.localStorage.setItem("base", JSON.stringify(this.base))
         }
     }
 
-    setMoney(n){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.money = n;
-        })
-        if(window.localStorage.getItem("base")){
-             return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
+
+    get() {
+        if (window.localStorage.getItem("base")) {
+            return JSON.parse(window.localStorage.getItem("base"));
+        } else {
+            return this.base;
+        }
+
+
+    }
+
+    setPosition(x, y) {
+        this.base.x = x;
+        this.base.y = y;
+
+        if (window.localStorage.getItem("base")) {
+            return window.localStorage.setItem("base", JSON.stringify(this.base))
+        } else {
+            return this.base;
         }
     }
 
-    setLevel(n){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.level = n;
-        })
-        if(window.localStorage.getItem("base")){
-             return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
-        }
-    }
-    setLive(n){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.live = n;
-        })
-        if(window.localStorage.getItem("base")){
-             return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
+    setMoney(n) {
+        this.base.money = n;
+        if (window.localStorage.getItem("base")) {
+            return window.localStorage.setItem("base", JSON.stringify(this.base))
+        } else {
+            return this.base;
         }
     }
 
-    setKey(n){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.key = n;
-        })
-        if(window.localStorage.getItem("base")){
-            return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
+    setLevel(n) {
+        console.log(n)
+        return window.localStorage.setItem("level", n);
+    }
+    getLevel() {
+        if(window.localStorage.getItem("level")){
+            return window.localStorage.getItem("level");
+        }else {
+            return "Scene_1";
+        }
+    }
+    setLive(n) {
+        return window.localStorage.setItem("live", n.toString())
+    }
+
+    getLive() {
+        if(window.localStorage.getItem("live")){
+            return Number.parseInt(window.localStorage.getItem("live"));
+        }else {
+            return 15;
         }
     }
 
-    setImage(n = [],f){
-        this.base.filter((f)=>f.id === this.name).forEach((el)=>{
-            el.img = n;
-            el.frame = f;
-        })
-        if(window.localStorage.getItem("base")){
-            return window.localStorage.setItem("base",JSON.stringify(this.base))
-        }else{
-            return [{}]
+    setKey(n) {
+        this.base.key = n;
+        if (window.localStorage.getItem("base")) {
+            return window.localStorage.setItem("base", JSON.stringify(this.base))
+        } else {
+            return this.base;
         }
     }
 
-    cleaner(){
+    setImage(n = [], f) {
+
+        this.base.img = n;
+        this.base.frame = f;
+
+        if (window.localStorage.getItem("base")) {
+            return window.localStorage.setItem("base", JSON.stringify(this.base))
+        } else {
+            return this.base;
+        }
+    }
+
+    cleaner() {
         return window.localStorage.clear();
     }
 }

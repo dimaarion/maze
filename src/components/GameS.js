@@ -4,7 +4,7 @@ import Sketch from 'react-p5';
 import Scena from './Scena';
 import Body from './BodyS';
 import Player from './PlayerS';
-import Interface from './Interface';
+import Interface from './InterfaceS';
 
 import TileMap from "./TileMap";
 import Database from "./Database";

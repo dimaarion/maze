@@ -1,17 +1,29 @@
 import Phaser from "phaser"
+import Database from "../components/Database";
 export default class StartMenu extends Phaser.Scene{
     constructor() {
         super('StartMenu');
     }
-count = 0
+    count = 0;
+    db = new Database();
     preload(){
 
 
     }
 
     create(){
-        this.scene.start('Scene_1');
+      // this.scene.launch('Scene_1');
+       // this.db.cleaner()
+
+    this.scene.start(this.db.getLevel());
+
+
+
+
+console.log(this.db.getLevel())
+
         this.input.on("pointerdown",()=>{
+
             this.count = this.count + 1
 
             if(this.count === 0){
@@ -22,7 +34,7 @@ count = 0
             if(this.count > 3){
                // this.count = 0;
             }
-            console.log(this.count)
+
         })
 
     }

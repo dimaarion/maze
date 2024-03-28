@@ -4,7 +4,7 @@ export function getObjects(map,name){
 
 export function arrayCount(c = 0,n) {
     let a = [];
-    for (let i = c; i < n; i++) {
+    for (let i = c; i <= n; i++) {
         a[i] = i + 1;
     }
     return a;

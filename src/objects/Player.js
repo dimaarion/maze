@@ -1,55 +1,78 @@
 import {arrayCount, getObjects} from "../action";
+import {money} from "../redux/store";
 
 export default class Player {
     body;
     speed = 1;
     playerController;
+    level = 1
+    liveStatic = 300
+    live = this.liveStatic;
+    money = 0;
     constructor(speed = 1) {
         this.speed = speed
     }
 
 
     setup(el, map) {
+
         el.anims.create({
             key: 'left_p',
-            frames: el.anims.generateFrameNumbers('player', {frames: arrayCount(6,11)}),
+            frames: el.anims.generateFrameNumbers('player', {start: 6, end: 11}),
             frameRate: 6,
             repeat: -1
         });
         el.anims.create({
             key: 'right_p',
-            frames: el.anims.generateFrameNumbers('player', {frames: arrayCount(0,5)}),
+            frames: el.anims.generateFrameNumbers('player', {start: 0, end: 5}),
             frameRate: 6,
             repeat: -1
         });
         el.anims.create({
             key: 'right',
-            frames: el.anims.generateFrameNumbers('player', {frames: arrayCount(12,17)}),
+            frames: el.anims.generateFrameNumbers('player', {start: 12, end: 17}),
             frameRate: 6,
             repeat: -1
         });
         el.anims.create({
             key: 'left',
-            frames: el.anims.generateFrameNumbers('player', {frames: arrayCount(18,23)}),
+            frames: el.anims.generateFrameNumbers('player', {start: 18, end: 23}),
             frameRate: 6,
             repeat: -1
         });
         this.playerController = {
-            matterSprite: el.matter.add.sprite(getObjects(map,"player")[0].x, getObjects(map,"player")[0].y, 'player'),
-            sensors:null,
-            label:"player"
+            matterSprite: el.matter.add.sprite(getObjects(map, "player")[0].x, getObjects(map, "player")[0].y, 'player'),
+            options: {
+                label: 'player',
+                friction: 0,
+                restitution: 0.05,
+                frictionStatic: 0,
+                live: this.live,
+                liveStatic:this.liveStatic,
+                money:this.money
+            },
+            sensors: null,
+            label: "player"
         };
 
         let sx = this.playerController.matterSprite.width / 2;
         let sy = this.playerController.matterSprite.height / 2;
-        const playerBody = el.matter.bodies.circle(sx,sy,this.playerController.matterSprite.width/2)
-        this.playerController.sensors = el.matter.bodies.circle(sx,sy,this.playerController.matterSprite.width,{isSensor:true, label:'player'})
+        const playerBody = el.matter.bodies.circle(sx, sy, this.playerController.matterSprite.width / 5, {
+            isSensor: false,
+            label: 'player'
+        })
+        this.playerController.sensors = el.matter.bodies.circle(sx, sy, this.playerController.matterSprite.width, {
+            isSensor: true,
+            label: 'player'
+        })
         const compoundBody = el.matter.body.create({
             parts: [
                 playerBody, this.playerController.sensors
             ],
+            friction: 0.01,
+            restitution: 0.05
         });
-        this.body = this.playerController.matterSprite.setExistingBody(compoundBody).setName("player").setFixedRotation().setPosition(getObjects(map,"player")[0].x, getObjects(map,"player")[0].y);
+        this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
 
         this.body.play("right_p");
         let p = this.body

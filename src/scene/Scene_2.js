@@ -13,9 +13,10 @@ export default class Scene_2 extends Phaser.Scene {
     cursor;
     cam
     speed = 8
-    player = new Player(3);
+
     money = new Money("money");
     fugu = new Fugu("fugu","alive",1);
+
     point = new Point("point");
     eventColl = new Event();
     g = new Game();
@@ -31,10 +32,6 @@ export default class Scene_2 extends Phaser.Scene {
         let walls = this.map.createLayer('wall', tiles);
         this.g.setup(this)
         this.matter.world.convertTilemapLayer(walls);
-        this.cameras.main.zoom = 3;
-        this.player.body.setScale(0.3,0.3);
-        this.fugu.scale(0.2,0.2)
-        this.money.scale(0.5,0.5);
 
     }
 

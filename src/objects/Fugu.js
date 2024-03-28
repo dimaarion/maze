@@ -5,29 +5,37 @@ export default class Fugu extends Body{
         super(name,label,speed);
     }
     body = []
-
+    attack = 30
 
     setup(el,map){
         this.body = this.sprite(el,map)
         el.anims.create({
             key: "fugu_L",
-            frames: el.anims.generateFrameNumbers(this.name, {frames: arrayCount(0,59)}),
+            frames: el.anims.generateFrameNumbers(this.name, { start: 0, end: 59 }),
             frameRate: 30,
             repeat: -1,
         });
         el.anims.create({
             key: "fugu_R",
-            frames: el.anims.generateFrameNumbers(this.name, {frames: arrayCount(59,118)}),
+            frames: el.anims.generateFrameNumbers(this.name, { start: 60, end: 119 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        el.anims.create({
+            key: "fugu_AL",
+            frames: el.anims.generateFrameNumbers(this.name, { start: 120, end: 179 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        el.anims.create({
+            key: "fugu_AR",
+            frames: el.anims.generateFrameNumbers(this.name, { start: 180, end: 239}),
             frameRate: 30,
             repeat: -1,
         });
 
         this.body.forEach((b)=>{
-            b.play("fugu_R").setCircle(b.width / 3, {
-                isSensor: true,
-                label: "alive",
-                direction: 0,
-            }).setFixedRotation();
+            b.play("fugu_R")
         })
 
 
