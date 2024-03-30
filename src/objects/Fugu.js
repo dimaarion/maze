@@ -5,8 +5,8 @@ export default class Fugu extends Body{
         super(name,label,speed);
     }
     body = []
-    attack = 30
-
+    attack = 1
+    direction = 0
     setup(el,map){
         this.body = this.sprite(el,map)
         el.anims.create({
@@ -16,13 +16,13 @@ export default class Fugu extends Body{
             repeat: -1,
         });
         el.anims.create({
-            key: "fugu_R",
+            key: "fugu_AL",
             frames: el.anims.generateFrameNumbers(this.name, { start: 60, end: 119 }),
             frameRate: 30,
             repeat: -1,
         });
         el.anims.create({
-            key: "fugu_AL",
+            key: "fugu_R",
             frames: el.anims.generateFrameNumbers(this.name, { start: 120, end: 179 }),
             frameRate: 30,
             repeat: -1,
@@ -37,7 +37,8 @@ export default class Fugu extends Body{
         this.body.forEach((b)=>{
             b.play("fugu_R")
         })
-
+        this.scale(0.5, 0.5);
+        this.sensors(el, 1, 8, 6);
 
     }
 

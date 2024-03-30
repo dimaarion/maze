@@ -15,8 +15,6 @@ export default class Scene_1 extends Phaser.Scene {
 
 
    money = new Money("money");
-   fugu = new Fugu("fugu","alive",1);
-   meduza = new Meduza("meduza","alive",1);
    point = new Point("point");
 
    g = new Game();
@@ -36,7 +34,7 @@ export default class Scene_1 extends Phaser.Scene {
         let walls = this.map.createLayer('walls', tiles);
         this.g.setup(this)
         this.matter.world.convertTilemapLayer(walls);
-console.log()
+
 
     }
 

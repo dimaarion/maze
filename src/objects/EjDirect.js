@@ -5,12 +5,16 @@ export default class EjDirect extends Body{
     }
 
     body = []
-    attack = 30
+    attack = 1
     direction = 2;
+    sensorBody = false
     setup(el,map){
         this.body = this.sprite(el,map);
-        this.scale(0.3,0.3)
-        this.sensors(el,1,2,7)
+
+
+        this.scale(0.2,0.2)
+        this.sensors(el,1,11,10)
+
 
     }
 }

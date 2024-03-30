@@ -4,6 +4,7 @@ import {getObjects} from "../action";
 export default class Body{
     label = "";
     speed = 0;
+    upSpeed = 0
     body = [];
     name = "";
     sensor
@@ -12,6 +13,9 @@ export default class Body{
     optionsSensor = {};
     optionsBody = {};
     sensorBody = true;
+    speedPersecute = 1
+    ax = 0;
+    ay = 0;
     constructor(name,label = "", speed = 0) {
         this.name = name;
         this.speed = speed;
@@ -40,7 +44,7 @@ export default class Body{
             let sy = b.height / 2;
             b.attack = t.matter.bodies.circle(sx,sy,b.width / att ,{label: 'attack', direction:this.direction, isSensor:true, attack:this.attack})
             b.playerBody = t.matter.bodies.circle(sx,sy,b.width / lab ,Object.assign({label: this.label, direction:this.direction, isSensor:this.sensorBody},this.optionsBody))
-            b.sensor = t.matter.bodies.circle(sx,sy,b.width / sen,Object.assign({label:this.name + "_sensor", direction:this.direction, isSensor:true},this.optionsSensor))
+            b.sensor = t.matter.bodies.circle(sx,sy,b.width / sen,Object.assign({label:this.name + "_sensor", direction:this.direction, isSensor:true,sensor:false},this.optionsSensor))
             const compoundBody = t.matter.body.create({
                 parts: [
                     b.playerBody, b.sensor, b.attack
@@ -75,12 +79,53 @@ export default class Body{
         }
     }
 
+    gravity(n = 0.1){
+        this.body.forEach((b)=>{
+            if(!b.sensor.sensor){
+                b.setVelocity(0,n)
+            }
+        })
+    }
+
     persecute(t,player){
-        this.constrainVelocity(player,5)
+        this.constrainVelocity(player)
         this.body.forEach((b)=>{
             let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
-           // b.setVelocity(b.x - player.position.x,b.y - player.position.y)
+            this.ax = Math.cos(rotation);
+            this.ay =  Math.sin(rotation);
 
+       //     console.log(t.matter.collision.collides(player,b.sensor,[]))
+            if(b.sensor.sensor){
+                b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute)
+            }
+
+          //  console.log(this.ax)
+
+        })
+    }
+
+
+    moveHorizontal(){
+        this.body.forEach((el) => {
+            if (el.playerBody && el.playerBody.direction === 0) {
+                el.setVelocity(this.speed, el.sensor.upSpeed)
+            } else if(el.playerBody && el.playerBody.direction === 1){
+                el.setVelocity(-this.speed, el.sensor.upSpeed)
+            }else {
+                el.setVelocity(-this.speed, el.sensor.upSpeed)
+            }
+        })
+    }
+
+    moveVertical(){
+        this.body.forEach((el) => {
+           if(el.playerBody && el.playerBody.direction === 2){
+                el.setVelocity(0, -this.speed)
+            }else if(el.playerBody && el.playerBody.direction === 3){
+                el.setVelocity(0, this.speed)
+            }else {
+                el.setVelocity(0, -this.speed)
+            }
         })
     }
 

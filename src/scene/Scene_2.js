@@ -15,7 +15,6 @@ export default class Scene_2 extends Phaser.Scene {
     speed = 8
 
     money = new Money("money");
-    fugu = new Fugu("fugu","alive",1);
 
     point = new Point("point");
     eventColl = new Event();

@@ -5,8 +5,10 @@ export default class Crab extends Body{
     }
 
     body = []
-    attack = 30
+    attack = 1
     direction = 0;
+    sensorBody = false;
+    optionsSensor = {jump:true,upSpeed:0}
     setup(el,map){
         this.body = this.sprite(el,map)
         el.anims.create({
@@ -23,6 +25,10 @@ export default class Crab extends Body{
         })
 
         this.scale(0.5,0.6)
-        this.sensors(el,2,4,7)
+        this.sensors(el,2,8,7)
+        this.body.forEach((b)=>{
+            b.sensor.sensor = true
+        })
+
     }
 }

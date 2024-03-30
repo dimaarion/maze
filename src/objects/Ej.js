@@ -5,7 +5,7 @@ export default class Ej extends Body{
     }
 
     body = []
-    attack = 50
+    attack = 1
     direction = 0;
     setup(el,map){
         this.body = this.sprite(el,map)

@@ -5,7 +5,7 @@ export default class Meduza extends Body{
     }
 
     body = []
-    attack = 30
+    attack = 1
     direction = 2;
     setup(el,map){
         this.body = this.sprite(el,map)

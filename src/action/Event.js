@@ -33,22 +33,84 @@ export default class Event {
         }
     }
 
-    sensorPlay(pair,nameSensor, playR, playL) {
+    sensorPlay(pair, nameSensor, playR = false, playL = false, sen = false) {
         if (pair.bodyB.label === nameSensor && pair.bodyA.label === "player") {
+            pair.bodyB.sensor = sen;
             if (pair.bodyB.gameObject.getVelocity().x > 0) {
-                pair.bodyB.gameObject.play(playR);
+                if (playR) {
+                    pair.bodyB.gameObject.play(playR);
+                }
             } else {
-                pair.bodyB.gameObject.play(playL);
+                if (playL) {
+                    pair.bodyB.gameObject.play(playL);
+                }
+
             }
         }
     }
 
-    levelStep(pair,t,level){
+    levelStep(pair, t, level) {
         if (pair.bodyB.label === "player" && pair.bodyA.label === "level_" + level) {
             this.db.setLevel("Scene_" + level)
             t.scene.start("Scene_" + level)
 
 
+        }
+    }
+
+    setMoney(pair) {
+        if (pair.bodyB.label === "player" && pair.bodyA.label === "money") {
+            pair.bodyB.money = pair.bodyB.money + 1;
+            this.db.setMoney(pair.bodyB.money);
+            pair.bodyA.gameObject.destroy();
+        }
+
+    }
+
+    setHp(pair) {
+        if (pair.bodyA.label === "player" && pair.bodyB.label === "hp") {
+            if (pair.bodyA.live < pair.bodyA.liveStatic) {
+                if (pair.bodyA.live + pair.bodyB.live > pair.bodyA.liveStatic) {
+                    pair.bodyA.live = pair.bodyA.live + (pair.bodyA.liveStatic - pair.bodyA.live);
+                } else {
+                    pair.bodyA.live = pair.bodyA.live + pair.bodyB.live;
+                }
+
+                this.db.setLive(pair.bodyA.live);
+                pair.bodyB.gameObject.destroy();
+            }
+
+        }
+    }
+
+    setAttack(pair,t){
+        if (pair.bodyA.label === "player" && pair.bodyB.label === "attack") {
+            pair.bodyA.live = pair.bodyA.live - pair.bodyB.attack;
+            this.db.setLive(pair.bodyA.live);
+            if (pair.bodyA.live < 10) {
+                this.db.setLive(15);
+                pair.bodyA.gameObject.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
+            }
+        }
+    }
+
+    setSensor(pair,s){
+        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
+            pair.bodyB.sensor = s;
+        }
+    }
+
+    jump(pair){
+
+        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
+            if(pair.bodyB.jump){
+
+                   pair.bodyB.upSpeed = -1;
+
+
+            }
+
+           //
         }
     }
 
@@ -60,53 +122,32 @@ export default class Event {
 
                 this.direction(pair, "fugu", "fugu_L", "fugu_R")
                 this.direction(pair, "meduza", false, false, false, false)
-
-                this.sensorPlay(pair,"fugu_sensor", "fugu_AR", "fugu_AL")
-
-                this.levelStep(pair,t,2)
-
-
-
-                if (pair.bodyA.label === "player" && pair.bodyB.label === "attack") {
-                    pair.bodyA.live = pair.bodyA.live - pair.bodyB.attack;
-                    this.db.setLive(pair.bodyA.live);
-                    if (pair.bodyA.live < 10) {
-                        this.db.setLive(15);
-                        pair.bodyA.gameObject.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
-                    }
-                }
-
-                if (pair.bodyB.label === "player" && pair.bodyA.label === "money") {
-                    pair.bodyB.money = pair.bodyB.money + 1;
-                    this.db.setMoney(pair.bodyB.money);
-                    pair.bodyA.gameObject.destroy();
-                }
-
-                if (pair.bodyA.label === "player" && pair.bodyB.label === "hp") {
-                    if(pair.bodyA.live < pair.bodyA.liveStatic){
-                        pair.bodyA.live = pair.bodyA.live + pair.bodyB.live;
-                        this.db.setLive(pair.bodyA.live);
-                        pair.bodyB.gameObject.destroy();
-                    }
-
-                }
+                this.levelStep(pair, t, 2)
+                this.setMoney(pair)
+                this.setHp(pair)
+this.jump(pair)
 
             }
         });
 
+        t.matter.world.on('collisionactive', (event) => {
+
+            for (let i = 0; i < event.pairs.length; i++) {
+                let pair = event.pairs[i];
+                this.sensorPlay(pair, "fugu_sensor", "fugu_AR", "fugu_AL");
+                this.setAttack(pair,t)
+                this.setSensor(pair,true)
+
+            }
+
+
+        })
+
         t.matter.world.on('collisionend', (event) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-
-                if (pair.bodyB.label === "fugu_sensor" && pair.bodyA.label === "player") {
-                    if (pair.bodyB.gameObject.getVelocity().x > 0) {
-                        pair.bodyB.gameObject.play("fugu_R");
-                    } else {
-                        pair.bodyB.gameObject.play("fugu_L");
-                    }
-
-
-                }
+                this.sensorPlay(pair, "fugu_sensor", "fugu_R", "fugu_L");
+                this.setSensor(pair,false)
             }
         });
 
