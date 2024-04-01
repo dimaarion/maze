@@ -1,21 +1,14 @@
 import Phaser from "phaser"
-import {arrayCount, getObjects} from "../action";
-import Player from "../objects/Player";
-import Money from "../objects/Money";
-import Fugu from "../objects/Fugu";
+
 import Event from "../action/Event";
-import Point from "../objects/Point";
+
 import Game from "../action/Game";
-import Meduza from "../objects/Meduza";
+
 export default class Scene_1 extends Phaser.Scene {
     map
     layer;
     cursor;
     cam
-
-
-   money = new Money("money");
-   point = new Point("point");
 
    g = new Game();
    eventColl = new Event();
