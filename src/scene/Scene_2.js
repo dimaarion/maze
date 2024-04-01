@@ -1,12 +1,8 @@
 import Phaser from "phaser"
-import {arrayCount, getObjects} from "../action";
-import Player from "../objects/Player";
-import Money from "../objects/Money";
-import Fugu from "../objects/Fugu";
+
 import Event from "../action/Event";
-import Point from "../objects/Point";
 import Game from "../action/Game";
-import {money} from "../redux/store";
+
 export default class Scene_2 extends Phaser.Scene {
     map
     layer;
@@ -14,9 +10,6 @@ export default class Scene_2 extends Phaser.Scene {
     cam
     speed = 8
 
-    money = new Money("money");
-
-    point = new Point("point");
     eventColl = new Event();
     g = new Game();
 

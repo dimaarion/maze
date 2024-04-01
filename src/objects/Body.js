@@ -4,7 +4,7 @@ import {getObjects} from "../action";
 export default class Body{
     label = "";
     speed = 0;
-    upSpeed = 0
+    upSpeed = 0.5
     body = [];
     name = "";
     sensor
@@ -82,7 +82,7 @@ export default class Body{
     gravity(n = 0.1){
         this.body.forEach((b)=>{
             if(!b.sensor.sensor){
-                b.setVelocity(0,n)
+                b.setVelocityY(this.upSpeed)
             }
         })
     }
@@ -108,11 +108,11 @@ export default class Body{
     moveHorizontal(){
         this.body.forEach((el) => {
             if (el.playerBody && el.playerBody.direction === 0) {
-                el.setVelocity(this.speed, el.sensor.upSpeed)
+                el.setVelocityX(this.speed)
             } else if(el.playerBody && el.playerBody.direction === 1){
-                el.setVelocity(-this.speed, el.sensor.upSpeed)
+                el.setVelocityX(-this.speed)
             }else {
-                el.setVelocity(-this.speed, el.sensor.upSpeed)
+                el.setVelocityX(-this.speed)
             }
         })
     }
@@ -120,11 +120,11 @@ export default class Body{
     moveVertical(){
         this.body.forEach((el) => {
            if(el.playerBody && el.playerBody.direction === 2){
-                el.setVelocity(0, -this.speed)
+                el.setVelocityY(-this.speed)
             }else if(el.playerBody && el.playerBody.direction === 3){
-                el.setVelocity(0, this.speed)
+                el.setVelocityY(this.speed)
             }else {
-                el.setVelocity(0, -this.speed)
+                el.setVelocityY(-this.speed)
             }
         })
     }

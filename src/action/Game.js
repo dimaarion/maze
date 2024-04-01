@@ -7,10 +7,14 @@ import Player from "../objects/Player";
 import Hp from "../objects/Hp";
 import EjDirect from "../objects/EjDirect";
 import Fugu from "../objects/Fugu";
+import Money from "../objects/Money";
+import Point from "../objects/Point";
 
 export default class Game {
     db = new Database();
     player = new Player(2);
+    money = new Money("money");
+    point = new Point("point");
     meduza = new Meduza("meduza", "alive", 1);
     fugu = new Fugu("fugu", "alive", 1);
     crab = new Crab("crab", "alive", 1);
@@ -30,8 +34,8 @@ export default class Game {
         t.map.setCollisionByProperty({collides: true});
         t.matter.world.createDebugGraphic();
         t.matter.world.drawDebug = true;
-        t.money.setup(t, t.map);
-        t.point.setup(t, t.map);
+        this.money.setup(t, t.map);
+        this.point.setup(t, t.map);
         this.player.setup(t, t.map);
         t.cursor = t.input.keyboard.createCursorKeys();
         t.cam = t.cameras.main;
@@ -39,13 +43,15 @@ export default class Game {
         t.eventColl.CollisionStart(t);
         t.cameras.main.zoom = 3;
         this.player.body.setScale(0.3, 0.3);
-        t.money.scale(0.5, 0.5);
+        this.fugu.setup(t, t.map);
+        this.money.scale(0.5, 0.5);
         this.meduza.setup(t, t.map);
         this.crab.setup(t, t.map);
         this.ej.setup(t, t.map);
         this.hp.setup(t, t.map);
+
         this.ejDirect.setup(t,t.map);
-        this.fugu.setup(t, t.map);
+
 
 
     }
@@ -53,8 +59,9 @@ export default class Game {
     draw(t) {
 
         this.player.draw(t);
-        this.meduza.draw(t);
+        this.meduza.moveVertical(t);
         this.crab.moveHorizontal(t);
+        this.crab.gravity()
         this.fugu.moveHorizontal(t);
         this.ejDirect.persecute(t,this.player.body.body);
         this.ejDirect.gravity(0.5);

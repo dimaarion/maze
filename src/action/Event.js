@@ -8,28 +8,20 @@ export default class Event {
 
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "right") {
             pair.bodyB.direction = 1;
-            if (right && pair.bodyB.gameObject.name === name) {
-                pair.bodyB.gameObject.play(left);
-            }
+
         }
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "left") {
             pair.bodyB.direction = 0;
-            if (left && pair.bodyB.gameObject.name === name) {
-                pair.bodyB.gameObject.play(right);
-            }
+
         }
 
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "up") {
             pair.bodyB.direction = 3;
-            if (up && pair.bodyB.gameObject.name === name) {
-                pair.bodyB.gameObject.play(up);
-            }
+
         }
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "down") {
             pair.bodyB.direction = 2;
-            if (down && pair.bodyB.gameObject.name === name) {
-                pair.bodyB.gameObject.play(down);
-            }
+
         }
     }
 
@@ -37,13 +29,8 @@ export default class Event {
         if (pair.bodyB.label === nameSensor && pair.bodyA.label === "player") {
             pair.bodyB.sensor = sen;
             if (pair.bodyB.gameObject.getVelocity().x > 0) {
-                if (playR) {
-                    pair.bodyB.gameObject.play(playR);
-                }
+
             } else {
-                if (playL) {
-                    pair.bodyB.gameObject.play(playL);
-                }
 
             }
         }
@@ -104,15 +91,18 @@ export default class Event {
 
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
             if(pair.bodyB.jump){
-
-                   pair.bodyB.upSpeed = -1;
-
-
+                if(pair.bodyB.gameObject.body.velocity.y === 1){
+                 //   pair.bodyB.gameObject.setVelocityY(-1);
+                }else {
+                  //  pair.bodyB.gameObject.setVelocityY(1);
+                }
             }
 
            //
         }
     }
+
+
 
     CollisionStart(t) {
         this.db.create(t.map);
@@ -120,12 +110,11 @@ export default class Event {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
 
-                this.direction(pair, "fugu", "fugu_L", "fugu_R")
-                this.direction(pair, "meduza", false, false, false, false)
-                this.levelStep(pair, t, 2)
-                this.setMoney(pair)
-                this.setHp(pair)
-this.jump(pair)
+                this.levelStep(pair, t, 2);
+                this.levelStep(pair, t, 3);
+
+
+              //  this.jump(pair)
 
             }
         });
@@ -134,10 +123,12 @@ this.jump(pair)
 
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.sensorPlay(pair, "fugu_sensor", "fugu_AR", "fugu_AL");
-                this.setAttack(pair,t)
-                this.setSensor(pair,true)
+                this.direction(pair, "fugu", "fugu_L", "fugu_R");
+                this.direction(pair, "meduza", false, false, false, false);
 
+                this.setAttack(pair,t)
+                this.setMoney(pair)
+                this.setHp(pair)
             }
 
 
@@ -146,8 +137,8 @@ this.jump(pair)
         t.matter.world.on('collisionend', (event) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.sensorPlay(pair, "fugu_sensor", "fugu_R", "fugu_L");
-                this.setSensor(pair,false)
+
+
             }
         });
 

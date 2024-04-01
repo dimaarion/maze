@@ -12,15 +12,9 @@ export default class StartMenu extends Phaser.Scene{
     }
 
     create(){
-      // this.scene.launch('Scene_1');
-       // this.db.cleaner()
 
-    this.scene.start(this.db.getLevel());
-
-
-
-
-console.log(this.db.getLevel())
+        this.db.cleaner()
+        this.scene.start(this.db.getLevel());
 
         this.input.on("pointerdown",()=>{
 
