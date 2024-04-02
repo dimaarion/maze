@@ -42,16 +42,17 @@ export default class Body{
         this.body = this.body.map((b,i)=>{
             let sx = b.width / 2;
             let sy = b.height / 2;
-            b.attack = t.matter.bodies.circle(sx,sy,b.width / att ,{label: 'attack', direction:this.direction, isSensor:true, attack:this.attack})
-            b.playerBody = t.matter.bodies.circle(sx,sy,b.width / lab ,Object.assign({label: this.label, direction:this.direction, isSensor:this.sensorBody},this.optionsBody))
-            b.sensor = t.matter.bodies.circle(sx,sy,b.width / sen,Object.assign({label:this.name + "_sensor", direction:this.direction, isSensor:true,sensor:false},this.optionsSensor))
+            b.attack = t.matter.bodies.circle(sx,sy,b.width / att ,{label: 'attack',name:this.name, direction:this.direction, isSensor:true, attack:this.attack})
+            b.playerBody = t.matter.bodies.circle(sx,sy,b.width / lab ,Object.assign({label: this.label,name:this.name, direction:this.direction, isSensor:this.sensorBody},this.optionsBody))
+            b.sensor = t.matter.bodies.circle(sx,sy,b.width / sen,Object.assign({label:this.name + "_sensor",name:this.name, direction:this.direction, isSensor:true,sensor:false},this.optionsSensor))
             const compoundBody = t.matter.body.create({
                 parts: [
                     b.playerBody, b.sensor, b.attack
                 ],
                 friction: 0.01,
                 restitution: 0.05,
-                label:this.label
+                label:this.label,
+                name:this.name
             });
           return   b.setExistingBody(compoundBody).setPosition(getObjects(t.map,this.name)[i].x + getObjects(t.map,this.name)[i].width / 2, getObjects(t.map,this.name)[i].y + getObjects(t.map,this.name)[i].height / 2).setSize(getObjects(t.map,this.name)[i].width,getObjects(t.map,this.name)[i].height).setName(this.name).setFixedRotation();
         })
@@ -82,7 +83,7 @@ export default class Body{
     gravity(n = 0.1){
         this.body.forEach((b)=>{
             if(!b.sensor.sensor){
-                b.setVelocityY(this.upSpeed)
+                b.setVelocityY(this.upSpeed);
             }
         })
     }
@@ -93,14 +94,11 @@ export default class Body{
             let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
             this.ax = Math.cos(rotation);
             this.ay =  Math.sin(rotation);
-
-       //     console.log(t.matter.collision.collides(player,b.sensor,[]))
             if(b.sensor.sensor){
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute)
+            }else {
+                b.setVelocityY(this.upSpeed)
             }
-
-          //  console.log(this.ax)
-
         })
     }
 

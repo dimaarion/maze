@@ -19,16 +19,12 @@ export default class Crab extends Body{
         });
 
 
-
-        this.body.forEach((b)=>{
-            b.play("crab");
-        })
-
         this.scale(0.5,0.6)
         this.sensors(el,2,8,7)
         this.body.forEach((b)=>{
-            b.sensor.sensor = true
+            b.play("crab").setVelocityY(10);
         })
+
 
     }
 }

@@ -49,7 +49,6 @@ export default class Game {
         this.crab.setup(t, t.map);
         this.ej.setup(t, t.map);
         this.hp.setup(t, t.map);
-
         this.ejDirect.setup(t,t.map);
 
 
@@ -64,7 +63,6 @@ export default class Game {
         this.crab.gravity()
         this.fugu.moveHorizontal(t);
         this.ejDirect.persecute(t,this.player.body.body);
-        this.ejDirect.gravity(0.5);
 
     }
 }

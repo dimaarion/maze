@@ -11,6 +11,8 @@ export default class Player {
     money = 0;
     x = 0;
     y = 0;
+
+    mouseMove = 0;
     constructor(speed = 1) {
         this.speed = speed
     }
@@ -58,7 +60,9 @@ export default class Player {
                 frictionStatic: 0,
                 live: this.live,
                 liveStatic:this.liveStatic,
-                money:this.money
+                money:this.money,
+                jX:0,
+                jY:0,
             },
             sensors: null,
             label: "player"
@@ -102,9 +106,14 @@ export default class Player {
                 p.play("left_p")
             }
         });
+
+
+
+
     }
 
     draw(el) {
+        this.body.setVelocity(this.body.body.jX / 50, this.body.body.jY / 50)
         if (el.cursor.left.isDown) {
             if (el.cursor.left.isDown && el.cursor.down.isDown) {
                 this.body.setVelocity(-this.speed, this.speed)

@@ -7,7 +7,7 @@ export default class Meduza extends Body{
     body = []
     attack = 1
     direction = 2;
-    sensorBody = false;
+
     setup(el,map){
         this.body = this.sprite(el,map)
         el.anims.create({

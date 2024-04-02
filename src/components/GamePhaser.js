@@ -9,6 +9,7 @@ import StartMenu from "../scene/StartMenu";
 import Scene_2 from "../scene/Scene_2";
 import InterFace from "../scene/InterFace";
 import Scene_3 from "../scene/Scene_3";
+import Scene_4 from "../scene/Scene_4";
 
 export default function GamePhaser() {
     const phaserRef = useRef(null);
@@ -32,7 +33,7 @@ export default function GamePhaser() {
                     }
                 }
             },
-            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3],
+            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3,Scene_4],
         };
 
         const game = new Phaser.Game(config);

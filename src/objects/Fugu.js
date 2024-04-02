@@ -22,15 +22,9 @@ export default class Fugu extends Body{
             frameRate: 30,
             repeat: -1,
         });
-      /*  el.anims.create({
+        el.anims.create({
             key: "fugu_AL",
             frames: el.anims.generateFrameNumbers(this.name, { start: 60, end: 119 }),
-            frameRate: 30,
-            repeat: -1,
-        });
-        el.anims.create({
-            key: "fugu_R",
-            frames: el.anims.generateFrameNumbers(this.name, { start: 120, end: 179 }),
             frameRate: 30,
             repeat: -1,
         });
@@ -39,7 +33,8 @@ export default class Fugu extends Body{
             frames: el.anims.generateFrameNumbers(this.name, { start: 180, end: 239}),
             frameRate: 30,
             repeat: -1,
-        });*/
+        })
+
         this.scale(0.5, 0.5);
         this.sensors(el, 2, 6, 8);
 

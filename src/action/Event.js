@@ -81,14 +81,16 @@ export default class Event {
         }
     }
 
-    setSensor(pair,s){
+    setSensor(pair,name,s){
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            pair.bodyB.sensor = s;
+            if(pair.bodyB.name === name){
+                pair.bodyB.sensor = s;
+            }
+
         }
     }
 
     jump(pair){
-
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
             if(pair.bodyB.jump){
                 if(pair.bodyB.gameObject.body.velocity.y === 1){
@@ -102,6 +104,27 @@ export default class Event {
         }
     }
 
+    animate(pair,name, left, right){
+       if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "right" ){
+           pair.bodyB.gameObject.play(left);
+       }
+        if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "left"){
+            pair.bodyB.gameObject.play(right);
+        }
+    }
+
+    sensorAnimate(pair, level, right){
+        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
+            if(pair.bodyB.name === 'fugu'){
+                if(pair.bodyB.gameObject.body.velocity.x > 0){
+                    pair.bodyB.gameObject.play(right);
+                }else {
+                    pair.bodyB.gameObject.play(level);
+                }
+
+            }
+        }
+    }
 
 
     CollisionStart(t) {
@@ -112,7 +135,9 @@ export default class Event {
 
                 this.levelStep(pair, t, 2);
                 this.levelStep(pair, t, 3);
-
+                this.levelStep(pair, t, 4);
+                this.animate(pair,'fugu','fugu_L','fugu_R');
+                this.sensorAnimate(pair,'fugu_AL','fugu_AR');
 
               //  this.jump(pair)
 
@@ -125,10 +150,10 @@ export default class Event {
                 let pair = event.pairs[i];
                 this.direction(pair, "fugu", "fugu_L", "fugu_R");
                 this.direction(pair, "meduza", false, false, false, false);
-
                 this.setAttack(pair,t)
                 this.setMoney(pair)
                 this.setHp(pair)
+                this.setSensor(pair,'ej-direct',true)
             }
 
 
@@ -137,7 +162,7 @@ export default class Event {
         t.matter.world.on('collisionend', (event) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-
+                this.setSensor(pair,'ej-direct',false)
 
             }
         });
