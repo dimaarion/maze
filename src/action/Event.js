@@ -4,7 +4,7 @@ import Database from "../components/Database";
 export default class Event {
     db = new Database();
 
-    direction(pair, name, left = false, right = false, up = false, down = false) {
+    direction(pair) {
 
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "right") {
             pair.bodyB.direction = 1;
@@ -25,14 +25,9 @@ export default class Event {
         }
     }
 
-    sensorPlay(pair, nameSensor, playR = false, playL = false, sen = false) {
+    sensorPlay(pair, nameSensor, sen = false) {
         if (pair.bodyB.label === nameSensor && pair.bodyA.label === "player") {
             pair.bodyB.sensor = sen;
-            if (pair.bodyB.gameObject.getVelocity().x > 0) {
-
-            } else {
-
-            }
         }
     }
 
@@ -132,13 +127,11 @@ export default class Event {
         t.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-
-                this.levelStep(pair, t, 2);
-                this.levelStep(pair, t, 3);
-                this.levelStep(pair, t, 4);
+          [1,2,3,4].forEach((n)=>{this.levelStep(pair, t, n);})
                 this.animate(pair,'fugu','fugu_L','fugu_R');
                 this.sensorAnimate(pair,'fugu_AL','fugu_AR');
-
+                this.setMoney(pair)
+                this.setHp(pair)
               //  this.jump(pair)
 
             }
@@ -148,11 +141,11 @@ export default class Event {
 
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.direction(pair, "fugu", "fugu_L", "fugu_R");
-                this.direction(pair, "meduza", false, false, false, false);
+                this.direction(pair);
+                this.direction(pair);
                 this.setAttack(pair,t)
-                this.setMoney(pair)
-                this.setHp(pair)
+
+
                 this.setSensor(pair,'ej-direct',true)
             }
 

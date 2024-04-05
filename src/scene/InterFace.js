@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import Database from "../components/Database";
-import VirtualJoystick from 'phaser3-rex-plugins/plugins/virtualjoystick.js';
+import {percent} from "../action";
+
+
 export default class InterFace extends Phaser.Scene{
     constructor() {
         super("InterFace");
@@ -20,10 +22,7 @@ export default class InterFace extends Phaser.Scene{
     mX = 0;
     mY = 0;
     preload(){
-        var url;
 
-        url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js';
-        this.load.plugin('rexvirtualjoystickplugin', url, true);
     }
 
     create(data){
@@ -36,28 +35,54 @@ export default class InterFace extends Phaser.Scene{
         this.sizeMax = this.player.liveStatic;
         this.money = this.player.body.body.money;
         this.moneyText = this.add.text(130,3, this.money.toString(),{ font: '30px bold', fill: '#fff' });
+        let rJs = 50
 
+        let d = 0;
         this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
-            x: window.innerWidth / 1.2,
-            y: window.innerHeight / 1.2,
-            radius: 100,
-            base: this.add.circle(0, 0, 100, 0x888888),
-            thumb: this.add.circle(0, 0, 50, 0xcccccc),
+            x: window.innerWidth < window.innerHeight?percent(window.innerWidth, 70):percent(window.innerWidth, 80),
+            y: window.innerWidth > window.innerHeight?percent(window.innerHeight,70):percent(window.innerHeight,80),
+            radius: rJs,
+            base: this.add.circle(0, 0, rJs, 0x888888),
+            thumb: this.add.circle(0, 0, rJs / 2, 0xcccccc),
             // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
             // forceMin: 16,
             // enable: true
+
         }).on('update', ()=>{
-            if(this.joyStick.thumb.x !== window.innerWidth / 1.2){
+            let cursorKeys = this.joyStick.createCursorKeys();
+            console.log(cursorKeys.left.isDown)
+            if(!this.joyStick.touchCursor.noKeyDown){
+               if(cursorKeys.left.isDown){
+
+                   d = 1;
+                   this.player.body.play('left')
+               }else if(cursorKeys.right.isDown){
+                   d = 0;
+                   this.player.body.play('right')
+               }
                 this.player.body.body.jX = this.joyStick.forceX;
                 this.player.body.body.jY = this.joyStick.forceY;
-                console.log(Math.floor(this.joyStick.force * 100) / 100)
             }else {
+                if(d === 1){
+                    this.player.body.play('left_p')
+                }
+                if(d === 0){
+                    this.player.body.play('right_p')
+                }
+
                 this.player.body.body.jX = 0;
                 this.player.body.body.jY = 0;
             }
 
 
         }, this);
+this.input.on('pointerdown',(pointer)=>{
+    let touchX = pointer.x;
+    let touchY = pointer.y;
+    this.joyStick.x = touchX
+    this.joyStick.y = touchY
+},this)
+
 
     }
 

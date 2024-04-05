@@ -13,6 +13,7 @@ export default class Body{
     optionsSensor = {};
     optionsBody = {};
     sensorBody = true;
+    staticBody = true
     speedPersecute = 1
     ax = 0;
     ay = 0;
@@ -23,7 +24,7 @@ export default class Body{
     }
     rectangle(t,map,options = {}){
         return getObjects(map, this.name).map((b) => {
-           return  t.matter.add.rectangle(b.x + b.width / 2, b.y + b.height / 2, b.width, b.height, Object.assign({label: b.type}, options))
+           return  t.matter.add.rectangle(b.x + b.width / 2, b.y + b.height / 2, b.width, b.height, {label: b.type,isSensor:this.sensorBody, isStatic:this.staticBody})
         })
     }
     sprite(t,map,options = {}){

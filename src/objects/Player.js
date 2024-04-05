@@ -1,6 +1,6 @@
 import {arrayCount, getObjects} from "../action";
 import {money} from "../redux/store";
-
+import {constrain} from "../action";
 export default class Player {
     body;
     speed = 1;
@@ -91,10 +91,11 @@ export default class Player {
         let p = this.body
         el.input.keyboard.on('keydown', function (event) {
             if (event.key === "ArrowRight") {
-                p.play("right")
+
+                p.play("right").setVelocityX(1)
             }
             if (event.key === "ArrowLeft") {
-                p.play("left")
+                p.play("left").setVelocityX(-1)
             }
         });
         el.input.keyboard.on('keyup', function (event) {
@@ -110,10 +111,27 @@ export default class Player {
 
 
 
+
+
     }
 
     draw(el) {
-        this.body.setVelocity(this.body.body.jX / 50, this.body.body.jY / 50)
+        this.body.setVelocityX(constrain(this.body.body.jX / 50,-this.speed,this.speed))
+        this.body.setVelocityY(constrain(this.body.body.jY / 50,-this.speed,this.speed))
+        if (el.cursor.left.isDown) {
+            this.body.setVelocityX(-this.speed)
+        }
+        if (el.cursor.right.isDown) {
+            this.body.setVelocityX(this.speed)
+        }
+        if (el.cursor.up.isDown) {
+            this.body.setVelocityY(-this.speed)
+        }
+        if (el.cursor.down.isDown) {
+            this.body.setVelocityY(this.speed)
+        }
+/*
+
         if (el.cursor.left.isDown) {
             if (el.cursor.left.isDown && el.cursor.down.isDown) {
                 this.body.setVelocity(-this.speed, this.speed)
@@ -155,7 +173,7 @@ export default class Player {
             } else {
                 this.body.setVelocity(0, this.speed)
             }
-        }
+        }*/
     }
 
 

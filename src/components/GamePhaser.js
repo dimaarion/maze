@@ -2,6 +2,7 @@ import Phaser from "phaser"
 import {useEffect, useRef, useState} from "react";
 import Scena from "./Scena";
 import level from "../asset/scena/scena.json"
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 import {getObjects, arrayCount} from "../action";
 import Scene_1 from "../scene/Scene_1";
 import Preloader from "../scene/Preloader";
@@ -17,10 +18,19 @@ export default function GamePhaser() {
     useEffect(() => {
 
         const config = {
-            type: Phaser.AUTO,
+            type: Phaser.CANVAS,
             width: window.innerWidth,
             height: window.innerHeight,
             backgroundColor: "#5DACD8",
+            plugins: {
+                global: [{
+                    key: 'rexVirtualJoystick',
+                    plugin: VirtualJoystickPlugin,
+                    start: true
+                }
+
+                ]
+            },
             physics: {
                 default: 'matter',
                 matter: {

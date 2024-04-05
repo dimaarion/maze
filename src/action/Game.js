@@ -9,9 +9,11 @@ import EjDirect from "../objects/EjDirect";
 import Fugu from "../objects/Fugu";
 import Money from "../objects/Money";
 import Point from "../objects/Point";
+import Platform from "../objects/Platform";
 
 export default class Game {
     db = new Database();
+    platform = new Platform("platform")
     player = new Player(2);
     money = new Money("money");
     point = new Point("point");
@@ -30,10 +32,10 @@ export default class Game {
         t.scene.launch('InterFace', {player: this.player});
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
-        t.map.setCollisionByExclusion([-1, 0]);
-        t.map.setCollisionByProperty({collides: true});
+       // t.map.setCollisionByExclusion([-1, 0]);
+       // t.map.setCollisionByProperty({collides: true});
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         this.money.setup(t, t.map);
         this.point.setup(t, t.map);
         this.player.setup(t, t.map);
@@ -41,7 +43,8 @@ export default class Game {
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
         t.eventColl.CollisionStart(t);
-        t.cameras.main.zoom = 3;
+        t.cameras.main.zoom = 2;
+        this.platform.setup(t,t.map)
         this.player.body.setScale(0.3, 0.3);
         this.fugu.setup(t, t.map);
         this.money.scale(0.5, 0.5);
