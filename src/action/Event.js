@@ -66,7 +66,9 @@ export default class Event {
     }
 
     setAttack(pair,t){
+
         if (pair.bodyA.label === "player" && pair.bodyB.label === "attack") {
+
             pair.bodyA.live = pair.bodyA.live - pair.bodyB.attack;
             this.db.setLive(pair.bodyA.live);
             if (pair.bodyA.live < 10) {
@@ -81,7 +83,11 @@ export default class Event {
             if(pair.bodyB.name === name){
                 pair.bodyB.sensor = s;
             }
+            if(s){
 
+            }else {
+
+            }
         }
     }
 
@@ -99,24 +105,38 @@ export default class Event {
         }
     }
 
-    animate(pair,name, left, right){
+    animateHorizontal(pair,name, left, right){
        if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "right" ){
-           pair.bodyB.gameObject.play(left);
+           if(pair.bodyB.gameObject.body.velocity.x > 0){
+               pair.bodyB.gameObject.play(left);
+           }
+
        }
         if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "left"){
-            pair.bodyB.gameObject.play(right);
+            if(pair.bodyB.gameObject.body.velocity.x < 0){
+                pair.bodyB.gameObject.play(right);
+            }
+
         }
     }
 
-    sensorAnimate(pair, level, right){
+    animateSensorHorizontal(pair,name,left,right,s = true){
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            if(pair.bodyB.name === 'fugu'){
-                if(pair.bodyB.gameObject.body.velocity.x > 0){
+            if(pair.bodyB.name === name){
+                if(pair.bodyB.gameObject.body.velocity.x < 0){
+                    pair.bodyB.gameObject.play(left);
+                }else{
                     pair.bodyB.gameObject.play(right);
-                }else {
-                    pair.bodyB.gameObject.play(level);
                 }
 
+            }
+        }
+    }
+
+    sensorAnimate(pair,name, anim){
+        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
+            if(pair.bodyB.name === name){
+                pair.bodyB.gameObject.play(anim);
             }
         }
     }
@@ -128,12 +148,14 @@ export default class Event {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
           [1,2,3,4].forEach((n)=>{this.levelStep(pair, t, n);})
-                this.animate(pair,'fugu','fugu_L','fugu_R');
-                this.sensorAnimate(pair,'fugu_AL','fugu_AR');
+                this.sensorAnimate(pair,'fugu','fugu_AR');
+                this.animateHorizontal(pair,'shark','shark_L','shark_R')
+               // this.sensorAnimate(pair,'shark','shark_AL','shark_AL');
+                this.setSensor(pair,'shark',true,t);
                 this.setMoney(pair)
                 this.setHp(pair)
               //  this.jump(pair)
-
+                this.animateSensorHorizontal(pair,'shark','shark_AL','shark_AR',true)
             }
         });
 
@@ -142,11 +164,9 @@ export default class Event {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
                 this.direction(pair);
-                this.direction(pair);
-                this.setAttack(pair,t)
+                this.setAttack(pair,t);
+                this.setSensor(pair,'ej-direct',true,t);
 
-
-                this.setSensor(pair,'ej-direct',true)
             }
 
 
@@ -155,7 +175,10 @@ export default class Event {
         t.matter.world.on('collisionend', (event) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.setSensor(pair,'ej-direct',false)
+                this.sensorAnimate(pair,'fugu','fugu_R');
+                this.setSensor(pair,'ej-direct',false,t);
+                this.setSensor(pair,'shark',false,t);
+                this.animateSensorHorizontal(pair,'shark','shark_L','shark_R',false)
 
             }
         });

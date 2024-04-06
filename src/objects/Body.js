@@ -57,7 +57,6 @@ export default class Body{
             });
           return   b.setExistingBody(compoundBody).setPosition(getObjects(t.map,this.name)[i].x + getObjects(t.map,this.name)[i].width / 2, getObjects(t.map,this.name)[i].y + getObjects(t.map,this.name)[i].height / 2).setSize(getObjects(t.map,this.name)[i].width,getObjects(t.map,this.name)[i].height).setName(this.name).setFixedRotation();
         })
-
     }
 
     constrainVelocity (sprite, maxVelocity)
@@ -89,16 +88,25 @@ export default class Body{
         })
     }
 
-    persecute(t,player){
+    persecute(t,player,gravity = true){
         this.constrainVelocity(player)
         this.body.forEach((b)=>{
             let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
             this.ax = Math.cos(rotation);
             this.ay =  Math.sin(rotation);
             if(b.sensor.sensor){
+                if(this.ax > 0){
+                b.body.direction = 0
+                }else {
+                    b.body.direction = 1
+                }
+
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute)
             }else {
-                b.setVelocityY(this.upSpeed)
+                if(gravity){
+                    b.setVelocityY(this.upSpeed)
+                }
+
             }
         })
     }
