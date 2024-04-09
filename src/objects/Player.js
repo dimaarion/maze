@@ -1,6 +1,7 @@
 import {arrayCount, getObjects} from "../action";
 import {money} from "../redux/store";
 import {constrain} from "../action";
+
 export default class Player {
     body;
     speed = 1;
@@ -11,46 +12,25 @@ export default class Player {
     money = 0;
     x = 0;
     y = 0;
-
+    direct = 0
     mouseMove = 0;
+    sceneKey = 'Scene_1'
+
     constructor(speed = 1) {
         this.speed = speed
     }
 
 
     setup(el, map) {
-        if(this.x === 0){
+        if (this.x === 0) {
             this.x = getObjects(map, "player")[0].x;
         }
 
-        if(this.y === 0){
+        if (this.y === 0) {
             this.y = getObjects(map, "player")[0].y;
         }
 
-        el.anims.create({
-            key: 'left_p',
-            frames: el.anims.generateFrameNumbers('player', {start: 6, end: 11}),
-            frameRate: 6,
-            repeat: -1
-        });
-        el.anims.create({
-            key: 'right_p',
-            frames: el.anims.generateFrameNumbers('player', {start: 0, end: 5}),
-            frameRate: 6,
-            repeat: -1
-        });
-        el.anims.create({
-            key: 'right',
-            frames: el.anims.generateFrameNumbers('player', {start: 12, end: 17}),
-            frameRate: 6,
-            repeat: -1
-        });
-        el.anims.create({
-            key: 'left',
-            frames: el.anims.generateFrameNumbers('player', {start: 18, end: 23}),
-            frameRate: 6,
-            repeat: -1
-        });
+
         this.playerController = {
             matterSprite: el.matter.add.sprite(this.x, this.y, 'player'),
             options: {
@@ -59,10 +39,10 @@ export default class Player {
                 restitution: 0.05,
                 frictionStatic: 0,
                 live: this.live,
-                liveStatic:this.liveStatic,
-                money:this.money,
-                jX:0,
-                jY:0,
+                liveStatic: this.liveStatic,
+                money: this.money,
+                jX: 0,
+                jY: 0,
             },
             sensors: null,
             label: "player"
@@ -87,15 +67,16 @@ export default class Player {
         });
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
 
-        this.body.play("right_p");
+       // this.body.play("right_p");
+
         let p = this.body
         el.input.keyboard.on('keydown', function (event) {
             if (event.key === "ArrowRight") {
 
-                p.play("right").setVelocityX(1)
+                //  p.play("right").setVelocityX(1)
             }
             if (event.key === "ArrowLeft") {
-                p.play("left").setVelocityX(-1)
+                //  p.play("left").setVelocityX(-1)
             }
         });
         el.input.keyboard.on('keyup', function (event) {
@@ -109,20 +90,29 @@ export default class Player {
         });
 
 
-
-
+        this.body.setScale(0.5, 0.5);
 
 
     }
 
     draw(el) {
-        this.body.setVelocityX(constrain(this.body.body.jX / 50,-this.speed,this.speed))
-        this.body.setVelocityY(constrain(this.body.body.jY / 50,-this.speed,this.speed))
+        this.body.setVelocityX(constrain(this.body.body.jX / 50, -this.speed, this.speed))
+        this.body.setVelocityY(constrain(this.body.body.jY / 50, -this.speed, this.speed))
         if (el.cursor.left.isDown) {
             this.body.setVelocityX(-this.speed)
-        }
-        if (el.cursor.right.isDown) {
+            this.direct = 1;
+            this.body.play("left", true);
+
+        }else if (el.cursor.right.isDown) {
             this.body.setVelocityX(this.speed)
+            this.body.play("right", true);
+            this.direct = 0;
+
+        }else if(el.cursor.right.isUp){
+            this.direct = 2;
+         //   this.body.play("right_p", true);
+        }else if(el.cursor.left.isUp){
+           // this.body.play("left_p", true);
         }
         if (el.cursor.up.isDown) {
             this.body.setVelocityY(-this.speed)
@@ -130,50 +120,70 @@ export default class Player {
         if (el.cursor.down.isDown) {
             this.body.setVelocityY(this.speed)
         }
-/*
 
-        if (el.cursor.left.isDown) {
-            if (el.cursor.left.isDown && el.cursor.down.isDown) {
-                this.body.setVelocity(-this.speed, this.speed)
-            } else if (el.cursor.left.isDown && el.cursor.up.isDown) {
-                this.body.setVelocity(-this.speed, -this.speed)
-            } else {
-                this.body.setVelocity(-this.speed, 0)
 
-            }
+        if (this.body.body.velocity.x > 0) {
+          //  console.log(this.body.body.velocity.x)
+            this.body.play("right", true);
+
+        } else {
+        //    this.body.play("left", true);
 
         }
 
+        if (this.direct === 0) {
 
-        if (el.cursor.right.isDown) {
-            if (el.cursor.right.isDown && el.cursor.down.isDown) {
-                this.body.setVelocity(this.speed, this.speed)
-            } else if (el.cursor.right.isDown && el.cursor.up.isDown) {
-                this.body.setVelocity(this.speed, -this.speed)
-            } else {
-                this.body.setVelocity(this.speed, 0)
-
-            }
 
         }
-        if (el.cursor.up.isDown) {
-            if (el.cursor.up.isDown && el.cursor.right.isDown) {
-                this.body.setVelocity(this.speed, -this.speed)
-            } else if (el.cursor.up.isDown && el.cursor.left.isDown) {
-                this.body.setVelocity(-this.speed, -this.speed)
-            } else {
-                this.body.setVelocity(0, -this.speed)
-            }
+        if (this.direct === 1) {
+
+
         }
-        if (el.cursor.down.isDown) {
-            if (el.cursor.down.isDown && el.cursor.right.isDown) {
-                this.body.setVelocity(this.speed, this.speed)
-            } else if (el.cursor.down.isDown && el.cursor.left.isDown) {
-                this.body.setVelocity(-this.speed, this.speed)
-            } else {
-                this.body.setVelocity(0, this.speed)
-            }
-        }*/
+
+        /*
+
+                if (el.cursor.left.isDown) {
+                    if (el.cursor.left.isDown && el.cursor.down.isDown) {
+                        this.body.setVelocity(-this.speed, this.speed)
+                    } else if (el.cursor.left.isDown && el.cursor.up.isDown) {
+                        this.body.setVelocity(-this.speed, -this.speed)
+                    } else {
+                        this.body.setVelocity(-this.speed, 0)
+
+                    }
+
+                }
+
+
+                if (el.cursor.right.isDown) {
+                    if (el.cursor.right.isDown && el.cursor.down.isDown) {
+                        this.body.setVelocity(this.speed, this.speed)
+                    } else if (el.cursor.right.isDown && el.cursor.up.isDown) {
+                        this.body.setVelocity(this.speed, -this.speed)
+                    } else {
+                        this.body.setVelocity(this.speed, 0)
+
+                    }
+
+                }
+                if (el.cursor.up.isDown) {
+                    if (el.cursor.up.isDown && el.cursor.right.isDown) {
+                        this.body.setVelocity(this.speed, -this.speed)
+                    } else if (el.cursor.up.isDown && el.cursor.left.isDown) {
+                        this.body.setVelocity(-this.speed, -this.speed)
+                    } else {
+                        this.body.setVelocity(0, -this.speed)
+                    }
+                }
+                if (el.cursor.down.isDown) {
+                    if (el.cursor.down.isDown && el.cursor.right.isDown) {
+                        this.body.setVelocity(this.speed, this.speed)
+                    } else if (el.cursor.down.isDown && el.cursor.left.isDown) {
+                        this.body.setVelocity(-this.speed, this.speed)
+                    } else {
+                        this.body.setVelocity(0, this.speed)
+                    }
+                }*/
     }
 
 

@@ -1,14 +1,13 @@
 import {getObjects} from "./index";
 import Database from "../components/Database";
+import Phaser from "phaser";
 
 export default class Event {
     db = new Database();
 
-    direction(pair) {
-
+    direction(pair,a,b) {
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "right") {
             pair.bodyB.direction = 1;
-
         }
         if (pair.bodyB.label === "alive" && pair.bodyA.label === "left") {
             pair.bodyB.direction = 0;
@@ -24,6 +23,14 @@ export default class Event {
 
         }
     }
+    directionRandom(pair) {
+
+        if (pair.bodyB.label === "alive" && pair.bodyA.name === "platform") {
+
+            pair.bodyB.direction = Phaser.Math.Between(0, 1);
+        }
+
+    }
 
     sensorPlay(pair, nameSensor, sen = false) {
         if (pair.bodyB.label === nameSensor && pair.bodyA.label === "player") {
@@ -32,7 +39,7 @@ export default class Event {
     }
 
     levelStep(pair, t, level) {
-        if (pair.bodyB.label === "player" && pair.bodyA.label === "level_" + level) {
+        if (pair.bodyA.label === "player" && pair.bodyB.label === "level_" + level) {
             this.db.setLevel("Scene_" + level)
             t.scene.start("Scene_" + level)
 
@@ -41,16 +48,25 @@ export default class Event {
     }
 
     setMoney(pair) {
-        if (pair.bodyB.label === "player" && pair.bodyA.label === "money") {
-            pair.bodyB.money = pair.bodyB.money + 1;
-            this.db.setMoney(pair.bodyB.money);
-            pair.bodyA.gameObject.destroy();
+        if (pair.bodyA.label === "player" && pair.bodyB.name === "money") {
+            if(pair.bodyB.name === "money"){
+                pair.bodyA.money = pair.bodyA.money + 1;
+                this.db.setMoney(pair.bodyA.money);
+                pair.bodyB.remove = true;
+                if(pair.bodyB.gameObject){
+                 pair.bodyB.gameObject.setPosition(-9000000,0);
+                }
+
+            }
+
         }
 
     }
 
     setHp(pair) {
+
         if (pair.bodyA.label === "player" && pair.bodyB.label === "hp") {
+
             if (pair.bodyA.live < pair.bodyA.liveStatic) {
                 if (pair.bodyA.live + pair.bodyB.live > pair.bodyA.liveStatic) {
                     pair.bodyA.live = pair.bodyA.live + (pair.bodyA.liveStatic - pair.bodyA.live);
@@ -78,16 +94,9 @@ export default class Event {
         }
     }
 
-    setSensor(pair,name,s){
+    setSensor(pair,s){
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            if(pair.bodyB.name === name){
                 pair.bodyB.sensor = s;
-            }
-            if(s){
-
-            }else {
-
-            }
         }
     }
 
@@ -133,40 +142,49 @@ export default class Event {
         }
     }
 
-    sensorAnimate(pair,name, anim){
+    sensorAnimate(pair,name, anim,s = false){
         if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
             if(pair.bodyB.name === name){
                 pair.bodyB.gameObject.play(anim);
+                if(pair.bodyB.gameObject.tween){
+                    if(s){
+                        pair.bodyB.gameObject.tween.pause()
+                    }else {
+                        pair.bodyB.gameObject.tween.resume()
+                    }
+
+                }
             }
         }
     }
 
 
-    CollisionStart(t) {
+    CollisionGames(t) {
         this.db.create(t.map);
         t.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-          [1,2,3,4].forEach((n)=>{this.levelStep(pair, t, n);})
-                this.sensorAnimate(pair,'fugu','fugu_AR');
-                this.animateHorizontal(pair,'shark','shark_L','shark_R')
-               // this.sensorAnimate(pair,'shark','shark_AL','shark_AL');
-                this.setSensor(pair,'shark',true,t);
-                this.setMoney(pair)
-                this.setHp(pair)
+                [1,2,3,4].forEach((n)=>{this.levelStep(pair, t, n);});
+                this.setMoney(pair);
+                this.setHp(pair);
+
+             //   this.sensorAnimate(pair,'fugu','fugu_AR');
+            //    this.animateHorizontal(pair,'shark','shark_L','shark_R')
+              //  this.sensorAnimate(pair,'shark','shark_AL',true);
+
               //  this.jump(pair)
-                this.animateSensorHorizontal(pair,'shark','shark_AL','shark_AR',true)
+              //  this.animateSensorHorizontal(pair,'shark','shark_AL','shark_AR',true)
             }
         });
 
-        t.matter.world.on('collisionactive', (event) => {
+        t.matter.world.on('collisionactive', (event, bodyA, bodyB) => {
 
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.direction(pair);
+                this.direction(pair, bodyA, bodyB);
+                this.setSensor(pair,true);
                 this.setAttack(pair,t);
-                this.setSensor(pair,'ej-direct',true,t);
-
+              // this.setSensor(pair,'shark',true,'shark_R','shark_L');
             }
 
 
@@ -175,10 +193,12 @@ export default class Event {
         t.matter.world.on('collisionend', (event) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];
-                this.sensorAnimate(pair,'fugu','fugu_R');
-                this.setSensor(pair,'ej-direct',false,t);
-                this.setSensor(pair,'shark',false,t);
-                this.animateSensorHorizontal(pair,'shark','shark_L','shark_R',false)
+                this.setSensor(pair,false);
+              //  this.sensorAnimate(pair,'fugu','fugu_R');
+
+             //   this.setSensor(pair,'shark',false,t);
+             //   this.sensorAnimate(pair,'shark','shark_R');
+              //  this.animateSensorHorizontal(pair,'shark','shark_L','shark_R',false)
 
             }
         });

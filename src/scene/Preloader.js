@@ -62,6 +62,9 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("power-player", './img/power/player.png');
         this.load.image("power-live", './img/power/3.png');
         this.load.image("money-static", './img/money/moneySt2.png');
+        this.load.image("money-plus", './img/gui/buttons/click/plus.png')
+        this.load.image("paused", './img/gui/frames/paused.png');
+        this.load.image("cancel", './img/gui/buttons/click/cancel.png');
 
         //joystick
         this.load.image("j1",'./img/power/1.png');
@@ -88,12 +91,122 @@ export default class Preloader extends Phaser.Scene {
 
         // button
 
-        this.load.image("btn-right", './img/gui/buttons/click/play.png');
+       // this.load.image("btn-right", './img/gui/buttons/click/play.png');
     }
 
     create() {
-
+        // player
+        this.anims.create({
+            key: 'left_p',
+            frames: this.anims.generateFrameNumbers('player', {start: 6, end: 11}),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'right_p',
+            frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('player', {start: 12, end: 17}),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('player', {start: 18, end: 23}),
+            frameRate: 6,
+            repeat: -1
+        });
+        //
+        // money
+        this.anims.create({
+            key: 'money',
+            frames: "money",
+            frameRate: 30,
+            repeat: -1,
+        });
+        //
+        //fugu
+        this.anims.create({
+            key: "fugu_R",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 120, end: 179 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "fugu_L",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 0, end: 59 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "fugu_AR",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 180, end: 239}),
+            frameRate: 30,
+            repeat: -1,
+        })
+        this.anims.create({
+            key: "fugu_AL",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 60, end: 119 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        //
+// shark
+        this.anims.create({
+            key: "shark_R",
+            frames: this.anims.generateFrameNumbers('shark', { start: 0, end: 59 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "shark_AL",
+            frames: this.anims.generateFrameNumbers('shark', { start: 120, end: 179 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "shark_L",
+            frames: this.anims.generateFrameNumbers('shark', { start: 60, end: 119 }),
+            frameRate: 30,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "shark_AR",
+            frames: this.anims.generateFrameNumbers('shark', { start: 180, end: 239}),
+            frameRate: 30,
+            repeat: -1,
+        })
+        //
+        // meduza
+        this.anims.create({
+            key: "meduza",
+            frames: "meduza",
+            frameRate: 20,
+            repeat: -1,
+        });
+        //
+        //crab
+        this.anims.create({
+            key: "crab",
+            frames: "crab",
+            frameRate: 20,
+            repeat: -1,
+        });
+        //
+        // ej
+        this.anims.create({
+            key: "ej",
+            frames: "ej",
+            frameRate: 20,
+            repeat: -1,
+        });
+        //
         this.scene.start('StartMenu');
+
 
     }
 

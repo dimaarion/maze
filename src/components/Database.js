@@ -67,7 +67,6 @@ export default class Database {
     }
 
     setLevel(n) {
-        console.log(n)
         return window.localStorage.setItem("level", n);
     }
     getLevel() {

@@ -1,9 +1,8 @@
 import Phaser from "phaser"
-import {useEffect, useRef, useState} from "react";
-import Scena from "./Scena";
-import level from "../asset/scena/scena.json"
+import {useEffect, useRef} from "react";
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
-import {getObjects, arrayCount} from "../action";
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import Scene_1 from "../scene/Scene_1";
 import Preloader from "../scene/Preloader";
 import StartMenu from "../scene/StartMenu";
@@ -29,6 +28,18 @@ export default function GamePhaser() {
                     start: true
                 }
 
+                ],
+                scene: [
+                    {
+                        plugin: PhaserMatterCollisionPlugin, // The plugin class
+                        key: "matterCollision", // Where to store in Scene.Systems, e.g. scene.sys.matterCollision
+                        mapping: "matterCollision" // Where to store in the Scene, e.g. scene.matterCollision
+
+                    },{
+                        key: 'rexUI',
+                        plugin: UIPlugin,
+                        mapping: 'rexUI'
+                    },
                 ]
             },
             physics: {

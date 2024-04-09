@@ -10,52 +10,19 @@ export default class Fugu extends Body{
     sensorBody = true;
     direction = 0;
     setup(el,map){
-        this.body = this.sprite(el,map)
-        el.anims.create({
-            key: "fugu_R",
-            frames: el.anims.generateFrameNumbers(this.name, { start: 120, end: 179 }),
-            frameRate: 30,
-            repeat: -1,
-        });
-       el.anims.create({
-            key: "fugu_L",
-            frames: el.anims.generateFrameNumbers(this.name, { start: 0, end: 59 }),
-            frameRate: 30,
-            repeat: -1,
-        });
-
-
-
-        el.anims.create({
-            key: "fugu_AR",
-            frames: el.anims.generateFrameNumbers(this.name, { start: 180, end: 239}),
-            frameRate: 30,
-            repeat: -1,
+        this.persecutes = false
+        this.body = getObjects(map, "shark").map((b) => {
+            return  el.matter.add.sprite(b.x + b.width / 2,b.y + b.height / 2,this.name)
         })
-        el.anims.create({
-            key: "fugu_AL",
-            frames: el.anims.generateFrameNumbers(this.name, { start: 60, end: 119 }),
-            frameRate: 30,
-            repeat: -1,
-        });
+        this.body = this.sprite(el,map)
 
 
         this.scale(0.5, 0.5);
-        this.sensors(el, 2, 6, 8);
+        this.sensors(el, 2, 5, 5.5);
+
 
         this.body.forEach((b,i)=>{
-
             b.play("fugu_R")
-            el.tweens.add({
-                targets: b,
-                props: {
-                    x: { start: b.x - getObjects(el.map,this.name)[i].width / 2, to:b.x + getObjects(el.map,this.name)[i].width / 2, duration: Phaser.Math.Between(3000, 6000), flipX: true },
-                },
-                ease: 'Linear',
-                yoyo: true,
-                repeat: -1
-            });
-
         })
 
 
@@ -63,7 +30,21 @@ export default class Fugu extends Body{
     }
 
     view(){
-
+        this.body.forEach((b,i)=>{
+        if(b.body.velocity.x > 0){
+            if(b.sensor.sensor){
+                b.play("fugu_AR",true)
+            }else {
+               b.play("fugu_R",true)
+            }
+        }else {
+            if(b.sensor.sensor){
+                b.play("fugu_AL",true)
+            }else {
+                b.play("fugu_L",true)
+            }
+        }
+        })
     }
 
 }

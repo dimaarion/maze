@@ -22,9 +22,8 @@ export default class Scene_2 extends Phaser.Scene {
         let tiles = this.map.addTilesetImage('level2', 'tiles2');
         this.layer = this.map.createLayer('map', tiles);
         let walls = this.map.createLayer('wall', tiles);
-        this.g.setup(this)
         this.matter.world.convertTilemapLayer(walls);
-
+        this.g.setup(this)
     }
 
 

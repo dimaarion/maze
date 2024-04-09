@@ -1,6 +1,6 @@
 export function getObjects(map, name) {
 
-    if (map.objects.map((obj) => obj.objects.map((el) => el).filter((f) => f.name === name)).filter((fb) => fb.length > 0)[0]) {
+    if (map.objects.map((obj) => obj.objects.map((el) => el).filter((f) => f.name === name)).filter((fb) => fb.length > 0).length > 0) {
         return map.objects.map((obj) => obj.objects.map((el) => el).filter((f) => f.name === name)).filter((fb) => fb.length > 0)[0];
     } else {
         return [{}];
