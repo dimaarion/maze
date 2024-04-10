@@ -14,13 +14,17 @@ export default class Game {
     player = new Player(3);
     money = new Money("money");
     point = new Point("point");
-    fugu = new Body("fugu", "alive", 1);
-    meduza = new Body("meduza", "alive", 1);
+    fugu = new Body("fugu", "alive", 2,3);
+    meduza = new Body("meduza", "alive", 1,3);
     hp = new Hp("hp", "hp");
-    crab = new Body("crab", 'alive', 1);
-    shark = new Body("shark", 'alive', 1.5);
-    ej = new Body("ej", 'alive', 1.5);
+    crab = new Body("crab", 'alive', 1,3);
+    shark = new Body("shark", 'alive', 2,4);
+    ej = new Body("ej", 'alive', 1.5,2);
     ejDirect = new Body("ej-direct", 'alive', 1.5);
+
+    bubble = new Body("bubble","alive", 2,3)
+
+    chest = new Body('ch','ch',0,0);
 
     setup(t) {
         this.player.money = this.db.getMoney();
@@ -35,7 +39,7 @@ export default class Game {
         t.scene.launch('InterFace', {player: this.player});
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
-        t.cameras.main.zoom = 1.5;
+        t.cameras.main.zoom = 3;
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
@@ -50,7 +54,6 @@ export default class Game {
 
 
 
-
         switch (t.scene.key) {
             case 'Scene_1':
                 this.fugu.sprite(t, t.map, 0.7, 0.7);
@@ -60,7 +63,6 @@ export default class Game {
                 this.meduza.sensors(t, 1, 2, 1.5);
 
                 this.crab.sprite(t, t.map, 0.9, 0.9)
-                this.crab.sensorBody = false
                 this.crab.sensors(t, 2, 6, 5);
 
                 this.ej.sprite(t, t.map, 0.5, 0.5).map((b) => b.play("ej"))
@@ -73,8 +75,7 @@ export default class Game {
                 this.meduza.sprite(t, t.map, 1.3, 1.3);
                 this.meduza.sensors(t, 1, 2, 1.5);
 
-                this.crab.sprite(t, t.map, 0.9, 0.9)
-                this.crab.sensorBody = false
+                this.crab.sprite(t, t.map, 0.9, 0.9);
                 this.crab.sensors(t, 2, 6, 5);
 
                 this.ej.sprite(t, t.map, 0.5, 0.5).map((b) => b.play("ej"))
@@ -83,6 +84,13 @@ export default class Game {
                 this.ejDirect.sensorBody = false
                 this.ejDirect.sprite(t, t.map, 0.2, 0.2)
                 this.ejDirect.sensors(t, 1.5, 11, 9);
+
+                this.bubble.sprite(t, t.map, 0.1, 0.1).map((b) => b.play("bubble"))
+                this.bubble.sensors(t, 20, 20, 20);
+
+
+                this.chest.sprite(t,t.map,0.5,0.5)
+                this.chest.sensors(t, 3, 3, 3);
                 break;
             case 'Scene_3':
                 this.fugu.sprite(t, t.map, 0.7, 0.7);
@@ -91,8 +99,7 @@ export default class Game {
                 this.meduza.sprite(t, t.map, 1.3, 1.3);
                 this.meduza.sensors(t, 1, 2, 1.5);
 
-                this.crab.sprite(t, t.map, 0.9, 0.9)
-                this.crab.sensorBody = false
+                this.crab.sprite(t, t.map, 0.9, 0.9);
                 this.crab.sensors(t, 2, 6, 5);
 
                 this.ej.sprite(t, t.map, 0.5, 0.5).map((b) => b.play("ej"))
@@ -101,6 +108,9 @@ export default class Game {
                 this.ejDirect.sensorBody = false
                 this.ejDirect.sprite(t, t.map, 0.2, 0.2)
                 this.ejDirect.sensors(t, 1.5, 11, 9);
+
+                this.chest.sprite(t,t.map,0.5,0.5)
+                this.chest.sensors(t, 3, 3, 3);
                 break;
             case 'Scene_4':
                 this.fugu.sprite(t, t.map, 0.7, 0.7);
@@ -110,7 +120,6 @@ export default class Game {
                 this.meduza.sensors(t, 1, 2, 1.5);
 
                 this.crab.sprite(t, t.map, 0.9, 0.9)
-                this.crab.sensorBody = false
                 this.crab.sensors(t, 2, 6, 5);
 
                 this.ej.sprite(t, t.map, 0.5, 0.5).map((b) => b.play("ej"))
@@ -121,7 +130,7 @@ export default class Game {
                 this.ejDirect.sensors(t, 1.5, 11, 9);
 
 
-                this.shark.sensorBody = false
+
                 this.shark.sprite(t, t.map, 0.5, 0.5)
                 this.shark.sensors(t, 1.5, 18, 10);
 
@@ -136,15 +145,34 @@ export default class Game {
 
         let db = this.db;
 
-        function levelStep(body, db, t, level) {
 
+
+        function levelStep(body, db, t, level) {
             if (body.label === "level_" + level) {
                 db.setLevel("Scene_" + level)
                 t.scene.start("Scene_" + level)
-
-
             }
         }
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.chest.body,
+            callback: (eventData) => {
+                const {bodyA,bodyB,gameObjectB} = eventData;
+
+                if(bodyB.label === "ch"){
+
+                    bodyB.count += 1;
+                    if(bodyB.count < 2){
+                       gameObjectB.setTexture('ch-active');
+                        bodyA.money = bodyA.money + 100;
+                        db.setMoney(bodyA.money);
+                    }
+
+                }
+
+            }
+        });
 
 
         t.matterCollision.addOnCollideStart({
@@ -163,7 +191,7 @@ export default class Game {
         t.matterCollision.addOnCollideActive({
             objectA: this.player.body,
             callback: (eventData) => {
-                const {bodyA, bodyB, gameObjectB} = eventData;
+                const {bodyA, bodyB,gameObjectA, gameObjectB} = eventData;
 
                 if (bodyB.label === "attack") {
 
@@ -171,13 +199,13 @@ export default class Game {
                         if (gameObjectB) {
                             bodyA.live = bodyA.live - gameObjectB.attack.attack;
                         }
-                        db.setLive(bodyA.live);
+
                         if (bodyA.live < 10) {
-                            db.setLive(15);
-                            bodyA.gameObject.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
+                            bodyA.live = 15
+                            gameObjectA.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
                         }
                     }
-
+                    db.setLive(bodyA.live);
                 }
 
 
@@ -246,6 +274,7 @@ export default class Game {
             objectB: this.hp.body,
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectB} = eventData;
+
                 if (bodyA.live < bodyA.liveStatic) {
                     if ((bodyA.live + bodyB.live) > bodyA.liveStatic) {
                         if (bodyA.live) {
@@ -266,6 +295,15 @@ export default class Game {
             }
         });
 
+        t.matterCollision.addOnCollideStart({
+            objectA: this.bubble.body,
+            objectB: this.platform.body,
+            callback: (eventData) => {
+                const {gameObjectA} = eventData;
+                    gameObjectA.setPosition(gameObjectA.sensor.sX,gameObjectA.sensor.sY);
+            }
+        });
+
     }
 
     draw(t) {
@@ -275,21 +313,20 @@ export default class Game {
                 this.fugu.moveHorizontal('fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
                 this.meduza.moveVertical('meduza', 'meduza');
                 this.crab.moveHorizontal('crab', 'crab', 'crab', 'crab');
-                this.crab.gravity();
                 break;
             case 'Scene_2':
                 this.fugu.moveHorizontal('fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
                 this.meduza.moveVertical('meduza', 'meduza');
                 this.crab.moveHorizontal('crab', 'crab', 'crab', 'crab');
-                this.crab.gravity();
+
                 this.ejDirect.gravity();
                 this.ejDirect.persecute(t, this.player.body.body);
+                this.bubble.body.forEach((b)=>b.setVelocityY(-this.bubble.speed))
                 break;
             case 'Scene_3':
                 this.fugu.moveHorizontal('fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
                 this.meduza.moveVertical('meduza', 'meduza');
                 this.crab.moveHorizontal('crab', 'crab', 'crab', 'crab');
-                this.crab.gravity();
                 this.ejDirect.gravity();
                 this.ejDirect.persecute(t, this.player.body.body);
                 break;
@@ -297,10 +334,10 @@ export default class Game {
                 this.fugu.moveHorizontal('fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
                 this.meduza.moveVertical('meduza', 'meduza');
                 this.crab.moveHorizontal('crab', 'crab', 'crab', 'crab');
-                this.crab.gravity();
+
                 this.ejDirect.gravity();
                 this.ejDirect.persecute(t, this.player.body.body);
-                this.shark.persecute(t, this.player.body.body, 'horizontal', 'shark_L', 'shark_R', 'shark_AR', 'shark_AL');
+                this.shark.moveHorizontal('shark_L', 'shark_R', 'shark_L', 'shark_R');
                 break;
             default:
 

@@ -22,9 +22,9 @@ export default class Scene_4 extends Phaser.Scene {
         this.map = this.add.tilemap('map4');
         let tiles = this.map.addTilesetImage('level4', 'tiles4');
         this.layer = this.map.createLayer('map', tiles);
-        let walls = this.map.createLayer('wall', tiles);
+
         this.g.setup(this)
-        this.matter.world.convertTilemapLayer(walls);
+
 
     }
 

@@ -9,7 +9,7 @@ export default class Money {
 
     setup(t,map){
         this.body = this.body = getObjects(map, this.name).map((b) => {
-            return  t.matter.add.sprite(b.x + b.width / 2,b.y + b.height / 2,this.name).setScale(0.5,0.5)
+            return  t.matter.add.sprite(b.x + b.width / 2,b.y + b.height / 2,this.name).setScale(0.9,0.9)
         })
 
         this.body.forEach((b)=>{

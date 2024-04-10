@@ -11,7 +11,7 @@ export default class Hp extends Body{
 
     setup(el,map){
         this.optionsBody = {live:100}
-        this.body = this.sprite(el,map,{live:100});
+        this.body = this.sprite(el,map);
 
 
         this.scale(0.3,0.3)

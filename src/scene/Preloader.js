@@ -57,13 +57,13 @@ export default class Preloader extends Phaser.Scene {
             assetText.destroy();
         });
 //load
-        this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
+       // this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
 
         this.load.image("power-player", './img/power/player.png');
         this.load.image("power-live", './img/power/3.png');
         this.load.image("money-static", './img/money/moneySt2.png');
         this.load.image("money-plus", './img/gui/buttons/click/plus.png')
-        this.load.image("paused", './img/gui/frames/paused.png');
+        this.load.image("achievement", './img/gui/frames/achievement.png');
         this.load.image("cancel", './img/gui/buttons/click/cancel.png');
 
         //joystick
@@ -86,8 +86,11 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/sharkAll.png', {frameWidth: 300, frameHeight: 150});
+        this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 200, frameHeight: 200});
         this.load.image("hp", "./img/object/hp.png");
         this.load.image("ej-direct", './img/object/еj/ejD.png');
+        this.load.image('ch','./img/object/chest/1.png');
+        this.load.image('ch-active','./img/object/chest/2.png');
 
         // button
 
@@ -95,6 +98,13 @@ export default class Preloader extends Phaser.Scene {
     }
 
     create() {
+        //bubble
+        this.anims.create({
+            key: 'bubble',
+            frames: 'bubble',
+            frameRate: 6,
+            repeat: -1
+        });
         // player
         this.anims.create({
             key: 'left_p',

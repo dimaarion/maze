@@ -23,7 +23,7 @@ export default function GamePhaser() {
             backgroundColor: "#5DACD8",
             plugins: {
                 global: [{
-                    key: 'rexVirtualJoystick',
+                    key: 'rexvirtualjoystickplugin',
                     plugin: VirtualJoystickPlugin,
                     start: true
                 }
