@@ -8,6 +8,7 @@ import Hp from "../objects/Hp";
 
 import {getObjects} from "./index";
 import {wordDiff} from "phaser3-rex-plugins/plugins/utils/jsdiff/diff/word";
+import Phaser from "phaser";
 
 export default class Game {
     map;
@@ -31,6 +32,10 @@ export default class Game {
 
     chest = new Body("money",'ch','ch',0,0);
 
+    slim = new Body("monster","slim","alive",0,5);
+
+    angleFish = new Body("monster","angle","alive",1,5);
+
     setup(t,image,name) {
 
         let tiles = t.map.addTilesetImage(image, name);
@@ -46,7 +51,7 @@ export default class Game {
         this.player.live = this.db.getLive();
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = false;
+        t.matter.world.drawDebug = true;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -94,12 +99,40 @@ export default class Game {
         this.chest.sprite(t).map((b) => b.setTexture("ch").setScale(0.7,0.7))
         this.chest.sensors(t, 3, 3, 3);
 
+        this.shark.sensorBody = false;
+        this.shark.speedPersecute = 2
         this.shark.sprite(t)
-        this.shark.sensors(t, 0.1, 0.3, 0.6);
+        this.shark.sensors(t, 0.1, 0.8, 0.6);
 
+        this.slim.sprite(t);
+        this.slim.scale(0.5,0.5)
+        this.slim.sensors(t,0.5,1,0.8,"slim");
 
+        this.angleFish.sprite(t);
+        this.angleFish.scale(0.5,0.5)
+        this.angleFish.sensors(t,0.1,0.9,0.7,"angle_R")
 
+        let count = 0
+        let timer = t.time.addEvent({
+            delay: 500,                // ms
+            callback: ()=>{
+                this.angleFish.body.forEach((b)=> {
+                    b.pule = []
+                    if(b.sensor.sensor){
+                        if(b.attack.pule){
+                         //   b.attack.pule.push(t.matter.add.circle(b.body.position.x,b.body.position.y,20,{isSensor:true,label:"alive"}))
+                        }
 
+                    }
+
+                })
+
+            },
+            //args: [],
+            callbackScope: t,
+            repeat: -1,
+            paused: true
+        });
 
 
 
@@ -107,7 +140,15 @@ export default class Game {
 
 
 
+        t.matterCollision.addOnCollideStart({
+            objectB: this.platform.body,
+            callback: (eventData) => {
+                const {bodyA,bodyB,gameObjectB} = eventData;
 
+
+
+            }
+        });
 
         t.matterCollision.addOnCollideStart({
             objectA: this.player.body,
@@ -130,7 +171,6 @@ export default class Game {
         });
 
         function levelStep(bodyA,body, db, t, el) {
-            console.log(body.label.split("_"))
             if (parseInt(body.label.split("_")[1]) === el) {
                 db.setLevel("Scene_" + el)
                 t.scene.start("Scene_" + el)
@@ -173,6 +213,10 @@ export default class Game {
                     db.setLive(bodyA.live);
                 }
 
+                if (bodyB.label.search(/sensor/) && bodyB.name === "angle") {
+                    timer.paused = false;
+
+                }
 
             }
         });
@@ -195,12 +239,14 @@ export default class Game {
                 if (bodyB.label.search(/sensor/)) {
                     bodyB.sensor = false;
                 }
-
+                if (bodyB.label.search(/sensor/) && bodyB.name === "angle") {
+                    timer.paused = true
+                }
             }
         });
 
         t.matterCollision.addOnCollideStart({
-            objectA: this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body),
+            objectA: this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body,this.angleFish.body),
             objectB: this.point.body,
             callback: (eventData) => {
                 const {bodyA, bodyB} = eventData;
@@ -284,8 +330,8 @@ export default class Game {
         this.ejDirect.persecute(t, this.player.body.body);
 
         this.bubble.body.forEach((b)=>b.setVelocityY(-this.bubble.speed));
-
-        this.shark.moveHorizontal('shark_L', 'shark_R', 'shark_L', 'shark_R');
+        this.shark.persecute(t,this.player.body.body, {left:'shark_L', right:'shark_R', leftA:'shark_L', rightA:'shark_R'},true)
+        this.angleFish.moveHorizontal("angle_L","angle_R","angle_L","angle_R")
 
 
 

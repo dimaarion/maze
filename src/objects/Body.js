@@ -22,8 +22,14 @@ export default class Body {
     group = "";
     ax = 0;
     ay = 0;
+    senX = 0;
+    senY = 0;
+    attX = 0;
+    attY = 0;
+    pule = []
 
-    constructor(group,name, label = "", speed = 0, attack = 1) {
+
+    constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
         this.speed = speed;
         this.label = label;
@@ -42,10 +48,10 @@ export default class Body {
         return this.body;
     }
 
-    sprite(t,figure = "circle") {
+    sprite(t, figure = "circle") {
         this.figure = figure
-        this.body = t.map.createFromObjects(this.group, {name:this.name});
-        return this.body = this.body.map((b)=>t.matter.add.gameObject(b,{label:this.label}));
+        this.body = t.map.createFromObjects(this.group, {name: this.name});
+        return this.body = this.body.map((b) => t.matter.add.gameObject(b, {label: this.label}));
     }
 
     scale(s1 = 1, s2 = 1) {
@@ -54,27 +60,29 @@ export default class Body {
         })
     }
 
-    sensors(t, sen = 5, lab = 8, att = 10) {
+    sensors(t, sen = 5, lab = 8, att = 10,play = "") {
 
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
             let sy = b.height / 2;
-            b.attack = t.matter.bodies.circle(sx, sy, b.width / att, {
+            b.attack = t.matter.bodies.circle(sx + this.attX, sy + this.attY, b.width / att, {
                 label: this.labelAttack,
                 name: this.name,
                 direction: this.direction,
                 isSensor: true,
-                attack: this.attack
+                attack: this.attack,
+                pule:[]
             })
             b.playerBody = t.matter.bodies.circle(sx, sy, b.width / lab, Object.assign({
                 label: this.label,
                 name: this.name,
                 direction: this.direction,
                 isSensor: this.sensorBody,
-                count: 0
+                count: 0,
+
             }, this.optionsBody))
-            if(this.figure === "circle"){
-                b.sensor = t.matter.bodies.circle(sx, sy, b.width / sen, Object.assign({
+            if (this.figure === "circle") {
+                b.sensor = t.matter.bodies.circle(sx + this.senX, sy + this.senY, b.width / sen, Object.assign({
                     label: this.name + "_sensor",
                     name: this.name,
                     direction: this.direction,
@@ -84,8 +92,8 @@ export default class Body {
                     sX: b.x,
                     sY: b.y
                 }, this.optionsSensor))
-            }else {
-                b.sensor = t.matter.bodies.rectangle(sx, sy, b.width / sen,b.height / sen, Object.assign({
+            } else {
+                b.sensor = t.matter.bodies.rectangle(sx + this.senX, sy + this.senY, b.width / sen, b.height / sen, Object.assign({
                     label: this.name + "_sensor",
                     name: this.name,
                     direction: this.direction,
@@ -105,9 +113,13 @@ export default class Body {
                 friction: 0.01,
                 restitution: 0.05,
                 label: this.label,
-                name: this.name
+                name: this.name,
+
             });
-            return b.setExistingBody(compoundBody).setPosition(getObjects(t.map,this.name)[i].x + getObjects(t.map,this.name)[i].width / 2,getObjects(t.map,this.name)[i].y + + getObjects(t.map,this.name)[i].height / 2).setName(this.name).setFixedRotation();
+            return b.setExistingBody(compoundBody)
+                .setPosition(getObjects(t.map, this.name)[i].x + getObjects(t.map, this.name)[i].width / 2, getObjects(t.map, this.name)[i].y + getObjects(t.map, this.name)[i].height / 2).setName(this.name)
+                .setFixedRotation()
+                .play(play);
         })
     }
 
@@ -140,7 +152,7 @@ export default class Body {
         })
     }
 
-    persecute(t, player, options = "", left, right, activeLeft, activeRight) {
+    persecute(t, player, options = {left: "", right: "", leftA: "", rightA: ""}, move = false) {
         this.constrainVelocity(player)
         this.body.forEach((b) => {
             let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
@@ -148,12 +160,16 @@ export default class Body {
             this.ay = Math.sin(rotation);
             if (b.sensor.sensor) {
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute);
-                if (activeRight && activeLeft) {
+                if (options.left !== "" && options.left !== "") {
                     if (b.body.velocity.x > 0) {
-                      //  b.play(activeRight, true);
+                        b.play(options.right,true)
                     } else {
-                      //  b.play(activeLeft, true);
+                        b.play(options.left,true)
                     }
+                }
+            } else {
+                if (move) {
+                    this.moveHorizontal(options.left, options.right, options.leftA, options.rightA)
                 }
             }
         })

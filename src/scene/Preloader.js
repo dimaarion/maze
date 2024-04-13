@@ -88,6 +88,9 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/sharkAll.png', {frameWidth: 300, frameHeight: 150});
         this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet("slim","./img/object/slim/slim.png",{frameWidth: 200, frameHeight: 200})
+        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 300, frameHeight: 300})
+
         this.load.image("hp", "./img/object/hp.png");
         this.load.image("ej-direct", './img/object/еj/ejD.png');
         this.load.image('ch','./img/object/chest/1.png');
@@ -99,6 +102,26 @@ export default class Preloader extends Phaser.Scene {
     }
 
     create() {
+//angle
+        this.anims.create({
+            key: 'angle_R',
+            frames: this.anims.generateFrameNumbers('angle', {start: 60, end: 120}),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'angle_L',
+            frames: this.anims.generateFrameNumbers('angle', {start: 0, end: 59}),
+            frameRate: 20,
+            repeat: -1
+        });
+        //slim
+        this.anims.create({
+            key: 'slim',
+            frames: 'slim',
+            frameRate: 20,
+            repeat: -1
+        });
         //bubble
         this.anims.create({
             key: 'bubble',
