@@ -1,0 +1,301 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch	(revision 4a034157c7e5394a84ced91337dc74995d754943)
++++ /dev/null	(revision 4a034157c7e5394a84ced91337dc74995d754943)
+@@ -1,180 +0,0 @@
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32__Default_Changelist_.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32__Default_Changelist_.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32__Default_Changelist_.xml	(revision 55eb035694c274f0ff44a38399d9ce84757ddf3d)
+-+++ /dev/null	(revision 55eb035694c274f0ff44a38399d9ce84757ddf3d)
+-@@ -1,29 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]" date="1711438391381" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 26.03.2024 9:32 [Default Changelist]" />
+--  <binary>
+--    <option name="BEFORE_PATH" />
+--    <option name="AFTER_PATH" value="public/img/object/fugu/fugu.png" />
+--    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fugu.png" />
+--  </binary>
+--  <binary>
+--    <option name="BEFORE_PATH" />
+--    <option name="AFTER_PATH" value="public/img/object/fugu/fuguAll.png" />
+--    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguAll.png" />
+--  </binary>
+--  <binary>
+--    <option name="BEFORE_PATH" />
+--    <option name="AFTER_PATH" value="public/img/object/fugu/fuguActive2.png" />
+--    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguActive2.png" />
+--  </binary>
+--  <binary>
+--    <option name="BEFORE_PATH" />
+--    <option name="AFTER_PATH" value="public/img/object/fugu/fugu2.png" />
+--    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fugu2.png" />
+--  </binary>
+--  <binary>
+--    <option name="BEFORE_PATH" />
+--    <option name="AFTER_PATH" value="public/img/object/fugu/fuguActive.png" />
+--    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguActive.png" />
+--  </binary>
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/shelved.patch	(revision 55eb035694c274f0ff44a38399d9ce84757ddf3d)
+-+++ /dev/null	(revision 55eb035694c274f0ff44a38399d9ce84757ddf3d)
+-@@ -1,67 +0,0 @@
+--Index: .idea/workspace.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"dimaarion/maze_2\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/Action.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/Action.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitToolBoxStore\">\r\n    <option name=\"projectConfigVersion\" value=\"5\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2dzjmEzjrt8Qlko8ELhmoLN9pBx\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/public\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settingsdialog.IDE.editor.colors.Code With Me\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\PhpStorm 2021.1.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\React\\maze_2\\public\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1711017962003</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1711017962003</updated>\r\n      <workItem from=\"1711017965896\" duration=\"82000\" />\r\n      <workItem from=\"1711018060919\" duration=\"87000\" />\r\n      <workItem from=\"1711018152432\" duration=\"4816000\" />\r\n      <workItem from=\"1711027491885\" duration=\"15528000\" />\r\n      <workItem from=\"1711051828427\" duration=\"4853000\" />\r\n      <workItem from=\"1711061216081\" duration=\"4558000\" />\r\n      <workItem from=\"1711095622268\" duration=\"8344000\" />\r\n      <workItem from=\"1711149272143\" duration=\"5869000\" />\r\n      <workItem from=\"1711195065442\" duration=\"20859000\" />\r\n      <workItem from=\"1711225383089\" duration=\"10765000\" />\r\n      <workItem from=\"1711266194525\" duration=\"30857000\" />\r\n      <workItem from=\"1711311611245\" duration=\"7340000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"dimaarion/maze_2\">\r\n      <created>1711049550736</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711049550736</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"dimaarion/maze_2\">\r\n      <created>1711302602397</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711302602397</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303188307</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303188307</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303210768</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303210768</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"dimaarion/maze_2\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"dimaarion/maze_2\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+----- a/.idea/workspace.xml	(revision 2641e4ba3924d00def03c3ba68b74d148deb5bfd)
+--+++ b/.idea/workspace.xml	(date 1711438360291)
+--@@ -3,9 +3,11 @@
+--   <component name="ChangeListManager">
+--     <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2">
+--       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/action/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/index.js" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/components/Action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Action.js" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/components/GamePhaser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GamePhaser.js" afterDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena.json" afterDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu.png" beforeDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/public/img/object/fugu2.png" beforeDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive.png" beforeDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/public/img/object/fuguActive2.png" beforeDir="false" />
+--     </list>
+--     <option name="SHOW_DIALOG" value="false" />
+--     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+--@@ -37,6 +39,7 @@
+--     <option name="showLibraryContents" value="true" />
+--   </component>
+--   <component name="PropertiesComponent">
+--+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+--     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+--     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+--     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+--@@ -71,7 +74,8 @@
+--       <workItem from="1711195065442" duration="20859000" />
+--       <workItem from="1711225383089" duration="10765000" />
+--       <workItem from="1711266194525" duration="30857000" />
+---      <workItem from="1711311611245" duration="7340000" />
+--+      <workItem from="1711311611245" duration="7413000" />
+--+      <workItem from="1711438022521" duration="335000" />
+--     </task>
+--     <task id="LOCAL-00001" summary="dimaarion/maze_2">
+--       <created>1711049550736</created>
+--@@ -101,7 +105,14 @@
+--       <option name="project" value="LOCAL" />
+--       <updated>1711303210768</updated>
+--     </task>
+---    <option name="localTasksCounter" value="5" />
+--+    <task id="LOCAL-00005" summary="dimaarion/maze_2">
+--+      <created>1711320794990</created>
+--+      <option name="number" value="00005" />
+--+      <option name="presentableId" value="LOCAL-00005" />
+--+      <option name="project" value="LOCAL" />
+--+      <updated>1711320794990</updated>
+--+    </task>
+--+    <option name="localTasksCounter" value="6" />
+--     <servers />
+--   </component>
+--   <component name="TypeScriptGeneratedFilesManager">
+--@@ -120,6 +131,7 @@
+--     <option name="oldMeFiltersMigrated" value="true" />
+--   </component>
+--   <component name="VcsManagerConfiguration">
+--+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+--     <MESSAGE value="dimaarion/maze_2" />
+--     <option name="LAST_COMMIT_MESSAGE" value="dimaarion/maze_2" />
+--   </component>
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"dimaarion/maze_2\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/scene/Scene_3.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_03_2024_9_46__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_03_2024_9_46__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena2.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena2.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena22.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena22.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena3.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena3.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/Event.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/Event.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/Game.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/Game.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Body.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Body.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Fugu.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Fugu.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Meduza.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Meduza.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Preloader.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Preloader.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Scene_1.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Scene_1.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Scene_2.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Scene_2.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/StartMenu.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/StartMenu.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitToolBoxStore\">\r\n    <option name=\"projectConfigVersion\" value=\"5\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2dzjmEzjrt8Qlko8ELhmoLN9pBx\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.highlight.mappings\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.highlight.symlinks\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.date\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.permissions\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.size\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src/scene\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settingsdialog.IDE.editor.colors.Code With Me\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\PhpStorm 2021.1.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\React\\maze_2\\src\\scene\" />\r\n      <recent name=\"E:\\React\\maze_2\\public\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1711017962003</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1711017962003</updated>\r\n      <workItem from=\"1711017965896\" duration=\"82000\" />\r\n      <workItem from=\"1711018060919\" duration=\"87000\" />\r\n      <workItem from=\"1711018152432\" duration=\"4816000\" />\r\n      <workItem from=\"1711027491885\" duration=\"15528000\" />\r\n      <workItem from=\"1711051828427\" duration=\"4853000\" />\r\n      <workItem from=\"1711061216081\" duration=\"4558000\" />\r\n      <workItem from=\"1711095622268\" duration=\"8344000\" />\r\n      <workItem from=\"1711149272143\" duration=\"5869000\" />\r\n      <workItem from=\"1711195065442\" duration=\"20859000\" />\r\n      <workItem from=\"1711225383089\" duration=\"10765000\" />\r\n      <workItem from=\"1711266194525\" duration=\"30857000\" />\r\n      <workItem from=\"1711311611245\" duration=\"7340000\" />\r\n      <workItem from=\"1711469786880\" duration=\"24835000\" />\r\n      <workItem from=\"1711535136789\" duration=\"36273000\" />\r\n      <workItem from=\"1711627118173\" duration=\"10184000\" />\r\n      <workItem from=\"1711894392618\" duration=\"439000\" />\r\n      <workItem from=\"1711976301287\" duration=\"8000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"dimaarion/maze_2\">\r\n      <created>1711049550736</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711049550736</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"dimaarion/maze_2\">\r\n      <created>1711302602397</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711302602397</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303188307</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303188307</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303210768</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303210768</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"dimaarion/maze_2\">\r\n      <created>1711627381185</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711627381185</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"dimaarion/maze_2\">\r\n      <created>1711627411332</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711627411332</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"dimaarion/maze_2\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"dimaarion/maze_2\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 55eb035694c274f0ff44a38399d9ce84757ddf3d)
+-+++ b/.idea/workspace.xml	(date 1712000831161)
+-@@ -1,26 +1,7 @@
+- <?xml version="1.0" encoding="UTF-8"?>
+- <project version="4">
+-   <component name="ChangeListManager">
+--    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2">
+--      <change afterPath="$PROJECT_DIR$/src/scene/Scene_3.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_03_2024_9_46__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_03_2024_9_46__Default_Changelist_.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena.json" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena2.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena2.json" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena22.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena22.json" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena3.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena3.json" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/action/Event.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Event.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/action/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Game.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/action/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/index.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/components/GamePhaser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GamePhaser.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/objects/Body.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Body.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/objects/Fugu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Fugu.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/objects/Meduza.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Meduza.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/scene/Preloader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Preloader.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/scene/Scene_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene_1.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/scene/Scene_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene_2.js" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/scene/StartMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/StartMenu.js" afterDir="false" />
+--    </list>
+-+    <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2" />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -98,6 +79,7 @@
+-       <workItem from="1711627118173" duration="10184000" />
+-       <workItem from="1711894392618" duration="439000" />
+-       <workItem from="1711976301287" duration="8000" />
+-+      <workItem from="1712000688105" duration="141000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="dimaarion/maze_2">
+-       <created>1711049550736</created>
+-@@ -141,7 +123,21 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1711627411332</updated>
+-     </task>
+--    <option name="localTasksCounter" value="7" />
+-+    <task id="LOCAL-00007" summary="dimaarion/maze_2">
+-+      <created>1712000774102</created>
+-+      <option name="number" value="00007" />
+-+      <option name="presentableId" value="LOCAL-00007" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1712000774102</updated>
+-+    </task>
+-+    <task id="LOCAL-00008" summary="dimaarion/maze_2">
+-+      <created>1712000799694</created>
+-+      <option name="number" value="00008" />
+-+      <option name="presentableId" value="LOCAL-00008" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1712000799694</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="9" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54__Default_Changelist_.xml	(revision 4a034157c7e5394a84ced91337dc74995d754943)
++++ /dev/null	(revision 4a034157c7e5394a84ced91337dc74995d754943)
+@@ -1,29 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]" date="1712123679191" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 03.04.2024 8:54 [Default Changelist]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguAll.png" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fugu.png" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fugu2.png" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguActive.png" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".idea/shelf/Uncommitted_changes_before_Update_at_26_03_2024_9_32_[Default_Changelist]/fuguActive2.png" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"dimaarion/maze_2\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2024_10_47_[Default_Changelist]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2024_10_47__Default_Changelist_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_04_2024_10_41__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_04_2024_10_41__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/package-lock.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/package-lock.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/package.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/package.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena2.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena2.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/asset/scena/scena4.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/asset/scena/scena4.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/Event.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/Event.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/Game.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/Game.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/action/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/action/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/Database.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/Database.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/GamePhaser.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Body.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Body.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Crab.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Crab.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/EjDirect.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/EjDirect.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Fugu.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Fugu.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Money.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Money.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Platform.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Platform.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Player.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Player.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/objects/Shark.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/objects/Shark.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/InterFace.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/InterFace.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Preloader.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Preloader.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Scene_1.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Scene_1.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/scene/Scene_2.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/scene/Scene_2.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitToolBoxStore\">\r\n    <option name=\"projectConfigVersion\" value=\"5\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2dzjmEzjrt8Qlko8ELhmoLN9pBx\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.highlight.mappings\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.highlight.symlinks\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.date\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.permissions\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowPanel.toolwindow.show.size\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src/scene\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settingsdialog.IDE.editor.colors.Code With Me\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\PhpStorm 2021.1.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\React\\maze_2\\src\\scene\" />\r\n      <recent name=\"E:\\React\\maze_2\\public\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"7f4fdddf-87be-433c-9bfa-1e54c071f3d9\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1711017962003</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1711017962003</updated>\r\n      <workItem from=\"1711017965896\" duration=\"82000\" />\r\n      <workItem from=\"1711018060919\" duration=\"87000\" />\r\n      <workItem from=\"1711018152432\" duration=\"4816000\" />\r\n      <workItem from=\"1711027491885\" duration=\"15528000\" />\r\n      <workItem from=\"1711051828427\" duration=\"4853000\" />\r\n      <workItem from=\"1711061216081\" duration=\"4558000\" />\r\n      <workItem from=\"1711095622268\" duration=\"8344000\" />\r\n      <workItem from=\"1711149272143\" duration=\"5869000\" />\r\n      <workItem from=\"1711195065442\" duration=\"20859000\" />\r\n      <workItem from=\"1711225383089\" duration=\"10765000\" />\r\n      <workItem from=\"1711266194525\" duration=\"30857000\" />\r\n      <workItem from=\"1711311611245\" duration=\"7340000\" />\r\n      <workItem from=\"1711469786880\" duration=\"24835000\" />\r\n      <workItem from=\"1711535136789\" duration=\"36273000\" />\r\n      <workItem from=\"1711627118173\" duration=\"10184000\" />\r\n      <workItem from=\"1711894392618\" duration=\"439000\" />\r\n      <workItem from=\"1711976301287\" duration=\"8000\" />\r\n      <workItem from=\"1712150865674\" duration=\"12098000\" />\r\n      <workItem from=\"1712168731551\" duration=\"8756000\" />\r\n      <workItem from=\"1712206172957\" duration=\"8415000\" />\r\n      <workItem from=\"1712498571798\" duration=\"23505000\" />\r\n      <workItem from=\"1712558296160\" duration=\"3208000\" />\r\n      <workItem from=\"1712573267696\" duration=\"9497000\" />\r\n      <workItem from=\"1712599636288\" duration=\"868000\" />\r\n      <workItem from=\"1712639351653\" duration=\"36000\" />\r\n      <workItem from=\"1712639420019\" duration=\"7361000\" />\r\n      <workItem from=\"1712668534839\" duration=\"12397000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"dimaarion/maze_2\">\r\n      <created>1711049550736</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711049550736</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"dimaarion/maze_2\">\r\n      <created>1711302602397</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711302602397</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303188307</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303188307</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"dimaarion/maze_2\">\r\n      <created>1711303210768</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711303210768</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"dimaarion/maze_2\">\r\n      <created>1711627381185</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711627381185</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"dimaarion/maze_2\">\r\n      <created>1711627411332</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711627411332</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"dimaarion/maze_2\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"dimaarion/maze_2\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4a034157c7e5394a84ced91337dc74995d754943)
++++ b/.idea/workspace.xml	(date 1712812360349)
+@@ -2,32 +2,9 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="7f4fdddf-87be-433c-9bfa-1e54c071f3d9" name="Default Changelist" comment="dimaarion/maze_2">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2024_10_47_[Default_Changelist]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2024_10_47__Default_Changelist_.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_04_2024_10_41__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_04_2024_10_41__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54_[Default_Changelist]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_8_54__Default_Changelist_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena2.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena2.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/asset/scena/scena4.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/asset/scena/scena4.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/action/Event.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Event.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/action/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/Game.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/action/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/index.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Database.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/GamePhaser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GamePhaser.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Body.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Body.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Crab.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Crab.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/EjDirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/EjDirect.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Fugu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Fugu.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Money.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Money.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Platform.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Platform.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Player.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/objects/Shark.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Shark.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/scene/InterFace.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/InterFace.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/scene/Preloader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Preloader.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/scene/Scene_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene_1.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/scene/Scene_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene_2.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -115,7 +92,7 @@
+       <workItem from="1712599636288" duration="868000" />
+       <workItem from="1712639351653" duration="36000" />
+       <workItem from="1712639420019" duration="7361000" />
+-      <workItem from="1712668534839" duration="12397000" />
++      <workItem from="1712668534839" duration="12478000" />
+     </task>
+     <task id="LOCAL-00001" summary="dimaarion/maze_2">
+       <created>1711049550736</created>
+@@ -159,7 +136,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1711627411332</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="dimaarion/maze_2">
++      <created>1712682498476</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1712682498476</updated>
++    </task>
++    <task id="LOCAL-00008" summary="dimaarion/maze_2">
++      <created>1712682519943</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1712682519943</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
