@@ -4,6 +4,7 @@ import {constrain} from "../action";
 
 export default class Player {
     body;
+    body2;
     speed = 1;
     playerController;
     level = 1
@@ -21,18 +22,12 @@ export default class Player {
     }
 
 
-    setup(el, map) {
-        if (this.x === 0) {
-            this.x = getObjects(map, "player")[0].x;
-        }
-
-        if (this.y === 0) {
-            this.y = getObjects(map, "player")[0].y;
-        }
-
+    setup(el) {
+        this.body = el.map.createFromObjects('player', { name:"player",type:"player" })[0];
+        el.anims.play('right_p', this.body);
 
         this.playerController = {
-            matterSprite: el.matter.add.sprite(this.x, this.y, 'player'),
+            matterSprite: el.matter.add.gameObject(this.body,{label:"player"}),
             options: {
                 label: 'player',
                 friction: 0,
@@ -48,26 +43,7 @@ export default class Player {
             label: "player"
         };
 
-        let sx = this.playerController.matterSprite.width / 2;
-        let sy = this.playerController.matterSprite.height / 2;
-        const playerBody = el.matter.bodies.circle(sx, sy, this.playerController.matterSprite.width / 5, {
-            isSensor: false,
-            label: 'player'
-        })
-        this.playerController.sensors = el.matter.bodies.circle(sx, sy, this.playerController.matterSprite.width, {
-            isSensor: true,
-            label: 'player'
-        })
-        const compoundBody = el.matter.body.create({
-            parts: [
-                playerBody, this.playerController.sensors
-            ],
-            friction: 0.01,
-            restitution: 0.05
-        });
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
-
-       // this.body.play("right_p");
 
         let p = this.body
         el.input.keyboard.on('keydown', function (event) {
