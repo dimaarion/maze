@@ -17,14 +17,18 @@ export default class Body {
     speedPersecute = 1
     persecutes = false;
     labelAttack = 'attack';
+    figure = "circle"
+    obj;
+    group = "";
     ax = 0;
     ay = 0;
 
-    constructor(name, label = "", speed = 0, attack = 1) {
+    constructor(group,name, label = "", speed = 0, attack = 1) {
         this.name = name;
         this.speed = speed;
         this.label = label;
         this.attack = attack;
+        this.group = group;
     }
 
     rectangle(t, map, options = {}) {
@@ -38,17 +42,10 @@ export default class Body {
         return this.body;
     }
 
-    sprite(t, map, sx, sy) {
-
-        if (getObjects(map, this.name).length > 0) {
-            this.body = getObjects(map, this.name).map((b) => {
-                return t.matter.add.sprite(b.x + b.width / 2, b.y + b.height / 2, this.name).setScale(sx, sy)
-            })
-            return this.body;
-        } else {
-            return [{}]
-        }
-
+    sprite(t,figure = "circle") {
+        this.figure = figure
+        this.body = t.map.createFromObjects(this.group, {name:this.name});
+        return this.body = this.body.map((b)=>t.matter.add.gameObject(b,{label:this.label}));
     }
 
     scale(s1 = 1, s2 = 1) {
@@ -58,6 +55,7 @@ export default class Body {
     }
 
     sensors(t, sen = 5, lab = 8, att = 10) {
+
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
             let sy = b.height / 2;
@@ -75,16 +73,30 @@ export default class Body {
                 isSensor: this.sensorBody,
                 count: 0
             }, this.optionsBody))
-            b.sensor = t.matter.bodies.circle(sx, sy, b.width / sen, Object.assign({
-                label: this.name + "_sensor",
-                name: this.name,
-                direction: this.direction,
-                isSensor: true,
-                sensor: false,
-                num: i,
-                sX: b.x,
-                sY: b.y
-            }, this.optionsSensor))
+            if(this.figure === "circle"){
+                b.sensor = t.matter.bodies.circle(sx, sy, b.width / sen, Object.assign({
+                    label: this.name + "_sensor",
+                    name: this.name,
+                    direction: this.direction,
+                    isSensor: true,
+                    sensor: false,
+                    num: i,
+                    sX: b.x,
+                    sY: b.y
+                }, this.optionsSensor))
+            }else {
+                b.sensor = t.matter.bodies.rectangle(sx, sy, b.width / sen,b.height / sen, Object.assign({
+                    label: this.name + "_sensor",
+                    name: this.name,
+                    direction: this.direction,
+                    isSensor: true,
+                    sensor: false,
+                    num: i,
+                    sX: b.x,
+                    sY: b.y
+                }, this.optionsSensor))
+            }
+
 
             const compoundBody = t.matter.body.create({
                 parts: [
@@ -95,7 +107,7 @@ export default class Body {
                 label: this.label,
                 name: this.name
             });
-            return b.setExistingBody(compoundBody).setPosition(getObjects(t.map, this.name)[i].x + getObjects(t.map, this.name)[i].width / 2, getObjects(t.map, this.name)[i].y + getObjects(t.map, this.name)[i].height / 2).setSize(getObjects(t.map, this.name)[i].width, getObjects(t.map, this.name)[i].height).setName(this.name).setFixedRotation();
+            return b.setExistingBody(compoundBody).setPosition(getObjects(t.map,this.name)[i].x + getObjects(t.map,this.name)[i].width / 2,getObjects(t.map,this.name)[i].y + + getObjects(t.map,this.name)[i].height / 2).setName(this.name).setFixedRotation();
         })
     }
 
@@ -138,17 +150,11 @@ export default class Body {
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute);
                 if (activeRight && activeLeft) {
                     if (b.body.velocity.x > 0) {
-                        b.play(activeRight, true);
+                      //  b.play(activeRight, true);
                     } else {
-                        b.play(activeLeft, true);
+                      //  b.play(activeLeft, true);
                     }
                 }
-
-            } else {
-                if (options === "horizontal") {
-                    this.moveHorizontal(left, right, activeLeft, activeRight)
-                }
-
             }
         })
     }

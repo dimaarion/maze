@@ -10,11 +10,12 @@ import Scene_2 from "../scene/Scene_2";
 import InterFace from "../scene/InterFace";
 import Scene_3 from "../scene/Scene_3";
 import Scene_4 from "../scene/Scene_4";
-
+import Scene_5 from "../scene/Scene_5";
 export default function GamePhaser() {
     const phaserRef = useRef(null);
 
     useEffect(() => {
+
 
         const config = {
             type: Phaser.CANVAS,
@@ -54,7 +55,7 @@ export default function GamePhaser() {
                     }
                 }
             },
-            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3,Scene_4],
+            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3,Scene_4,Scene_5],
         };
 
         const game = new Phaser.Game(config);

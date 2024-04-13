@@ -79,6 +79,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.tilemapTiledJSON('map2', './asset/scena/scena2.json');
         this.load.tilemapTiledJSON('map3', './asset/scena/scena3.json');
         this.load.tilemapTiledJSON('map4', './asset/scena/scena4.json');
+        this.load.tilemapTiledJSON('map5', './asset/scena/scena5.json');
         this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet('money', './img/money/money3.png', {frameWidth: 20, frameHeight: 20});
         this.load.spritesheet('fugu', './img/object/fugu/fuguAll2.png', {frameWidth: 100, frameHeight: 100});
@@ -102,7 +103,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'bubble',
             frames: 'bubble',
-            frameRate: 6,
+            frameRate: 10,
             repeat: -1
         });
         // player

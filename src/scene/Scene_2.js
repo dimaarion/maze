@@ -18,11 +18,8 @@ export default class Scene_2 extends Phaser.Scene {
     }
 
     create() {
-        this.map = this.add.tilemap('map2');
-      //  this.add.image(1450 ,1450,"tiles2");
-        let tiles = this.map.addTilesetImage('level2', 'tiles2',50,50);
-        this.layer = this.map.createLayer('map', tiles);
-        this.g.setup(this)
+        this.map = this.make.tilemap({key: 'map2'});
+        this.g.setup(this,'level2','tiles2')
     }
 
 
