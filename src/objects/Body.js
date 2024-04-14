@@ -1,5 +1,5 @@
 import Phaser from "phaser"
-import {getObjects} from "../action";
+import {arrayCount, getObjects} from "../action";
 
 export default class Body {
     label = "";
@@ -26,8 +26,18 @@ export default class Body {
     senY = 0;
     attX = 0;
     attY = 0;
-    pule = []
+    pule = [];
+    puleCount = 0;
+    puleRad = 50;
+    puleSpeed = 2;
+    pulePosition = [0,0];
+    pX = 0;
+    pY = 0;
 
+    puleSensor = false;
+    puleKey = "";
+
+    puleScale = 1;
 
     constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
@@ -65,13 +75,20 @@ export default class Body {
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
             let sy = b.height / 2;
+
             b.attack = t.matter.bodies.circle(sx + this.attX, sy + this.attY, b.width / att, {
                 label: this.labelAttack,
                 name: this.name,
                 direction: this.direction,
                 isSensor: true,
                 attack: this.attack,
-                pule:[]
+                pule:arrayCount(1,this.puleCount)
+                    .map((n) => t.matter.add.image(b.x,b.y,this.puleKey)
+                    .setCircle(this.puleRad,{isSensor:this.puleSensor,vX:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),vY:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),label:this.labelAttack,attack:this.attack})
+                        .setScale(this.puleScale,this.puleScale)
+                        .setName("attack")
+                        .setBounce(1)),
+
             })
             b.playerBody = t.matter.bodies.circle(sx, sy, b.width / lab, Object.assign({
                 label: this.label,
@@ -180,8 +197,10 @@ export default class Body {
         this.body.forEach((el) => {
 
             if (el.playerBody && el.playerBody.direction === 0) {
+                this.pulePosition = [this.pX,-this.pY]
                 el.setVelocityX(this.speed)
             } else if (el.playerBody && el.playerBody.direction === 1) {
+                this.pulePosition = [-this.pX,-this.pY]
                 el.setVelocityX(-this.speed)
             } else {
                 el.setVelocityX(-this.speed)
@@ -218,21 +237,23 @@ export default class Body {
         })
     }
 
-    draw() {
-        this.body.forEach((el) => {
-            if (el.playerBody && el.playerBody.direction === 0) {
-                el.setVelocityX(this.speed)
-            } else if (el.playerBody && el.playerBody.direction === 1) {
-                el.setVelocityX(-this.speed)
-            } else if (el.playerBody && el.playerBody.direction === 2) {
-                el.setVelocityY(-this.speed)
-            } else if (el.playerBody && el.playerBody.direction === 3) {
-                el.setVelocityY(this.speed)
-            } else {
-                el.setVelocityX(this.speed)
-            }
+    draw(t,position = "horizontal",left,right,leftA,rightA,player,move = false) {
+      if(position === "horizontal"){
+          this.moveHorizontal(left,right,leftA,rightA)
+      }else if(position === "vertical"){
+          this.moveVertical(left,right)
+      }else if(position === "persecute"){
+          this.persecute(t,player,{left:left, right:right, leftA:leftA, rightA:rightA},move)
+      }
+      this.body.forEach((b)=>{
+          b.attack.pule.filter((f)=>f).forEach((p)=>{
+              if(b.sensor.sensor){
+                  p.setVelocity(p.body.vX,p.body.vY)
+              }else {
+                  p.setPosition(b.body.position.x + this.pulePosition[0],b.body.position.y + this.pulePosition[1])
+              }
+          })
 
-
-        })
+      })
     }
 }

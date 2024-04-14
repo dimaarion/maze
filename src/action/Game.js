@@ -51,7 +51,7 @@ export default class Game {
         this.player.live = this.db.getLive();
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -108,9 +108,19 @@ export default class Game {
         this.slim.scale(0.5,0.5)
         this.slim.sensors(t,0.5,1,0.8,"slim");
 
+
+        this.angleFish.pX = 60;
+        this.angleFish.pY = 15;
+        this.angleFish.puleCount = 10;
+        this.angleFish.puleRad = 15
+        this.angleFish.puleScale = 0.7
+        this.angleFish.puleSensor = true;
+        this.angleFish.puleKey = 'angle-pule';
         this.angleFish.sprite(t);
         this.angleFish.scale(0.5,0.5)
         this.angleFish.sensors(t,0.1,0.9,0.7,"angle_R")
+
+
 
         let count = 0
         let timer = t.time.addEvent({
@@ -199,9 +209,12 @@ export default class Game {
                 const {bodyA, bodyB,gameObjectA, gameObjectB} = eventData;
 
                 if (bodyB.label === "attack") {
-
+                    console.log(bodyB.attack)
                     if (bodyA.live) {
-                        if (gameObjectB) {
+                        if(bodyB.attack){
+                            bodyA.live = bodyA.live - bodyB.attack;
+                        }
+                        if (gameObjectB.attack) {
                             bodyA.live = bodyA.live - gameObjectB.attack.attack;
                         }
 
@@ -213,10 +226,6 @@ export default class Game {
                     db.setLive(bodyA.live);
                 }
 
-                if (bodyB.label.search(/sensor/) && bodyB.name === "angle") {
-                    timer.paused = false;
-
-                }
 
             }
         });
@@ -226,7 +235,7 @@ export default class Game {
             objectA: this.player.body,
             callback: (eventData) => {
                 const {bodyB} = eventData;
-                if (bodyB.label.search(/sensor/)) {
+                if (bodyB.label && bodyB.label.search(/sensor/)) {
                     bodyB.sensor = true;
                 }
 
@@ -236,12 +245,10 @@ export default class Game {
             objectA: this.player.body,
             callback: (eventData) => {
                 const {bodyB} = eventData;
-                if (bodyB.label.search(/sensor/)) {
+                if (bodyB.label && bodyB.label.search(/sensor/)) {
                     bodyB.sensor = false;
                 }
-                if (bodyB.label.search(/sensor/) && bodyB.name === "angle") {
-                    timer.paused = true
-                }
+
             }
         });
 
@@ -299,7 +306,7 @@ export default class Game {
                     }
                     if (bodyA.live) {
                         db.setLive(bodyA.live);
-                        gameObjectB.setPosition(-9000000, 0);
+                        gameObjectB.destroy();
                     }
                 }
 
@@ -322,16 +329,16 @@ export default class Game {
 
     draw(t) {
         this.player.draw(t);
-        this.fugu.moveHorizontal('fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
-        this.meduza.moveVertical('meduza', 'meduza');
-        this.crab.moveHorizontal('crab', 'crab', 'crab', 'crab');
+        this.fugu.draw(t,'horizontal','fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
+        this.meduza.draw(t,'vertical','meduza', 'meduza');
+        this.crab.draw(t,'horizontal','crab', 'crab', 'crab', 'crab');
 
         this.ejDirect.gravity();
-        this.ejDirect.persecute(t, this.player.body.body);
+        this.ejDirect.draw(t,"persecute",'none', 'none', 'none', 'none',this.player.body.body);
 
         this.bubble.body.forEach((b)=>b.setVelocityY(-this.bubble.speed));
-        this.shark.persecute(t,this.player.body.body, {left:'shark_L', right:'shark_R', leftA:'shark_L', rightA:'shark_R'},true)
-        this.angleFish.moveHorizontal("angle_L","angle_R","angle_L","angle_R")
+        this.shark.draw(t,'persecute','shark_L', 'shark_R', 'shark_L', 'shark_R',this.player.body.body, true);
+        this.angleFish.draw(t,"horizontal","angle_L","angle_R","angle_L","angle_R")
 
 
 

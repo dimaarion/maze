@@ -18,7 +18,7 @@ export default function GamePhaser() {
 
 
         const config = {
-            type: Phaser.CANVAS,
+           // type: Phaser.WEBGL,
             width: window.innerWidth,
             height: window.innerHeight,
             backgroundColor: "#5DACD8",
