@@ -1,14 +1,12 @@
 import Database from "../components/Database";
 import Player from "../objects/Player";
-import Money from "../objects/Money";
 import Point from "../objects/Point";
 import Platform from "../objects/Platform";
 import Body from "../objects/Body";
-import Hp from "../objects/Hp";
+
 
 import {getObjects} from "./index";
-import {wordDiff} from "phaser3-rex-plugins/plugins/utils/jsdiff/diff/word";
-import Phaser from "phaser";
+
 
 export default class Game {
     map;
@@ -58,7 +56,7 @@ export default class Game {
         t.scene.launch('InterFace', {player: this.player});
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
-        t.cameras.main.zoom = 2;
+        t.cameras.main.zoom = 1;
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
@@ -109,7 +107,7 @@ export default class Game {
         this.slim.sensors(t,0.5,1,0.8,"slim");
 
 
-        this.angleFish.pX = 60;
+        this.angleFish.pX = 55;
         this.angleFish.pY = 15;
         this.angleFish.puleCount = 10;
         this.angleFish.puleRad = 15
@@ -117,7 +115,7 @@ export default class Game {
         this.angleFish.puleSensor = true;
         this.angleFish.puleKey = 'angle-pule';
         this.angleFish.sprite(t);
-        this.angleFish.scale(0.5,0.5)
+       // this.angleFish.scale(0.5,0.5)
         this.angleFish.sensors(t,0.1,0.9,0.7,"angle_R")
 
 
