@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" uploadOnCheckin="18796b64-7d3a-480c-8158-62e47465091a" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="maze">
         <serverdata>
@@ -10,5 +10,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="maze" />
   </component>
 </project>
