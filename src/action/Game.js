@@ -56,7 +56,7 @@ export default class Game {
         t.scene.launch('InterFace', {player: this.player});
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
-        t.cameras.main.zoom = 1;
+        t.cameras.main.zoom = 3;
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
