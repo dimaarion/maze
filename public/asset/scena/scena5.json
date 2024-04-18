@@ -115,7 +115,7 @@
                  "id":768,
                  "name":"point",
                  "rotation":0,
-                 "type":"level_4",
+                 "type":"level_6",
                  "visible":true,
                  "width":89.3333666666667,
                  "x":759.999983333334,
@@ -2158,8 +2158,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":662.060606060606,
-                 "y":666.727272727272
+                 "x":776.727272727273,
+                 "y":128.060606060605
                 }],
          "opacity":1,
          "type":"objectgroup",

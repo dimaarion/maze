@@ -8,8 +8,10 @@ export default class Platform {
         this.body = getObjects(map, "platform").map((b) => t.matter.add.rectangle(b.x + b.width / 2, b.y + b.height / 2, b.width, b.height, {
             label: b.type,
             name: "platform",
-            isStatic: true
+            isStatic: true,
+            angle:b.rotation
         }))
+
         return this.body;
     }
 

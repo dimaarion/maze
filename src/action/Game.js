@@ -192,7 +192,7 @@ export default class Game {
             objectB: this.point.body,
             callback: (eventData) => {
                 const {gameObjectA,bodyB} = eventData;
-                [1, 2, 3, 4,5].forEach((el) => {
+                [1, 2, 3, 4,5,6].forEach((el) => {
                     levelStep(gameObjectA,bodyB, this.db, t, el)
                 })
 
