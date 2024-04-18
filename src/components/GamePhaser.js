@@ -18,7 +18,7 @@ export default function GamePhaser() {
 
 
         const config = {
-            type: Phaser.AUTO,
+         //   type: Phaser.AUTO,
             width: window.innerWidth,
             height: window.innerHeight,
             backgroundColor: "#5DACD8",

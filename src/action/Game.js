@@ -49,7 +49,7 @@ export default class Game {
         this.player.live = this.db.getLive();
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = false;
+        t.matter.world.drawDebug = true;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -104,19 +104,19 @@ export default class Game {
 
         this.slim.sprite(t);
         this.slim.scale(0.5,0.5)
-        this.slim.sensors(t,0.5,1,0.8,"slim");
+        this.slim.sensors(t,0.5,1,1.6,"slim");
 
 
-        this.angleFish.pX = 55;
-        this.angleFish.pY = 15;
+        this.angleFish.pX = 32;
+        this.angleFish.pY = 9;
         this.angleFish.puleCount = 10;
         this.angleFish.puleRad = 15
-        this.angleFish.puleScale = 0.7
+        this.angleFish.puleScale = 0.3
         this.angleFish.puleSensor = true;
         this.angleFish.puleKey = 'angle-pule';
         this.angleFish.sprite(t);
-       // this.angleFish.scale(0.5,0.5)
-        this.angleFish.sensors(t,0.1,0.9,0.7,"angle_R")
+        this.angleFish.scale(0.8,0.8)
+        this.angleFish.sensors(t,0.1,0.9,1.8,"angle_R")
 
 
 

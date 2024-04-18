@@ -34,10 +34,14 @@ export default class Body {
     pX = 0;
     pY = 0;
 
+    countFrame = 0;
+
     puleSensor = false;
     puleKey = "";
 
     puleScale = 1;
+
+    puleTime = 3000;
 
     constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
@@ -248,9 +252,18 @@ export default class Body {
       this.body.forEach((b)=>{
           b.attack.pule.filter((f)=>f).forEach((p)=>{
               if(b.sensor.sensor){
-                  p.setVelocity(p.body.vX,p.body.vY)
-              }else {
-                  p.setPosition(b.body.position.x + this.pulePosition[0],b.body.position.y + this.pulePosition[1])
+                  this.countFrame += 1;
+                   let count = this.puleTime
+                  if(this.countFrame > count / 2){
+                      p.setVelocity(p.body.vX,p.body.vY)
+                  }else {
+                      p.setPosition(b.body.position.x + this.pulePosition[0],b.body.position.y + this.pulePosition[1])
+                  }
+
+                  if(this.countFrame > count){
+                      this.countFrame = 0
+                  }
+
               }
           })
 

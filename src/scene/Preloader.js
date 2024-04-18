@@ -84,14 +84,14 @@ export default class Preloader extends Phaser.Scene {
 
         this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet('money', './img/money/money3.png', {frameWidth: 20, frameHeight: 20});
-        this.load.spritesheet('fugu', './img/object/fugu/fuguAll2.png', {frameWidth: 100, frameHeight: 100});
+        this.load.spritesheet('fugu', './img/object/fugu/fuguAll.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('meduza', './img/object/meduza/meduza12.png', {frameWidth: 50, frameHeight: 60});
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/sharkAll.png', {frameWidth: 300, frameHeight: 150});
         this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 200, frameHeight: 200});
-        this.load.spritesheet("slim","./img/object/slim/slim.png",{frameWidth: 200, frameHeight: 200})
-        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 64, frameHeight: 64})
+        this.load.spritesheet("slim","./img/object/slim/slim.png",{frameWidth: 100, frameHeight: 100})
+        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100})
 
         this.load.image("hp", "./img/object/hp.png");
         this.load.image("ej-direct", './img/object/еj/ejD.png');
@@ -107,22 +107,22 @@ export default class Preloader extends Phaser.Scene {
     create() {
 //angle
         this.anims.create({
-            key: 'angle_R',
-            frames: this.anims.generateFrameNumbers('angle', {start: 60, end: 120}),
-            frameRate: 20,
+            key: 'angle_L',
+            frames: this.anims.generateFrameNumbers('angle', {start: 0, end: 5}),
+            frameRate: 6,
             repeat: -1
         });
         this.anims.create({
-            key: 'angle_L',
-            frames: this.anims.generateFrameNumbers('angle', {start: 0, end: 59}),
-            frameRate: 20,
+            key: 'angle_R',
+            frames: this.anims.generateFrameNumbers('angle', {start: 6, end: 12}),
+            frameRate: 6,
             repeat: -1
         });
         //slim
         this.anims.create({
             key: 'slim',
             frames: 'slim',
-            frameRate: 20,
+            frameRate: 4,
             repeat: -1
         });
         //bubble
@@ -167,30 +167,32 @@ export default class Preloader extends Phaser.Scene {
         });
         //
         //fugu
+
         this.anims.create({
-            key: "fugu_R",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 120, end: 179 }),
-            frameRate: 30,
+            key: "fugu_L",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 0, end: 7 }),
+            frameRate: 8,
             repeat: -1,
         });
         this.anims.create({
-            key: "fugu_L",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 0, end: 59 }),
-            frameRate: 30,
+            key: "fugu_R",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 8, end: 15 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "fugu_AL",
+            frames: this.anims.generateFrameNumbers('fugu', { start: 16, end: 23 }),
+            frameRate: 8,
             repeat: -1,
         });
         this.anims.create({
             key: "fugu_AR",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 180, end: 239}),
-            frameRate: 30,
+            frames: this.anims.generateFrameNumbers('fugu', { start: 24, end: 31}),
+            frameRate: 8,
             repeat: -1,
         })
-        this.anims.create({
-            key: "fugu_AL",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 60, end: 119 }),
-            frameRate: 30,
-            repeat: -1,
-        });
+
         //
 // shark
         this.anims.create({
