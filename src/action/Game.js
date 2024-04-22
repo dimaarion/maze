@@ -6,6 +6,7 @@ import Body from "../objects/Body";
 
 
 import {getObjects} from "./index";
+import Phaser from "phaser";
 
 
 export default class Game {
@@ -38,7 +39,7 @@ export default class Game {
 
         let tiles = t.map.addTilesetImage(image, name);
         this.layer = t.map.createLayer(0, tiles,0,0);
-        let walls = t.map.createLayer('walls');
+        let walls = t.map.createLayer('walls',tiles);
         this.layer.setCollisionByProperty({ collides: true });
         t.map.setCollisionByExclusion([ -1, 0 ]);
         t.matter.world.convertTilemapLayer(walls);
@@ -100,7 +101,7 @@ export default class Game {
         this.shark.sensorBody = false;
         this.shark.speedPersecute = 2
         this.shark.sprite(t)
-        this.shark.sensors(t, 0.1, 0.8, 0.6);
+        this.shark.sensors(t, 0.2, 0.8, 0.6);
 
         this.slim.sprite(t);
         this.slim.scale(0.5,0.5)
@@ -119,6 +120,13 @@ export default class Game {
         this.angleFish.sensors(t,0.1,0.9,1.8,"angle_R")
 
 
+
+
+this.platform.body.forEach((b)=>{
+  // t.matter.body.setPosition(b,{x:b.position.x + b.width,y:b.position.y + b.height },true)
+  //  t.matter.body.translate(b,{x:-b.width / 2,y:-b.height / 2})
+   // console.log(b.angle)
+})
 
         let count = 0
         let timer = t.time.addEvent({

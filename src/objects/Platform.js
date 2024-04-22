@@ -1,4 +1,4 @@
-import Body from "./Body";
+import * as Phaser from "phaser";
 import {getObjects} from "../action";
 
 export default class Platform {
@@ -9,9 +9,10 @@ export default class Platform {
             label: b.type,
             name: "platform",
             isStatic: true,
-            angle:b.rotation
+            width:b.width,
+            height:b.height,
+            angle:Phaser.Math.DegToRad(b.rotation)
         }))
-
         return this.body;
     }
 
