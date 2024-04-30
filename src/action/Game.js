@@ -92,7 +92,7 @@ export default class Game {
         this.ejDirect.sprite(t).map((b) => b.setTexture("ej-direct").setScale(0.4,0.4))
         this.ejDirect.sensors(t, 1, 8, 5);
 
-        this.bubble.sprite(t).map((b) => b.play("bubble").setScale(0.2,0.2))
+        this.bubble.sprite(t).map((b) => b.play("bubble").setScale(0.3,0.3))
         this.bubble.sensors(t, 8, 10, 10);
 
         this.chest.sprite(t).map((b) => b.setTexture("ch").setScale(0.7,0.7))

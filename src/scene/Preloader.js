@@ -91,7 +91,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/sharkAll.png', {frameWidth: 300, frameHeight: 150});
-        this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet("slim","./img/object/slim/slim.png",{frameWidth: 100, frameHeight: 100})
         this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100})
 
@@ -131,7 +131,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'bubble',
             frames: 'bubble',
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
         // player
