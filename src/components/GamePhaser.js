@@ -12,6 +12,7 @@ import Scene_3 from "../scene/Scene_3";
 import Scene_4 from "../scene/Scene_4";
 import Scene_5 from "../scene/Scene_5";
 import Scene_6 from "../scene/Scene_6";
+import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 export default function GamePhaser() {
     const phaserRef = useRef(null);
 
@@ -22,7 +23,7 @@ export default function GamePhaser() {
             type: Phaser.AUTO,
             width: window.innerWidth,
             height: window.innerHeight,
-            backgroundColor: "#5DACD8",
+            backgroundColor: "#fff",
             plugins: {
                 global: [{
                     key: 'rexvirtualjoystickplugin',
@@ -41,6 +42,10 @@ export default function GamePhaser() {
                         key: 'rexUI',
                         plugin: UIPlugin,
                         mapping: 'rexUI'
+                    },{
+                        key: 'rexBoard',
+                        plugin: BoardPlugin,
+                        mapping: 'rexBoard'
                     },
                 ]
             },

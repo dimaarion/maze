@@ -6,7 +6,7 @@ import Body from "../objects/Body";
 
 
 import {getObjects} from "./index";
-import Phaser from "phaser";
+import Phaser from "phaser"
 
 
 export default class Game {
@@ -17,33 +17,35 @@ export default class Game {
     player = new Player(3);
     money; //= new Money("money");
     point = new Point("point");
-    fugu = new Body("monster","fugu", "alive", 2,3);
-    meduza = new Body("monster","meduza", "alive", 1,3);
+    fugu = new Body("monster", "fugu", "alive", 2, 3);
+    meduza = new Body("monster", "meduza", "alive", 1, 3);
 
     skills;
-    crab = new Body("monster","crab", 'alive', 1,3);
+    crab = new Body("monster", "crab", 'alive', 1, 3);
 
-    shark = new Body("monster","shark", 'alive', 3,4);
-    ej = new Body("monster","ej", 'alive', 1.5,2);
-    ejDirect = new Body("monster","ej-direct", 'alive', 1.5);
+    shark = new Body("monster", "shark", 'alive', 3, 4);
+    ej = new Body("monster", "ej", 'alive', 1.5, 2);
+    ejDirect = new Body("monster", "ej-direct", 'alive', 1.5);
 
-    bubble = new Body("monster","bubble","alive", 2,3)
+    bubble = new Body("monster", "bubble", "alive", 2, 3)
 
-    chest = new Body("money",'ch','ch',0,0);
+    chest = new Body("money", 'ch', 'ch', 0, 0);
 
-    slim = new Body("monster","slim","alive",0,5);
+    slim = new Body("monster", "slim", "alive", 0, 5);
 
-    angleFish = new Body("monster","angle","alive",1,5);
+    angleFish = new Body("monster", "angle", "alive", 1, 5);
 
-    setup(t,image,name) {
+    setup(t, image, name) {
 
         let tiles = t.map.addTilesetImage(image, name);
-        this.layer = t.map.createLayer(0, tiles,0,0);
-        let walls = t.map.createLayer('walls',tiles);
-        this.layer.setCollisionByProperty({ collides: true });
-        t.map.setCollisionByExclusion([ -1, 0 ]);
-        t.matter.world.convertTilemapLayer(walls);
+        this.layer = t.map.createLayer(0, tiles, 0, 0);
+        let walls = t.map.createLayer('walls', tiles);
 
+        this.layer.setCollisionByProperty({collides: true});
+        t.map.setCollisionByExclusion([-1, 0]);
+        t.matter.world.convertTilemapLayer(walls);
+        let obj = t.map.createLayer('objects', tiles);
+        walls.setCollisionByProperty({collides: true});
 
         this.player.money = this.db.getMoney();
         this.player.liveStatic = this.db.get().liveMax;
@@ -64,17 +66,18 @@ export default class Game {
 
         this.player.sceneKey = t.scene.key;
         this.platform.body = this.platform.setup(t, t.map);
-        this.money = t.map.createFromObjects('money', { name:"money"});
-        this.skills = t.map.createFromObjects("skills",{name:"hp"})
+        this.money = t.map.createFromObjects('money', {name: "money"});
+        this.skills = t.map.createFromObjects("skills", {name: "hp"})
         t.anims.play('money', this.money);
-        this.money.map((b)=>t.matter.add.gameObject(b,{isSensor:true,label:"money"}));
-        this.skills.map((b)=>t.matter.add.gameObject(b,{isSensor:true,label:"hp",live:100}).setTexture('hp').setSize(b.width,b.height))
-
-
+        this.money.map((b) => t.matter.add.gameObject(b, {isSensor: true, label: "money"}));
+        this.skills.map((b) => t.matter.add.gameObject(b, {
+            isSensor: true,
+            label: "hp",
+            live: 100
+        }).setTexture('hp').setSize(b.width, b.height))
 
 
         this.point.setup(t);
-
         this.fugu.sprite(t);
         this.fugu.sensors(t, 0.3, 1, 1);
 
@@ -82,20 +85,102 @@ export default class Game {
         this.meduza.sensors(t, 1, 2, 1.5);
 
 
+        //this.ej.sensorBody = false
         this.ej.sprite(t).map((b) => b.play("ej"));
-        this.ej.sensors(t, 1.5, 2, 2.5);
+        this.ej.scale(0.5, 0.5)
+        this.ej.sensors(t, 1.5, 4, 4.5);
+        let ej = this.ej
 
-        this.crab.sprite(t,"rectangle")
+        function setBoards(board, x, y, b) {
+            let tileXY = board.getRandomEmptyTileXY(0);
+            let chess = t.rexBoard.add.shape(board, tileXY.x, tileXY.y, 1,).setOrigin(0);
+
+            let moveTo = board.scene.rexBoard.add.moveTo(chess, {
+                speed: 100,
+                occupiedTest: true,
+                moveableTest: function (fromTileXYZ, toTileXYZ, direction, board) {
+                    return true;
+                }
+
+            })
+            let tileXYZ = board.chessToTileXYZ(chess)
+            let tile = board.tileXYZToChess(tileXYZ.x, tileXYZ.y, 'walls');
+
+            tile.layer.data.forEach((el, i) => {
+                el.forEach((el2, j) => {
+                    if (el[j].index !== -1) {
+                        let blocker = t.rexBoard.add.shape(board, el[j].x, el[j].y, 1).setOrigin(0);
+                        board.scene.add.existing(blocker);
+                    }
+
+                })
+
+
+            })
+
+            let pathFinder = board.scene.rexBoard.add.pathFinder(chess, {
+                occupiedTest: true
+            })
+
+            let tileXYArray2 = pathFinder.findArea();
+            let tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(10, tileXYArray2.length - 1)]);
+            moveTo.moveTo(tileXYArray.shift())
+            let tileXYZ2 = board.chessToTileXYZ(chess)
+            if(tileXYZ2 === null){
+                tileXYZ2 = board.getRandomEmptyTileXY(0);
+            }
+            let tile2 = board.tileXYZToChess(tileXYZ2.x, tileXYZ2.y, 1);
+
+            function moveDraw() {
+                moveTo.on('complete', function () {
+                    if (tileXYArray.length === 0) {
+                        tileXYArray2 = pathFinder.findArea();
+                        tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(10, tileXYArray2.length - 1)]);
+
+                    }
+
+                    followPath(t, b, tile2)
+                    moveTo.moveTo(tileXYArray.shift())
+                })
+            }
+
+            moveDraw()
+            function followPath(t, player, tile) {
+                const tween = t.tweens.add({
+                    targets: player,
+                    x: {value: tile.x, duration: 400},
+                    y: {value: tile.y, duration: 400},
+
+                });
+
+            }
+            return moveTo
+        }
+
+        let board = t.rexBoard.createBoardFromTilemap(t.map, "walls");
+
+
+        ej.body.forEach((b, i) => {
+
+            let moveTo = setBoards(board, 20, 20, b)
+        })
+
+
+        ///  moveTo.moveToRandomNeighbor();
+
+
+
+        this.crab.sprite(t, "rectangle")
         this.crab.sensors(t, 0.5, 1, 1.5);
 
         this.ejDirect.sensorBody = false
-        this.ejDirect.sprite(t).map((b) => b.setTexture("ej-direct").setScale(0.4,0.4))
+        this.ejDirect.sprite(t).map((b) => b.setTexture("ej-direct").setScale(0.4, 0.4))
         this.ejDirect.sensors(t, 1, 8, 5);
 
-        this.bubble.sprite(t).map((b) => b.play("bubble").setScale(0.3,0.3))
+        this.bubble.sprite(t).map((b) => b.play("bubble").setScale(0.3, 0.3))
         this.bubble.sensors(t, 8, 10, 10);
 
-        this.chest.sprite(t).map((b) => b.setTexture("ch").setScale(0.7,0.7))
+        this.chest.sprite(t).map((b) => b.setTexture("ch").setScale(0.7, 0.7))
         this.chest.sensors(t, 3, 3, 3);
 
         this.shark.sensorBody = false;
@@ -104,8 +189,8 @@ export default class Game {
         this.shark.sensors(t, 0.2, 0.8, 0.6);
 
         this.slim.sprite(t);
-        this.slim.scale(0.5,0.5)
-        this.slim.sensors(t,0.5,1,1.6,"slim");
+        this.slim.scale(0.5, 0.5)
+        this.slim.sensors(t, 0.5, 1, 1.6, "slim");
 
 
         this.angleFish.pX = 32;
@@ -116,27 +201,27 @@ export default class Game {
         this.angleFish.puleSensor = true;
         this.angleFish.puleKey = 'angle-pule';
         this.angleFish.sprite(t);
-        this.angleFish.scale(0.8,0.8)
-        this.angleFish.sensors(t,0.1,0.9,1.8,"angle_R")
+        this.angleFish.scale(0.8, 0.8)
+        this.angleFish.sensors(t, 0.1, 0.9, 1.8, "angle_R")
 
 
-
-
-this.platform.body.forEach((b)=>{
-  // t.matter.body.setPosition(b,{x:b.position.x + b.width,y:b.position.y + b.height },true)
-  //  t.matter.body.translate(b,{x:-b.width / 2,y:-b.height / 2})
-   // console.log(b.angle)
-})
+        this.platform.body.forEach((b) => {
+            // t.matter.body.setPosition(b,{x:b.position.x + b.width,y:b.position.y + b.height },true)
+            //  t.matter.body.translate(b,{x:-b.width / 2,y:-b.height / 2})
+            // console.log(b.angle)
+        })
 
         let count = 0
         let timer = t.time.addEvent({
             delay: 500,                // ms
-            callback: ()=>{
-                this.angleFish.body.forEach((b)=> {
+            callback: () => {
+
+
+                this.angleFish.body.forEach((b) => {
                     b.pule = []
-                    if(b.sensor.sensor){
-                        if(b.attack.pule){
-                         //   b.attack.pule.push(t.matter.add.circle(b.body.position.x,b.body.position.y,20,{isSensor:true,label:"alive"}))
+                    if (b.sensor.sensor) {
+                        if (b.attack.pule) {
+                            //   b.attack.pule.push(t.matter.add.circle(b.body.position.x,b.body.position.y,20,{isSensor:true,label:"alive"}))
                         }
 
                     }
@@ -151,16 +236,13 @@ this.platform.body.forEach((b)=>{
         });
 
 
-
         let db = this.db;
-
 
 
         t.matterCollision.addOnCollideStart({
             objectB: this.platform.body,
             callback: (eventData) => {
-                const {bodyA,bodyB,gameObjectB} = eventData;
-
+                const {bodyA, bodyB, gameObjectB} = eventData;
 
 
             }
@@ -170,13 +252,13 @@ this.platform.body.forEach((b)=>{
             objectA: this.player.body,
             objectB: this.chest.body,
             callback: (eventData) => {
-                const {bodyA,bodyB,gameObjectB} = eventData;
+                const {bodyA, bodyB, gameObjectB} = eventData;
 
-                if(bodyB.label === "ch"){
+                if (bodyB.label === "ch") {
 
                     bodyB.count += 1;
-                    if(bodyB.count < 2){
-                       gameObjectB.setTexture('ch-active');
+                    if (bodyB.count < 2) {
+                        gameObjectB.setTexture('ch-active');
                         bodyA.money = bodyA.money + 100;
                         db.setMoney(bodyA.money);
                     }
@@ -186,7 +268,7 @@ this.platform.body.forEach((b)=>{
             }
         });
 
-        function levelStep(bodyA,body, db, t, el) {
+        function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
                 db.setLevel("Scene_" + el)
                 t.scene.start("Scene_" + el)
@@ -199,25 +281,24 @@ this.platform.body.forEach((b)=>{
             objectA: this.player.body,
             objectB: this.point.body,
             callback: (eventData) => {
-                const {gameObjectA,bodyB} = eventData;
-                [1, 2, 3, 4,5,6].forEach((el) => {
-                    levelStep(gameObjectA,bodyB, this.db, t, el)
+                const {gameObjectA, bodyB} = eventData;
+                [1, 2, 3, 4, 5, 6].forEach((el) => {
+                    levelStep(gameObjectA, bodyB, this.db, t, el)
                 })
 
             }
         });
 
 
-
         t.matterCollision.addOnCollideActive({
             objectA: this.player.body,
             callback: (eventData) => {
-                const {bodyA, bodyB,gameObjectA, gameObjectB} = eventData;
+                const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
 
                 if (bodyB.label === "attack") {
                     console.log(bodyB.attack)
                     if (bodyA.live) {
-                        if(bodyB.attack){
+                        if (bodyB.attack) {
                             bodyA.live = bodyA.live - bodyB.attack;
                         }
                         if (gameObjectB.attack) {
@@ -259,7 +340,7 @@ this.platform.body.forEach((b)=>{
         });
 
         t.matterCollision.addOnCollideStart({
-            objectA: this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body,this.angleFish.body),
+            objectA: this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.angleFish.body),
             objectB: this.point.body,
             callback: (eventData) => {
                 const {bodyA, bodyB} = eventData;
@@ -286,7 +367,7 @@ this.platform.body.forEach((b)=>{
             objectA: this.player.body,
             objectB: this.money,
             callback: (eventData) => {
-                const {bodyA,gameObjectB} = eventData;
+                const {bodyA, gameObjectB} = eventData;
                 bodyA.money = bodyA.money + 1;
                 db.setMoney(bodyA.money);
                 gameObjectB.destroy();
@@ -321,11 +402,11 @@ this.platform.body.forEach((b)=>{
 
         t.matterCollision.addOnCollideStart({
             objectA: this.bubble.body,
-            objectB:this.point.body,
+            objectB: this.point.body,
             callback: (eventData) => {
                 const {bodyB, gameObjectA} = eventData;
-                if(bodyB){
-                    gameObjectA.setPosition(gameObjectA.sensor.sX,gameObjectA.sensor.sY);
+                if (bodyB) {
+                    gameObjectA.setPosition(gameObjectA.sensor.sX, gameObjectA.sensor.sY);
                 }
 
             }
@@ -335,17 +416,16 @@ this.platform.body.forEach((b)=>{
 
     draw(t) {
         this.player.draw(t);
-        this.fugu.draw(t,'horizontal','fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
-        this.meduza.draw(t,'vertical','meduza', 'meduza');
-        this.crab.draw(t,'horizontal','crab', 'crab', 'crab', 'crab');
+        this.fugu.draw(t, 'horizontal', 'fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
+        this.meduza.draw(t, 'vertical', 'meduza', 'meduza');
+        this.crab.draw(t, 'horizontal', 'crab', 'crab', 'crab', 'crab');
 
         this.ejDirect.gravity();
-        this.ejDirect.draw(t,"persecute",'none', 'none', 'none', 'none',this.player.body.body);
+        this.ejDirect.draw(t, "persecute", 'none', 'none', 'none', 'none', this.player.body.body);
 
-        this.bubble.body.forEach((b)=>b.setVelocityY(-this.bubble.speed));
-        this.shark.draw(t,'persecute','shark_L', 'shark_R', 'shark_L', 'shark_R',this.player.body.body, true);
-        this.angleFish.draw(t,"horizontal","angle_L","angle_R","angle_L","angle_R")
-
+        this.bubble.body.forEach((b) => b.setVelocityY(-this.bubble.speed));
+        this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
+        this.angleFish.draw(t, "horizontal", "angle_L", "angle_R", "angle_L", "angle_R")
 
 
     }
