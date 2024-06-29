@@ -14,7 +14,7 @@ export default class Game {
     layer;
     db = new Database();
     platform = new Platform("platform")
-    player = new Player(3);
+    player = new Player(5);
     money; //= new Money("money");
     point = new Point("point");
     fugu = new Body("monster", "fugu", "alive", 2, 3);
@@ -24,7 +24,7 @@ export default class Game {
     crab = new Body("monster", "crab", 'alive', 1, 3);
 
     shark = new Body("monster", "shark", 'alive', 3, 4);
-    ej = new Body("monster", "ej", 'alive', 1.5, 2);
+    ej = new Body("monster", "ej", 'alive', 1.5, 5);
     ejDirect = new Body("monster", "ej-direct", 'alive', 1.5);
 
     bubble = new Body("monster", "bubble", "alive", 2, 3)
@@ -89,92 +89,16 @@ export default class Game {
         this.ej.sprite(t).map((b) => b.play("ej"));
         this.ej.scale(0.5, 0.5)
         this.ej.sensors(t, 1.5, 4, 4.5);
-        let ej = this.ej
-
-        function setBoards(board, x, y, b) {
-            let tileXY = board.getRandomEmptyTileXY(0);
-            let chess = t.rexBoard.add.shape(board, tileXY.x, tileXY.y, 1,).setOrigin(0);
-
-            let moveTo = board.scene.rexBoard.add.moveTo(chess, {
-                speed: 100,
-                occupiedTest: true,
-                moveableTest: function (fromTileXYZ, toTileXYZ, direction, board) {
-                    return true;
-                }
-
-            })
-            let tileXYZ = board.chessToTileXYZ(chess)
-            let tile = board.tileXYZToChess(tileXYZ.x, tileXYZ.y, 'walls');
-
-            tile.layer.data.forEach((el, i) => {
-                el.forEach((el2, j) => {
-                    if (el[j].index !== -1) {
-                        let blocker = t.rexBoard.add.shape(board, el[j].x, el[j].y, 1).setOrigin(0);
-                        board.scene.add.existing(blocker);
-                    }
-
-                })
-
-
-            })
-
-            let pathFinder = board.scene.rexBoard.add.pathFinder(chess, {
-                occupiedTest: true
-            })
-
-            let tileXYArray2 = pathFinder.findArea();
-            let tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(10, tileXYArray2.length - 1)]);
-            moveTo.moveTo(tileXYArray.shift())
-            let tileXYZ2 = board.chessToTileXYZ(chess)
-            if(tileXYZ2 === null){
-                tileXYZ2 = board.getRandomEmptyTileXY(0);
-            }
-            let tile2 = board.tileXYZToChess(tileXYZ2.x, tileXYZ2.y, 1);
-
-            function moveDraw() {
-                moveTo.on('complete', function () {
-                    if (tileXYArray.length === 0) {
-                        tileXYArray2 = pathFinder.findArea();
-                        tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(10, tileXYArray2.length - 1)]);
-
-                    }
-
-                    followPath(t, b, tile2)
-                    moveTo.moveTo(tileXYArray.shift())
-                })
-            }
-
-            moveDraw()
-            function followPath(t, player, tile) {
-                const tween = t.tweens.add({
-                    targets: player,
-                    x: {value: tile.x, duration: 400},
-                    y: {value: tile.y, duration: 400},
-
-                });
-
-            }
-            return moveTo
-        }
-
-        let board = t.rexBoard.createBoardFromTilemap(t.map, "walls");
-
-
-        ej.body.forEach((b, i) => {
-
-            let moveTo = setBoards(board, 20, 20, b)
-        })
-
-
-        ///  moveTo.moveToRandomNeighbor();
-
-
+        this.ej.finding(t)
 
         this.crab.sprite(t, "rectangle")
-        this.crab.sensors(t, 0.5, 1, 1.5);
+        this.crab.scale(0.6,0.6)
+        this.crab.sensors(t, 0.8, 1, 2);
 
-        this.ejDirect.sensorBody = false
-        this.ejDirect.sprite(t).map((b) => b.setTexture("ej-direct").setScale(0.4, 0.4))
+
+        this.ejDirect.speedPersecute = 2;
+        this.ejDirect.sensorBody = false;
+        this.ejDirect.sprite(t).map((b) => b.setTexture("ej-direct").setScale(0.4, 0.4));
         this.ejDirect.sensors(t, 1, 8, 5);
 
         this.bubble.sprite(t).map((b) => b.play("bubble").setScale(0.3, 0.3))
@@ -426,6 +350,7 @@ export default class Game {
         this.bubble.body.forEach((b) => b.setVelocityY(-this.bubble.speed));
         this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
         this.angleFish.draw(t, "horizontal", "angle_L", "angle_R", "angle_L", "angle_R")
+
 
 
     }

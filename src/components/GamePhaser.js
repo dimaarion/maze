@@ -23,7 +23,7 @@ export default function GamePhaser() {
             type: Phaser.AUTO,
             width: window.innerWidth,
             height: window.innerHeight,
-            backgroundColor: "#fff",
+            backgroundColor: "#00a9da",
             plugins: {
                 global: [{
                     key: 'rexvirtualjoystickplugin',

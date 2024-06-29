@@ -90,9 +90,9 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('meduza', './img/object/meduza/meduza12.png', {frameWidth: 50, frameHeight: 60});
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet('shark', './img/object/shark/sharkAll.png', {frameWidth: 300, frameHeight: 150});
+        this.load.spritesheet('shark', './img/object/shark/sharkAll2.png', {frameWidth: 150, frameHeight: 75});
         this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet("slim","./img/object/slim/slim.png",{frameWidth: 100, frameHeight: 100})
+        this.load.spritesheet("slim","./img/object/slim/slim2.png",{frameWidth: 50, frameHeight: 50})
         this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100})
 
         this.load.image("hp", "./img/object/hp.png");

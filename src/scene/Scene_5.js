@@ -20,7 +20,7 @@ export default class Scene_5 extends Phaser.Scene {
 
     create() {
         this.map = this.add.tilemap('map5');
-        this.g.setup(this,'level5', 'tiles5')
+        this.g.setup(this,'level', 'tiles')
 
 
     }

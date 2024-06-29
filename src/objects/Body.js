@@ -42,6 +42,7 @@ export default class Body {
     puleScale = 1;
 
     puleTime = 3000;
+    moveTo;
 
     constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
@@ -268,5 +269,82 @@ export default class Body {
           })
 
       })
+    }
+
+    setBoards(t,board,x,y, b) {
+        let  tileXY = t.map.getTileAtWorldXY(x,y, true);
+        if(tileXY === undefined){
+            tileXY = board.getRandomEmptyTileXY(0);
+        }
+
+        let chess = t.rexBoard.add.shape(board, tileXY.x, tileXY.y, 1,).setOrigin(0);
+
+        let moveTo = board.scene.rexBoard.add.moveTo(chess, {
+            speed: 100,
+            occupiedTest: true,
+            moveableTest: function (fromTileXYZ, toTileXYZ, direction, board) {
+                return true;
+            }
+
+        })
+        let tileXYZ = board.chessToTileXYZ(chess)
+        let tile = board.tileXYZToChess(tileXYZ.x, tileXYZ.y, 'walls');
+
+        tile.layer.data.forEach((el, i) => {
+            el.forEach((el2, j) => {
+                if (el[j].index !== -1) {
+                    let blocker = t.rexBoard.add.shape(board, el[j].x, el[j].y, 1).setOrigin(0);
+                    board.scene.add.existing(blocker);
+                }
+
+            })
+
+
+        })
+
+        let pathFinder = board.scene.rexBoard.add.pathFinder(chess, {
+            occupiedTest: true
+        })
+
+        let tileXYArray2 = pathFinder.findArea();
+        let tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(1, tileXYArray2.length - 1)]);
+        moveTo.moveTo(tileXYArray.shift())
+        let tileXYZ2 = board.chessToTileXYZ(chess)
+        if(tileXYZ2 === null){
+            tileXYZ2 = board.getRandomEmptyTileXY(0);
+        }
+        let tile2 = board.tileXYZToChess(tileXYZ2.x, tileXYZ2.y, 1);
+
+        function moveDraw() {
+            moveTo.on('complete', function () {
+                if (tileXYArray.length === 0) {
+                    tileXYArray2 = pathFinder.findArea();
+                    tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(1, tileXYArray2.length - 1)]);
+
+                }
+
+                followPath(t, b, tile2)
+                moveTo.moveTo(tileXYArray.shift())
+            })
+        }
+
+        moveDraw()
+        function followPath(t, player, tile) {
+            const tween = t.tweens.add({
+                targets: player,
+                x: {value: tile.x, duration: 400},
+                y: {value: tile.y, duration: 400},
+
+            });
+
+        }
+        return moveTo
+    }
+
+    finding(t){
+        let board = t.rexBoard.createBoardFromTilemap(t.map, "walls");
+        this.body.forEach((b, i) => {
+            this.moveTo = this.setBoards(t,board, b.x, b.y, b);
+        })
     }
 }
