@@ -79,7 +79,7 @@ export default class Game {
 
         this.point.setup(t);
         this.fugu.sprite(t);
-        this.fugu.sensors(t, 0.3, 1, 1);
+        this.fugu.sensors(t, 0.3, 1, 1.8);
 
         this.meduza.sprite(t);
         this.meduza.sensors(t, 1, 2, 1.5);
@@ -110,7 +110,7 @@ export default class Game {
         this.shark.sensorBody = false;
         this.shark.speedPersecute = 2
         this.shark.sprite(t)
-        this.shark.sensors(t, 0.2, 0.8, 0.6);
+        this.shark.sensors(t, 0.2, 1.2, 0.6);
 
         this.slim.sprite(t);
         this.slim.scale(0.5, 0.5)
