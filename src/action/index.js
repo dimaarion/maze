@@ -30,3 +30,7 @@ export function constrain(n, min, max) {
 export function percent(num,pr) {
     return num * pr / 100;
 }
+
+export function findObjectByName(group, name) {
+    return group.getChildren().find(obj => obj.name === name);
+}

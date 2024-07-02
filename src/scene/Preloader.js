@@ -57,7 +57,9 @@ export default class Preloader extends Phaser.Scene {
             assetText.destroy();
         });
 //load
-       // this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
+
+        this.load.audio("fon-music", "./asset/music/Sneaky-Snitch(chosic.com).mp3")
+
 
         this.load.image("power-player", './img/power/player.png');
         this.load.image("power-live", './img/power/3.png');
@@ -72,34 +74,36 @@ export default class Preloader extends Phaser.Scene {
         //
 
         this.load.image('tiles', './img/Tiles/level.png');
-        this.load.image('tiles2', './img/Tiles/level2.png');
-        this.load.image('tiles3', './img/Tiles/level3.png');
-        this.load.image('tiles4', './img/Tiles/level4.png');
-        this.load.image('tiles5', './img/Tiles/level5.png');
-        this.load.image('tiles6', './img/Tiles/level6.png');
+
         this.load.tilemapTiledJSON('map', './asset/scena/scena.json');
         this.load.tilemapTiledJSON('map2', './asset/scena/scena2.json');
         this.load.tilemapTiledJSON('map3', './asset/scena/scena3.json');
         this.load.tilemapTiledJSON('map4', './asset/scena/scena4.json');
         this.load.tilemapTiledJSON('map5', './asset/scena/scena5.json');
         this.load.tilemapTiledJSON('map6', './asset/scena/scena6.json');
+        this.load.tilemapTiledJSON('map7', './asset/scena/scena7.json');
+        this.load.tilemapTiledJSON('map8', './asset/scena/scena8.json');
 
         this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet('money', './img/money/money3.png', {frameWidth: 20, frameHeight: 20});
         this.load.spritesheet('fugu', './img/object/fugu/fuguAll.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet('meduza', './img/object/meduza/meduza12.png', {frameWidth: 50, frameHeight: 60});
+        this.load.spritesheet('meduza', './img/object/meduza/meduza.png', {frameWidth: 44, frameHeight: 60});
+        this.load.spritesheet('meduzaFind', './img/object/meduza/meduzaFind.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/sharkAll2.png', {frameWidth: 150, frameHeight: 75});
         this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet("slim","./img/object/slim/slim2.png",{frameWidth: 50, frameHeight: 50})
-        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100})
+        this.load.spritesheet("slim","./img/object/slim/slim2.png",{frameWidth: 50, frameHeight: 50});
+        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100});
+        this.load.spritesheet("grassAttack","./img/object/grass/grassAttackAll.png",{frameWidth: 50, frameHeight: 100});
+
 
         this.load.image("hp", "./img/object/hp.png");
         this.load.image("ej-direct", './img/object/еj/ejD.png');
         this.load.image('ch','./img/object/chest/1.png');
         this.load.image('ch-active','./img/object/chest/2.png');
         this.load.image('angle-pule','./img/object/Anglerfish/puleAngle.png');
+        this.load.image('noimage','./img/object/noimage.png');
 
         // button
 
@@ -107,6 +111,18 @@ export default class Preloader extends Phaser.Scene {
     }
 
     create() {
+        this.anims.create({
+            key: 'grassAttackPassive',
+            frames: this.anims.generateFrameNumbers('grassAttack', {start: 0, end: 17}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'grassAttackActive',
+            frames: this.anims.generateFrameNumbers('grassAttack', {start: 18, end: 35}),
+            frameRate: 30,
+            repeat: 0
+        });
 //angle
         this.anims.create({
             key: 'angle_L',
@@ -246,6 +262,12 @@ export default class Preloader extends Phaser.Scene {
             repeat: -1,
         });
         //
+        this.anims.create({
+            key: "meduzaFind",
+            frames: "meduzaFind",
+            frameRate: 6,
+            repeat: -1,
+        });
         this.scene.start('StartMenu');
 
 

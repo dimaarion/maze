@@ -127,6 +127,7 @@ export default class InterFace extends Phaser.Scene {
     }
 
 
+
     update(time, delta) {
         this.moneyText.setText(this.player.body.body.money.toString());
         this.scene.bringToTop();

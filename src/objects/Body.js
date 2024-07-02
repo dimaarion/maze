@@ -34,6 +34,8 @@ export default class Body {
     pX = 0;
     pY = 0;
 
+    attR = 0
+    countBody = 0;
     countFrame = 0;
 
     puleSensor = false;
@@ -76,12 +78,12 @@ export default class Body {
     }
 
     sensors(t, sen = 5, lab = 8, att = 10,play = "") {
-
+this.attR = att;
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
             let sy = b.height / 2;
 
-            b.attack = t.matter.bodies.circle(sx + this.attX, sy + this.attY, b.width / att, {
+            b.attack = t.matter.bodies.circle(sx + this.attX, sy + this.attY, b.width / this.attR, {
                 label: this.labelAttack,
                 name: this.name,
                 direction: this.direction,
@@ -92,7 +94,7 @@ export default class Body {
                     .setCircle(this.puleRad,{isSensor:this.puleSensor,vX:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),vY:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),label:this.labelAttack,attack:this.attack})
                         .setScale(this.puleScale,this.puleScale)
                         .setName("attack")
-                        .setBounce(1)),
+                        .setBounce(1).setPosition(b.x,b.y)),
 
             })
             b.playerBody = t.matter.bodies.circle(sx, sy, b.width / lab, Object.assign({
@@ -101,6 +103,7 @@ export default class Body {
                 direction: this.direction,
                 isSensor: this.sensorBody,
                 count: 0,
+                num:i
 
             }, this.optionsBody))
             if (this.figure === "circle") {
@@ -136,6 +139,7 @@ export default class Body {
                 restitution: 0.05,
                 label: this.label,
                 name: this.name,
+
 
             });
             return b.setExistingBody(compoundBody)

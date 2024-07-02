@@ -5,7 +5,7 @@ import Platform from "../objects/Platform";
 import Body from "../objects/Body";
 
 
-import {getObjects} from "./index";
+import {getObjects, findObjectByName} from "./index";
 import Phaser from "phaser"
 
 
@@ -17,21 +17,27 @@ export default class Game {
     player = new Player(5);
     money; //= new Money("money");
     point = new Point("point");
+
     fugu = new Body("monster", "fugu", "alive", 2, 3);
+
     meduza = new Body("monster", "meduza", "alive", 1, 3);
 
     skills;
     crab = new Body("monster", "crab", 'alive', 1, 3);
 
-    shark = new Body("monster", "shark", 'alive', 3, 4);
+    shark = new Body("monster", "shark", 'alive', 1, 5);
+
     ej = new Body("monster", "ej", 'alive', 1.5, 5);
+
+    meduzaFind = new Body("monster", "meduzaFind", 'alive', 1.5, 5);
+
     ejDirect = new Body("monster", "ej-direct", 'alive', 1.5);
 
     bubble = new Body("monster", "bubble", "alive", 2, 3)
 
     chest = new Body("money", 'ch', 'ch', 0, 0);
 
-    slim = new Body("monster", "slim", "alive", 0, 5);
+    grassAttack = new Body("monster", "grassAttack", "alive", 0, 5);
 
     angleFish = new Body("monster", "angle", "alive", 1, 5);
 
@@ -52,16 +58,19 @@ export default class Game {
         this.player.live = this.db.getLive();
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
         t.scene.launch('InterFace', {player: this.player});
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
-        t.cameras.main.zoom = 3;
+        t.cameras.main.zoom = 2;
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
+
+
+       // t.sound.play("fon-music")
 
 
         this.player.sceneKey = t.scene.key;
@@ -91,6 +100,11 @@ export default class Game {
         this.ej.sensors(t, 1.5, 4, 4.5);
         this.ej.finding(t)
 
+        this.meduzaFind.sprite(t).map((b) => b.play("meduzaFind"));
+        this.meduzaFind.scale(0.5, 0.5)
+        this.meduzaFind.sensors(t, 1.5, 4, 4.5);
+        this.meduzaFind.finding(t)
+
         this.crab.sprite(t, "rectangle")
         this.crab.scale(0.6,0.6)
         this.crab.sensors(t, 0.8, 1, 2);
@@ -112,13 +126,17 @@ export default class Game {
         this.shark.sprite(t)
         this.shark.sensors(t, 0.2, 1.2, 0.6);
 
-        this.slim.sprite(t);
-        this.slim.scale(0.5, 0.5)
-        this.slim.sensors(t, 0.5, 1, 1.6, "slim");
+        //this.grassAttack.attY = 50;
+        this.grassAttack.puleCount = 1
+        this.grassAttack.puleScale = 0.5
+        this.grassAttack.puleSensor = true;
+        this.grassAttack.puleKey = "noimage"
+        this.grassAttack.sprite(t);
+        this.grassAttack.sensors(t, 2, 1.5, 3, "grassAttackPassive");
 
 
         this.angleFish.pX = 32;
-        this.angleFish.pY = 9;
+        this.angleFish.pY = 0;
         this.angleFish.puleCount = 10;
         this.angleFish.puleRad = 15
         this.angleFish.puleScale = 0.3
@@ -206,7 +224,7 @@ export default class Game {
             objectB: this.point.body,
             callback: (eventData) => {
                 const {gameObjectA, bodyB} = eventData;
-                [1, 2, 3, 4, 5, 6].forEach((el) => {
+                [1, 2, 3, 4, 5, 6, 7, 8,9,10].forEach((el) => {
                     levelStep(gameObjectA, bodyB, this.db, t, el)
                 })
 
@@ -220,7 +238,6 @@ export default class Game {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
 
                 if (bodyB.label === "attack") {
-                    console.log(bodyB.attack)
                     if (bodyA.live) {
                         if (bodyB.attack) {
                             bodyA.live = bodyA.live - bodyB.attack;
@@ -245,9 +262,13 @@ export default class Game {
         t.matterCollision.addOnCollideStart({
             objectA: this.player.body,
             callback: (eventData) => {
-                const {bodyB} = eventData;
+                const {bodyB,gameObjectB} = eventData;
                 if (bodyB.label && bodyB.label.search(/sensor/)) {
                     bodyB.sensor = true;
+                    if(bodyB.name === "grassAttack"){
+                        gameObjectB.play("grassAttackActive", true)
+
+                    }
                 }
 
             }
@@ -255,9 +276,14 @@ export default class Game {
         t.matterCollision.addOnCollideEnd({
             objectA: this.player.body,
             callback: (eventData) => {
-                const {bodyB} = eventData;
+                const {bodyB,gameObjectB} = eventData;
                 if (bodyB.label && bodyB.label.search(/sensor/)) {
                     bodyB.sensor = false;
+                    if(bodyB.name === "grassAttack"){
+                        gameObjectB.play("grassAttackPassive", true)
+
+                      //  gameObjectB.setPosition(getObjects(t.map,"grassAttack")[bodyB.num].x,getObjects(t.map,"grassAttack")[bodyB.num].y)
+                    }
                 }
 
             }
@@ -349,7 +375,21 @@ export default class Game {
 
         this.bubble.body.forEach((b) => b.setVelocityY(-this.bubble.speed));
         this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
-        this.angleFish.draw(t, "horizontal", "angle_L", "angle_R", "angle_L", "angle_R")
+        this.angleFish.draw(t, "horizontal", "angle_L", "angle_R", "angle_L", "angle_R");
+
+        this.grassAttack.body.forEach((el,i)=>{
+            if(el.sensor.sensor){
+                el.attack.pule.forEach((b)=>{
+                    b.setPosition(el.body.position.x ,el.body.position.y - 30);
+                })
+
+            }else {
+                el.play("grassAttackPassive", true)
+                el.attack.pule.forEach((b)=>{
+                    b.setPosition(el.body.position.x ,el.body.position.y + 20);
+                })
+            }
+        })
 
 
 

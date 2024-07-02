@@ -12,6 +12,8 @@ import Scene_3 from "../scene/Scene_3";
 import Scene_4 from "../scene/Scene_4";
 import Scene_5 from "../scene/Scene_5";
 import Scene_6 from "../scene/Scene_6";
+import Scene_7 from "../scene/Scene_7";
+import Scene_8 from "../scene/Scene_8";
 import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
 export default function GamePhaser() {
     const phaserRef = useRef(null);
@@ -61,7 +63,10 @@ export default function GamePhaser() {
                     }
                 }
             },
-            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3,Scene_4,Scene_5,Scene_6],
+            audio: {
+                disableWebAudio: true
+            },
+            scene:[Preloader,StartMenu,InterFace, Scene_1,Scene_2,Scene_3,Scene_4,Scene_5,Scene_6, Scene_7, Scene_8],
         };
 
         const game = new Phaser.Game(config);
