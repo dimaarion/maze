@@ -3,7 +3,7 @@ import Player from "../objects/Player";
 import Point from "../objects/Point";
 import Platform from "../objects/Platform";
 import Body from "../objects/Body";
-
+import MobileDetect from "mobile-detect";
 
 import {getObjects, findObjectByName} from "./index";
 import Phaser from "phaser"
@@ -41,7 +41,17 @@ export default class Game {
 
     angleFish = new Body("monster", "angle", "alive", 1, 5);
 
+    zumGame = 2;
+
     setup(t, image, name) {
+
+        let md = new MobileDetect(window.navigator.userAgent);
+        if(md.mobile()){
+            this.zumGame = 1
+        }
+
+
+
 
         let tiles = t.map.addTilesetImage(image, name);
         this.layer = t.map.createLayer(0, tiles, 0, 0);
@@ -65,7 +75,7 @@ export default class Game {
         t.scene.launch('InterFace', {player: this.player});
         t.cam = t.cameras.main;
         t.cam.startFollow(this.player.body, true);
-        t.cameras.main.zoom = 2;
+        t.cameras.main.zoom = this.zumGame;
         t.cameras.main.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
@@ -212,8 +222,22 @@ export default class Game {
 
         function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
-                db.setLevel("Scene_" + el)
-                t.scene.start("Scene_" + el)
+                if(window.ysdk){
+                    window.ysdk.adv.showFullscreenAdv({
+                        callbacks: {
+                            onClose: function(wasShown) {
+                                // Действие после закрытия рекламы.
+                                db.setLevel("Scene_" + el);
+                                t.scene.start("Scene_" + el);
+                            },
+                            onError: function(error) {
+                                db.setLevel("Scene_" + el);
+                                t.scene.start("Scene_" + el);
+                            }
+                        }
+                    })
+                }
+
 
 
             }
@@ -225,7 +249,8 @@ export default class Game {
             callback: (eventData) => {
                 const {gameObjectA, bodyB} = eventData;
                 [1, 2, 3, 4, 5, 6, 7, 8,9,10].forEach((el) => {
-                    levelStep(gameObjectA, bodyB, this.db, t, el)
+                    levelStep(gameObjectA, bodyB, this.db, t, el);
+
                 })
 
             }

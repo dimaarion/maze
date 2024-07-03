@@ -28,7 +28,6 @@ export default class InterFace extends Phaser.Scene {
 
     create(data) {
         const pointer = this.input.activePointer;
-        // this.input.setDefaultCursor('pointer');
         this.add.image(25 + this.x, 50, "power-player").setScale(0.1, 0.1);
         this.add.image(50 + this.x, 17, "money-static").setScale(0.5, 0.5);
         this.debug = this.add.graphics();
@@ -94,34 +93,116 @@ export default class InterFace extends Phaser.Scene {
         this.add.image(80, 94, 'hp').setScale(0.4, 0.4)
         this.add.text(135, 91, '100', {font: '20px bold', backgroundColor: '#fff', fill: '#333'});
         this.add.image(119, 100, "money-static").setScale(0.5, 0.5);
+       ;
         let hpPlus = this.rexUI.add.buttons({
             buttons: [
                 this.add.image(185, 100, 'money-plus').setScale(0.04, 0.04).setInteractive({
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                })
+            ],
+        });
+        let videorek = this.rexUI.add.buttons({
+            buttons: [
+                this.add.image(250,93,"video-rek").setScale(0.5, 0.5).setInteractive({
+                    cursor: 'pointer',
                 })
             ],
         });
 
+        let player = this.player;
+        let sizeMax = this.sizeMax;
+        let db = this.db;
+
+        hpPlus.on('button.out', function(button, index, pointer, event) {
+            button.setTexture("money-plus");
+
+        }, this);
+        hpPlus.on('button.over', function(button, index, pointer, event) {
+            button.setTexture("money-plus-hover");
+        }, this);
+        videorek.on('button.out', function(button, index, pointer, event) {
+            button.setTexture("video-rek");
+
+        }, this);
+        videorek.on('button.over', function(button, index, pointer, event) {
+            button.setTexture("video-rek-hover");
+        }, this);
+
+        videorek.on("button.click",()=>{
+            if(player.body.body.money < 100){
+                if(window.ysdk){
+                    window.ysdk.adv.showRewardedVideo({
+                        callbacks: {
+                            onRewarded: () => {
+                                if (player.body.body.live < sizeMax) {
+                                    if(player.body.body.live > sizeMax){
+                                        player.body.body.live = sizeMax
+                                    }else {
+                                        player.body.body.live += 100;
+                                    }
+
+                                }
+                                if(player.body.body.live > sizeMax){
+                                    player.body.body.live = sizeMax
+                                }
+                                db.setLive(player.body.body.live);
+                            },
+
+                        }
+                    })
+                }
+            }
+        })
+
 
         hpPlus.on("button.click", () => {
-            if (this.player.body.body.money > 100) {
-                if (this.player.body.body.live < this.sizeMax) {
-                    if(this.player.body.body.live > this.sizeMax){
-                        this.player.body.body.live = this.sizeMax
+
+            function setMoney() {
+                if (player.body.body.live < sizeMax) {
+                    if(player.body.body.live > sizeMax){
+                        player.body.body.live = sizeMax
                     }else {
-                        this.player.body.body.live += 100;
-                        this.player.body.body.money -= 100;
+                        player.body.body.live += 100;
+                        player.body.body.money -= 100;
                     }
 
                 }
-                if(this.player.body.body.live > this.sizeMax){
-                    this.player.body.body.live = this.sizeMax
+                if(player.body.body.live > sizeMax){
+                    player.body.body.live = sizeMax
                 }
-                this.db.setLive(this.player.body.body.live);
-                this.db.setMoney(this.player.body.body.money);
+                db.setLive(player.body.body.live);
+                db.setMoney(player.body.body.money);
+            }
+            if (player.body.body.money > 100) {
+                setMoney();
             }
 
         })
+        if(window.ysdk){
+            window.ysdk.adv.showFullscreenAdv({
+                callbacks: {
+                    onClose: function(wasShown) {
+                        // Действие после закрытия рекламы.
+                        if (player.body.body.live < sizeMax) {
+                            if(player.body.body.live > sizeMax){
+                                player.body.body.live = sizeMax
+                            }else {
+                                player.body.body.live += sizeMax;
+                            }
+
+                        }
+                        if(player.body.body.live > sizeMax){
+                            player.body.body.live = sizeMax
+                        }
+                        db.setLive(player.body.body.live);
+                    },
+                    onError: function(error) {
+                        // Действие в случае ошибки.
+                    }
+                }
+            })
+        }
+
 
 
     }

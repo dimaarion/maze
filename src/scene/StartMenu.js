@@ -12,10 +12,14 @@ export default class StartMenu extends Phaser.Scene{
     }
 
     create(){
+        if (window.ysdk && window.ysdk.features.LoadingAPI) {
+            window.ysdk.features.LoadingAPI.ready(); // Показываем SDK, что игра загрузилась и можно начинать играть.
 
+        }
     //   this.db.cleaner()
-        this.scene.start(this.db.getLevel());
 
+
+        this.scene.start(this.db.getLevel());
         this.input.on("pointerdown",()=>{
 
             this.count = this.count + 1

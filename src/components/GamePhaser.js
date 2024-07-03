@@ -70,6 +70,12 @@ export default function GamePhaser() {
         };
 
         const game = new Phaser.Game(config);
+        window.addEventListener('resize', event =>
+        {
+
+            game.scale.resize(window.innerWidth, window.innerHeight);
+
+        }, false);
 
         return () => {
             game.destroy(true);

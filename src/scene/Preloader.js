@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {arrayCount, getObjects} from "../action";
+
 
 export default class Preloader extends Phaser.Scene {
     constructor() {
@@ -8,6 +8,10 @@ export default class Preloader extends Phaser.Scene {
 
 
     preload() {
+
+
+
+
         let progressBar = this.add.graphics();
         let progressBox = this.add.graphics();
         let width = this.cameras.main.width;
@@ -64,9 +68,12 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("power-player", './img/power/player.png');
         this.load.image("power-live", './img/power/3.png');
         this.load.image("money-static", './img/money/moneySt2.png');
-        this.load.image("money-plus", './img/gui/buttons/click/plus.png')
+        this.load.image("money-plus", './img/gui/buttons/click/plus.png');
+        this.load.image("money-plus-hover", './img/gui/buttons/hover/plus.png');
         this.load.image("achievement", './img/gui/frames/achievement.png');
         this.load.image("cancel", './img/gui/buttons/click/cancel.png');
+        this.load.image("video-rek", './img/gui/frames/rek.png');
+        this.load.image("video-rek-hover", './img/gui/frames/rekhover.png');
 
         //joystick
         this.load.image("j1",'./img/power/1.png');
@@ -132,7 +139,7 @@ export default class Preloader extends Phaser.Scene {
         });
         this.anims.create({
             key: 'angle_R',
-            frames: this.anims.generateFrameNumbers('angle', {start: 6, end: 12}),
+            frames: this.anims.generateFrameNumbers('angle', {start: 6, end: 11}),
             frameRate: 6,
             repeat: -1
         });

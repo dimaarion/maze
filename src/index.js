@@ -9,6 +9,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 const store = createStore(reduser);
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <Provider store={store}>
         <App />
