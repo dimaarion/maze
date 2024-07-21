@@ -33,6 +33,7 @@ export default class Body {
     pulePosition = [0,0];
     pX = 0;
     pY = 0;
+    playerPositions = {x:0,y:0}
 
     attR = 0
     countBody = 0;
@@ -113,6 +114,7 @@ this.attR = att;
                     direction: this.direction,
                     isSensor: true,
                     sensor: false,
+                    noDown:true,
                     num: i,
                     sX: b.x,
                     sY: b.y
@@ -142,10 +144,14 @@ this.attR = att;
 
 
             });
-            return b.setExistingBody(compoundBody)
+            if(getObjects(t.map, this.name)[i] === undefined){
+                console.log(this.name)
+            }
+
+            return getObjects(t.map, this.name)[i]?b.setExistingBody(compoundBody)
                 .setPosition(getObjects(t.map, this.name)[i].x + getObjects(t.map, this.name)[i].width / 2, getObjects(t.map, this.name)[i].y + getObjects(t.map, this.name)[i].height / 2).setName(this.name)
                 .setFixedRotation()
-                .play(play);
+                .play(play): [{}]
         })
     }
 
@@ -170,7 +176,7 @@ this.attR = att;
         }
     }
 
-    gravity(n = 0.1) {
+    gravity() {
         this.body.forEach((b) => {
             if (!b.sensor.sensor) {
                 b.setVelocityY(this.upSpeed);
@@ -178,12 +184,17 @@ this.attR = att;
         })
     }
 
+    playerPosition(b,player){
+        let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
+        this.ax = Math.cos(rotation);
+        this.ay = Math.sin(rotation);
+        this.playerPositions = {x:player.position.x,y:player.position.y}
+    }
+
     persecute(t, player, options = {left: "", right: "", leftA: "", rightA: ""}, move = false) {
         this.constrainVelocity(player)
         this.body.forEach((b) => {
-            let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
-            this.ax = Math.cos(rotation);
-            this.ay = Math.sin(rotation);
+           this.playerPosition(b,player)
             if (b.sensor.sensor) {
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute);
                 if (options.left !== "" && options.left !== "") {

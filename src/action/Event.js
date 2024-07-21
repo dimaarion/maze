@@ -160,7 +160,7 @@ export default class Event {
 
 
     CollisionGames(t) {
-        this.db.create(t.map);
+
         t.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             for (let i = 0; i < event.pairs.length; i++) {
                 let pair = event.pairs[i];

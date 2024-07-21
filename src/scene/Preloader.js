@@ -49,7 +49,7 @@ export default class Preloader extends Phaser.Scene {
         });
         this.load.on('fileprogress', function (file) {
             //   console.log(file.src);
-            assetText.setText('Загрузка ресурса: ' + file.src);
+          // assetText.setText('Загрузка ресурса: ' + file.src);
         });
 
         this.load.on('complete', function () {
@@ -62,18 +62,39 @@ export default class Preloader extends Phaser.Scene {
         });
 //load
 
-        this.load.audio("fon-music", "./asset/music/Sneaky-Snitch(chosic.com).mp3")
+        this.load.audio("fon-music", "./asset/music/Sneaky-Snitch(chosic.com).mp3");
+        this.load.audio("coin", "./asset/music/upali-dengi-na-igrovoy-schet.mp3");
+        this.load.audio("attack", "./asset/music/player_damagebody_03.mp3");
+        this.load.audio("openCh", "./asset/music/open-magic-reveal-002379-.mp3");
+        this.load.audio("open-hp", "./asset/music/hp.mp3");
 
 
         this.load.image("power-player", './img/power/player.png');
         this.load.image("power-live", './img/power/3.png');
         this.load.image("money-static", './img/money/moneySt2.png');
-        this.load.image("money-plus", './img/gui/buttons/click/plus.png');
+        this.load.image("money-plus", './img/gui/buttons/normal/plus.png');
         this.load.image("money-plus-hover", './img/gui/buttons/hover/plus.png');
         this.load.image("achievement", './img/gui/frames/achievement.png');
         this.load.image("cancel", './img/gui/buttons/click/cancel.png');
         this.load.image("video-rek", './img/gui/frames/rek.png');
         this.load.image("video-rek-hover", './img/gui/frames/rekhover.png');
+        this.load.image("frame-shop", './img/gui/frames/frameShop.png');
+        this.load.image("hp-shop-passive", './img/gui/frames/shopHpPassiv.png');
+        this.load.image("hp-shop-active", './img/gui/frames/shopHpActive.png');
+        this.load.image("play-game", './img/gui/buttons/normal/play.png');
+        this.load.image("play-game-hover", './img/gui/buttons/hover/play.png');
+        this.load.image("sound-close", './img/gui/buttons/normal/music-close.png');
+        this.load.image("sound-close-hover", './img/gui/buttons/hover/music-close-hover.png');
+        this.load.image("sound-btn", './img/gui/buttons/normal/music.png');
+        this.load.image("sound-btn-hover", './img/gui/buttons/hover/music.png');
+        this.load.image("pause", './img/gui/buttons/normal/pause.png');
+        this.load.image("pause-hover", './img/gui/buttons/hover/pause.png');
+        this.load.image("frame-close", './img/gui/buttons/normal/cancel.png');
+        this.load.image("frame-close-hover", './img/gui/buttons/hover/cancel.png');
+        this.load.image("slider", './img/gui/left right botton map.png');
+        this.load.image("scrolling", './img/gui/horisontal skrolling map.png');
+        this.load.image("volume", './img/gui/buttons/normal/volume.png');
+
 
         //joystick
         this.load.image("j1",'./img/power/1.png');
@@ -90,6 +111,8 @@ export default class Preloader extends Phaser.Scene {
         this.load.tilemapTiledJSON('map6', './asset/scena/scena6.json');
         this.load.tilemapTiledJSON('map7', './asset/scena/scena7.json');
         this.load.tilemapTiledJSON('map8', './asset/scena/scena8.json');
+        this.load.tilemapTiledJSON('map9', './asset/scena/scena9.json');
+
 
         this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet('money', './img/money/money3.png', {frameWidth: 20, frameHeight: 20});
@@ -98,11 +121,10 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('meduzaFind', './img/object/meduza/meduzaFind.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet('shark', './img/object/shark/sharkAll2.png', {frameWidth: 150, frameHeight: 75});
-        this.load.spritesheet('bubble', './img/object/bubble/bubble.png', {frameWidth: 100, frameHeight: 100});
-        this.load.spritesheet("slim","./img/object/slim/slim2.png",{frameWidth: 50, frameHeight: 50});
-        this.load.spritesheet("angle","./img/object/Anglerfish/angle.png",{frameWidth: 100, frameHeight: 100});
+        this.load.spritesheet('shark', './img/object/shark/shark.png', {frameWidth: 152, frameHeight: 70});
         this.load.spritesheet("grassAttack","./img/object/grass/grassAttackAll.png",{frameWidth: 50, frameHeight: 100});
+        this.load.spritesheet("bubble-potok","./img/object/bubble/bubble-potok.png",{frameWidth: 64, frameHeight: 192});
+        this.load.spritesheet("stone","./img/object/bubble/ketre.png",{frameWidth: 64, frameHeight: 64});
 
 
         this.load.image("hp", "./img/object/hp.png");
@@ -117,7 +139,16 @@ export default class Preloader extends Phaser.Scene {
        // this.load.image("btn-right", './img/gui/buttons/click/play.png');
     }
 
+
+
     create() {
+        this.anims.create({
+            key: 'stone',
+            frames: "stone",
+            frameRate: 5,
+            repeat: -1
+        });
+
         this.anims.create({
             key: 'grassAttackPassive',
             frames: this.anims.generateFrameNumbers('grassAttack', {start: 0, end: 17}),
@@ -130,33 +161,7 @@ export default class Preloader extends Phaser.Scene {
             frameRate: 30,
             repeat: 0
         });
-//angle
-        this.anims.create({
-            key: 'angle_L',
-            frames: this.anims.generateFrameNumbers('angle', {start: 0, end: 5}),
-            frameRate: 6,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'angle_R',
-            frames: this.anims.generateFrameNumbers('angle', {start: 6, end: 11}),
-            frameRate: 6,
-            repeat: -1
-        });
-        //slim
-        this.anims.create({
-            key: 'slim',
-            frames: 'slim',
-            frameRate: 4,
-            repeat: -1
-        });
-        //bubble
-        this.anims.create({
-            key: 'bubble',
-            frames: 'bubble',
-            frameRate: 6,
-            repeat: -1
-        });
+
         // player
         this.anims.create({
             key: 'left_p',
@@ -221,29 +226,19 @@ export default class Preloader extends Phaser.Scene {
         //
 // shark
         this.anims.create({
-            key: "shark_R",
-            frames: this.anims.generateFrameNumbers('shark', { start: 0, end: 59 }),
-            frameRate: 30,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: "shark_AL",
-            frames: this.anims.generateFrameNumbers('shark', { start: 120, end: 179 }),
-            frameRate: 30,
-            repeat: -1,
-        });
-        this.anims.create({
             key: "shark_L",
-            frames: this.anims.generateFrameNumbers('shark', { start: 60, end: 119 }),
-            frameRate: 30,
+            frames: this.anims.generateFrameNumbers('shark', { start: 0, end: 9 }),
+            frameRate: 6,
             repeat: -1,
         });
+
         this.anims.create({
-            key: "shark_AR",
-            frames: this.anims.generateFrameNumbers('shark', { start: 180, end: 239}),
-            frameRate: 30,
+            key: "shark_R",
+            frames: this.anims.generateFrameNumbers('shark', { start: 10, end: 19 }),
+            frameRate: 6,
             repeat: -1,
-        })
+        });
+
         //
         // meduza
         this.anims.create({

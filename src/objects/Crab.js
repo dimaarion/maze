@@ -1,6 +1,4 @@
 import Body from "./Body";
-import Phaser from "phaser";
-import {getObjects} from "../action";
 export default class Crab extends Body{
     constructor(name,label,speed) {
         super(name,label,speed);
