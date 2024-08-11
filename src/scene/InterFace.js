@@ -3,7 +3,6 @@ import Database from "../components/Database";
 import {percent} from "../action";
 
 
-
 export default class InterFace extends Phaser.Scene {
     constructor() {
         super("InterFace");
@@ -69,7 +68,6 @@ export default class InterFace extends Phaser.Scene {
         data.player.effect = collectionSound.findOne({"$loki": 1}).effect;
 
 
-
         this.add.image(23 + this.x, 25, "power-player").setScale(0.1, 0.1);
         this.add.image(61 + this.x, 25, "money-static").setScale(0.5, 0.5);
         this.debug = this.add.graphics();
@@ -132,10 +130,10 @@ export default class InterFace extends Phaser.Scene {
 
         }, this);
 
-        this.pauseBg = this.add.image(0, 0, "frame-shop").setScale(1.5, 2).setPosition(-9000, 0);
+        this.pauseBg = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.soundBtn = this.add.image(0, 0, "sound-btn").setScale(0.08, 0.08).setPosition(-9000, 0);
         this.volume = this.add.image(0, 0, "volume").setScale(0.08, 0.08).setPosition(-9000, 0);
-        this.frameShop = this.add.image(0, 0, "frame-shop").setScale(1.5, 2).setPosition(-9000, 0);
+        this.frameShop = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.hpShop = this.add.image(0, 0, 'hp').setScale(0.8, 0.8).setPosition(-9000, 0);
         /*this.pauseText = this.add.text(0, 0, "Пауза").setStyle({
             backgroundColor: "#fbf098",
@@ -146,7 +144,6 @@ export default class InterFace extends Phaser.Scene {
 
         let player = this.player;
         let sizeMax = this.sizeMax;
-
 
 
         this.hpPlus = this.rexUI.add.buttons({
@@ -181,13 +178,15 @@ export default class InterFace extends Phaser.Scene {
         });
 
 
-
-
         this.closeShop.on("button.click", () => {
             this.shop = false;
             this.pause = false;
             this.closeBtn = true;
-            this.countBtn = 0
+            this.countBtn = 0;
+            this.database.saveDatabase();
+            if (window.ysdk) {
+                window.ysdk.features.GameplayAPI?.start();
+            }
         }, this);
 
 
@@ -210,26 +209,28 @@ export default class InterFace extends Phaser.Scene {
             type: "button"
         });
 
-        this.openFrame.on('button.click', function (button, index, pointer, event) {
-          //  this.playGame.setButtonState(true)
+        this.openFrame.on('button.click', function () {
             this.pause = false;
             this.shop = true;
             this.closeBtn = true;
             this.countBtn = 0;
+            if (window.ysdk) {
+                window.ysdk.features.GameplayAPI?.stop();
+            }
         }, this);
-        this.scale.on('orientationchange', function(orientation) {
+        this.scale.on('orientationchange', function (orientation) {
             this.pause = false;
             this.closeBtn = true;
             this.shop = false;
             this.countBtn = 0;
-        },this);
+        }, this);
         this.playGame.on("button.click", (button) => {
             this.pause = true;
             this.closeBtn = false;
-                this.shop = false;
-                let sound = this.sound;
-                this.countBtn++
-                if(this.countBtn === 1){
+            this.shop = false;
+            let sound = this.sound;
+            this.countBtn++
+            if (this.countBtn === 1) {
                 this.scrolling = this.add.image((window.innerWidth / 2) + 30, (window.innerHeight / 2) - 50, "scrolling").setScale(0.2, 0.2);
                 this.scrolling2 = this.add.image((window.innerWidth / 2) + 30, (window.innerHeight / 2) + 50, "scrolling").setScale(0.2, 0.2);
                 this.sliders = this.add.image((window.innerWidth / 2) + 30, (window.innerHeight / 2) - 50, "slider").setScale(0.2, 0.2);
@@ -292,8 +293,12 @@ export default class InterFace extends Phaser.Scene {
                             }
                         }
                     })
-                }}
+                }
+            }
 
+            if (window.ysdk) {
+                window.ysdk.features.GameplayAPI?.stop();
+            }
 
         }, this)
 
@@ -342,11 +347,11 @@ export default class InterFace extends Phaser.Scene {
         }, this);
 
         this.playGame.on('button.out', function (button, index, pointer, event) {
-                button.setTexture("pause");
+            button.setTexture("pause");
 
         }, this);
         this.playGame.on('button.over', function (button, index, pointer, event) {
-                button.setTexture("pause-hover");
+            button.setTexture("pause-hover");
         }, this);
 
         this.openFrame.on('button.out', function (button, index, pointer, event) {
@@ -381,7 +386,7 @@ export default class InterFace extends Phaser.Scene {
             button.setTexture("video-rek-hover");
         }, this);
 
-        function liveAddSave(database,player,coin = 100) {
+        function liveAddSave(database, player, coin = 100) {
             if (player.body.body.live < sizeMax) {
                 if (player.body.body.live > sizeMax) {
                     player.body.body.live = sizeMax
@@ -393,26 +398,26 @@ export default class InterFace extends Phaser.Scene {
             if (player.body.body.live > sizeMax) {
                 player.body.body.live = sizeMax
             }
-            if(database.getCollection("player")){
-                database.getCollection("player").chain().find({"$loki": 1}).update((doc)=>doc.live = player.body.body.live);
+            if (database.getCollection("player")) {
+                database.getCollection("player").chain().find({"$loki": 1}).update((doc) => doc.live = player.body.body.live);
                 database.saveDatabase();
             }
 
         }
 
         this.videorek.on("button.click", () => {
-         //   this.isSound = true;
-          //  let sound = this.sound;
-            if(player.body.body.live < sizeMax){
+            //   this.isSound = true;
+            //  let sound = this.sound;
+            if (player.body.body.live < sizeMax) {
                 if (window.ysdk) {
                     window.ysdk.adv.showRewardedVideo({
                         callbacks: {
                             onOpen: function () {
                                 //sound.pauseAll();
-                               // this.scene.pause(player.sceneKey);
+                                // this.scene.pause(player.sceneKey);
                             },
                             onRewarded: () => {
-                                liveAddSave(this.database,player,100);
+                                liveAddSave(this.database, player, 100);
                             }, onClose: () => {
 
                             }, onError: () => {
@@ -443,7 +448,7 @@ export default class InterFace extends Phaser.Scene {
                 if (player.body.body.live > sizeMax) {
                     player.body.body.live = sizeMax
                 }
-                db.getCollection("player").chain().find({"$loki": 1}).update((doc)=> {
+                db.getCollection("player").chain().find({"$loki": 1}).update((doc) => {
                     doc.money = player.body.body.money;
                     doc.live = player.body.body.live;
                     return doc;
@@ -455,10 +460,10 @@ export default class InterFace extends Phaser.Scene {
                 setMoney(this.database);
             }
 
-        },this)
+        }, this)
 
         if (player.sceneKey === "Scene_1") {
-            liveAddSave(this.database,player,this.sizeMax)
+            liveAddSave(this.database, player, this.sizeMax)
         }
 
     }
@@ -512,11 +517,11 @@ export default class InterFace extends Phaser.Scene {
         }
 
         if (this.pause || this.shop) {
-           // this.pauseText.setPosition((window.innerWidth / 2) - 100, (window.innerHeight / 5));
-            this.closeShop.setPosition((window.innerWidth / 2) + 1150, (window.innerHeight / 2) - 100);
+            // this.pauseText.setPosition((window.innerWidth / 2) - 100, (window.innerHeight / 5));
+            this.closeShop.setPosition((window.innerWidth / 2) + 1150, (window.innerHeight / 2) - 90);
             this.scene.pause(this.player.sceneKey);
         } else {
-           // this.pauseText.setPosition(-1000, 0);
+            // this.pauseText.setPosition(-1000, 0);
             this.scene.resume(this.player.sceneKey);
             this.closeShop.setPosition(-1000, 0);
 
@@ -536,8 +541,8 @@ export default class InterFace extends Phaser.Scene {
             this.sound.resumeAll();
         }
 
-        if(this.closeBtn){
-            if(this.sliders){
+        if (this.closeBtn) {
+            if (this.sliders) {
                 this.sliders.destroy();
                 this.sliders2.destroy();
                 this.scrolling.destroy();

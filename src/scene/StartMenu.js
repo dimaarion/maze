@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 import Database from "../components/Database";
-import Loki from "lokijs";
+
 
 
 export default class StartMenu extends Phaser.Scene{
@@ -24,9 +24,21 @@ export default class StartMenu extends Phaser.Scene{
             loop: true,
         })
 
-        if (window.ysdk && window.ysdk.features.LoadingAPI) {
-            window.ysdk.features.LoadingAPI.ready(); // Показываем SDK, что игра загрузилась и можно начинать играть.
+
+
+        try {
+           window.YaGames.init()
+                .then((ysdk) => {
+                    // Сообщаем платформе, что игра загрузилась и можно начинать играть.
+                    ysdk.features.LoadingAPI?.ready()
+                }).catch(console.error);
+        }catch (e) {
+            console.log(e);
         }
+
+
+
+
 
         if(this.database.getCollection("player")){
             this.level = this.database.getCollection("player").findOne({"$loki":1}).level;
