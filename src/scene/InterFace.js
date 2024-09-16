@@ -229,6 +229,7 @@ export default class InterFace extends Phaser.Scene {
             this.closeBtn = false;
             this.shop = false;
             let sound = this.sound;
+            let database = this.database;
             this.countBtn++
             if (this.countBtn === 1) {
                 this.scrolling = this.add.image((window.innerWidth / 2) + 30, (window.innerHeight / 2) - 50, "scrolling").setScale(0.2, 0.2);
@@ -254,7 +255,7 @@ export default class InterFace extends Phaser.Scene {
                                 return doc.music = value;
                             });
                         music.volume = value;
-
+                        database.saveDatabase();
                     }
                 });
 
@@ -270,12 +271,14 @@ export default class InterFace extends Phaser.Scene {
                         }
                     ],
                     value: collectionSound.findOne({"$loki": 1}).effect,
+
                     valuechangeCallback: function (value) {
                         collectionSound.chain().find({"$loki": 1}).update(
                             function (doc) {
                                 return doc.effect = value;
                             });
                         data.player.effect = value;
+                        database.saveDatabase();
                     }
                 });
 

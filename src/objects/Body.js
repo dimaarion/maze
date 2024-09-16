@@ -30,10 +30,10 @@ export default class Body {
     puleCount = 0;
     puleRad = 50;
     puleSpeed = 2;
-    pulePosition = [0,0];
+    pulePosition = [0, 0];
     pX = 0;
     pY = 0;
-    playerPositions = {x:0,y:0}
+    playerPositions = {x: 0, y: 0}
 
     attR = 0
     countBody = 0;
@@ -78,8 +78,8 @@ export default class Body {
         })
     }
 
-    sensors(t, sen = 5, lab = 8, att = 10,play = "") {
-this.attR = att;
+    sensors(t, sen = 5, lab = 8, att = 10, play = "") {
+        this.attR = att;
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
             let sy = b.height / 2;
@@ -90,12 +90,18 @@ this.attR = att;
                 direction: this.direction,
                 isSensor: true,
                 attack: this.attack,
-                pule:arrayCount(1,this.puleCount)
-                    .map((n) => t.matter.add.image(b.x,b.y,this.puleKey)
-                    .setCircle(this.puleRad,{isSensor:this.puleSensor,vX:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),vY:Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),label:this.labelAttack,attack:this.attack})
-                        .setScale(this.puleScale,this.puleScale)
+                pule: arrayCount(1, this.puleCount)
+                    .map((n) => t.matter.add.image(b.x, b.y, this.puleKey)
+                        .setCircle(this.puleRad, {
+                            isSensor: this.puleSensor,
+                            vX: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
+                            vY: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
+                            label: this.labelAttack,
+                            attack: this.attack
+                        })
+                        .setScale(this.puleScale, this.puleScale)
                         .setName("attack")
-                        .setBounce(1).setPosition(b.x,b.y)),
+                        .setBounce(1).setPosition(b.x, b.y)),
 
             })
             b.playerBody = t.matter.bodies.circle(sx, sy, b.width / lab, Object.assign({
@@ -104,7 +110,7 @@ this.attR = att;
                 direction: this.direction,
                 isSensor: this.sensorBody,
                 count: 0,
-                num:i
+                num: i
 
             }, this.optionsBody))
             if (this.figure === "circle") {
@@ -114,7 +120,7 @@ this.attR = att;
                     direction: this.direction,
                     isSensor: true,
                     sensor: false,
-                    noDown:true,
+                    noDown: true,
                     num: i,
                     sX: b.x,
                     sY: b.y
@@ -144,14 +150,14 @@ this.attR = att;
 
 
             });
-            if(getObjects(t.map, this.name)[i] === undefined){
-                console.log(this.name)
+            if (getObjects(t.map, this.name)[i] === undefined) {
+              //  console.log(this.name)
             }
 
-            return getObjects(t.map, this.name)[i]?b.setExistingBody(compoundBody)
+            return getObjects(t.map, this.name)[i] ? b.setExistingBody(compoundBody)
                 .setPosition(getObjects(t.map, this.name)[i].x + getObjects(t.map, this.name)[i].width / 2, getObjects(t.map, this.name)[i].y + getObjects(t.map, this.name)[i].height / 2).setName(this.name)
                 .setFixedRotation()
-                .play(play): [{}]
+                .play(play) : [{}]
         })
     }
 
@@ -179,29 +185,57 @@ this.attR = att;
     gravity() {
         this.body.forEach((b) => {
             if (!b.sensor.sensor) {
-                b.setVelocityY(this.upSpeed);
+                if(b.body){
+                    b.setVelocityY(this.upSpeed);
+                }
+
             }
         })
     }
 
-    playerPosition(b,player){
-        let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
-        this.ax = Math.cos(rotation);
-        this.ay = Math.sin(rotation);
-        this.playerPositions = {x:player.position.x,y:player.position.y}
+    playerPosition(b, player) {
+
+        if(b.body){
+            let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
+            this.ax = Math.cos(rotation);
+            this.ay = Math.sin(rotation);
+            this.playerPositions = {x: player.position.x, y: player.position.y}
+        }
+
     }
 
     persecute(t, player, options = {left: "", right: "", leftA: "", rightA: ""}, move = false) {
         this.constrainVelocity(player)
         this.body.forEach((b) => {
-           this.playerPosition(b,player)
-            if (b.sensor.sensor) {
+            this.playerPosition(b, player)
+            if (b.body && b.sensor.sensor) {
                 b.setVelocity(this.ax * this.speedPersecute, this.ay * this.speedPersecute);
                 if (options.left !== "" && options.left !== "") {
                     if (b.body.velocity.x > 0) {
-                        b.play(options.right,true)
+                        b.play(options.right, true)
                     } else {
-                        b.play(options.left,true)
+                        b.play(options.left, true)
+                    }
+                }
+            } else {
+                if (move) {
+                    this.moveHorizontal(options.left, options.right, options.leftA, options.rightA)
+                }
+            }
+        })
+    }
+
+    rePersecute(t, player, options = {left: "", right: "", leftA: "", rightA: ""}, move = false) {
+        this.constrainVelocity(player)
+        this.body.forEach((b) => {
+            this.playerPosition(b, player)
+            if (b.body && b.sensor.sensor) {
+                b.setVelocity(-this.ax * this.speedPersecute, -this.ay * this.speedPersecute);
+                if (options.left !== "" && options.left !== "") {
+                    if (b.body.velocity.x > 0) {
+                        b.play(options.right, true)
+                    } else {
+                        b.play(options.left, true)
                     }
                 }
             } else {
@@ -214,81 +248,88 @@ this.attR = att;
 
 
     moveHorizontal(left, right, activeLeft, activeRight) {
-        this.body.forEach((el) => {
-
-            if (el.playerBody && el.playerBody.direction === 0) {
-                this.pulePosition = [this.pX,-this.pY]
-                el.setVelocityX(this.speed)
-            } else if (el.playerBody && el.playerBody.direction === 1) {
-                this.pulePosition = [-this.pX,-this.pY]
-                el.setVelocityX(-this.speed)
-            } else {
-                el.setVelocityX(-this.speed)
-            }
-            if (el.body.velocity.x > 0) {
-                if (!el.sensor.sensor) {
-                    el.play(right, true);
+        if (this.body) {
+            this.body.filter((f) => f.body).forEach((el) => {
+                if (el.playerBody && el.playerBody.direction === 0) {
+                    this.pulePosition = [this.pX, -this.pY]
+                    el.setVelocityX(this.speed)
+                } else if (el.playerBody && el.playerBody.direction === 1) {
+                    this.pulePosition = [-this.pX, -this.pY]
+                    el.setVelocityX(-this.speed)
                 } else {
-                    el.play(activeRight, true);
+                    el.setVelocityX(-this.speed)
                 }
-            } else {
-                if (!el.sensor.sensor) {
-                    el.play(left, true);
+                if (el.body.velocity.x > 0) {
+                    if (!el.sensor.sensor) {
+                        el.play(right, true);
+                    } else {
+                        el.play(activeRight, true);
+                    }
                 } else {
-                    el.play(activeLeft, true);
-                }
+                    if (!el.sensor.sensor) {
+                        el.play(left, true);
+                    } else {
+                        el.play(activeLeft, true);
+                    }
 
-            }
-        })
+                }
+            })
+        }
+
     }
 
     moveVertical(up, down) {
-        this.body.forEach((el) => {
-            if (el.playerBody && el.playerBody.direction === 2) {
-                el.play(up, true);
-                el.setVelocityY(-this.speed)
-            } else if (el.playerBody && el.playerBody.direction === 3) {
-                el.play(down, true);
-                el.setVelocityY(this.speed)
-            } else {
-                el.play(up, true);
-                el.setVelocityY(-this.speed)
-            }
+        if (this.body) {
+            this.body.filter((f) => f.body).forEach((el) => {
+                if (el.playerBody && el.playerBody.direction === 2) {
+                    el.play(up, true);
+                    el.setVelocityY(-this.speed)
+                } else if (el.playerBody && el.playerBody.direction === 3) {
+                    el.play(down, true);
+                    el.setVelocityY(this.speed)
+                } else {
+                    el.play(up, true);
+                    el.setVelocityY(-this.speed)
+                }
+            })
+        }
+
+    }
+
+    draw(t, position = "horizontal", left, right, leftA, rightA, player, move = false) {
+        if (position === "horizontal") {
+            this.moveHorizontal(left, right, leftA, rightA)
+        } else if (position === "vertical") {
+            this.moveVertical(left, right);
+        } else if (position === "persecute") {
+            this.persecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
+        }else if (position === "re-persecute") {
+            this.rePersecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
+        }
+        this.body.forEach((b) => {
+            b.attack.pule.filter((f) => f).forEach((p) => {
+                if (b.sensor.sensor) {
+                    this.countFrame += 1;
+                    let count = this.puleTime
+                    if (this.countFrame > count / 2) {
+                        p.setVelocity(p.body.vX, p.body.vY)
+                    } else {
+                        p.setPosition(b.body.position.x + this.pulePosition[0], b.body.position.y + this.pulePosition[1])
+                    }
+
+                    if (this.countFrame > count) {
+                        this.countFrame = 0
+                    }
+
+                }
+            })
+
         })
     }
 
-    draw(t,position = "horizontal",left,right,leftA,rightA,player,move = false) {
-      if(position === "horizontal"){
-          this.moveHorizontal(left,right,leftA,rightA)
-      }else if(position === "vertical"){
-          this.moveVertical(left,right)
-      }else if(position === "persecute"){
-          this.persecute(t,player,{left:left, right:right, leftA:leftA, rightA:rightA},move)
-      }
-      this.body.forEach((b)=>{
-          b.attack.pule.filter((f)=>f).forEach((p)=>{
-              if(b.sensor.sensor){
-                  this.countFrame += 1;
-                   let count = this.puleTime
-                  if(this.countFrame > count / 2){
-                      p.setVelocity(p.body.vX,p.body.vY)
-                  }else {
-                      p.setPosition(b.body.position.x + this.pulePosition[0],b.body.position.y + this.pulePosition[1])
-                  }
-
-                  if(this.countFrame > count){
-                      this.countFrame = 0
-                  }
-
-              }
-          })
-
-      })
-    }
-
-    setBoards(t,board,x,y, b) {
-        let  tileXY = t.map.getTileAtWorldXY(x,y, true);
-        if(tileXY === undefined){
+    setBoards(t, board, x, y, b) {
+        let tileXY = t.map.getTileAtWorldXY(x, y, true);
+        if (tileXY === undefined) {
             tileXY = board.getRandomEmptyTileXY(0);
         }
 
@@ -325,7 +366,7 @@ this.attR = att;
         let tileXYArray = pathFinder.getPath(tileXYArray2[Phaser.Math.Between(1, tileXYArray2.length - 1)]);
         moveTo.moveTo(tileXYArray.shift())
         let tileXYZ2 = board.chessToTileXYZ(chess)
-        if(tileXYZ2 === null){
+        if (tileXYZ2 === null) {
             tileXYZ2 = board.getRandomEmptyTileXY(0);
         }
         let tile2 = board.tileXYZToChess(tileXYZ2.x, tileXYZ2.y, 1);
@@ -344,6 +385,7 @@ this.attR = att;
         }
 
         moveDraw()
+
         function followPath(t, player, tile) {
             const tween = t.tweens.add({
                 targets: player,
@@ -353,13 +395,14 @@ this.attR = att;
             });
 
         }
+
         return moveTo
     }
 
-    finding(t){
+    finding(t) {
         let board = t.rexBoard.createBoardFromTilemap(t.map, "walls");
         this.body.forEach((b, i) => {
-            this.moveTo = this.setBoards(t,board, b.x, b.y, b);
+            this.moveTo = this.setBoards(t, board, b.x, b.y, b);
         })
     }
 }

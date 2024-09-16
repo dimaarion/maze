@@ -42,17 +42,27 @@ export default class Player {
                 jX: 0,
                 jY: 0,
             },
-            sensors: null,
+            sensors:el.matter.add.circle(this.body.body.position.x,this.body.body.position.y,this.body.width,{isSensor:true,attack:false,label:"attack_player"}),
             label: "player"
         };
 
+
+
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
+       /* let constraint = el.matter.add.constraint(this.body, this.playerController.sensors, 0, 1, {
+            pointA: { x: 0, y: 0 },  // точка крепления на первом объекте
+            pointB: { x: 0, y: 0 },  // точка крепления на втором объекте
+            friction: 0,
+            restitution: 0.05,
+            frictionStatic: 0,
+        });*/
 
         let p = this.body
+        let sensors = this.playerController.sensors;
         el.input.keyboard.on('keydown', function (event) {
-            if (event.key === "ArrowRight") {
-
-                //  p.play("right").setVelocityX(1)
+            console.log(event.code)
+            if (event.code === "Space") {
+                console.log(sensors)
             }
             if (event.key === "ArrowLeft") {
                 //  p.play("left").setVelocityX(-1)
@@ -75,7 +85,11 @@ export default class Player {
     }
 
     draw(el) {
+
+        el.matter.body.setPosition(this.playerController.sensors,this.body.body.position,true)
+
         this.body.setVelocityX(constrain(this.body.body.jX / 50, -this.speed, this.speed))
+
         if(!this.noDown){
             this.body.setVelocityY(constrain(this.body.body.jY / 50, -this.speed, this.speed))
         }

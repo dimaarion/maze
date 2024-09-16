@@ -59,7 +59,7 @@ export default class Preloader extends Phaser.Scene {
         });
 //load
 
-        this.load.audio("fon-music", "./asset/music/Sneaky-Snitch(chosic.com).mp3");
+        this.load.audio("fon-music", "./asset/music/y2mate.com - Dmitriy Lukyanov_Underwater.mp3");
         this.load.audio("coin", "./asset/music/upali-dengi-na-igrovoy-schet.mp3");
         this.load.audio("attack", "./asset/music/player_damagebody_03.mp3");
         this.load.audio("openCh", "./asset/music/open-magic-reveal-002379-.mp3");
@@ -122,6 +122,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("grassAttack","./img/object/grass/grassAttackAll.png",{frameWidth: 50, frameHeight: 100});
         this.load.spritesheet("bubble-potok","./img/object/bubble/bubble-potok.png",{frameWidth: 64, frameHeight: 192});
         this.load.spritesheet("stone","./img/object/bubble/ketre.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("goldFish","./img/object/goldFish/gold-fish.png",{frameWidth: 64, frameHeight: 64});
 
 
         this.load.image("hp", "./img/object/hp.png");
@@ -139,6 +140,21 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+
+        this.anims.create({
+            key: 'goldFish_L',
+            frames: this.anims.generateFrameNumbers('goldFish', {start: 0, end: 59}),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'goldFish_R',
+            frames: this.anims.generateFrameNumbers('goldFish', {start: 60, end: 120}),
+            frameRate: 20,
+            repeat: -1
+        });
+
         this.anims.create({
             key: 'stone',
             frames: "stone",

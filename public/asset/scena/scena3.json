@@ -353,6 +353,72 @@
                  "width":32,
                  "x":592,
                  "y":655.666666666667
+                }, 
+                {
+                 "height":19.333,
+                 "id":620,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"down",
+                 "visible":true,
+                 "width":137.333,
+                 "x":1687.3335,
+                 "y":886.3335
+                }, 
+                {
+                 "height":25.3334,
+                 "id":621,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"up",
+                 "visible":true,
+                 "width":94.6667,
+                 "x":1720.66665,
+                 "y":551.3333
+                }, 
+                {
+                 "height":19.333,
+                 "id":623,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"down",
+                 "visible":true,
+                 "width":137.333,
+                 "x":811.3335,
+                 "y":754.3335
+                }, 
+                {
+                 "height":25.3334,
+                 "id":624,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"up",
+                 "visible":true,
+                 "width":94.6667,
+                 "x":818.66665,
+                 "y":423.3333
+                }, 
+                {
+                 "height":19.333,
+                 "id":626,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"down",
+                 "visible":true,
+                 "width":137.333,
+                 "x":1057.3335,
+                 "y":378.3335
+                }, 
+                {
+                 "height":25.3334,
+                 "id":627,
+                 "name":"point",
+                 "rotation":0,
+                 "type":"up",
+                 "visible":true,
+                 "width":94.6667,
+                 "x":1072.66665,
+                 "y":35.3333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -361,7 +427,7 @@
          "y":0
         }, 
         {
-         "color":"#00ffff",
+         "color":"#aa0000",
          "draworder":"topdown",
          "id":18,
          "name":"monster",
@@ -429,8 +495,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":30.4319,
-                 "x":1508.78405,
-                 "y":580.78405
+                 "x":1168.78405,
+                 "y":332.78405
                 }, 
                 {
                  "height":30.4319,
@@ -440,8 +506,8 @@
                  "type":"alive",
                  "visible":true,
                  "width":30.4319,
-                 "x":1612.78405,
-                 "y":578.78405
+                 "x":1477.78405,
+                 "y":585.78405
                 }, 
                 {
                  "height":30.4319,
@@ -508,6 +574,50 @@
                  "width":30,
                  "x":209,
                  "y":451.666666666667
+                }, 
+                {
+                 "height":32,
+                 "id":619,
+                 "name":"goldFish",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":32,
+                 "x":1874,
+                 "y":1220
+                }, 
+                {
+                 "height":40,
+                 "id":622,
+                 "name":"meduza",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30,
+                 "x":1743,
+                 "y":692
+                }, 
+                {
+                 "height":40,
+                 "id":625,
+                 "name":"meduza",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30,
+                 "x":849.5,
+                 "y":569.5
+                }, 
+                {
+                 "height":40,
+                 "id":628,
+                 "name":"meduza",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30,
+                 "x":1105,
+                 "y":196
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -542,8 +652,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033334412117,
-                 "x":1868.84721859515,
-                 "y":76.758266586937
+                 "x":1504.84721859515,
+                 "y":708.758266586937
                 }, 
                 {
                  "ellipse":true,
@@ -565,8 +675,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033334412117,
-                 "x":1572.31818181818,
-                 "y":585.881557601647
+                 "x":1229.06818181818,
+                 "y":590.131557601647
                 }, 
                 {
                  "ellipse":true,
@@ -649,8 +759,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033334412117,
-                 "x":1801.93006644282,
-                 "y":72.3681954545455
+                 "x":1221.93006644282,
+                 "y":714.368195454545
                 }, 
                 {
                  "ellipse":true,
@@ -780,8 +890,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033,
-                 "x":1874.49835,
-                 "y":1140.49835
+                 "x":1856.49835,
+                 "y":68.4983500000001
                 }, 
                 {
                  "ellipse":true,
@@ -792,8 +902,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033,
-                 "x":1868.49835,
-                 "y":1010.49835
+                 "x":1616.49835,
+                 "y":70.49835
                 }, 
                 {
                  "ellipse":true,
@@ -804,8 +914,8 @@
                  "type":"",
                  "visible":true,
                  "width":35.0033,
-                 "x":1862.49835,
-                 "y":848.49835
+                 "x":1872.49835,
+                 "y":436.49835
                 }, 
                 {
                  "ellipse":true,
@@ -897,7 +1007,7 @@
          "y":0
         }],
  "nextlayerid":36,
- "nextobjectid":619,
+ "nextobjectid":629,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
