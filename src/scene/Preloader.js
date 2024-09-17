@@ -123,6 +123,8 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("bubble-potok","./img/object/bubble/bubble-potok.png",{frameWidth: 64, frameHeight: 192});
         this.load.spritesheet("stone","./img/object/bubble/ketre.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("goldFish","./img/object/goldFish/gold-fish.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("wood-rotate","./img/object/skill/wood-rotate.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("wood-rotate-static","./img/object/skill/wood-rotate-static.png",{frameWidth: 32, frameHeight: 30});
 
 
         this.load.image("hp", "./img/object/hp.png");
@@ -140,6 +142,20 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+
+        this.anims.create({
+            key: 'wood-rotate',
+            frames: 'wood-rotate',
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'wood-rotate-static',
+            frames: 'wood-rotate-static',
+            frameRate: 20,
+            repeat: -1
+        });
 
         this.anims.create({
             key: 'goldFish_L',

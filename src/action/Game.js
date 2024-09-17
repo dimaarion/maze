@@ -47,6 +47,8 @@ export default class Game {
 
     goldFish = new Body("monster", "goldFish", "alive", 1, 0);
 
+    woodSkill = new Body("skills", "wood", "skill", 1, 0);
+
     zumGame = 2;
 
     screenCenterX = 0;
@@ -56,6 +58,12 @@ export default class Game {
     collectionPlayer;
     db = new Database();
     database;
+
+    timeSkill = true;
+
+    timer;
+
+    monsterAll = [];
 
 
     setup(t, image, name) {
@@ -173,16 +181,20 @@ export default class Game {
         this.goldFish.scale(0.5,0.5);
         this.goldFish.sensors(t, 0.1, 0.7, 2, "goldFish_L");
 
+        this.woodSkill.sprite(t);
+        this.woodSkill.scale(1,1);
+        this.woodSkill.sensors(t, 1, 1, 1, "wood-rotate-static");
 
 
+        this.collectionSound = this.player.database;
 
+        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body)
 
-        this.collectionSound = this.player.database
-
-
-        t.time.addEvent({
-            delay: 500,                // ms
-            callback: () => {},
+     this.timer = t.time.addEvent({
+            delay: 10000,                // ms
+            callback: () => {
+                this.timeSkill = false;
+            },
             //args: [],
             callbackScope: t,
             repeat: -1,
@@ -218,7 +230,8 @@ export default class Game {
         });
 
         t.matterCollision.addOnCollideStart({
-            objectA: this.player.playerController.sensors,
+            objectA: this.woodSkill.body,
+            objectB:this.monsterAll,
             callback: (eventData) => {
                 const {gameObjectA, bodyB,gameObjectB} = eventData;
                 if(bodyB.label === "alive"){
@@ -228,7 +241,6 @@ export default class Game {
 
             }
         });
-
 
 
         function levelStep(bodyA, body, db, t, el) {
@@ -279,6 +291,15 @@ export default class Game {
                     this.database.saveDatabase();
                 }
 
+                if (bodyB.label === "skill") {
+                    this.timer.paused = false
+                    if(this.timeSkill){
+                        gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
+                        gameObjectB.play("wood-rotate",true)
+                      //  this.woodSkill.scale(1,1);
+                    }
+                   // console.log()
+                }
 
             }
         });
@@ -315,12 +336,17 @@ export default class Game {
 
                     }
                 }
-
+                if (bodyB.label === "skill") {
+                    this.timer.paused = true;
+                    this.timeSkill = true;
+                  //  this.woodSkill.scale(0.3,0.3);
+                    gameObjectB.play("wood-rotate-static",true)
+                }
             }
         });
 
         t.matterCollision.addOnCollideStart({
-            objectA: this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body),
+            objectA: this.monsterAll,
             callback: (eventData) => {
                 const {bodyA, bodyB,gameObjectA} = eventData;
                 function persecuteMove(name){
@@ -455,7 +481,9 @@ export default class Game {
 
         this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
 
-        this.stone.gravity()
+        this.stone.gravity();
+
+
 
         this.grassAttack.body.filter((f)=>f.body).forEach((el, i) => {
             if (el.sensor.sensor) {
