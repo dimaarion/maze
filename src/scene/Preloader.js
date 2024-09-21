@@ -1,7 +1,11 @@
 import Phaser from "phaser";
+import Loader from "../components/Loader";
 
 
 export default class Preloader extends Phaser.Scene {
+    loader = new Loader(this);
+
+
     constructor() {
         super('Preloader');
     }
@@ -9,54 +13,7 @@ export default class Preloader extends Phaser.Scene {
 
     preload() {
 
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        let width = this.cameras.main.width;
-        let height = this.cameras.main.height;
-        progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect((width / 2) - (250 / 1.5), height / 2, 320, 50);
-        let loadingText = this.make.text({
-            x: width / 2,
-            y: height / 2 - 50,
-            text: 'Загрузка...',
-            style: {font: '20px monospace', fill: '#ffffff'}
-        });
-        let percentText = this.make.text({
-            x: width / 2,
-            y: height / 2 - 5,
-            text: '0%',
-            style: {font: '18px monospace', fill: '#ffffff'}
-
-        });
-        percentText.setOrigin(0.5, 0.5);
-        let assetText = this.make.text({
-            x: width / 2,
-            y: height / 2 + 50,
-            text: '',
-            style: {font: '18px monospace', fill: '#ffffff'}
-        });
-        assetText.setOrigin(0.5, 0.5);
-        loadingText.setOrigin(0.5, 0.5);
-        this.load.on('progress', function (value) {
-            // console.log(value);
-            percentText.setText(parseInt(value * 100) + '%');
-            progressBar.clear();
-            progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect((width / 2) - (250 / 1.5), height / 2 + 8, 300 * value, 30);
-        });
-        this.load.on('fileprogress', function (file) {
-            //   console.log(file.src);
-          // assetText.setText('Загрузка ресурса: ' + file.src);
-        });
-
-        this.load.on('complete', function () {
-           // console.log('Завершено');
-            progressBar.destroy();
-            progressBox.destroy();
-            loadingText.destroy();
-            percentText.destroy();
-            assetText.destroy();
-        });
+       this.loader.create();
 //load
 
         this.load.audio("fon-music", "./asset/music/y2mate.com - Dmitriy Lukyanov_Underwater.mp3");
@@ -124,7 +81,11 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("stone","./img/object/bubble/ketre.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("goldFish","./img/object/goldFish/gold-fish.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("wood-rotate","./img/object/skill/wood-rotate.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("wood-rotate-static","./img/object/skill/wood-rotate-static.png",{frameWidth: 32, frameHeight: 30});
+        this.load.spritesheet("wood-rotate-static","./img/object/skill/wood-rotate-static.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hit-rotate","./img/object/skill/hit-rotate.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hit-rotate-static","./img/object/skill/hit-rotate-stat.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hp-rotate","./img/object/skill/hp-rotate.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hp-rotate-static","./img/object/skill/hp-rotate-static.png",{frameWidth: 64, frameHeight: 64});
 
 
         this.load.image("hp", "./img/object/hp.png");
@@ -144,6 +105,27 @@ export default class Preloader extends Phaser.Scene {
     create() {
 
         this.anims.create({
+            key: 'hp-rotate',
+            frames: 'hp-rotate',
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'hp-rotate-static',
+            frames: 'hp-rotate-static',
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'hit-rotate',
+            frames: 'hit-rotate',
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
             key: 'wood-rotate',
             frames: 'wood-rotate',
             frameRate: 20,
@@ -153,6 +135,13 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'wood-rotate-static',
             frames: 'wood-rotate-static',
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'hit-rotate-static',
+            frames: 'hit-rotate-static',
             frameRate: 20,
             repeat: -1
         });

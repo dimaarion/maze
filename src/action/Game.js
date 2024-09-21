@@ -49,6 +49,10 @@ export default class Game {
 
     woodSkill = new Body("skills", "wood", "skill", 1, 0);
 
+    hitSkill = new Body("skills", "hit", "skill", 1, 0);
+
+    hpSkill = new Body("skills", "hps", "skill", 1, 0);
+
     zumGame = 2;
 
     screenCenterX = 0;
@@ -98,7 +102,7 @@ export default class Game {
         this.player.live = playerFindDb.live;
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -183,7 +187,15 @@ export default class Game {
 
         this.woodSkill.sprite(t);
         this.woodSkill.scale(1,1);
-        this.woodSkill.sensors(t, 1, 1, 1, "wood-rotate-static");
+        this.woodSkill.sensors(t, 1, 1, 1, "wood-rotate-static","wood-rotate");
+
+        this.hitSkill.sprite(t);
+        this.hitSkill.scale(1,1);
+        this.hitSkill.sensors(t, 1, 1, 1, "hit-rotate-static","hit-rotate");
+
+        this.hpSkill.sprite(t);
+        this.hpSkill.scale(1,1);
+        this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static","hp-rotate");
 
 
         this.collectionSound = this.player.database;
@@ -242,6 +254,45 @@ export default class Game {
             }
         });
 
+        t.matterCollision.addOnCollideStart({
+            objectA: this.hitSkill.body,
+            objectB:this.monsterAll.concat(this.ej.body),
+            callback: (eventData) => {
+                const {gameObjectB} = eventData;
+                gameObjectB.attack.attack = 0
+            }
+        });
+
+        t.matterCollision.addOnCollideActive({
+            objectA: this.player.body,
+            objectB:this.hpSkill.body,
+            callback: (eventData) => {
+                const {bodyA,gameObjectB} = eventData;
+                if (bodyA.live < bodyA.liveStatic) {
+                    if (bodyA.live > bodyA.liveStatic) {
+                        if (bodyA.live) {
+                            bodyA.live = bodyA.live + (bodyA.liveStatic - bodyA.live);
+                        }
+                    } else {
+                        if (bodyA.live) {
+                            bodyA.live = bodyA.live += 0.5;
+                        }
+
+                    }
+                    if (bodyA.live) {
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                        this.database.saveDatabase();
+                        t.sound.play("open-hp", {
+                            volume: this.player.effect,
+                            loop: false,
+                        })
+                    }
+                }
+            }
+        });
+
+
+
 
         function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
@@ -295,7 +346,7 @@ export default class Game {
                     this.timer.paused = false
                     if(this.timeSkill){
                         gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
-                        gameObjectB.play("wood-rotate",true)
+                        gameObjectB.play(gameObjectB.body.play,true)
                       //  this.woodSkill.scale(1,1);
                     }
                    // console.log()
@@ -336,14 +387,21 @@ export default class Game {
 
                     }
                 }
+                if (gameObjectB && gameObjectB.attack) {
+                    gameObjectB.attack.attack = gameObjectB.attack.defaultAttack;
+                }
+
                 if (bodyB.label === "skill") {
                     this.timer.paused = true;
                     this.timeSkill = true;
                   //  this.woodSkill.scale(0.3,0.3);
-                    gameObjectB.play("wood-rotate-static",true)
+                    gameObjectB.play(gameObjectB.body.playStatic,true);
+                    gameObjectB.setPosition(gameObjectB.body.sX,gameObjectB.body.sY);
+
                 }
             }
         });
+
 
         t.matterCollision.addOnCollideStart({
             objectA: this.monsterAll,
@@ -482,6 +540,7 @@ export default class Game {
         this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
 
         this.stone.gravity();
+
 
 
 

@@ -63,8 +63,41 @@
                  "type":"wood",
                  "visible":true,
                  "width":32,
+                 "x":740,
+                 "y":870
+                }, 
+                {
+                 "height":32,
+                 "id":74,
+                 "name":"hit",
+                 "rotation":0,
+                 "type":"hit",
+                 "visible":true,
+                 "width":32,
                  "x":110,
-                 "y":190
+                 "y":1392
+                }, 
+                {
+                 "height":32,
+                 "id":75,
+                 "name":"hit",
+                 "rotation":0,
+                 "type":"hit",
+                 "visible":true,
+                 "width":32,
+                 "x":432,
+                 "y":636
+                }, 
+                {
+                 "height":32,
+                 "id":76,
+                 "name":"hps",
+                 "rotation":0,
+                 "type":"hps",
+                 "visible":true,
+                 "width":32,
+                 "x":188,
+                 "y":274
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -108,8 +141,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":735.666666666667,
-                 "y":876.33333333333
+                 "x":793.666666666667,
+                 "y":744.33333333333
                 }, 
                 {
                  "height":30,
@@ -119,8 +152,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":878,
-                 "y":874
+                 "x":1004,
+                 "y":774
                 }, 
                 {
                  "height":30,
@@ -163,8 +196,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":881,
-                 "y":947
+                 "x":1007,
+                 "y":481
                 }, 
                 {
                  "height":30,
@@ -251,8 +284,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":429,
-                 "y":645
+                 "x":371,
+                 "y":973
                 }, 
                 {
                  "height":30,
@@ -584,7 +617,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":74,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",

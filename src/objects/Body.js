@@ -78,7 +78,7 @@ export default class Body {
         })
     }
 
-    sensors(t, sen = 5, lab = 8, att = 10, play = "") {
+    sensors(t, sen = 5, lab = 8, att = 10, play = "",playActive = "") {
         this.attR = att;
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
@@ -90,6 +90,7 @@ export default class Body {
                 direction: this.direction,
                 isSensor: true,
                 attack: this.attack,
+                defaultAttack: this.attack,
                 pule: arrayCount(1, this.puleCount)
                     .map((n) => t.matter.add.image(b.x, b.y, this.puleKey)
                         .setCircle(this.puleRad, {
@@ -97,7 +98,8 @@ export default class Body {
                             vX: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
                             vY: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
                             label: this.labelAttack,
-                            attack: this.attack
+                            attack: this.attack,
+                            defaultAttack: this.attack
                         })
                         .setScale(this.puleScale, this.puleScale)
                         .setName("attack")
@@ -147,6 +149,10 @@ export default class Body {
                 restitution: 0.05,
                 label: this.label,
                 name: this.name,
+                playStatic:play,
+                play:playActive,
+                sX: b.x,
+                sY: b.y
 
 
             });
