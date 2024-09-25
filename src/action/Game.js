@@ -4,12 +4,14 @@ import Point from "../objects/Point";
 import Platform from "../objects/Platform";
 import Body from "../objects/Body";
 import MobileDetect from "mobile-detect";
+import * as Phaser from "phaser";
 
 import {getObjects} from "./index";
 
 
 
 export default class Game {
+
     map;
     layer;
 
@@ -69,6 +71,9 @@ export default class Game {
 
     monsterAll = [];
 
+    thorns;
+
+
 
     setup(t, image, name) {
 
@@ -87,13 +92,27 @@ export default class Game {
 
         let tiles = t.map.addTilesetImage(image, name);
         this.layer = t.map.createLayer(0, tiles, 0, 0);
-        let walls = t.map.createLayer('walls', tiles);
+
+
+        let walls = t.map.createLayer('walls', tiles,0,0);
+
 
         this.layer.setCollisionByProperty({collides: true});
         t.map.setCollisionByExclusion([-1, 0]);
         t.matter.world.convertTilemapLayer(walls);
-        t.map.createLayer('objects', tiles);
-        walls.setCollisionByProperty({collides: true});
+
+        t.map.createLayer('thorns', tiles,0,0)
+        t.map.createLayer('objects', tiles,0,0);
+
+
+
+
+
+
+
+
+
+
 
         this.pointBubble.sprite(t, "bubble", "bubble-potok");
 
@@ -114,6 +133,10 @@ export default class Game {
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
 
+
+
+
+
         this.player.sceneKey = t.scene.key;
         this.platform.body = this.platform.setup(t, t.map);
         this.money = t.map.createFromObjects('money', {name: "money"});
@@ -125,6 +148,7 @@ export default class Game {
             label: "hp",
             live: 100
         }).setTexture('hp').setSize(b.width, b.height))
+
 
 
         this.point.setup(t);
@@ -213,6 +237,20 @@ export default class Game {
             paused: true
         });
 
+
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+                if(gameObjectB){
+                    console.log(gameObjectB.index)
+                }
+
+
+            }
+        });
 
 
 

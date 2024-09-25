@@ -107,7 +107,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'hp-rotate',
             frames: 'hp-rotate',
-            frameRate: 20,
+            frameRate: 10,
             repeat: -1
         });
 
