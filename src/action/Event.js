@@ -1,207 +1,320 @@
 import {getObjects} from "./index";
 import Database from "../components/Database";
 import Phaser from "phaser";
+import Game from "./Game";
 
-export default class Event {
-    db = new Database();
+export default class Event extends Game{
 
-    direction(pair,a,b) {
-        if (pair.bodyB.label === "alive" && pair.bodyA.label === "right") {
-            pair.bodyB.direction = 1;
-        }
-        if (pair.bodyB.label === "alive" && pair.bodyA.label === "left") {
-            pair.bodyB.direction = 0;
-
-        }
-
-        if (pair.bodyB.label === "alive" && pair.bodyA.label === "up") {
-            pair.bodyB.direction = 3;
-
-        }
-        if (pair.bodyB.label === "alive" && pair.bodyA.label === "down") {
-            pair.bodyB.direction = 2;
-
-        }
-    }
-    directionRandom(pair) {
-
-        if (pair.bodyB.label === "alive" && pair.bodyA.name === "platform") {
-
-            pair.bodyB.direction = Phaser.Math.Between(0, 1);
-        }
-
-    }
-
-    sensorPlay(pair, nameSensor, sen = false) {
-        if (pair.bodyB.label === nameSensor && pair.bodyA.label === "player") {
-            pair.bodyB.sensor = sen;
-        }
-    }
-
-    levelStep(pair, t, level) {
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "level_" + level) {
-            this.db.setLevel("Scene_" + level)
-            t.scene.start("Scene_" + level)
-
-
-        }
-    }
-
-    setMoney(pair) {
-        if (pair.bodyA.label === "player" && pair.bodyB.name === "money") {
-            if(pair.bodyB.name === "money"){
-                pair.bodyA.money = pair.bodyA.money + 1;
-                this.db.setMoney(pair.bodyA.money);
-                pair.bodyB.remove = true;
-                if(pair.bodyB.gameObject){
-                 pair.bodyB.gameObject.setPosition(-9000000,0);
+    create(t){
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+                if(gameObjectB){
+                    console.log(gameObjectB.index)
                 }
 
-            }
-
-        }
-
-    }
-
-    setHp(pair) {
-
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "hp") {
-
-            if (pair.bodyA.live < pair.bodyA.liveStatic) {
-                if (pair.bodyA.live + pair.bodyB.live > pair.bodyA.liveStatic) {
-                    pair.bodyA.live = pair.bodyA.live + (pair.bodyA.liveStatic - pair.bodyA.live);
-                } else {
-                    pair.bodyA.live = pair.bodyA.live + pair.bodyB.live;
-                }
-
-                this.db.setLive(pair.bodyA.live);
-                pair.bodyB.gameObject.destroy();
-            }
-
-        }
-    }
-
-    setAttack(pair,t){
-
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "attack") {
-
-            pair.bodyA.live = pair.bodyA.live - pair.bodyB.attack;
-            this.db.setLive(pair.bodyA.live);
-            if (pair.bodyA.live < 10) {
-                this.db.setLive(15);
-                pair.bodyA.gameObject.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
-            }
-        }
-    }
-
-    setSensor(pair,s){
-        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-                pair.bodyB.sensor = s;
-        }
-    }
-
-    jump(pair){
-        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            if(pair.bodyB.jump){
-                if(pair.bodyB.gameObject.body.velocity.y === 1){
-                 //   pair.bodyB.gameObject.setVelocityY(-1);
-                }else {
-                  //  pair.bodyB.gameObject.setVelocityY(1);
-                }
-            }
-
-           //
-        }
-    }
-
-    animateHorizontal(pair,name, left, right){
-       if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "right" ){
-           if(pair.bodyB.gameObject.body.velocity.x > 0){
-               pair.bodyB.gameObject.play(left);
-           }
-
-       }
-        if(pair.bodyB.name === name && pair.bodyB.label === 'alive' && pair.bodyA.label === "left"){
-            if(pair.bodyB.gameObject.body.velocity.x < 0){
-                pair.bodyB.gameObject.play(right);
-            }
-
-        }
-    }
-
-    animateSensorHorizontal(pair,name,left,right,s = true){
-        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            if(pair.bodyB.name === name){
-                if(pair.bodyB.gameObject.body.velocity.x < 0){
-                    pair.bodyB.gameObject.play(left);
-                }else{
-                    pair.bodyB.gameObject.play(right);
-                }
 
             }
-        }
-    }
+        });
 
-    sensorAnimate(pair,name, anim,s = false){
-        if (pair.bodyA.label === "player" && pair.bodyB.label.search(/sensor/)) {
-            if(pair.bodyB.name === name){
-                pair.bodyB.gameObject.play(anim);
-                if(pair.bodyB.gameObject.tween){
-                    if(s){
-                        pair.bodyB.gameObject.tween.pause()
-                    }else {
-                        pair.bodyB.gameObject.tween.resume()
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.chest.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+
+                if (bodyB.label === "ch") {
+
+                    bodyB.count += 1;
+                    if (bodyB.count < 2) {
+                        gameObjectB.setTexture('ch-active');
+                        bodyA.money = bodyA.money + 100;
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                        this.database.saveDatabase();
+                        t.sound.play("openCh", {
+                            volume: this.player.effect,
+                            loop: false,
+                        })
                     }
 
                 }
+
+            }
+        });
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.woodSkill.body,
+            objectB:this.monsterAll,
+            callback: (eventData) => {
+                const {gameObjectA, bodyB,gameObjectB} = eventData;
+                if(bodyB.label === "alive"){
+                    t.matter.world.remove(gameObjectB);
+                    gameObjectB.destroy();
+                }
+
+            }
+        });
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.hitSkill.body,
+            objectB:this.monsterAll.concat(this.ej.body),
+            callback: (eventData) => {
+                const {gameObjectB} = eventData;
+                gameObjectB.attack.attack = 0
+            }
+        });
+
+        t.matterCollision.addOnCollideActive({
+            objectA: this.player.body,
+            objectB:this.hpSkill.body,
+            callback: (eventData) => {
+                const {bodyA,gameObjectB} = eventData;
+                if (bodyA.live < bodyA.liveStatic) {
+                    if (bodyA.live > bodyA.liveStatic) {
+                        if (bodyA.live) {
+                            bodyA.live = bodyA.live + (bodyA.liveStatic - bodyA.live);
+                        }
+                    } else {
+                        if (bodyA.live) {
+                            bodyA.live = bodyA.live += 0.5;
+                        }
+
+                    }
+                    if (bodyA.live) {
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                        this.database.saveDatabase();
+                    }
+                }
+            }
+        });
+
+
+
+
+        function levelStep(bodyA, body, db, t, el) {
+            if (parseInt(body.label.split("_")[1]) === el) {
+                db.getCollection("player").chain().find({"$loki": 1}).update((doc)=>doc.level = "Scene_" + el);
+                db.saveDatabase();
+                t.scene.start("Scene_" + el);
             }
         }
-    }
 
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.point.body,
+            callback: (eventData) => {
+                const {gameObjectA, bodyB} = eventData;
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((el) => {
+                    levelStep(gameObjectA, bodyB, this.database, t, el);
 
-    CollisionGames(t) {
-
-        t.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
-            for (let i = 0; i < event.pairs.length; i++) {
-                let pair = event.pairs[i];
-                [1,2,3,4].forEach((n)=>{this.levelStep(pair, t, n);});
-                this.setMoney(pair);
-                this.setHp(pair);
-
-             //   this.sensorAnimate(pair,'fugu','fugu_AR');
-            //    this.animateHorizontal(pair,'shark','shark_L','shark_R')
-              //  this.sensorAnimate(pair,'shark','shark_AL',true);
-
-              //  this.jump(pair)
-              //  this.animateSensorHorizontal(pair,'shark','shark_AL','shark_AR',true)
-            }
-        });
-
-        t.matter.world.on('collisionactive', (event, bodyA, bodyB) => {
-
-            for (let i = 0; i < event.pairs.length; i++) {
-                let pair = event.pairs[i];
-                this.direction(pair, bodyA, bodyB);
-                this.setSensor(pair,true);
-                this.setAttack(pair,t);
-              // this.setSensor(pair,'shark',true,'shark_R','shark_L');
-            }
-
-
-        })
-
-        t.matter.world.on('collisionend', (event) => {
-            for (let i = 0; i < event.pairs.length; i++) {
-                let pair = event.pairs[i];
-                this.setSensor(pair,false);
-              //  this.sensorAnimate(pair,'fugu','fugu_R');
-
-             //   this.setSensor(pair,'shark',false,t);
-             //   this.sensorAnimate(pair,'shark','shark_R');
-              //  this.animateSensorHorizontal(pair,'shark','shark_L','shark_R',false)
+                })
 
             }
         });
 
+
+
+
+        t.matterCollision.addOnCollideActive({
+            objectA: this.player.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
+
+                if (bodyB.label === "attack") {
+                    if (bodyA.live) {
+                        if (bodyB.attack) {
+                            bodyA.live = bodyA.live - bodyB.attack;
+                        }
+                        if (gameObjectB && gameObjectB.attack) {
+                            bodyA.live = bodyA.live - gameObjectB.attack.attack;
+                        }
+
+                        if (bodyA.live < 10) {
+                            bodyA.live = 15
+                            gameObjectA.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
+                        }
+
+                    }
+                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                    this.database.saveDatabase();
+                }
+
+                if (bodyB.label === "skill") {
+                    this.timer.paused = false
+                    if(this.timeSkill){
+                        gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
+                        gameObjectB.play(gameObjectB.body.play,true)
+                        //  this.woodSkill.scale(1,1);
+                    }
+
+                }
+
+            }
+        });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            callback: (eventData) => {
+                const {bodyB, gameObjectB} = eventData;
+                if (bodyB.label && bodyB.label.search(/sensor/)) {
+                    bodyB.sensor = true;
+                    if (bodyB.name === "grassAttack") {
+                        gameObjectB.play("grassAttackActive", true);
+                    }
+                }
+
+                if (gameObjectB && gameObjectB.attack && bodyB.label === "attack" && gameObjectB.attack.attack > 0) {
+                    t.sound.play("attack", {
+                        volume: this.player.effect,
+                        loop: false,
+                    })
+                }
+
+            }
+        });
+        t.matterCollision.addOnCollideEnd({
+            objectA: this.player.body,
+            callback: (eventData) => {
+                const {bodyB, gameObjectB} = eventData;
+                if (bodyB.label && bodyB.label.search(/sensor/)) {
+                    bodyB.sensor = false;
+                    if (bodyB.name === "grassAttack") {
+                        gameObjectB.play("grassAttackPassive", true)
+
+                    }
+                }
+                if (gameObjectB && gameObjectB.attack) {
+                    gameObjectB.attack.attack = gameObjectB.attack.defaultAttack;
+                }
+
+                if (bodyB.label === "skill") {
+                    this.timer.paused = true;
+                    this.timeSkill = true;
+                    //  this.woodSkill.scale(0.3,0.3);
+                    gameObjectB.play(gameObjectB.body.playStatic,true);
+                    gameObjectB.setPosition(gameObjectB.body.sX,gameObjectB.body.sY);
+
+                }
+            }
+        });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.monsterAll,
+            callback: (eventData) => {
+                const {bodyA, bodyB,gameObjectA} = eventData;
+                function persecuteMove(name){
+
+                    if(gameObjectA.body && bodyA.name === name){
+                        if (bodyA.label === "alive" && gameObjectA.getVelocity().x > 0) {
+                            bodyA.direction = 1;
+                        }
+                        if (bodyA.label === "alive" && gameObjectA.getVelocity().x < 0) {
+                            bodyA.direction = 0;
+
+                        }
+                    }else {
+                        if (bodyA.label === "alive" && bodyB.label === "right") {
+                            bodyA.direction = 1;
+                        }
+                        if (bodyA.label === "alive" && bodyB.label === "left") {
+                            bodyA.direction = 0;
+
+                        }
+                    }
+                }
+
+                persecuteMove("shark");
+                persecuteMove("goldFish");
+
+                if (bodyA.label === "alive" && bodyB.label === "up") {
+                    bodyA.direction = 3;
+
+                }
+                if (bodyA.label === "alive" && bodyB.label === "down") {
+                    bodyA.direction = 2;
+
+                }
+            }
+        });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.goldFish.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+
+                if(bodyB.label === "alive"){
+                    bodyA.money = bodyA.money + 300;
+                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                    this.database.saveDatabase();
+                    t.matter.world.remove(gameObjectB);
+                    gameObjectB.destroy();
+                    t.sound.play("coin", {
+                        volume: this.player.effect,
+                        loop: false,
+                    })
+                }
+
+            }
+        });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.money,
+            callback: (eventData) => {
+                const {bodyA, gameObjectB} = eventData;
+                bodyA.money = bodyA.money + 1;
+                this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                this.database.saveDatabase();
+                t.matter.world.remove(gameObjectB);
+                gameObjectB.destroy();
+                t.sound.play("coin", {
+                    volume: this.player.effect,
+                    loop: false,
+                })
+            }
+        });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.skills,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+
+                if (bodyA.live < bodyA.liveStatic) {
+                    if ((bodyA.live + bodyB.live) > bodyA.liveStatic) {
+                        if (bodyA.live) {
+                            bodyA.live = bodyA.live + (bodyA.liveStatic - bodyA.live);
+                        }
+                    } else {
+                        if (bodyA.live && bodyB.live) {
+                            bodyA.live = bodyA.live + bodyB.live;
+                        }
+
+                    }
+                    if (bodyA.live) {
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                        this.database.saveDatabase();
+                        t.matter.world.remove(gameObjectB);
+                        gameObjectB.destroy();
+                        t.sound.play("open-hp", {
+                            volume: this.player.effect,
+                            loop: false,
+                        })
+                    }
+                }
+
+            }
+        });
     }
 }
+
+

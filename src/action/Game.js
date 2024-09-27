@@ -15,7 +15,8 @@ export default class Game {
     map;
     layer;
 
-    platform = new Platform("platform")
+    platform = new Platform("platform");
+
     player = new Player(5);
 
     money;
@@ -320,10 +321,6 @@ export default class Game {
                     if (bodyA.live) {
                         this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
                         this.database.saveDatabase();
-                        t.sound.play("open-hp", {
-                            volume: this.player.effect,
-                            loop: false,
-                        })
                     }
                 }
             }
@@ -387,7 +384,7 @@ export default class Game {
                         gameObjectB.play(gameObjectB.body.play,true)
                       //  this.woodSkill.scale(1,1);
                     }
-                   // console.log()
+
                 }
 
             }
