@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Database from "../components/Database";
 import {percent} from "../action";
+import Joystick from "../components/Joystick";
 
 
 export default class InterFace extends Phaser.Scene {
@@ -16,14 +17,17 @@ export default class InterFace extends Phaser.Scene {
     sizeMax = 400;
     money = 0;
     moneyText;
-
     touchX = 0;
     touchY = 0;
+
     mX = 0;
+
     mY = 0;
     playGame;
+
     soundGame;
     soundGamePause;
+
     pauseText;
     closeShop;
     frameShop;
@@ -36,7 +40,9 @@ export default class InterFace extends Phaser.Scene {
     isSound = false;
     pauseBg;
     soundBtn;
+
     sliderMusic;
+
     sliderEffect;
     sliders;
     sliders2;
@@ -45,17 +51,26 @@ export default class InterFace extends Phaser.Scene {
     scrolling2;
     volume;
     database;
+
     collectionSound;
+
     musicGlobal;
     closeBtn = true;
     countBtn = 0;
     db = new Database();
+
+    joyStickGame = new Joystick();
+
+    skillBtn;
+
+    skillBtnActive = false;
 
     preload() {
 
     }
 
     create(data) {
+
         this.database = this.db.create();
 
         let collectionSound = this.database.getCollection("sound");
@@ -76,59 +91,9 @@ export default class InterFace extends Phaser.Scene {
         this.sizeMax = this.player.liveStatic;
         this.money = this.player.body.body.money;
         this.moneyText = this.add.text(75, 8, this.money.toString(), {font: '30px bold', fill: '#fff'});
-        let rJs = 50;
-        this.cursorKeysTest = this.input.keyboard.createCursorKeys()
+        this.cursorKeysTest = this.input.keyboard.createCursorKeys();
 
-        let d = 0;
-        if (this.rexvirtualjoystickplugin) {
-            this.joyStick = this.rexvirtualjoystickplugin.add(this, {
-                x: window.innerWidth < window.innerHeight ? percent(window.innerWidth, 70) : percent(window.innerWidth, 80),
-                y: window.innerWidth > window.innerHeight ? percent(window.innerHeight, 70) : percent(window.innerHeight, 80),
-                radius: rJs,
-                base: this.add.image(0, 0, 'j1').setScale(0.2, 0.2),
-                thumb: this.add.image(0, 0, 'j2').setScale(0.15, 0.15),
-                // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
-                // forceMin: 16,
-                // enable: true
-
-            }).on('update', () => {
-                let cursorKeys = this.joyStick.createCursorKeys();
-
-                if (!this.joyStick.touchCursor.noKeyDown) {
-                    if (cursorKeys.left.isDown) {
-                        d = 1;
-                        this.player.body.play('left', true)
-                    } else if (cursorKeys.right.isDown) {
-                        d = 0;
-                        this.player.body.play('right', true)
-                    }
-                    this.player.body.body.jX = this.joyStick.forceX;
-                    this.player.body.body.jY = this.joyStick.forceY;
-                } else {
-                    if (d === 1) {
-                        this.player.body.play('left_p', true)
-                    }
-                    if (d === 0) {
-                        this.player.body.play('right_p', true)
-                    }
-
-                    this.player.body.body.jX = 0;
-                    this.player.body.body.jY = 0;
-                }
-
-
-            }, this);
-        }
-
-        this.input.on('pointerdown', (pointer) => {
-            if (!this.shop && !this.pause && pointer.y > window.innerHeight / 3) {
-                let touchX = pointer.x;
-                let touchY = pointer.y;
-                this.joyStick.x = touchX
-                this.joyStick.y = touchY
-            }
-
-        }, this);
+        this.joyStickGame.create(this);
 
         this.pauseBg = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.soundBtn = this.add.image(0, 0, "sound-btn").setScale(0.08, 0.08).setPosition(-9000, 0);
@@ -153,6 +118,7 @@ export default class InterFace extends Phaser.Scene {
                 })
             ],
         });
+
         this.videorek = this.rexUI.add.buttons({
             buttons: [
                 this.add.image(-1000, 0, "video-rek").setScale(0.3, 0.3).setInteractive({
@@ -177,7 +143,23 @@ export default class InterFace extends Phaser.Scene {
             ],
         });
 
+      /*  this.skillBtn = this.rexUI.add.buttons({
+            buttons: [
+                this.add.image(percent(window.innerWidth,10), percent(window.innerHeight,80), player.skillImg).setScale(0.15, 0.15).setInteractive({
+                    cursor: 'pointer',
+                })
+            ],
 
+        },this);
+
+        this.skillBtn.on("button.over",()=>{
+            this.skillBtnActive = true;
+        },this);
+
+        this.skillBtn.on("button.out",()=>{
+            this.skillBtnActive = false;
+        },this)
+        */
         this.closeShop.on("button.click", () => {
             this.shop = false;
             this.pause = false;
@@ -218,12 +200,14 @@ export default class InterFace extends Phaser.Scene {
                 window.ysdk.features.GameplayAPI?.stop();
             }
         }, this);
+
         this.scale.on('orientationchange', function (orientation) {
             this.pause = false;
             this.closeBtn = true;
             this.shop = false;
             this.countBtn = 0;
         }, this);
+
         this.playGame.on("button.click", (button) => {
             this.pause = true;
             this.closeBtn = false;
@@ -469,10 +453,18 @@ export default class InterFace extends Phaser.Scene {
             liveAddSave(this.database, player, this.sizeMax)
         }
 
+
+
     }
 
 
     update(time, delta) {
+
+
+      //  this.skillBtn.buttonGroup.buttons[0].setTexture(this.player.skillImg)
+
+    //    console.log(this.player.skillImg)
+
         this.moneyText.setText(this.player.body.body.money.toString());
         this.scene.bringToTop();
         this.debug.clear();

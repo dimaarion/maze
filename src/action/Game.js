@@ -9,7 +9,6 @@ import * as Phaser from "phaser";
 import {getObjects} from "./index";
 
 
-
 export default class Game {
 
     map;
@@ -75,7 +74,6 @@ export default class Game {
     thorns;
 
 
-
     setup(t, image, name) {
 
         this.database = this.db.create();
@@ -83,7 +81,6 @@ export default class Game {
         this.collectionPlayer = this.database.getCollection("player");
 
         let playerFindDb = this.collectionPlayer.findOne({"$loki": 1});
-
 
 
         let md = new MobileDetect(window.navigator.userAgent);
@@ -95,24 +92,15 @@ export default class Game {
         this.layer = t.map.createLayer(0, tiles, 0, 0);
 
 
-        let walls = t.map.createLayer('walls', tiles,0,0);
+        let walls = t.map.createLayer('walls', tiles, 0, 0);
 
 
         this.layer.setCollisionByProperty({collides: true});
         t.map.setCollisionByExclusion([-1, 0]);
         t.matter.world.convertTilemapLayer(walls);
 
-        t.map.createLayer('thorns', tiles,0,0)
-        t.map.createLayer('objects', tiles,0,0);
-
-
-
-
-
-
-
-
-
+        t.map.createLayer('thorns', tiles, 0, 0)
+        t.map.createLayer('objects', tiles, 0, 0);
 
 
         this.pointBubble.sprite(t, "bubble", "bubble-potok");
@@ -134,10 +122,6 @@ export default class Game {
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
 
-
-
-
-
         this.player.sceneKey = t.scene.key;
         this.platform.body = this.platform.setup(t, t.map);
         this.money = t.map.createFromObjects('money', {name: "money"});
@@ -149,7 +133,6 @@ export default class Game {
             label: "hp",
             live: 100
         }).setTexture('hp').setSize(b.width, b.height))
-
 
 
         this.point.setup(t);
@@ -187,7 +170,7 @@ export default class Game {
         this.shark.sensorBody = false;
         this.shark.speedPersecute = 2
         this.shark.sprite(t)
-        this.shark.scale(1, 1)
+        this.shark.scale(0.7, 0.7)
         this.shark.sensors(t, 0.2, 1.2, 1);
 
 
@@ -207,27 +190,27 @@ export default class Game {
         this.goldFish.sensorBody = false;
         this.goldFish.speedPersecute = 2
         this.goldFish.sprite(t);
-        this.goldFish.scale(0.5,0.5);
+        this.goldFish.scale(0.5, 0.5);
         this.goldFish.sensors(t, 0.1, 0.7, 2, "goldFish_L");
 
         this.woodSkill.sprite(t);
-        this.woodSkill.scale(1,1);
-        this.woodSkill.sensors(t, 1, 1, 1, "wood-rotate-static","wood-rotate");
+        this.woodSkill.scale(1, 1);
+        this.woodSkill.sensors(t, 1, 1, 1, "wood-rotate-static", "wood-rotate");
 
         this.hitSkill.sprite(t);
-        this.hitSkill.scale(1,1);
-        this.hitSkill.sensors(t, 1, 1, 1, "hit-rotate-static","hit-rotate");
+        this.hitSkill.scale(1, 1);
+        this.hitSkill.sensors(t, 1, 1, 1, "hit-rotate-static", "hit-rotate");
 
         this.hpSkill.sprite(t);
-        this.hpSkill.scale(1,1);
-        this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static","hp-rotate");
+        this.hpSkill.scale(1, 1);
+        this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static", "hp-rotate");
 
 
         this.collectionSound = this.player.database;
 
         this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body)
 
-     this.timer = t.time.addEvent({
+        this.timer = t.time.addEvent({
             delay: 10000,                // ms
             callback: () => {
                 this.timeSkill = false;
@@ -239,20 +222,17 @@ export default class Game {
         });
 
 
-
-
         t.matterCollision.addOnCollideStart({
             objectA: this.player.body,
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectB} = eventData;
-                if(gameObjectB){
+                if (gameObjectB) {
                     console.log(gameObjectB.index)
                 }
 
 
             }
         });
-
 
 
         t.matterCollision.addOnCollideStart({
@@ -267,7 +247,7 @@ export default class Game {
                     if (bodyB.count < 2) {
                         gameObjectB.setTexture('ch-active');
                         bodyA.money = bodyA.money + 100;
-                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
                         this.database.saveDatabase();
                         t.sound.play("openCh", {
                             volume: this.player.effect,
@@ -282,10 +262,10 @@ export default class Game {
 
         t.matterCollision.addOnCollideStart({
             objectA: this.woodSkill.body,
-            objectB:this.monsterAll,
+            objectB: this.monsterAll,
             callback: (eventData) => {
-                const {gameObjectA, bodyB,gameObjectB} = eventData;
-                if(bodyB.label === "alive"){
+                const {gameObjectA, bodyB, gameObjectB} = eventData;
+                if (bodyB.label === "alive") {
                     t.matter.world.remove(gameObjectB);
                     gameObjectB.destroy();
                 }
@@ -295,7 +275,7 @@ export default class Game {
 
         t.matterCollision.addOnCollideStart({
             objectA: this.hitSkill.body,
-            objectB:this.monsterAll.concat(this.ej.body),
+            objectB: this.monsterAll.concat(this.ej.body),
             callback: (eventData) => {
                 const {gameObjectB} = eventData;
                 gameObjectB.attack.attack = 0
@@ -304,9 +284,9 @@ export default class Game {
 
         t.matterCollision.addOnCollideActive({
             objectA: this.player.body,
-            objectB:this.hpSkill.body,
+            objectB: this.hpSkill.body,
             callback: (eventData) => {
-                const {bodyA,gameObjectB} = eventData;
+                const {bodyA, gameObjectB} = eventData;
                 if (bodyA.live < bodyA.liveStatic) {
                     if (bodyA.live > bodyA.liveStatic) {
                         if (bodyA.live) {
@@ -319,7 +299,7 @@ export default class Game {
 
                     }
                     if (bodyA.live) {
-                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.live = bodyA.live);
                         this.database.saveDatabase();
                     }
                 }
@@ -327,11 +307,9 @@ export default class Game {
         });
 
 
-
-
         function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
-                db.getCollection("player").chain().find({"$loki": 1}).update((doc)=>doc.level = "Scene_" + el);
+                db.getCollection("player").chain().find({"$loki": 1}).update((doc) => doc.level = "Scene_" + el);
                 db.saveDatabase();
                 t.scene.start("Scene_" + el);
             }
@@ -349,8 +327,6 @@ export default class Game {
 
             }
         });
-
-
 
 
         t.matterCollision.addOnCollideActive({
@@ -373,18 +349,18 @@ export default class Game {
                         }
 
                     }
-                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.live = bodyA.live);
                     this.database.saveDatabase();
                 }
 
                 if (bodyB.label === "skill") {
                     this.timer.paused = false
-                    if(this.timeSkill){
+                    if (this.timeSkill) {
                         gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
-                        gameObjectB.play(gameObjectB.body.play,true)
-                      //  this.woodSkill.scale(1,1);
+                        gameObjectB.play(gameObjectB.body.play, true)
+                        //  this.woodSkill.scale(1,1);
                     }
-
+                    this.player.skillImg = bodyB.name;
                 }
 
             }
@@ -429,9 +405,9 @@ export default class Game {
                 if (bodyB.label === "skill") {
                     this.timer.paused = true;
                     this.timeSkill = true;
-                  //  this.woodSkill.scale(0.3,0.3);
-                    gameObjectB.play(gameObjectB.body.playStatic,true);
-                    gameObjectB.setPosition(gameObjectB.body.sX,gameObjectB.body.sY);
+                    //  this.woodSkill.scale(0.3,0.3);
+                    gameObjectB.play(gameObjectB.body.playStatic, true);
+                    gameObjectB.setPosition(gameObjectB.body.sX, gameObjectB.body.sY);
 
                 }
             }
@@ -441,26 +417,27 @@ export default class Game {
         t.matterCollision.addOnCollideStart({
             objectA: this.monsterAll,
             callback: (eventData) => {
-                const {bodyA, bodyB,gameObjectA} = eventData;
-                function persecuteMove(name){
+                const {bodyA, bodyB, gameObjectA} = eventData;
 
-                        if(gameObjectA.body && bodyA.name === name){
-                            if (bodyA.label === "alive" && gameObjectA.getVelocity().x > 0) {
-                                bodyA.direction = 1;
-                            }
-                            if (bodyA.label === "alive" && gameObjectA.getVelocity().x < 0) {
-                                bodyA.direction = 0;
+                function persecuteMove(name) {
 
-                            }
-                        }else {
-                            if (bodyA.label === "alive" && bodyB.label === "right") {
-                                bodyA.direction = 1;
-                            }
-                            if (bodyA.label === "alive" && bodyB.label === "left") {
-                                bodyA.direction = 0;
-
-                            }
+                    if (gameObjectA.body && bodyA.name === name) {
+                        if (bodyA.label === "alive" && gameObjectA.getVelocity().x > 0) {
+                            bodyA.direction = 1;
                         }
+                        if (bodyA.label === "alive" && gameObjectA.getVelocity().x < 0) {
+                            bodyA.direction = 0;
+
+                        }
+                    } else {
+                        if (bodyA.label === "alive" && bodyB.label === "right") {
+                            bodyA.direction = 1;
+                        }
+                        if (bodyA.label === "alive" && bodyB.label === "left") {
+                            bodyA.direction = 0;
+
+                        }
+                    }
                 }
 
                 persecuteMove("shark");
@@ -484,9 +461,9 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectB} = eventData;
 
-                if(bodyB.label === "alive"){
+                if (bodyB.label === "alive") {
                     bodyA.money = bodyA.money + 300;
-                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
                     this.database.saveDatabase();
                     t.matter.world.remove(gameObjectB);
                     gameObjectB.destroy();
@@ -506,7 +483,7 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, gameObjectB} = eventData;
                 bodyA.money = bodyA.money + 1;
-                this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.money = bodyA.money);
+                this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
                 this.database.saveDatabase();
                 t.matter.world.remove(gameObjectB);
                 gameObjectB.destroy();
@@ -536,7 +513,7 @@ export default class Game {
 
                     }
                     if (bodyA.live) {
-                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc)=>doc.live = bodyA.live);
+                        this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.live = bodyA.live);
                         this.database.saveDatabase();
                         t.matter.world.remove(gameObjectB);
                         gameObjectB.destroy();
@@ -554,7 +531,6 @@ export default class Game {
     }
 
     draw(t) {
-
 
 
         this.player.draw(t);
@@ -577,9 +553,7 @@ export default class Game {
         this.stone.gravity();
 
 
-
-
-        this.grassAttack.body.filter((f)=>f.body).forEach((el, i) => {
+        this.grassAttack.body.filter((f) => f.body).forEach((el, i) => {
             if (el.sensor.sensor) {
                 el.attack.pule.forEach((b) => {
                     b.setPosition(el.body.position.x, el.body.position.y - 30);

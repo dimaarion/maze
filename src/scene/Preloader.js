@@ -48,7 +48,10 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("slider", './img/gui/left right botton map.png');
         this.load.image("scrolling", './img/gui/horisontal skrolling map.png');
         this.load.image("volume", './img/gui/buttons/normal/volume.png');
-
+        this.load.image("round", './img/gui/buttons/normal/round.png');
+        this.load.image("hps", './img/gui/buttons/normal/hps.png');
+        this.load.image("hit", './img/gui/buttons/normal/hit.png');
+        this.load.image("wood", './img/gui/buttons/normal/wood.png');
 
         //joystick
         this.load.image("j1",'./img/power/1.png');

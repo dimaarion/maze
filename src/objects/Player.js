@@ -18,6 +18,7 @@ export default class Player {
     stone = false;
     database = {};
     effect = 1;
+    skillImg =  "round"
 
     constructor(speed = 1) {
         this.speed = speed
