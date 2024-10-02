@@ -22,6 +22,8 @@ import SliderPlugin from "phaser3-rex-plugins/plugins/slider-plugin";
 export default function GamePhaser() {
     const phaserRef = useRef(null);
 
+    console.log(phaserRef.current)
+
     useEffect(() => {
 
 
