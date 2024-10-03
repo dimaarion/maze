@@ -6,7 +6,7 @@ import Body from "../objects/Body";
 import MobileDetect from "mobile-detect";
 import * as Phaser from "phaser";
 
-import {getObjects} from "./index";
+import {arrayCount, getObjects} from "./index";
 
 
 export default class Game {
@@ -91,7 +91,7 @@ export default class Game {
         let tiles = t.map.addTilesetImage(image, name);
         this.layer = t.map.createLayer(0, tiles, 0, 0);
 
-
+        t.map.createLayer('map', tiles, 0, 0)
         let walls = t.map.createLayer('walls', tiles, 0, 0);
 
 
@@ -99,7 +99,7 @@ export default class Game {
         t.map.setCollisionByExclusion([-1, 0]);
         t.matter.world.convertTilemapLayer(walls);
 
-        t.map.createLayer('thorns', tiles, 0, 0)
+
         t.map.createLayer('objects', tiles, 0, 0);
 
 
@@ -123,6 +123,7 @@ export default class Game {
 
 
         this.player.sceneKey = t.scene.key;
+        this.player.level = t.scene.key.match(/[0-9]/g)[0];
         this.platform.body = this.platform.setup(t, t.map);
         this.money = t.map.createFromObjects('money', {name: "money"});
         this.skills = t.map.createFromObjects("skills", {name: "hp"})
@@ -133,6 +134,7 @@ export default class Game {
             label: "hp",
             live: 100
         }).setTexture('hp').setSize(b.width, b.height))
+
 
 
         this.point.setup(t);
@@ -210,6 +212,9 @@ export default class Game {
 
         this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body)
 
+
+
+
         this.timer = t.time.addEvent({
             delay: 10000,                // ms
             callback: () => {
@@ -227,7 +232,7 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectB} = eventData;
                 if (gameObjectB) {
-                    console.log(gameObjectB.index)
+                   // console.log(gameObjectB.index)
                 }
 
 
@@ -320,7 +325,7 @@ export default class Game {
             objectB: this.point.body,
             callback: (eventData) => {
                 const {gameObjectA, bodyB} = eventData;
-                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((el) => {
+                arrayCount(0,50).forEach((el) => {
                     levelStep(gameObjectA, bodyB, this.database, t, el);
 
                 })

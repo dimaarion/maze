@@ -3,11 +3,14 @@ import {useEffect, useRef} from "react";
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import Scene_1 from "../scene/Scene_1";
 import Preloader from "../scene/Preloader";
 import StartMenu from "../scene/StartMenu";
-import Scene_2 from "../scene/Scene_2";
 import InterFace from "../scene/InterFace";
+import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
+import SliderPlugin from "phaser3-rex-plugins/plugins/slider-plugin";
+
+import Scene_1 from "../scene/Scene_1";
+import Scene_2 from "../scene/Scene_2";
 import Scene_3 from "../scene/Scene_3";
 import Scene_4 from "../scene/Scene_4";
 import Scene_5 from "../scene/Scene_5";
@@ -15,14 +18,12 @@ import Scene_6 from "../scene/Scene_6";
 import Scene_7 from "../scene/Scene_7";
 import Scene_8 from "../scene/Scene_8";
 import Scene_9 from "../scene/Scene_9";
-import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
-import SliderPlugin from "phaser3-rex-plugins/plugins/slider-plugin";
+import Scene_10 from "../scene/Scene_10";
 
 
 export default function GamePhaser() {
     const phaserRef = useRef(null);
 
-    console.log(phaserRef.current)
 
     useEffect(() => {
 
@@ -86,15 +87,12 @@ export default function GamePhaser() {
             audio: {
                 disableWebAudio: false
             },
-            scene: [Preloader, StartMenu, InterFace, Scene_1, Scene_2, Scene_3, Scene_4, Scene_5, Scene_6, Scene_7, Scene_8, Scene_9],
+            scene: [Preloader, StartMenu, InterFace, Scene_1, Scene_2, Scene_3, Scene_4, Scene_5, Scene_6, Scene_7, Scene_8, Scene_9, Scene_10],
         };
 
         const game = new Phaser.Game(config);
-        window.addEventListener('resize', event => {
+        window.addEventListener('resize', event => {game.scale.resize(window.innerWidth, window.innerHeight);}, false);
 
-            game.scale.resize(window.innerWidth, window.innerHeight);
-
-        }, false);
 
         return () => {
             game.destroy(true);

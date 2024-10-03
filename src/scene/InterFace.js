@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Database from "../components/Database";
-import {percent} from "../action";
+import {percent, percentWidth} from "../action";
 import Joystick from "../components/Joystick";
 
 
@@ -90,8 +90,27 @@ export default class InterFace extends Phaser.Scene {
         this.size = this.player.body.body.live;
         this.sizeMax = this.player.liveStatic;
         this.money = this.player.body.body.money;
-        this.moneyText = this.add.text(75, 8, this.money.toString(), {font: '30px bold', fill: '#fff'});
+        this.moneyText = this.add.text(75, 8, this.money.toString(), {font: '30px bold', fill: '#fff',shadow: {
+            offsetX: 2,
+                offsetY: 2,
+                color: '#000',
+                blur: 0,
+                stroke: false,
+                fill: true
+        }});
+        this.levelText = this.add.text(percentWidth(50), 8, "Уровень " + data.player.level, {font: '30px bold', fill: '#fff',shadow: {
+                offsetX: 2,
+                offsetY: 2,
+                color: '#000',
+                blur: 0,
+                stroke: false,
+                fill: true
+            }
+        });
         this.cursorKeysTest = this.input.keyboard.createCursorKeys();
+
+
+
 
         this.joyStickGame.create(this);
 
@@ -465,6 +484,7 @@ export default class InterFace extends Phaser.Scene {
 
     //    console.log(this.player.skillImg)
 
+
         this.moneyText.setText(this.player.body.body.money.toString());
         this.scene.bringToTop();
         this.debug.clear();
@@ -525,9 +545,11 @@ export default class InterFace extends Phaser.Scene {
         if (window.innerWidth < 500) {
             this.soundGamePause.setPosition((window.innerWidth / 2) - 30, 20);
             this.playGame.setPosition((window.innerWidth / 2) + 30, 20);
+            this.levelText.setPosition(10,80)
         } else {
             this.soundGamePause.setPosition((window.innerWidth) - 40, 20);
             this.playGame.setPosition((window.innerWidth) - 100, 20);
+            this.levelText.setPosition(percentWidth(50) - 50,8)
         }
 
         if (this.isSound || this.shop || this.pause) {

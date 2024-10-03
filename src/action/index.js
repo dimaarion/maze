@@ -31,6 +31,14 @@ export function percent(num,pr) {
     return num * pr / 100;
 }
 
+export function percentWidth(pr) {
+    return window.innerWidth * pr / 100;
+}
+
+export function percentHeight(pr) {
+    return window.innerHeight * pr / 100;
+}
+
 export function findObjectByName(group, name) {
     return group.getChildren().find(obj => obj.name === name);
 }
