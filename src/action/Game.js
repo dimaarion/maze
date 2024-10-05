@@ -110,7 +110,7 @@ export default class Game {
         this.player.live = playerFindDb.live;
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = false;
+        t.matter.world.drawDebug = true;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -366,6 +366,7 @@ export default class Game {
                         //  this.woodSkill.scale(1,1);
                     }
                     this.player.skillImg = bodyB.name;
+                    this.player.obj = gameObjectB;
                 }
 
             }
@@ -381,6 +382,8 @@ export default class Game {
                     if (bodyB.name === "grassAttack") {
                         gameObjectB.play("grassAttackActive", true);
                     }
+
+
                 }
 
                 if (gameObjectB && gameObjectB.attack && bodyB.label === "attack" && gameObjectB.attack.attack > 0) {
@@ -392,6 +395,7 @@ export default class Game {
 
             }
         });
+
         t.matterCollision.addOnCollideEnd({
             objectA: this.player.body,
             callback: (eventData) => {

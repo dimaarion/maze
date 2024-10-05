@@ -19,6 +19,7 @@ export default class Player {
     database = {};
     effect = 1;
     skillImg =  "round"
+    obj = {}
 
     constructor(speed = 1) {
         this.speed = speed

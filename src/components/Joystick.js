@@ -1,4 +1,4 @@
-import {percent} from "../action";
+import {percent, percentHeight, percentWidth} from "../action";
 
 export default class Joystick {
 
@@ -9,8 +9,8 @@ export default class Joystick {
         let rJs = 50;
         if (t.rexvirtualjoystickplugin) {
             t.joyStick = t.rexvirtualjoystickplugin.add(t, {
-                x: window.innerWidth < window.innerHeight ? percent(window.innerWidth, 70) : percent(window.innerWidth, 80),
-                y: window.innerWidth > window.innerHeight ? percent(window.innerHeight, 70) : percent(window.innerHeight, 80),
+                x: window.innerWidth < window.innerHeight ? percentWidth(20) : percentWidth(20),
+                y: window.innerWidth > window.innerHeight ? percentHeight(80) : percentHeight( 80),
                 radius: rJs,
                 base: t.add.image(0, 0, 'j1').setScale(0.2, 0.2),
                 thumb: t.add.image(0, 0, 'j2').setScale(0.15, 0.15),
