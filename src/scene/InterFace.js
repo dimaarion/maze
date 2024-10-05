@@ -162,7 +162,7 @@ export default class InterFace extends Phaser.Scene {
             ],
         });
 
-      /*  this.skillBtn = this.rexUI.add.buttons({
+       this.skillBtn = this.rexUI.add.buttons({
             buttons: [
                 this.add.image(percent(window.innerWidth,10), percent(window.innerHeight,80), player.skillImg).setScale(0.15, 0.15).setInteractive({
                     cursor: 'pointer',
@@ -178,7 +178,7 @@ export default class InterFace extends Phaser.Scene {
         this.skillBtn.on("button.out",()=>{
             this.skillBtnActive = false;
         },this)
-        */
+
         this.closeShop.on("button.click", () => {
             this.shop = false;
             this.pause = false;
@@ -480,7 +480,7 @@ export default class InterFace extends Phaser.Scene {
     update(time, delta) {
 
 
-      //  this.skillBtn.buttonGroup.buttons[0].setTexture(this.player.skillImg)
+        this.skillBtn.buttonGroup.buttons[0].setTexture(this.player.skillImg)
 
     //    console.log(this.player.skillImg)
 
