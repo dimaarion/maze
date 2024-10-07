@@ -302,11 +302,11 @@
                  "id":1323,
                  "name":"point",
                  "rotation":0,
-                 "type":"level_8",
+                 "type":"level_1",
                  "visible":true,
                  "width":31.6667,
-                 "x":12.0454378787878,
-                 "y":940.909107575758
+                 "x":557.378771212121,
+                 "y":55.5757742424247
                 }, 
                 {
                  "height":68,
@@ -431,7 +431,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
