@@ -96,7 +96,7 @@ export default class Game {
 
 
         this.layer.setCollisionByProperty({collides: true});
-        t.map.setCollisionByExclusion([-1, 0]);
+        t.map.setCollisionByExclusion(-1, true);
         t.matter.world.convertTilemapLayer(walls);
 
 
@@ -134,7 +134,6 @@ export default class Game {
             label: "hp",
             live: 100
         }).setTexture('hp').setSize(b.width, b.height))
-
 
 
         this.point.setup(t);
@@ -213,8 +212,6 @@ export default class Game {
         this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body)
 
 
-
-
         this.timer = t.time.addEvent({
             delay: 10000,                // ms
             callback: () => {
@@ -224,19 +221,6 @@ export default class Game {
             callbackScope: t,
             repeat: -1,
             paused: true
-        });
-
-
-        t.matterCollision.addOnCollideStart({
-            objectA: this.player.body,
-            callback: (eventData) => {
-                const {bodyA, bodyB, gameObjectB} = eventData;
-                if (gameObjectB) {
-                   // console.log(gameObjectB.index)
-                }
-
-
-            }
         });
 
 
@@ -325,7 +309,7 @@ export default class Game {
             objectB: this.point.body,
             callback: (eventData) => {
                 const {gameObjectA, bodyB} = eventData;
-                arrayCount(0,50).forEach((el) => {
+                arrayCount(0, 50).forEach((el) => {
                     levelStep(gameObjectA, bodyB, this.database, t, el);
 
                 })
@@ -334,28 +318,46 @@ export default class Game {
         });
 
 
+        function setLive(bodyA,bodyB,gameObjectA,gameObjectB,th,t,attack = null) {
+            if (bodyA.live) {
+                if(attack === null){
+                    if (bodyB.attack) {
+                        bodyA.live = bodyA.live - bodyB.attack;
+                    }
+                    if (gameObjectB && gameObjectB.attack) {
+                        bodyA.live = bodyA.live - gameObjectB.attack.attack;
+                    }
+                }else{
+                    bodyA.live = bodyA.live - attack;
+                }
+
+
+                if (bodyA.live < 10) {
+                    bodyA.live = 15
+                    gameObjectA.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
+                }
+
+            }
+            th.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.live = bodyA.live);
+            th.database.saveDatabase();
+        }
+
+
         t.matterCollision.addOnCollideActive({
             objectA: this.player.body,
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
+                if (gameObjectB) {
+                    console.log(gameObjectB)
+                    if ([459,460,859,860].filter((el)=>gameObjectB.index === el) > 1) {
+                        setLive(bodyA,bodyB,gameObjectA,gameObjectB,this,t,3)
+                    }
+
+                }
+
 
                 if (bodyB.label === "attack") {
-                    if (bodyA.live) {
-                        if (bodyB.attack) {
-                            bodyA.live = bodyA.live - bodyB.attack;
-                        }
-                        if (gameObjectB && gameObjectB.attack) {
-                            bodyA.live = bodyA.live - gameObjectB.attack.attack;
-                        }
-
-                        if (bodyA.live < 10) {
-                            bodyA.live = 15
-                            gameObjectA.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
-                        }
-
-                    }
-                    this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.live = bodyA.live);
-                    this.database.saveDatabase();
+                    setLive(bodyA,bodyB,gameObjectA,gameObjectB,this,t)
                 }
 
                 if (bodyB.label === "skill") {

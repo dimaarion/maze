@@ -38,7 +38,7 @@ export default function GamePhaser() {
                     key: 'rexvirtualjoystickplugin',
                     plugin: VirtualJoystickPlugin,
                     start: true
-                },{
+                }, {
                     key: 'rexSlider',
                     plugin: SliderPlugin,
                     start: true
@@ -59,12 +59,12 @@ export default function GamePhaser() {
                         key: 'rexBoard',
                         plugin: BoardPlugin,
                         mapping: 'rexBoard'
-                    },{
+                    }, {
                         key: 'rexSlider',
                         plugin: SliderPlugin,
                         mapping: 'rexSlider',
                         start: true
-                    },{
+                    }, {
                         key: 'rexvirtualjoystickplugin',
                         plugin: VirtualJoystickPlugin,
                         mapping: 'rexvirtualjoystickplugin',
@@ -75,10 +75,31 @@ export default function GamePhaser() {
             physics: {
                 default: 'matter',
                 matter: {
+                    enabled: true,
+                    positionIterations: 6,
+                    velocityIterations: 4,
+                    constraintIterations: 2,
+                    enableSleeping: false,
                     gravity: {
                         x: 0,
                         y: 0
                     },
+                    setBounds: {
+                                x: 0,
+                                y: 0,
+                                thickness: 64,
+                                left: true,
+                                right: true,
+                                top: true,
+                                bottom: true,
+                            },
+                    timing: {
+                                timestamp: 0,
+                                timeScale: 1,
+                            },
+                    correction: 1,
+                        getDelta: (function() { return 1000 / 60; }),
+                        autoUpdate: true,
                     debug: {
                         //  hullColor: '#ffffff'
                     }
@@ -91,7 +112,9 @@ export default function GamePhaser() {
         };
 
         const game = new Phaser.Game(config);
-        window.addEventListener('resize', event => {game.scale.resize(window.innerWidth, window.innerHeight);}, false);
+        window.addEventListener('resize', event => {
+            game.scale.resize(window.innerWidth, window.innerHeight);
+        }, false);
 
 
         return () => {
