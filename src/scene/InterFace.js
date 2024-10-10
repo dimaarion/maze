@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import Database from "../components/Database";
 import {percent, percentHeight, percentWidth} from "../action";
 import Joystick from "../components/Joystick";
-
+import MobileDetect from "mobile-detect";
 
 export default class InterFace extends Phaser.Scene {
     constructor() {
@@ -10,6 +10,7 @@ export default class InterFace extends Phaser.Scene {
     }
 
     size = 400;
+    sizeSkill = 400;
     x = 0;
     y = 55;
     live = 0;
@@ -55,6 +56,7 @@ export default class InterFace extends Phaser.Scene {
     collectionSound;
 
     musicGlobal;
+
     closeBtn = true;
     countBtn = 0;
     db = new Database();
@@ -64,6 +66,8 @@ export default class InterFace extends Phaser.Scene {
     skillBtn;
 
     skillBtnActive = false;
+
+    md = new MobileDetect(window.navigator.userAgent);
 
     preload() {
 
@@ -90,15 +94,18 @@ export default class InterFace extends Phaser.Scene {
         this.size = this.player.body.body.live;
         this.sizeMax = this.player.liveStatic;
         this.money = this.player.body.body.money;
-        this.moneyText = this.add.text(75, 8, this.money.toString(), {font: '30px bold', fill: '#fff',shadow: {
-            offsetX: 2,
+        this.moneyText = this.add.text(75, 8, this.money.toString(), {
+            font: '30px bold', fill: '#fff', shadow: {
+                offsetX: 2,
                 offsetY: 2,
                 color: '#000',
                 blur: 0,
                 stroke: false,
                 fill: true
-        }});
-        this.levelText = this.add.text(percentWidth(50), 8, "Уровень " + data.player.level, {font: '30px bold', fill: '#fff',shadow: {
+            }
+        });
+        this.levelText = this.add.text(percentWidth(50), 8, "Уровень " + data.player.level, {
+            font: '30px bold', fill: '#fff', shadow: {
                 offsetX: 2,
                 offsetY: 2,
                 color: '#000',
@@ -110,9 +117,10 @@ export default class InterFace extends Phaser.Scene {
         this.cursorKeysTest = this.input.keyboard.createCursorKeys();
 
 
+        if (this.md.mobile()) {
+            this.joyStickGame.create(this);
+        }
 
-
-        this.joyStickGame.create(this);
 
         this.pauseBg = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.soundBtn = this.add.image(0, 0, "sound-btn").setScale(0.08, 0.08).setPosition(-9000, 0);
@@ -169,22 +177,22 @@ export default class InterFace extends Phaser.Scene {
                 })
             ],
 
-        },this);
+        }, this);
 
-        this.skillBtn.on("button.over",()=>{
+        this.skillBtn.on("button.over", () => {
             this.skillBtnActive = true;
-        },this);
+        }, this);
 
-        this.skillBtn.on("button.out",()=>{
+        this.skillBtn.on("button.out", () => {
             this.skillBtnActive = false;
-        },this);
+        }, this);
 
-        this.skillBtn.on("button.click",()=>{
-            if(data.player.obj.name){
-                data.player.obj.setPosition(data.player.body.x,data.player.body.y);
+        this.skillBtn.on("button.click", () => {
+            if (data.player.obj.name) {
+                data.player.obj.setPosition(data.player.body.x, data.player.body.y);
             }
 
-        },this)
+        }, this)
 
         this.closeShop.on("button.click", () => {
             this.shop = false;
@@ -480,7 +488,6 @@ export default class InterFace extends Phaser.Scene {
         }
 
 
-
     }
 
 
@@ -488,8 +495,8 @@ export default class InterFace extends Phaser.Scene {
 
 
         this.skillBtn.buttonGroup.buttons[0].setTexture(this.player.skillImg)
-        this.skillBtn.setPosition(percentWidth(80),percentHeight(80))
-    //    console.log(this.player.skillImg)
+        this.skillBtn.setPosition(percentWidth(80), percentHeight(80))
+        //    console.log(this.player.skillImg)
 
 
         this.moneyText.setText(this.player.body.body.money.toString());
@@ -498,13 +505,15 @@ export default class InterFace extends Phaser.Scene {
         this.size = this.player.body.body.live;
         this.debug.fillStyle(0xE10000);
         this.debug.lineStyle(5, 0x87eef3);
-
+        let colorSkill = Phaser.Display.Color.GetColor(255, 255, 0);
         if (this.size < 9) {
-            this.size = 15
-
+            this.size = 15;
         }
         this.debug.fillRect(4 + this.x, 4 + this.y, this.size - 6, 20);
         this.debug.strokeRoundedRect(this.x, this.y, this.sizeMax, 25, 10);
+        this.debug.fillStyle(colorSkill);
+        this.debug.fillRect(4 + this.x, 30 + this.y, this.player.sizeSkill, 10);
+
         let pointer = this.input.activePointer;
         if (pointer.isDown) {
             this.touchX = pointer.x;
@@ -552,11 +561,11 @@ export default class InterFace extends Phaser.Scene {
         if (window.innerWidth < 500) {
             this.soundGamePause.setPosition((window.innerWidth / 2) - 30, 20);
             this.playGame.setPosition((window.innerWidth / 2) + 30, 20);
-            this.levelText.setPosition(10,80)
+            this.levelText.setPosition(10, 80)
         } else {
             this.soundGamePause.setPosition((window.innerWidth) - 40, 20);
             this.playGame.setPosition((window.innerWidth) - 100, 20);
-            this.levelText.setPosition(percentWidth(50) - 50,8)
+            this.levelText.setPosition(percentWidth(50) - 50, 8)
         }
 
         if (this.isSound || this.shop || this.pause) {

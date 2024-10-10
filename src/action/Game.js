@@ -7,6 +7,7 @@ import MobileDetect from "mobile-detect";
 import * as Phaser from "phaser";
 
 import {arrayCount, getObjects} from "./index";
+import Penguin from "../objects/Penguin";
 
 
 export default class Game {
@@ -27,13 +28,13 @@ export default class Game {
 
     pointBubble = new Point("point");
 
-    fugu = new Body("monster", "fugu", "alive", 2, 3);
+    fugu = new Body("monster", "fugu", "alive", 1, 3);
 
     meduza = new Body("monster", "meduza", "alive", 1, 3);
 
     crab = new Body("monster", "crab", 'alive', 1, 3);
 
-    shark = new Body("monster", "shark", 'alive', 1, 5);
+    shark = new Body("monster", "shark", 'alive', 2, 5);
 
     ej = new Body("monster", "ej", 'alive-move', 1.5, 5);
 
@@ -54,6 +55,8 @@ export default class Game {
     hitSkill = new Body("skills", "hit", "skill", 1, 0);
 
     hpSkill = new Body("skills", "hps", "skill", 1, 0);
+
+    penguin = new Penguin("monster", "penguin", "alive", 1, 3);
 
     zumGame = 2;
 
@@ -123,7 +126,7 @@ export default class Game {
 
 
         this.player.sceneKey = t.scene.key;
-        this.player.level = t.scene.key.match(/[0-9]/g)[0];
+        this.player.level = t.scene.key.match(/[0-9]/g).join("");
         this.platform.body = this.platform.setup(t, t.map);
         this.money = t.map.createFromObjects('money', {name: "money"});
         this.skills = t.map.createFromObjects("skills", {name: "hp"})
@@ -168,7 +171,7 @@ export default class Game {
         this.chest.sprite(t).map((b) => b.setTexture("ch").setScale(0.7, 0.7))
         this.chest.sensors(t, 3, 3, 3);
 
-        this.shark.sensorBody = false;
+        this.shark.sensorBody = true;
         this.shark.speedPersecute = 2
         this.shark.sprite(t)
         this.shark.scale(0.7, 0.7)
@@ -206,16 +209,19 @@ export default class Game {
         this.hpSkill.scale(1, 1);
         this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static", "hp-rotate");
 
+        this.penguin.setup(t,this.player);
+
 
         this.collectionSound = this.player.database;
 
-        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body)
+        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body,this.penguin.body)
 
 
         this.timer = t.time.addEvent({
             delay: 10000,                // ms
             callback: () => {
                 this.timeSkill = false;
+
             },
             //args: [],
             callbackScope: t,
@@ -318,16 +324,16 @@ export default class Game {
         });
 
 
-        function setLive(bodyA,bodyB,gameObjectA,gameObjectB,th,t,attack = null) {
+        function setLive(bodyA, bodyB, gameObjectA, gameObjectB, th, t, attack = null) {
             if (bodyA.live) {
-                if(attack === null){
+                if (attack === null) {
                     if (bodyB.attack) {
                         bodyA.live = bodyA.live - bodyB.attack;
                     }
                     if (gameObjectB && gameObjectB.attack) {
                         bodyA.live = bodyA.live - gameObjectB.attack.attack;
                     }
-                }else{
+                } else {
                     bodyA.live = bodyA.live - attack;
                 }
 
@@ -348,16 +354,16 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
                 if (gameObjectB) {
-                    console.log(gameObjectB)
-                    if ([459,460,859,860].filter((el)=>gameObjectB.index === el) > 1) {
-                        setLive(bodyA,bodyB,gameObjectA,gameObjectB,this,t,3)
+                    //    console.log(gameObjectB)
+                    if ([459, 460, 859, 860].filter((el) => gameObjectB.index === el) > 1) {
+                        setLive(bodyA, bodyB, gameObjectA, gameObjectB, this, t, 3)
                     }
 
                 }
 
 
                 if (bodyB.label === "attack") {
-                    setLive(bodyA,bodyB,gameObjectA,gameObjectB,this,t)
+                    setLive(bodyA, bodyB, gameObjectA, gameObjectB, this, t)
                 }
 
                 if (bodyB.label === "skill") {
@@ -451,7 +457,7 @@ export default class Game {
                     }
                 }
 
-                persecuteMove("shark");
+                //   persecuteMove("shark");
                 persecuteMove("goldFish");
 
                 if (bodyA.label === "alive" && bodyB.label === "up") {
@@ -543,6 +549,15 @@ export default class Game {
 
     draw(t) {
 
+        if (!this.timer.paused) {
+            if (this.player.sizeSkill > 5) {
+                this.player.sizeSkill -= 0.5;
+            }
+
+        } else {
+            this.player.sizeSkill = 285;
+        }
+
 
         this.player.draw(t);
 
@@ -555,13 +570,16 @@ export default class Game {
         this.goldFish.draw(t, 're-persecute', 'goldFish_L', 'goldFish_R', 'goldFish_L', 'goldFish_R', this.player.body.body);
 
         this.ejDirect.gravity();
+
         this.ejDirect.draw(t, "persecute", 'none', 'none', 'none', 'none', this.player.body.body);
 
         this.ej.draw(t, "persecute", 'none', 'none', 'none', 'none', this.player.body.body);
 
-        this.shark.draw(t, 'persecute', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
+        this.shark.draw(t, 'horizontal', 'shark_L', 'shark_R', 'shark_L', 'shark_R', this.player.body.body, true);
 
         this.stone.gravity();
+
+        this.penguin.view(this,this.player);
 
 
         this.grassAttack.body.filter((f) => f.body).forEach((el, i) => {

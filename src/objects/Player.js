@@ -1,4 +1,5 @@
 import {constrain} from "../action";
+import Phaser from "phaser"
 
 export default class Player {
     body;
@@ -18,8 +19,13 @@ export default class Player {
     stone = false;
     database = {};
     effect = 1;
-    skillImg =  "round"
-    obj = {}
+    skillImg =  "round";
+    obj = {};
+    keyA;
+    keyW;
+    keyD;
+    keyS;
+    sizeSkill = 300;
 
     constructor(speed = 1) {
         this.speed = speed
@@ -35,7 +41,7 @@ export default class Player {
             options: {
                 label: 'player',
                 friction: 0,
-                restitution: 0.05,
+                restitution: 0,
                 frictionStatic: 0,
                 live: this.live,
                 liveStatic: this.liveStatic,
@@ -44,42 +50,34 @@ export default class Player {
                 jX: 0,
                 jY: 0,
             },
-          //  sensors:el.matter.add.circle(this.body.body.position.x,this.body.body.position.y,this.body.width,{isSensor:true,attack:false,label:"attack_player"}),
             label: "player"
         };
 
 
-       // el.anims.play('wood-rotate', this.playerController.sensors);
+
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
-       /* let constraint = el.matter.add.constraint(this.body, this.playerController.sensors, 0, 1, {
-            pointA: { x: 0, y: 0 },  // точка крепления на первом объекте
-            pointB: { x: 0, y: 0 },  // точка крепления на втором объекте
-            friction: 0,
-            restitution: 0.05,
-            frictionStatic: 0,
-        });*/
 
         let p = this.body
         let sensors = this.playerController.sensors;
         el.input.keyboard.on('keydown', function (event) {
 
-            if (event.code === "Space") {
 
-            }
-            if (event.key === "ArrowLeft") {
-                //  p.play("left").setVelocityX(-1)
-            }
         });
         el.input.keyboard.on('keyup', function (event) {
 
-            if (event.key === "ArrowRight") {
-                p.play("right_p")
+            if (event.key === "ArrowRight" || event.key === "d") {
+                p.play("right_p");
             }
-            if (event.key === "ArrowLeft") {
-                p.play("left_p")
+            if (event.key === "ArrowLeft" || event.key === "a") {
+               p.play("left_p");
             }
+
         });
 
+        this.keyA = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyW = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyD = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyS = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.body.setScale(0.5, 0.5)
 
@@ -88,45 +86,45 @@ export default class Player {
 
     draw(el) {
 
-     //   el.matter.body.setPosition(this.playerController.sensors,this.body.body.position,true)
-
         this.body.setVelocityX(constrain(this.body.body.jX / 50, -this.speed, this.speed))
 
         if(!this.noDown){
             this.body.setVelocityY(constrain(this.body.body.jY / 50, -this.speed, this.speed))
         }
 
-        if (el.cursor.left.isDown) {
+        if(el.cursor.space.isDown){
+            if (this.obj.name) {
+                this.obj.setPosition(this.body.x, this.body.y);
+            }
+        }
+
+
+        if (el.cursor.left.isDown || this.keyA.isDown) {
             this.body.setVelocityX(-this.speed)
             this.direct = 1;
             this.body.play("left", true);
 
-        }else if (el.cursor.right.isDown) {
+        }else if (el.cursor.right.isDown || this.keyD.isDown) {
             this.body.setVelocityX(this.speed)
             this.body.play("right", true);
             this.direct = 0;
 
-        }else if(el.cursor.right.isUp){
-            this.direct = 2;
-         //   this.body.play("right_p", true);
-        }else if(el.cursor.left.isUp){
-           // this.body.play("left_p", true);
-        }
-        if (el.cursor.up.isDown) {
-            this.body.setVelocityY(-this.speed)
-        }
-        if (el.cursor.down.isDown && !this.noDown) {
-            this.body.setVelocityY(this.speed)
         }
 
+
+
+
+
+
+        if (el.cursor.up.isDown || this.keyW.isDown) {
+            this.body.setVelocityY(-this.speed);
+        }
+        if ((el.cursor.down.isDown || this.keyS.isDown) && !this.noDown) {
+            this.body.setVelocityY(this.speed);
+        }
 
         if (this.body.body.velocity.x > 0) {
-          //  console.log(this.body.body.velocity.x)
             this.body.play("right", true);
-
-        } else {
-        //    this.body.play("left", true);
-
         }
 
        if(this.noDown){

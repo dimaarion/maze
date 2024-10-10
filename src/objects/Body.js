@@ -27,23 +27,22 @@ export default class Body {
     attX = 0;
     attY = 0;
     pule = [];
-    puleCount = 0;
+    puleCount = -1;
     puleRad = 50;
     puleSpeed = 2;
     pulePosition = [0, 0];
     pX = 0;
     pY = 0;
     playerPositions = {x: 0, y: 0}
-
+    puleSX = 1;
+    puleSY = 1;
     attR = 0
     countBody = 0;
     countFrame = 0;
-
+    puleName = ""
     puleSensor = false;
     puleKey = "";
-
     puleScale = 1;
-
     puleTime = 3000;
     moveTo;
 
@@ -91,19 +90,24 @@ export default class Body {
                 isSensor: true,
                 attack: this.attack,
                 defaultAttack: this.attack,
-                pule: arrayCount(1, this.puleCount)
+                pule: arrayCount(0, this.puleCount)
                     .map((n) => t.matter.add.image(b.x, b.y, this.puleKey)
                         .setCircle(this.puleRad, {
                             isSensor: this.puleSensor,
                             vX: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
                             vY: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
+                            stX:b.x,
+                            stY:b.y,
                             label: this.labelAttack,
                             attack: this.attack,
-                            defaultAttack: this.attack
+                            name:this.puleName,
+                            defaultAttack: this.attack,
+                            num:i
                         })
                         .setScale(this.puleScale, this.puleScale)
                         .setName("attack")
-                        .setBounce(1).setPosition(b.x, b.y)),
+                        .setBounce(1)
+                        .setPosition(b.x, b.y)),
 
             })
             b.playerBody = t.matter.bodies.circle(sx, sy, b.width / lab, Object.assign({
@@ -269,13 +273,18 @@ export default class Body {
                     if (!el.sensor.sensor) {
                         el.play(right, true);
                     } else {
-                        el.play(activeRight, true);
+                        if(activeRight){
+                            el.play(activeRight, true);
+                        }
                     }
                 } else {
                     if (!el.sensor.sensor) {
                         el.play(left, true);
                     } else {
-                        el.play(activeLeft, true);
+                        if(activeLeft){
+                            el.play(activeLeft, true);
+                        }
+
                     }
 
                 }
@@ -312,25 +321,7 @@ export default class Body {
         }else if (position === "re-persecute") {
             this.rePersecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
         }
-        this.body.forEach((b) => {
-            b.attack.pule.filter((f) => f).forEach((p) => {
-                if (b.sensor.sensor) {
-                    this.countFrame += 1;
-                    let count = this.puleTime
-                    if (this.countFrame > count / 2) {
-                        p.setVelocity(p.body.vX, p.body.vY)
-                    } else {
-                        p.setPosition(b.body.position.x + this.pulePosition[0], b.body.position.y + this.pulePosition[1])
-                    }
 
-                    if (this.countFrame > count) {
-                        this.countFrame = 0
-                    }
-
-                }
-            })
-
-        })
     }
 
     setBoards(t, board, x, y, b) {

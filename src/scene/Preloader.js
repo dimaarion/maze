@@ -90,6 +90,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("hit-rotate-static","./img/object/skill/hit-rotate-stat.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("hp-rotate","./img/object/skill/hp-rotate.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("hp-rotate-static","./img/object/skill/hp-rotate-static.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("penguin","./img/object/monster/pingvin.png",{frameWidth: 37, frameHeight: 60});
 
 
         this.load.image("hp", "./img/object/hp.png");
@@ -107,6 +108,9 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+
+
+
 
         this.anims.create({
             key: 'hp-rotate',
