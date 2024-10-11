@@ -58,6 +58,8 @@ export default class Game {
 
     penguin = new Penguin("monster", "penguin", "alive", 1, 3);
 
+    letMonster = new Body("monster","let-monster","alive", 2,4);
+
     zumGame = 2;
 
     screenCenterX = 0;
@@ -113,7 +115,7 @@ export default class Game {
         this.player.live = playerFindDb.live;
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -209,12 +211,16 @@ export default class Game {
         this.hpSkill.scale(1, 1);
         this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static", "hp-rotate");
 
+        this.letMonster.sprite(t);
+        this.letMonster.scale(1,1);
+        this.letMonster.sensors(t,1,1,2,"let-monster-left")
+
         this.penguin.setup(t,this.player);
 
 
         this.collectionSound = this.player.database;
 
-        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body,this.penguin.body)
+        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body,this.penguin.body, this.letMonster.body)
 
 
         this.timer = t.time.addEvent({
@@ -579,7 +585,9 @@ export default class Game {
 
         this.stone.gravity();
 
-        this.penguin.view(this,this.player);
+        this.penguin.view(this);
+
+        this.letMonster.draw(t,"horizontal","let-monster-left","let-monster-right","let-monster-left","let-monster-right");
 
 
         this.grassAttack.body.filter((f) => f.body).forEach((el, i) => {

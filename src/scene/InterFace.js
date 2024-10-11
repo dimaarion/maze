@@ -561,11 +561,13 @@ export default class InterFace extends Phaser.Scene {
         if (window.innerWidth < 500) {
             this.soundGamePause.setPosition((window.innerWidth / 2) - 30, 20);
             this.playGame.setPosition((window.innerWidth / 2) + 30, 20);
-            this.levelText.setPosition(10, 80)
+            this.levelText.setPosition(percentWidth(80), 10)
+            this.levelText.setText("Ур. " + this.player.level)
         } else {
             this.soundGamePause.setPosition((window.innerWidth) - 40, 20);
             this.playGame.setPosition((window.innerWidth) - 100, 20);
-            this.levelText.setPosition(percentWidth(50) - 50, 8)
+            this.levelText.setPosition(percentWidth(50) - 50, 8);
+            this.levelText.setText("Уровень " + this.player.level)
         }
 
         if (this.isSound || this.shop || this.pause) {

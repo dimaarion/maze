@@ -46,6 +46,10 @@ export default class Body {
     puleTime = 3000;
     moveTo;
 
+    countAnim = 0;
+    timeAnim = 120;
+    stepAnim = 10;
+
     constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
         this.speed = speed;
@@ -77,7 +81,7 @@ export default class Body {
         })
     }
 
-    sensors(t, sen = 5, lab = 8, att = 10, play = "",playActive = "") {
+    sensors(t, sen = 5, lab = 8, att = 10, play = "", playActive = "") {
         this.attR = att;
         this.body = this.body.map((b, i) => {
             let sx = b.width / 2;
@@ -96,17 +100,17 @@ export default class Body {
                             isSensor: this.puleSensor,
                             vX: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
                             vY: Phaser.Math.Between(-this.puleSpeed, this.puleSpeed),
-                            stX:b.x,
-                            stY:b.y,
+                            stX: b.x,
+                            stY: b.y,
                             label: this.labelAttack,
                             attack: this.attack,
-                            name:this.puleName,
+                            name: this.puleName,
                             defaultAttack: this.attack,
-                            num:i
+                            num: i
                         })
                         .setScale(this.puleScale, this.puleScale)
                         .setName("attack")
-                        .setBounce(1)
+                        .setBounce(3)
                         .setPosition(b.x, b.y)),
 
             })
@@ -153,15 +157,15 @@ export default class Body {
                 restitution: 0.05,
                 label: this.label,
                 name: this.name,
-                playStatic:play,
-                play:playActive,
+                playStatic: play,
+                play: playActive,
                 sX: b.x,
                 sY: b.y
 
 
             });
             if (getObjects(t.map, this.name)[i] === undefined) {
-              //  console.log(this.name)
+                //  console.log(this.name)
             }
 
             return getObjects(t.map, this.name)[i] ? b.setExistingBody(compoundBody)
@@ -195,7 +199,7 @@ export default class Body {
     gravity() {
         this.body.forEach((b) => {
             if (!b.sensor.sensor) {
-                if(b.body){
+                if (b.body) {
                     b.setVelocityY(this.upSpeed);
                 }
 
@@ -205,7 +209,7 @@ export default class Body {
 
     playerPosition(b, player) {
 
-        if(b.body){
+        if (b.body) {
             let rotation = Phaser.Math.Angle.Between(b.x, b.y, player.position.x, player.position.y)
             this.ax = Math.cos(rotation);
             this.ay = Math.sin(rotation);
@@ -256,8 +260,24 @@ export default class Body {
         })
     }
 
+    countersAnim(el, animImg) {
+        this.countAnim += 1;
+        if (this.countAnim > this.timeAnim) {
+            this.countAnim = 0;
+        }
+        if (Array.isArray(animImg)) {
+            if (this.countAnim > (this.timeAnim - this.stepAnim)) {
+                el.play(animImg[1], true);
+            } else {
+                el.play(animImg[0], true);
+            }
+        } else {
+            el.play(animImg, true);
+        }
+    }
 
     moveHorizontal(left, right, activeLeft, activeRight) {
+
         if (this.body) {
             this.body.filter((f) => f.body).forEach((el) => {
                 if (el.playerBody && el.playerBody.direction === 0) {
@@ -273,16 +293,16 @@ export default class Body {
                     if (!el.sensor.sensor) {
                         el.play(right, true);
                     } else {
-                        if(activeRight){
-                            el.play(activeRight, true);
+                        if (activeRight) {
+                            this.countersAnim(el, activeRight);
                         }
                     }
                 } else {
                     if (!el.sensor.sensor) {
                         el.play(left, true);
                     } else {
-                        if(activeLeft){
-                            el.play(activeLeft, true);
+                        if (activeLeft) {
+                            this.countersAnim(el, activeLeft);
                         }
 
                     }
@@ -318,7 +338,7 @@ export default class Body {
             this.moveVertical(left, right);
         } else if (position === "persecute") {
             this.persecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
-        }else if (position === "re-persecute") {
+        } else if (position === "re-persecute") {
             this.rePersecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
         }
 

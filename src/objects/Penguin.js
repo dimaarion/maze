@@ -2,6 +2,11 @@ import Body from "./Body";
 
 export default class Penguin extends Body {
     movie = true;
+    timer;
+
+    character;
+    currentAnimation = 0;
+    animations = ['penguin-left', 'penguin-bros']; // Массив анимаций
 
     constructor(group, name, label = "", speed = 2, attack = 1) {
         super(group, name, label, speed, attack);
@@ -11,30 +16,39 @@ export default class Penguin extends Body {
 
         t.anims.create({
             key: 'penguin-left',
-            frames: t.anims.generateFrameNumbers('penguin', {start: 0, end: 9}),
+            frames: t.anims.generateFrameNumbers('penguin', {frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}),
             frameRate: 10,
             repeat: -1
         });
 
         t.anims.create({
             key: 'penguin-right',
-            frames: t.anims.generateFrameNumbers('penguin', {start: 10, end: 19}),
+            frames: t.anims.generateFrameNumbers('penguin', {frames: [10, 11, 12, 13, 14, 15, 16,17, 18, 19]}),
             frameRate: 10,
             repeat: -1
         });
 
         t.anims.create({
-            key: 'penguin-bros',
-            frames: t.anims.generateFrameNumbers('penguin', {start: 20, end: 29}),
+            key: 'penguin-bros-left',
+            frames: t.anims.generateFrameNumbers('penguin', {frames: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]}),
             frameRate: 10,
             repeat: 0
         });
 
+        t.anims.create({
+            key: 'penguin-bros-right',
+            frames: t.anims.generateFrameNumbers('penguin', {frames: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]}),
+            frameRate: 10,
+            repeat: 0
+        });
 
+        this.timeAnim = 400
+        this.stepAnim = 50
         this.puleCount = 0;
         this.puleSY = 0.5;
         this.puleSX = 0.5;
-        this.puleScale = 0.2;
+        this.puleScale = 0.5;
+        this.puleRad = 12
         this.sprite(t);
         this.scale(0.7, 0.7);
         this.sensors(t, 0.1, 1, 1.5, 'penguin-right');
@@ -54,23 +68,27 @@ export default class Penguin extends Body {
             }
         });
 
-        t.matterCollision.addOnCollideEnd({
-            objectA: player.body,
-            objectB: this.body,
+        t.matterCollision.addOnCollideStart({
+            objectA: this.body.map((el) => el.playerBody),
             callback: (eventData) => {
-                const {bodyA, gameObjectB} = eventData;
+                const {bodyA, bodyB, gameObjectA} = eventData;
                 //   console.log(gameObjectB)
                 //  gameObjectB.attack.pule.map((el)=>el.setPosition(el.stX,el.stY))
+
+                if (bodyB.label === "right" || bodyB.label === "left") {
+                    //  gameObjectA.setPosition(this.body[bodyA.num].x, this.body[bodyA.num].y);
+                    gameObjectA.attack.pule.map((el) => el.setPosition(-10000, 0))
+                }
             }
         });
 
         t.matterCollision.addOnCollideEnd({
-            objectA: this.body.map((el) => el.attack.pule)[0],
-            objectB: this.body.map((el) => el.sensor)[0],
+            objectA: this.body.map((el) => el.attack.pule),
+            objectB: this.body.map((el) => el.sensor),
             callback: (eventData) => {
-                const {bodyA, gameObjectA} = eventData;
-                gameObjectA.setPosition(this.body[bodyA.num].x, this.body[bodyA.num].y);
-                   console.log(gameObjectA)
+                const {bodyA, gameObjectA, gameObjectB} = eventData;
+                gameObjectA.setPosition(-10000, 0);
+
                 //  gameObjectB.attack.pule.map((el)=>el.setPosition(el.stX,el.stY))
             }
         });
@@ -80,8 +98,8 @@ export default class Penguin extends Body {
             objectA: this.body.map((el) => el.attack.pule)[0],
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA} = eventData;
-                if (bodyB.label === "Rectangle Body") {
-                   //   gameObjectA.setPosition(this.body[bodyA.num].x, this.body[bodyA.num].y);
+                if (bodyB.label === "right" || bodyB.label === "left") {
+                    // gameObjectA.setPosition(-10000, 0);
                     //  this.play = "penguin-bros";
                     // this.body[bodyA.num].chain("penguin-bros").chain("penguin-left")
                     //     this.puleCount = 5
@@ -89,20 +107,48 @@ export default class Penguin extends Body {
                 }
             }
         });
+
+        this.timer = t.time.addEvent({
+            delay: 1000,                // ms
+            callback: () => {
+                switchAnimation(this)
+                this.movie = !this.movie;
+            },
+            //args: [],
+            callbackScope: t,
+            loop: true
+        });
+
+        function switchAnimation(t) {
+
+        }
+
     }
 
 
-    view(t, player) {
+    view(t) {
         this.body.forEach((el) => {
             if (el.sensor.sensor) {
-                this.movie = false;
                 el.attack.pule.forEach((b) => {
-                    b.setVelocity(this.ax * this.puleSpeed, this.ay * this.puleSpeed);
+                    if (this.countAnim > (this.timeAnim - this.stepAnim)) {
+                        b.setPosition(el.x, el.y)
+                        b.setTexture("noimage")
+                    }
+                     b.setTexture("snegok")
+                    if (el.playerBody && el.playerBody.direction === 0) {
+                            b.setVelocity(this.puleSpeed, 0);
+
+
+                    } else {
+                            b.setVelocity(-this.puleSpeed, 0);
+                    }
+
+
                 })
             } else {
-                this.movie = true;
                 el.attack.pule.forEach((b) => {
                     b.setPosition(el.x, el.y);
+                    b.setTexture("noimage")
                 })
 
             }
@@ -110,7 +156,7 @@ export default class Penguin extends Body {
 
         });
 
-        this.draw(t, 'horizontal', 'penguin-left', 'penguin-right', 'penguin-left', 'penguin-right');
+        this.draw(t, 'horizontal', 'penguin-left', 'penguin-right', ['penguin-left', 'penguin-bros-left'], ['penguin-right', 'penguin-bros-right']);
 
 
     }
