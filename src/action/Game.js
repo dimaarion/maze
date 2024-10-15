@@ -60,6 +60,10 @@ export default class Game {
 
     letMonster = new Body("monster","let-monster","alive", 2,4);
 
+    monsterZ1 = new Body("monster","monster-z-1","alive", 2,4);
+
+    monsterZ2 = new Body("monster","monster-z-2","alive", 2,4);
+
     zumGame = 2;
 
     screenCenterX = 0;
@@ -158,6 +162,15 @@ export default class Game {
         this.meduzaFind.scale(0.5, 0.5)
         this.meduzaFind.sensors(t, 1.5, 4, 4.5);
         this.meduzaFind.finding(t)
+
+        this.monsterZ1.sprite(t);
+        this.monsterZ1.sensors(t,1.8,1.8,1.6,"monster-z-1");
+        this.monsterZ1.finding(t);
+
+        this.monsterZ2.sprite(t);
+        this.monsterZ2.sensors(t,1.8,1.8,1.6,"monster-z-1");
+        this.monsterZ2.finding(t);
+
 
         this.crab.sprite(t)
         this.crab.scale(0.6, 0.6)
