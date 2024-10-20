@@ -19,6 +19,7 @@ import Scene_7 from "../scene/Scene_7";
 import Scene_8 from "../scene/Scene_8";
 import Scene_9 from "../scene/Scene_9";
 import Scene_10 from "../scene/Scene_10";
+import Scene_11 from "../scene/Scene_11";
 
 
 export default function GamePhaser() {
@@ -108,7 +109,7 @@ export default function GamePhaser() {
             audio: {
                 disableWebAudio: false
             },
-            scene: [Preloader, StartMenu, InterFace, Scene_1, Scene_2, Scene_3, Scene_4, Scene_5, Scene_6, Scene_7, Scene_8, Scene_9, Scene_10],
+            scene: [Preloader, StartMenu, InterFace, Scene_1, Scene_2, Scene_3, Scene_4, Scene_5, Scene_6, Scene_7, Scene_8, Scene_9, Scene_10, Scene_11],
         };
 
         const game = new Phaser.Game(config);

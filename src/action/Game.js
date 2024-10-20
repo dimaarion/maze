@@ -373,8 +373,8 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
                 if (gameObjectB) {
-                    //    console.log(gameObjectB)
-                    if ([459, 460, 859, 860].filter((el) => gameObjectB.index === el) > 1) {
+                      //  console.log(gameObjectB.index)
+                    if ([459, 460, 859, 860, 461].filter((el) => gameObjectB.index === el) > 1) {
                         setLive(bodyA, bodyB, gameObjectA, gameObjectB, this, t, 3)
                     }
 
