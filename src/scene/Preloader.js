@@ -92,7 +92,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("hp-rotate","./img/object/skill/hp-rotate.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("hp-rotate-static","./img/object/skill/hp-rotate-static.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("penguin","./img/object/monster/pingvin.png",{frameWidth: 37, frameHeight: 60});
-        this.load.spritesheet("let-monster","./img/object/monster/mon.png",{frameWidth: 63.3, frameHeight: 63});
+        this.load.spritesheet("let-monster","./img/object/monster/mon.png",{frameWidth: 135, frameHeight: 64});
         this.load.spritesheet("monster-z-1","./img/object/monster/monster-rotate.png",{frameWidth: 64, frameHeight: 64});
 
 
@@ -103,6 +103,9 @@ export default class Preloader extends Phaser.Scene {
         this.load.image('angle-pule','./img/object/Anglerfish/puleAngle.png');
         this.load.image('noimage','./img/object/noimage.png');
         this.load.image('snegok','./img/object/monster/snegok.png');
+
+
+        this.load.svg("svg", "./img/Tiles/10-е.svg");
 
         // button
 
@@ -122,14 +125,14 @@ export default class Preloader extends Phaser.Scene {
 
         this.anims.create({
             key: 'let-monster-left',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5,6,7]}),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'let-monster-right',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [6, 7, 8, 9, 10, 11]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [8, 9, 10, 11, 12, 13,14,15]}),
             frameRate: 10,
             repeat: -1
         });

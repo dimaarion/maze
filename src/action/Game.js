@@ -119,7 +119,7 @@ export default class Game {
         this.player.live = playerFindDb.live;
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = false;
+        t.matter.world.drawDebug = true;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -143,6 +143,8 @@ export default class Game {
             label: "hp",
             live: 100
         }).setTexture('hp').setSize(b.width, b.height))
+
+
 
 
         this.point.setup(t);
@@ -229,6 +231,8 @@ export default class Game {
         this.letMonster.sensors(t,1,1,2,"let-monster-left")
 
         this.penguin.setup(t,this.player);
+
+        t.matter.add.image(100, 700, 'svg').setScale(0.05).setRotation(90);
 
 
         this.collectionSound = this.player.database;

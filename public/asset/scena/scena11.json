@@ -242,7 +242,18 @@
          "draworder":"topdown",
          "id":34,
          "name":"platform",
-         "objects":[],
+         "objects":[
+                {
+                 "height":125.333333333333,
+                 "id":1398,
+                 "name":"platform",
+                 "rotation":0,
+                 "type":"platform",
+                 "visible":true,
+                 "width":25.3333333333333,
+                 "x":222.666666666667,
+                 "y":812
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -869,7 +880,7 @@
          "y":0
         }],
  "nextlayerid":38,
- "nextobjectid":1398,
+ "nextobjectid":1400,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.03.23",
