@@ -3,6 +3,7 @@ import Database from "../components/Database";
 import {percent, percentHeight, percentWidth} from "../action";
 import Joystick from "../components/Joystick";
 import MobileDetect from "mobile-detect";
+import Action from "../components/Action";
 
 export default class InterFace extends Phaser.Scene {
     constructor() {
@@ -69,6 +70,8 @@ export default class InterFace extends Phaser.Scene {
 
     md = new MobileDetect(window.navigator.userAgent);
 
+    action = new Action()
+
     preload() {
 
     }
@@ -81,10 +84,11 @@ export default class InterFace extends Phaser.Scene {
 
         let music = this.sound.get("fon-music");
 
-        music.volume = collectionSound.findOne({"$loki": 1}).music;
+       // music.volume = collectionSound.findOne({"$loki": 1}).music;
 
         data.player.database = this.database;
-        data.player.effect = collectionSound.findOne({"$loki": 1}).effect;
+
+        // data.player.effect = collectionSound.findOne({"$loki": 1}).effect;
 
 
         this.add.image(23 + this.x, 25, "power-player").setScale(0.1, 0.1);
@@ -242,12 +246,15 @@ export default class InterFace extends Phaser.Scene {
             this.countBtn = 0;
         }, this);
 
+
+
         this.playGame.on("button.click", (button) => {
             this.pause = true;
             this.closeBtn = false;
             this.shop = false;
             let sound = this.sound;
             let database = this.database;
+            let db = this.db;
             this.countBtn++
             if (this.countBtn === 1) {
                 this.scrolling = this.add.image((window.innerWidth / 2) + 30, (window.innerHeight / 2) - 50, "scrolling").setScale(0.2, 0.2);
@@ -266,14 +273,11 @@ export default class InterFace extends Phaser.Scene {
                             y: this.sliders.y
                         }
                     ],
-                    value: collectionSound.findOne({"$loki": 1}).music,
+                    value:db.get("sound").music,
                     valuechangeCallback: function (value) {
-                        collectionSound.chain().find({"$loki": 1}).update(
-                            function (doc) {
-                                return doc.music = value;
-                            });
+                        db.set("sound",1,(el)=>el.music = value)
                         music.volume = value;
-                        database.saveDatabase();
+
                     }
                 });
 
@@ -288,15 +292,11 @@ export default class InterFace extends Phaser.Scene {
                             y: this.sliders2.y
                         }
                     ],
-                    value: collectionSound.findOne({"$loki": 1}).effect,
+                    value: db.get("sound").effect,
 
                     valuechangeCallback: function (value) {
-                        collectionSound.chain().find({"$loki": 1}).update(
-                            function (doc) {
-                                return doc.effect = value;
-                            });
+                        db.set("sound",1,(el)=>el.effect = value)
                         data.player.effect = value;
-                        database.saveDatabase();
                     }
                 });
 

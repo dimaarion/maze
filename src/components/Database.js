@@ -1,7 +1,9 @@
 import {getObjects} from "../action";
 import Loki from "lokijs";
+import Player from "../objects/Player";
 
-export default class Database {
+export default class Database{
+    body = [];
     name = 'default';
     base = {
         id: "default",
@@ -30,10 +32,12 @@ export default class Database {
 
     db;
 
+
+
+
     create() {
         this.db = new Loki("db", {
             autosave: true, //setting to save
-            autosaveInterval: 1000
         });
 
         this.db.loadDatabase({}, () => {
@@ -44,6 +48,7 @@ export default class Database {
             if (!this.db.getCollection("player")) {
                 this.db.addCollection("player");
             }
+
         });
 
         if (!this.db.addCollection("player").findOne({"$loki": 1})) {
@@ -52,104 +57,21 @@ export default class Database {
         if(!this.db.addCollection("sound").findOne({"$loki": 1})){
             this.db.addCollection("sound").insert({music:1,effect:1})
         }
+        if(!this.db.addCollection("position").findOne({"$loki": 1})){
+            this.db.addCollection("position").insert({x:0,y:0});
+        }
 
         return this.db;
     }
 
-    setSound() {
-        window.localStorage.setItem("sound", JSON.stringify(this.sound));
 
+    set(name,l = 1,fn = ()=>{}){
+        this.db.getCollection(name).chain().find({"$loki": l}).update(fn);
+        this.db.saveDatabase();
     }
 
-    getSound(){
-        if(window.localStorage.getItem("sound")){
-
-            return JSON.parse(window.localStorage.getItem("sound"))
-
-        }else {
-            return this.sound;
-        }
+    get(name,l = 1){
+     return  this.db.getCollection(name).findOne({"$loki": l});
     }
 
-    get() {
-        if (window.localStorage.getItem("base")) {
-            return JSON.parse(window.localStorage.getItem("base"));
-        } else {
-            return this.base;
-        }
-
-
-    }
-
-    setPosition(x, y) {
-        this.base.x = x;
-        this.base.y = y;
-
-        if (window.localStorage.getItem("base")) {
-            return window.localStorage.setItem("base", JSON.stringify(this.base))
-        } else {
-            return this.base;
-        }
-    }
-
-    setMoney(n) {
-        return window.localStorage.setItem("money", n.toString())
-    }
-
-    getMoney() {
-        if (window.localStorage.getItem("money")) {
-            return Number.parseInt(window.localStorage.getItem("money"));
-        } else {
-            return 0;
-        }
-    }
-
-    setLevel(n) {
-        return window.localStorage.setItem("level", n);
-    }
-
-    getLevel() {
-        if (window.localStorage.getItem("level")) {
-            return window.localStorage.getItem("level");
-        } else {
-            return "Scene_1";
-        }
-    }
-
-    setLive(n) {
-        return window.localStorage.setItem("live", n.toString())
-    }
-
-    getLive() {
-        if (window.localStorage.getItem("live")) {
-            return Number.parseInt(window.localStorage.getItem("live"));
-        } else {
-            return 15;
-        }
-    }
-
-    setKey(n) {
-        this.base.key = n;
-        if (window.localStorage.getItem("base")) {
-            return window.localStorage.setItem("base", JSON.stringify(this.base))
-        } else {
-            return this.base;
-        }
-    }
-
-    setImage(n = [], f) {
-
-        this.base.img = n;
-        this.base.frame = f;
-
-        if (window.localStorage.getItem("base")) {
-            return window.localStorage.setItem("base", JSON.stringify(this.base))
-        } else {
-            return this.base;
-        }
-    }
-
-    cleaner() {
-        return window.localStorage.clear();
-    }
 }

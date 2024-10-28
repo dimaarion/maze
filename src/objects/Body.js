@@ -50,6 +50,9 @@ export default class Body {
     timeAnim = 120;
     stepAnim = 10;
 
+    playDestroy = "vzriv";
+
+
     constructor(group, name, label = "", speed = 0, attack = 1) {
         this.name = name;
         this.speed = speed;
@@ -159,6 +162,8 @@ export default class Body {
                 name: this.name,
                 playStatic: play,
                 play: playActive,
+                playDestroy:false,
+                savePosition:false,
                 sX: b.x,
                 sY: b.y
 
@@ -291,17 +296,27 @@ export default class Body {
                 }
                 if (el.body.velocity.x > 0) {
                     if (!el.sensor.sensor) {
-                        el.play(right, true);
+                        if(!el.body.playDestroy){
+                            el.play(right, true);
+                        }
                     } else {
-                        if (activeRight) {
+                        if (activeRight && !el.body.playDestroy) {
                             this.countersAnim(el, activeRight);
                         }
+                        if(el.body.playDestroy){
+
+                        }
+
+
                     }
                 } else {
                     if (!el.sensor.sensor) {
-                        el.play(left, true);
+                        if(!el.body.playDestroy){
+                            el.play(left, true);
+                        }
+
                     } else {
-                        if (activeLeft) {
+                        if (activeLeft || this.playActive) {
                             this.countersAnim(el, activeLeft);
                         }
 
@@ -317,13 +332,19 @@ export default class Body {
         if (this.body) {
             this.body.filter((f) => f.body).forEach((el) => {
                 if (el.playerBody && el.playerBody.direction === 2) {
-                    el.play(up, true);
+                    if(!el.body.playDestroy){
+                        el.play(up, true);
+                    }
                     el.setVelocityY(-this.speed)
                 } else if (el.playerBody && el.playerBody.direction === 3) {
-                    el.play(down, true);
+                    if(!el.body.playDestroy){
+                        el.play(down, true);
+                    }
                     el.setVelocityY(this.speed)
                 } else {
-                    el.play(up, true);
+                    if(!el.body.playDestroy){
+                        el.play(up, true);
+                    }
                     el.setVelocityY(-this.speed)
                 }
             })
@@ -333,14 +354,16 @@ export default class Body {
 
     draw(t, position = "horizontal", left, right, leftA, rightA, player, move = false) {
         if (position === "horizontal") {
-            this.moveHorizontal(left, right, leftA, rightA)
+            this.moveHorizontal(left, right, leftA, rightA);
         } else if (position === "vertical") {
-            this.moveVertical(left, right);
+            this.moveVertical(left, right, leftA, rightA);
         } else if (position === "persecute") {
             this.persecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
         } else if (position === "re-persecute") {
             this.rePersecute(t, player, {left: left, right: right, leftA: leftA, rightA: rightA}, move);
         }
+
+
 
     }
 

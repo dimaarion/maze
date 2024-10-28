@@ -1,5 +1,6 @@
 import {constrain} from "../action";
 import Phaser from "phaser"
+import Database from "../components/Database";
 
 export default class Player {
     body;
@@ -17,9 +18,10 @@ export default class Player {
     sceneKey = 'Scene_1'
     noDown = false;
     stone = false;
-    database = {};
+    database = new Database();
     effect = 1;
-    skillImg =  "round";
+    music = 1;
+    skillImg = "round";
     obj = {};
     keyA;
     keyW;
@@ -27,17 +29,43 @@ export default class Player {
     keyS;
     sizeSkill = 300;
 
+
     constructor(speed = 1) {
         this.speed = speed
     }
 
 
     setup(el) {
-        this.body = el.map.createFromObjects('player', { name:"player",type:"player" })[0];
-        el.anims.play('right_p', this.body);
+        el.anims.create({
+            key: 'left_p',
+            frames: el.anims.generateFrameNumbers('player', {start: 6, end: 11}),
+            frameRate: 6,
+            repeat: -1
+        });
+        el.anims.create({
+            key: 'right_p',
+            frames: el.anims.generateFrameNumbers('player', {start: 0, end: 5}),
+            frameRate: 6,
+            repeat: -1
+        });
+        el.anims.create({
+            key: 'right',
+            frames: el.anims.generateFrameNumbers('player', {start: 12, end: 17}),
+            frameRate: 6,
+            repeat: -1
+        });
+        el.anims.create({
+            key: 'left',
+            frames: el.anims.generateFrameNumbers('player', {start: 18, end: 23}),
+            frameRate: 6,
+            repeat: -1
+        });
 
+
+        this.body = el.map.createFromObjects('player', {name: "player", type: "player"})[0];
+        el.anims.play('right_p', this.body);
         this.playerController = {
-            matterSprite: el.matter.add.gameObject(this.body,{label:"player"}),
+            matterSprite: el.matter.add.gameObject(this.body, {label: "player"}),
             options: {
                 label: 'player',
                 friction: 0,
@@ -46,16 +74,27 @@ export default class Player {
                 live: this.live,
                 liveStatic: this.liveStatic,
                 money: this.money,
-                database:this.database,
+                database: this.database,
                 jX: 0,
                 jY: 0,
             },
             label: "player"
         };
+        this.database.create();
+        if(this.body.body.position.x === 0 && this.body.body.position.y === 0){
+            this.database.set("position", 1, (el) => {
+                el.x = this.body.body.position.x;
+                el.y = this.body.body.position.y;
+            })
+        }
 
 
 
-        this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options).setName("player").setFixedRotation();
+
+        this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options)
+            .setName("player")
+            .setFixedRotation()
+            .setPosition(this.database.get("position").x, this.database.get("position").y);
 
         let p = this.body
         let sensors = this.playerController.sensors;
@@ -69,7 +108,7 @@ export default class Player {
                 p.play("right_p");
             }
             if (event.key === "ArrowLeft" || event.key === "a") {
-               p.play("left_p");
+                p.play("left_p");
             }
 
         });
@@ -80,7 +119,7 @@ export default class Player {
         this.keyS = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.body.setScale(0.5, 0.5)
-
+        this.x = this.body.body.position.x;
 
     }
 
@@ -88,11 +127,11 @@ export default class Player {
 
         this.body.setVelocityX(constrain(this.body.body.jX / 50, -this.speed, this.speed))
 
-        if(!this.noDown){
+        if (!this.noDown) {
             this.body.setVelocityY(constrain(this.body.body.jY / 50, -this.speed, this.speed))
         }
 
-        if(el.cursor.space.isDown){
+        if (el.cursor.space.isDown) {
             if (this.obj.name) {
                 this.obj.setPosition(this.body.x, this.body.y);
             }
@@ -104,16 +143,12 @@ export default class Player {
             this.direct = 1;
             this.body.play("left", true);
 
-        }else if (el.cursor.right.isDown || this.keyD.isDown) {
+        } else if (el.cursor.right.isDown || this.keyD.isDown) {
             this.body.setVelocityX(this.speed)
             this.body.play("right", true);
             this.direct = 0;
 
         }
-
-
-
-
 
 
         if (el.cursor.up.isDown || this.keyW.isDown) {
@@ -127,9 +162,9 @@ export default class Player {
             this.body.play("right", true);
         }
 
-       if(this.noDown){
-           this.body.setVelocityY(-this.speed)
-       }
+        if (this.noDown) {
+            this.body.setVelocityY(-this.speed)
+        }
 
 
     }

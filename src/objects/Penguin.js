@@ -127,34 +127,40 @@ export default class Penguin extends Body {
 
 
     view(t) {
-        this.body.forEach((el) => {
-            if (el.sensor.sensor) {
-                el.attack.pule.forEach((b) => {
-                    if (this.countAnim > (this.timeAnim - this.stepAnim)) {
-                        b.setPosition(el.x, el.y)
+        if(this.body !== undefined){
+            this.body.filter((f)=>f.body).forEach((el) => {
+                if (el.sensor.sensor) {
+                    el.attack.pule.filter((f)=>f.body).forEach((b) => {
+                        if(b.body){
+                            if (this.countAnim > (this.timeAnim - this.stepAnim)) {
+                                b.setPosition(el.x, el.y)
+                                b.setTexture("noimage")
+                            }
+                            b.setTexture("snegok")
+                            if (el.playerBody && el.playerBody.direction === 0) {
+                                b.setVelocity(this.puleSpeed, 0);
+
+
+                            } else {
+                                b.setVelocity(-this.puleSpeed, 0);
+                            }
+                        }
+
+
+
+                    })
+                } else {
+                    el.attack.pule.filter((f)=>f.body).forEach((b) => {
+                        b.setPosition(el.x, el.y);
                         b.setTexture("noimage")
-                    }
-                     b.setTexture("snegok")
-                    if (el.playerBody && el.playerBody.direction === 0) {
-                            b.setVelocity(this.puleSpeed, 0);
+                    })
+
+                }
 
 
-                    } else {
-                            b.setVelocity(-this.puleSpeed, 0);
-                    }
+            });
+        }
 
-
-                })
-            } else {
-                el.attack.pule.forEach((b) => {
-                    b.setPosition(el.x, el.y);
-                    b.setTexture("noimage")
-                })
-
-            }
-
-
-        });
 
         this.draw(t, 'horizontal', 'penguin-left', 'penguin-right', ['penguin-left', 'penguin-bros-left'], ['penguin-right', 'penguin-bros-right']);
 

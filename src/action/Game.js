@@ -58,11 +58,13 @@ export default class Game {
 
     penguin = new Penguin("monster", "penguin", "alive", 1, 3);
 
-    letMonster = new Body("monster","let-monster","alive", 2,4);
+    letMonster = new Body("monster", "let-monster", "alive", 2, 4);
 
-    monsterZ1 = new Body("monster","monster-z-1","alive", 2,4);
+    monsterZ1 = new Body("monster", "monster-z-1", "alive", 2, 4);
 
-    monsterZ2 = new Body("monster","monster-z-2","alive", 2,4);
+    monsterZ2 = new Body("monster", "monster-z-2", "alive", 2, 4);
+
+    savePosition = new Body("skills", "save", "save", 0, 0);
 
     zumGame = 2;
 
@@ -82,10 +84,12 @@ export default class Game {
 
     thorns;
 
+    destoryMonster;
+
 
     setup(t, image, name) {
 
-        this.database = this.db.create();
+        this.database = this.db.create(this.player);
 
         this.collectionPlayer = this.database.getCollection("player");
 
@@ -119,7 +123,7 @@ export default class Game {
         this.player.live = playerFindDb.live;
         this.player.setup(t);
         t.matter.world.createDebugGraphic();
-        t.matter.world.drawDebug = true;
+        t.matter.world.drawDebug = false;
         t.cursor = t.input.keyboard.createCursorKeys();
 
 
@@ -145,7 +149,8 @@ export default class Game {
         }).setTexture('hp').setSize(b.width, b.height))
 
 
-
+        this.savePosition.sprite(t);
+        this.savePosition.sensors(t, 1, 1, 1, "savePassive")
 
         this.point.setup(t);
         this.fugu.sprite(t);
@@ -166,11 +171,11 @@ export default class Game {
         this.meduzaFind.finding(t)
 
         this.monsterZ1.sprite(t);
-        this.monsterZ1.sensors(t,1.8,1.8,1.6,"monster-z-1");
+        this.monsterZ1.sensors(t, 1.8, 1.8, 1.6, "monster-z-1");
         this.monsterZ1.finding(t);
 
         this.monsterZ2.sprite(t);
-        this.monsterZ2.sensors(t,1.8,1.8,1.6,"monster-z-1");
+        this.monsterZ2.sensors(t, 1.8, 1.8, 1.6, "monster-z-1");
         this.monsterZ2.finding(t);
 
 
@@ -227,18 +232,17 @@ export default class Game {
         this.hpSkill.sensors(t, 1, 1, 1, "hp-rotate-static", "hp-rotate");
 
         this.letMonster.sprite(t);
-        this.letMonster.scale(1,1);
-        this.letMonster.sensors(t,1,1,2,"let-monster-left")
+        this.letMonster.scale(1, 1);
+        this.letMonster.sensors(t, 1, 1, 2, "let-monster-left")
 
-        this.penguin.setup(t,this.player);
-
-        t.matter.add.image(100, 700, 'svg').setScale(0.05).setRotation(90);
+        this.penguin.setup(t, this.player);
 
 
         this.collectionSound = this.player.database;
 
-        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body,this.penguin.body, this.letMonster.body)
+        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body, this.penguin.body, this.letMonster.body)
 
+        this.destoryMonster = t.matter.add.sprite(-9000, 0, "vzriv").setSensor(true);
 
         this.timer = t.time.addEvent({
             delay: 10000,                // ms
@@ -251,6 +255,22 @@ export default class Game {
             repeat: -1,
             paused: true
         });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.savePosition.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+                this.db.set("position", 1, (el) => {
+                    el.x = bodyA.position.x;
+                    el.y = bodyA.position.y;
+                });
+                gameObjectB.play("saveActive")
+                gameObjectB.body.savePosition = true;
+            }
+        });
+
 
 
         t.matterCollision.addOnCollideStart({
@@ -284,8 +304,19 @@ export default class Game {
             callback: (eventData) => {
                 const {gameObjectA, bodyB, gameObjectB} = eventData;
                 if (bodyB.label === "alive") {
+                    this.destoryMonster.setPosition(gameObjectB.x, gameObjectB.y)
+                    if (gameObjectB.attack.pule.length > 0) {
+                        gameObjectB.attack.pule.forEach((el) => {
+                            t.matter.world.remove(el);
+                            el.destroy();
+                        })
+                    }
                     t.matter.world.remove(gameObjectB);
                     gameObjectB.destroy();
+                    this.destoryMonster.play("vzriv", true).on('animationcomplete', (animation, frame, gameObject) => {
+                        this.destoryMonster.setPosition(-9000, 0)
+                    });
+
                 }
 
             }
@@ -363,7 +394,7 @@ export default class Game {
 
                 if (bodyA.live < 10) {
                     bodyA.live = 15
-                    gameObjectA.setPosition(getObjects(t.map, "player")[0].x, getObjects(t.map, "player")[0].y)
+                    gameObjectA.setPosition(th.db.get("position").x, th.db.get("position").y)
                 }
 
             }
@@ -377,7 +408,7 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
                 if (gameObjectB) {
-                      //  console.log(gameObjectB.index)
+                    //  console.log(gameObjectB.index)
                     if ([459, 460, 859, 860, 461].filter((el) => gameObjectB.index === el) > 1) {
                         setLive(bodyA, bodyB, gameObjectA, gameObjectB, this, t, 3)
                     }
@@ -582,6 +613,8 @@ export default class Game {
         }
 
 
+
+
         this.player.draw(t);
 
         this.fugu.draw(t, 'horizontal', 'fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
@@ -604,7 +637,7 @@ export default class Game {
 
         this.penguin.view(this);
 
-        this.letMonster.draw(t,"horizontal","let-monster-left","let-monster-right","let-monster-left","let-monster-right");
+        this.letMonster.draw(t, "horizontal", "let-monster-left", "let-monster-right", "let-monster-left", "let-monster-right");
 
 
         this.grassAttack.body.filter((f) => f.body).forEach((el, i) => {

@@ -13,7 +13,7 @@ export default class Preloader extends Phaser.Scene {
 
     preload() {
 
-       this.loader.create();
+        this.loader.create();
 //load
 
         this.load.audio("fon-music", "./asset/music/y2mate.com - Dmitriy Lukyanov_Underwater.mp3");
@@ -54,8 +54,8 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("wood", './img/gui/buttons/normal/wood.png');
 
         //joystick
-        this.load.image("j1",'./img/power/1.png');
-        this.load.image("j2",'./img/power/1-2.png');
+        this.load.image("j1", './img/power/1.png');
+        this.load.image("j2", './img/power/1-2.png');
         //
 
         this.load.image('tiles', './img/Tiles/level.png');
@@ -81,40 +81,80 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/shark.png', {frameWidth: 152, frameHeight: 70});
-        this.load.spritesheet("grassAttack","./img/object/grass/grassAttackAll.png",{frameWidth: 50, frameHeight: 100});
-        this.load.spritesheet("bubble-potok","./img/object/bubble/bubble-potok.png",{frameWidth: 64, frameHeight: 192});
-        this.load.spritesheet("stone","./img/object/bubble/ketre.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("goldFish","./img/object/goldFish/gold-fish.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("wood-rotate","./img/object/skill/wood-rotate.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("wood-rotate-static","./img/object/skill/wood-rotate-static.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hit-rotate","./img/object/skill/hit-rotate.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hit-rotate-static","./img/object/skill/hit-rotate-stat.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hp-rotate","./img/object/skill/hp-rotate.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hp-rotate-static","./img/object/skill/hp-rotate-static.png",{frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("penguin","./img/object/monster/pingvin.png",{frameWidth: 37, frameHeight: 60});
-        this.load.spritesheet("let-monster","./img/object/monster/mon.png",{frameWidth: 135, frameHeight: 64});
-        this.load.spritesheet("monster-z-1","./img/object/monster/monster-rotate.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("grassAttack", "./img/object/grass/grassAttackAll.png", {
+            frameWidth: 50,
+            frameHeight: 100
+        });
+        this.load.spritesheet("bubble-potok", "./img/object/bubble/bubble-potok.png", {
+            frameWidth: 64,
+            frameHeight: 192
+        });
+        this.load.spritesheet("stone", "./img/object/bubble/ketre.png", {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("goldFish", "./img/object/goldFish/gold-fish.png", {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("wood-rotate", "./img/object/skill/wood-rotate.png", {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("wood-rotate-static", "./img/object/skill/wood-rotate-static.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("hit-rotate", "./img/object/skill/hit-rotate.png", {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hit-rotate-static", "./img/object/skill/hit-rotate-stat.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("hp-rotate", "./img/object/skill/hp-rotate.png", {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("hp-rotate-static", "./img/object/skill/hp-rotate-static.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("penguin", "./img/object/monster/pingvin.png", {frameWidth: 37, frameHeight: 60});
+        this.load.spritesheet("let-monster", "./img/object/monster/mon.png", {frameWidth: 135, frameHeight: 64});
+        this.load.spritesheet("monster-z-1", "./img/object/monster/monster-rotate.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("save", "./img/object/skill/savePosition.png", {frameWidth: 68, frameHeight: 68});
+        this.load.spritesheet("vzriv", "./img/object/skill/vzriv.png", {frameWidth: 64, frameHeight: 64});
 
 
         this.load.image("hp", "./img/object/hp.png");
         this.load.image("ej-direct", './img/object/еj/ejD.png');
-        this.load.image('ch','./img/object/chest/1.png');
-        this.load.image('ch-active','./img/object/chest/2.png');
-        this.load.image('angle-pule','./img/object/Anglerfish/puleAngle.png');
-        this.load.image('noimage','./img/object/noimage.png');
-        this.load.image('snegok','./img/object/monster/snegok.png');
+        this.load.image('ch', './img/object/chest/1.png');
+        this.load.image('ch-active', './img/object/chest/2.png');
+        this.load.image('angle-pule', './img/object/Anglerfish/puleAngle.png');
+        this.load.image('noimage', './img/object/noimage.png');
+        this.load.image('snegok', './img/object/monster/snegok.png');
 
 
-        this.load.svg("svg", "./img/Tiles/10-е.svg");
+        //  this.load.svg("svg", "./img/Tiles/10-е.svg");
 
         // button
 
-       // this.load.image("btn-right", './img/gui/buttons/click/play.png');
+        // this.load.image("btn-right", './img/gui/buttons/click/play.png');
     }
 
 
-
     create() {
+
+        this.anims.create({
+            key: 'vzriv',
+            frames: 'vzriv',
+            frameRate: 10,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'savePassive',
+            frames: this.anims.generateFrameNumbers('save', {frames: [0, 1, 2, 3, 4, 5, 6, 7, 8,9]}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'saveActive',
+            frames: this.anims.generateFrameNumbers('save', {frames: [10,11,12,13,14,15,16,17,18,19]}),
+            frameRate: 10,
+            repeat: -1
+        });
 
         this.anims.create({
             key: 'monster-z-1',
@@ -125,14 +165,14 @@ export default class Preloader extends Phaser.Scene {
 
         this.anims.create({
             key: 'let-monster-left',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5,6,7]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5, 6, 7]}),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'let-monster-right',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [8, 9, 10, 11, 12, 13,14,15]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [8, 9, 10, 11, 12, 13, 14, 15]}),
             frameRate: 10,
             repeat: -1
         });
@@ -215,30 +255,7 @@ export default class Preloader extends Phaser.Scene {
         });
 
         // player
-        this.anims.create({
-            key: 'left_p',
-            frames: this.anims.generateFrameNumbers('player', {start: 6, end: 11}),
-            frameRate: 6,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'right_p',
-            frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
-            frameRate: 6,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('player', {start: 12, end: 17}),
-            frameRate: 6,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('player', {start: 18, end: 23}),
-            frameRate: 6,
-            repeat: -1
-        });
+
         //
         // money
         this.anims.create({
@@ -252,25 +269,25 @@ export default class Preloader extends Phaser.Scene {
 
         this.anims.create({
             key: "fugu_L",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 0, end: 7 }),
+            frames: this.anims.generateFrameNumbers('fugu', {start: 0, end: 7}),
             frameRate: 8,
             repeat: -1,
         });
         this.anims.create({
             key: "fugu_R",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 8, end: 15 }),
+            frames: this.anims.generateFrameNumbers('fugu', {start: 8, end: 15}),
             frameRate: 8,
             repeat: -1,
         });
         this.anims.create({
             key: "fugu_AL",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 16, end: 23 }),
+            frames: this.anims.generateFrameNumbers('fugu', {start: 16, end: 23}),
             frameRate: 8,
             repeat: -1,
         });
         this.anims.create({
             key: "fugu_AR",
-            frames: this.anims.generateFrameNumbers('fugu', { start: 24, end: 31}),
+            frames: this.anims.generateFrameNumbers('fugu', {start: 24, end: 31}),
             frameRate: 8,
             repeat: -1,
         })
@@ -279,14 +296,14 @@ export default class Preloader extends Phaser.Scene {
 // shark
         this.anims.create({
             key: "shark_L",
-            frames: this.anims.generateFrameNumbers('shark', { start: 0, end: 9 }),
+            frames: this.anims.generateFrameNumbers('shark', {start: 0, end: 9}),
             frameRate: 6,
             repeat: -1,
         });
 
         this.anims.create({
             key: "shark_R",
-            frames: this.anims.generateFrameNumbers('shark', { start: 10, end: 19 }),
+            frames: this.anims.generateFrameNumbers('shark', {start: 10, end: 19}),
             frameRate: 6,
             repeat: -1,
         });
