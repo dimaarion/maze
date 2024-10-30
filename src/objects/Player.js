@@ -81,14 +81,14 @@ export default class Player {
             label: "player"
         };
         this.database.create();
-        if(this.body.body.position.x === 0 && this.body.body.position.y === 0){
+        if(this.database.get("position").x === 0 && this.database.get("position").y === 0){
             this.database.set("position", 1, (el) => {
                 el.x = this.body.body.position.x;
                 el.y = this.body.body.position.y;
             })
         }
 
-
+console.log(this.body.body.position.x)
 
 
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options)
