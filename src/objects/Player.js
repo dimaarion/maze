@@ -18,7 +18,8 @@ export default class Player {
     sceneKey = 'Scene_1'
     noDown = false;
     stone = false;
-    database = new Database();
+    db = new Database();
+    database
     effect = 1;
     music = 1;
     skillImg = "round";
@@ -31,7 +32,8 @@ export default class Player {
 
 
     constructor(speed = 1) {
-        this.speed = speed
+        this.speed = speed;
+        this.db.create();
     }
 
 
@@ -74,27 +76,26 @@ export default class Player {
                 live: this.live,
                 liveStatic: this.liveStatic,
                 money: this.money,
-                database: this.database,
+                database: this.db,
                 jX: 0,
                 jY: 0,
             },
             label: "player"
         };
-        this.database.create();
-        if(this.database.get("position").x === 0 && this.database.get("position").y === 0){
-            this.database.set("position", 1, (el) => {
+
+        if(this.db.get && this.db.get("position").x === 0 && this.db.get("position").y === 0){
+            this.db.set("position", 1, (el) => {
                 el.x = this.body.body.position.x;
                 el.y = this.body.body.position.y;
             })
         }
 
-console.log(this.body.body.position.x)
 
 
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options)
             .setName("player")
             .setFixedRotation()
-            .setPosition(this.database.get("position").x, this.database.get("position").y);
+            .setPosition(this.db.get("position").x, this.db.get("position").y);
 
         let p = this.body
         let sensors = this.playerController.sensors;

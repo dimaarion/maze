@@ -38,6 +38,8 @@ export default class Database{
     create() {
         this.db = new Loki("db", {
             autosave: true, //setting to save
+            autosaveInterval:500
+
         });
 
         this.db.loadDatabase({}, () => {

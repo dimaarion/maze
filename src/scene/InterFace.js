@@ -84,11 +84,11 @@ export default class InterFace extends Phaser.Scene {
 
         let music = this.sound.get("fon-music");
 
-       // music.volume = collectionSound.findOne({"$loki": 1}).music;
+        music.volume = this.db.get("sound").music;
 
         data.player.database = this.database;
 
-        // data.player.effect = collectionSound.findOne({"$loki": 1}).effect;
+        data.player.effect = this.db.get("sound").effect;
 
 
         this.add.image(23 + this.x, 25, "power-player").setScale(0.1, 0.1);
@@ -203,6 +203,13 @@ export default class InterFace extends Phaser.Scene {
             this.pause = false;
             this.closeBtn = true;
             this.countBtn = 0;
+
+            this.db.set("sound",1,(el)=>{
+               return  el.effect = data.player.effect;
+            });
+            this.db.set("sound",1,(el)=>{
+                return  el.music = music.volume;
+            });
             this.database.saveDatabase();
             if (window.ysdk) {
                 window.ysdk.features.GameplayAPI?.start();
@@ -275,7 +282,6 @@ export default class InterFace extends Phaser.Scene {
                     ],
                     value:db.get("sound").music,
                     valuechangeCallback: function (value) {
-                        db.set("sound",1,(el)=>el.music = value)
                         music.volume = value;
 
                     }
@@ -293,9 +299,7 @@ export default class InterFace extends Phaser.Scene {
                         }
                     ],
                     value: db.get("sound").effect,
-
                     valuechangeCallback: function (value) {
-                        db.set("sound",1,(el)=>el.effect = value)
                         data.player.effect = value;
                     }
                 });

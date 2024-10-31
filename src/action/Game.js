@@ -89,7 +89,7 @@ export default class Game {
 
     setup(t, image, name) {
 
-        this.database = this.db.create(this.player);
+        this.database = this.db.create();
 
         this.collectionPlayer = this.database.getCollection("player");
 
@@ -150,6 +150,7 @@ export default class Game {
 
 
         this.savePosition.sprite(t);
+        this.savePosition.scale(0.5, 0.5)
         this.savePosition.sensors(t, 1, 1, 1, "savePassive")
 
         this.point.setup(t);
@@ -272,7 +273,6 @@ export default class Game {
         });
 
 
-
         t.matterCollision.addOnCollideStart({
             objectA: this.player.body,
             objectB: this.chest.body,
@@ -304,6 +304,10 @@ export default class Game {
             callback: (eventData) => {
                 const {gameObjectA, bodyB, gameObjectB} = eventData;
                 if (bodyB.label === "alive") {
+                    t.sound.play("boss-remove", {
+                        volume: this.player.effect,
+                        loop: false,
+                    })
                     this.destoryMonster.setPosition(gameObjectB.x, gameObjectB.y)
                     if (gameObjectB.attack.pule.length > 0) {
                         gameObjectB.attack.pule.forEach((el) => {
@@ -359,6 +363,10 @@ export default class Game {
         function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
                 db.getCollection("player").chain().find({"$loki": 1}).update((doc) => doc.level = "Scene_" + el);
+                db.getCollection("position").chain().find({"$loki": 1}).update((doc) => {
+                    doc.x = 100;
+                    doc.y = 100;
+                });
                 db.saveDatabase();
                 t.scene.start("Scene_" + el);
             }
@@ -554,7 +562,11 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, gameObjectB} = eventData;
                 bodyA.money = bodyA.money + 1;
-                this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
+                this.db.set("player", 1, (doc) => doc.money = bodyA.money);
+                this.db.set("position", 1, (el) => {
+                    el.x = bodyA.position.x;
+                    el.y = bodyA.position.y;
+                });
                 this.database.saveDatabase();
                 t.matter.world.remove(gameObjectB);
                 gameObjectB.destroy();
@@ -611,8 +623,6 @@ export default class Game {
         } else {
             this.player.sizeSkill = 285;
         }
-
-
 
 
         this.player.draw(t);

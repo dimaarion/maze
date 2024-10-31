@@ -21,6 +21,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.audio("attack", "./asset/music/player_damagebody_03.mp3");
         this.load.audio("openCh", "./asset/music/open-magic-reveal-002379-.mp3");
         this.load.audio("open-hp", "./asset/music/hp.mp3");
+        this.load.audio("boss-remove", "./asset/music/quiet-splash-in-the-middle-of-the-lake-surface.mp3");
 
 
         this.load.image("power-player", './img/power/player.png');
@@ -87,25 +88,19 @@ export default class Preloader extends Phaser.Scene {
         });
         this.load.spritesheet("bubble-potok", "./img/object/bubble/bubble-potok.png", {
             frameWidth: 64,
-            frameHeight: 192
+            frameHeight: 184
         });
         this.load.spritesheet("stone", "./img/object/bubble/ketre.png", {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("goldFish", "./img/object/goldFish/gold-fish.png", {frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("wood-rotate", "./img/object/skill/wood-rotate.png", {frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("wood-rotate-static", "./img/object/skill/wood-rotate-static.png", {
-            frameWidth: 64,
-            frameHeight: 64
-        });
+
         this.load.spritesheet("hit-rotate", "./img/object/skill/hit-rotate.png", {frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hit-rotate-static", "./img/object/skill/hit-rotate-stat.png", {
-            frameWidth: 64,
-            frameHeight: 64
+        this.load.spritesheet("skill", "./img/object/skill/skill.png", {
+            frameWidth: 36,
+            frameHeight: 34
         });
         this.load.spritesheet("hp-rotate", "./img/object/skill/hp-rotate.png", {frameWidth: 64, frameHeight: 64});
-        this.load.spritesheet("hp-rotate-static", "./img/object/skill/hp-rotate-static.png", {
-            frameWidth: 64,
-            frameHeight: 64
-        });
+
         this.load.spritesheet("penguin", "./img/object/monster/pingvin.png", {frameWidth: 37, frameHeight: 60});
         this.load.spritesheet("let-monster", "./img/object/monster/mon.png", {frameWidth: 135, frameHeight: 64});
         this.load.spritesheet("monster-z-1", "./img/object/monster/monster-rotate.png", {
@@ -187,8 +182,20 @@ export default class Preloader extends Phaser.Scene {
 
         this.anims.create({
             key: 'hp-rotate-static',
-            frames: 'hp-rotate-static',
-            frameRate: 20,
+            frames: this.anims.generateFrameNumbers('skill', {frames: [10,11,12,13,14,15,16,17,18,19]}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'hit-rotate-static',
+            frames: this.anims.generateFrameNumbers('skill', {frames: [0,1,2,3,4,5,6,7,8,9]}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'wood-rotate-static',
+            frames: this.anims.generateFrameNumbers('skill', {frames: [20,21,22,23,24,25,26,27,28,29]}),
+            frameRate: 10,
             repeat: -1
         });
 
@@ -216,7 +223,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: 'hit-rotate-static',
             frames: 'hit-rotate-static',
-            frameRate: 20,
+            frameRate: 5,
             repeat: -1
         });
 
@@ -344,9 +351,7 @@ export default class Preloader extends Phaser.Scene {
 
     }
 
-    update() {
 
-    }
 
 
 }
