@@ -78,10 +78,12 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('money', './img/money/money3.png', {frameWidth: 20, frameHeight: 20});
         this.load.spritesheet('fugu', './img/object/fugu/fuguAll.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('meduza', './img/object/meduza/meduza.png', {frameWidth: 44, frameHeight: 60});
+        this.load.spritesheet('meduza2', './img/object/meduza/meduza2.png', {frameWidth: 34, frameHeight: 63});
         this.load.spritesheet('meduzaFind', './img/object/meduza/meduzaFind.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('crab', './img/object/crab/crab2.png', {frameWidth: 125, frameHeight: 50});
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/shark.png', {frameWidth: 152, frameHeight: 70});
+        this.load.spritesheet('cristal', './img/object/cristal/cristal.png', {frameWidth: 43, frameHeight: 64});
         this.load.spritesheet("grassAttack", "./img/object/grass/grassAttackAll.png", {
             frameWidth: 50,
             frameHeight: 100
@@ -102,7 +104,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet("hp-rotate", "./img/object/skill/hp-rotate.png", {frameWidth: 64, frameHeight: 64});
 
         this.load.spritesheet("penguin", "./img/object/monster/pingvin.png", {frameWidth: 37, frameHeight: 60});
-        this.load.spritesheet("let-monster", "./img/object/monster/mon.png", {frameWidth: 135, frameHeight: 64});
+        this.load.spritesheet("let-monster", "./img/object/monster/mon.png", {frameWidth: 132.5, frameHeight: 64});
         this.load.spritesheet("monster-z-1", "./img/object/monster/monster-rotate.png", {
             frameWidth: 64,
             frameHeight: 64
@@ -129,6 +131,28 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+        this.anims.create({
+            key: 'meduza2-up',
+            frames: this.anims.generateFrameNumbers('meduza2', {start: 0, end: 9}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'meduza2-down',
+            frames: this.anims.generateFrameNumbers('meduza2', {start: 10, end: 20}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+
+
+        this.anims.create({
+            key: 'cristal',
+            frames: 'cristal',
+            frameRate: 10,
+            repeat: -1
+        });
 
         this.anims.create({
             key: 'vzriv',
@@ -160,14 +184,14 @@ export default class Preloader extends Phaser.Scene {
 
         this.anims.create({
             key: 'let-monster-left',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5, 6, 7]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [0, 1, 2, 3, 4, 5, 6, 7,8,9]}),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'let-monster-right',
-            frames: this.anims.generateFrameNumbers('let-monster', {frames: [8, 9, 10, 11, 12, 13, 14, 15]}),
+            frames: this.anims.generateFrameNumbers('let-monster', {frames: [10, 11, 12, 13, 14, 15, 16, 17,18,19]}),
             frameRate: 10,
             repeat: -1
         });

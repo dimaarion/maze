@@ -32,6 +32,8 @@ export default class Game {
 
     meduza = new Body("monster", "meduza", "alive", 1, 3);
 
+    meduza2 = new Body("monster", "meduza2", "alive", 2, 4);
+
     crab = new Body("monster", "crab", 'alive', 1, 3);
 
     shark = new Body("monster", "shark", 'alive', 2, 5);
@@ -43,6 +45,8 @@ export default class Game {
     ejDirect = new Body("monster", "ej-direct", 'alive', 1.5);
 
     chest = new Body("money", 'ch', 'ch', 0, 0);
+
+    cristal = new Body("money", 'cristal', 'cristal', 0, 0);
 
     grassAttack = new Body("monster", "grassAttack", "alive", 0, 5);
 
@@ -234,14 +238,30 @@ export default class Game {
 
         this.letMonster.sprite(t);
         this.letMonster.scale(1, 1);
-        this.letMonster.sensors(t, 1, 1, 2, "let-monster-left")
+        this.letMonster.sensors(t, 1, 1, 2, "let-monster-left");
+
+        this.cristal.sprite(t);
+        this.cristal.scale(1, 1);
+        this.cristal.sensors(t, 1, 1, 2, "cristal");
+
+        this.meduza2.sprite(t);
+
+        this.meduza2.sensors(t, 1, 1, 2, "meduza2-up");
+
 
         this.penguin.setup(t, this.player);
 
 
         this.collectionSound = this.player.database;
 
-        this.monsterAll = this.fugu.body.concat(this.crab.body, this.meduza.body, this.shark.body, this.goldFish.body, this.ejDirect.body, this.penguin.body, this.letMonster.body)
+        this.monsterAll = this.fugu.body.concat(this.crab.body,
+            this.meduza.body,
+            this.meduza2.body,
+            this.shark.body,
+            this.goldFish.body,
+            this.ejDirect.body,
+            this.penguin.body,
+            this.letMonster.body)
 
         this.destoryMonster = t.matter.add.sprite(-9000, 0, "vzriv").setSensor(true);
 
@@ -297,6 +317,27 @@ export default class Game {
 
             }
         });
+
+
+        t.matterCollision.addOnCollideStart({
+            objectA: this.player.body,
+            objectB: this.cristal.body,
+            callback: (eventData) => {
+                const {bodyA, bodyB, gameObjectB} = eventData;
+                bodyA.money = bodyA.money + 200;
+                this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
+                this.database.saveDatabase();
+                t.matter.world.remove(gameObjectB);
+                gameObjectB.destroy();
+                t.sound.play("openCh", {
+                    volume: this.player.effect,
+                    loop: false,
+                })
+
+            }
+        });
+
+
 
         t.matterCollision.addOnCollideStart({
             objectA: this.woodSkill.body,
@@ -630,6 +671,8 @@ export default class Game {
         this.fugu.draw(t, 'horizontal', 'fugu_L', 'fugu_R', 'fugu_AL', 'fugu_AR');
 
         this.meduza.draw(t, 'vertical', 'meduza', 'meduza');
+
+        this.meduza2.draw(t, 'vertical', 'meduza2-up', 'meduza2-down');
 
         this.crab.draw(t, 'horizontal', 'crab', 'crab', 'crab', 'crab');
 
