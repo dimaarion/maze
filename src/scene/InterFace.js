@@ -4,6 +4,7 @@ import {percent, percentHeight, percentWidth} from "../action";
 import Joystick from "../components/Joystick";
 import MobileDetect from "mobile-detect";
 import Action from "../components/Action";
+import SavePanel from "../components/SavePanel";
 
 export default class InterFace extends Phaser.Scene {
     constructor() {
@@ -72,15 +73,11 @@ export default class InterFace extends Phaser.Scene {
 
     action = new Action()
 
-    preload() {
-
-    }
+    savePanel = new SavePanel(this);
 
     create(data) {
 
         this.database = this.db.create();
-
-        let collectionSound = this.database.getCollection("sound");
 
         let music = this.sound.get("fon-music");
 
@@ -89,7 +86,6 @@ export default class InterFace extends Phaser.Scene {
         data.player.database = this.database;
 
         data.player.effect = this.db.get("sound").effect;
-
 
         this.add.image(23 + this.x, 25, "power-player").setScale(0.1, 0.1);
         this.add.image(61 + this.x, 25, "money-static").setScale(0.5, 0.5);
@@ -120,26 +116,18 @@ export default class InterFace extends Phaser.Scene {
         });
         this.cursorKeysTest = this.input.keyboard.createCursorKeys();
 
-
         if (this.md.mobile()) {
             this.joyStickGame.create(this);
         }
-
 
         this.pauseBg = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.soundBtn = this.add.image(0, 0, "sound-btn").setScale(0.08, 0.08).setPosition(-9000, 0);
         this.volume = this.add.image(0, 0, "volume").setScale(0.08, 0.08).setPosition(-9000, 0);
         this.frameShop = this.add.image(0, 0, "frame-shop").setScale(1.5, 1.7).setPosition(-9000, 0);
         this.hpShop = this.add.image(0, 0, 'hp').setScale(0.8, 0.8).setPosition(-9000, 0);
-        /*this.pauseText = this.add.text(0, 0, "Пауза").setStyle({
-            backgroundColor: "#fbf098",
-            color: "#333",
-            fontSize: "50pt",
-            padding: "10px"
-        }).setPosition(-1000, 0);*/
-
         let player = this.player;
         let sizeMax = this.sizeMax;
+
 
 
         this.hpPlus = this.rexUI.add.buttons({
@@ -204,11 +192,11 @@ export default class InterFace extends Phaser.Scene {
             this.closeBtn = true;
             this.countBtn = 0;
 
-            this.db.set("sound",1,(el)=>{
-               return  el.effect = data.player.effect;
+            this.db.set("sound", 1, (el) => {
+                return el.effect = data.player.effect;
             });
-            this.db.set("sound",1,(el)=>{
-                return  el.music = music.volume;
+            this.db.set("sound", 1, (el) => {
+                return el.music = music.volume;
             });
             this.database.saveDatabase();
             if (window.ysdk) {
@@ -254,7 +242,6 @@ export default class InterFace extends Phaser.Scene {
         }, this);
 
 
-
         this.playGame.on("button.click", (button) => {
             this.pause = true;
             this.closeBtn = false;
@@ -280,7 +267,7 @@ export default class InterFace extends Phaser.Scene {
                             y: this.sliders.y
                         }
                     ],
-                    value:db.get("sound").music,
+                    value: db.get("sound").music,
                     valuechangeCallback: function (value) {
                         music.volume = value;
 
@@ -500,8 +487,6 @@ export default class InterFace extends Phaser.Scene {
 
         this.skillBtn.buttonGroup.buttons[0].setTexture(this.player.skillImg)
         this.skillBtn.setPosition(percentWidth(80), percentHeight(80))
-        //    console.log(this.player.skillImg)
-
 
         this.moneyText.setText(this.player.body.body.money.toString());
         this.scene.bringToTop();
@@ -552,11 +537,9 @@ export default class InterFace extends Phaser.Scene {
         }
 
         if (this.pause || this.shop) {
-            // this.pauseText.setPosition((window.innerWidth / 2) - 100, (window.innerHeight / 5));
             this.closeShop.setPosition((window.innerWidth / 2) + 1150, (window.innerHeight / 2) - 90);
             this.scene.pause(this.player.sceneKey);
         } else {
-            // this.pauseText.setPosition(-1000, 0);
             this.scene.resume(this.player.sceneKey);
             this.closeShop.setPosition(-1000, 0);
 

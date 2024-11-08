@@ -72,6 +72,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.tilemapTiledJSON('map9', './asset/scena/scena9.json');
         this.load.tilemapTiledJSON('map10', './asset/scena/scena10.json');
         this.load.tilemapTiledJSON('map11', './asset/scena/scena11.json');
+        this.load.tilemapTiledJSON('map12', './asset/scena/scena12.json');
 
 
         this.load.spritesheet('player', './img/player/player2.png', {frameWidth: 64, frameHeight: 64});
@@ -84,6 +85,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.spritesheet('ej', './img/object/еj/ej.png', {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('shark', './img/object/shark/shark.png', {frameWidth: 152, frameHeight: 70});
         this.load.spritesheet('cristal', './img/object/cristal/cristal.png', {frameWidth: 43, frameHeight: 64});
+        this.load.spritesheet('piranha', './img/object/monster/pirania.png', {frameWidth: 111.8, frameHeight: 64});
         this.load.spritesheet("grassAttack", "./img/object/grass/grassAttackAll.png", {
             frameWidth: 50,
             frameHeight: 100
@@ -131,6 +133,22 @@ export default class Preloader extends Phaser.Scene {
 
 
     create() {
+
+        this.anims.create({
+            key: 'piranha-right',
+            frames: this.anims.generateFrameNumbers('piranha', {start: 0, end: 9}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'piranha-left',
+            frames: this.anims.generateFrameNumbers('piranha', {start: 10, end: 20}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+
         this.anims.create({
             key: 'meduza2-up',
             frames: this.anims.generateFrameNumbers('meduza2', {start: 0, end: 9}),

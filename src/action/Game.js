@@ -68,6 +68,8 @@ export default class Game {
 
     monsterZ2 = new Body("monster", "monster-z-2", "alive", 2, 4);
 
+    piranha = new Body("monster", "piranha", "alive", 2, 5);
+
     savePosition = new Body("skills", "save", "save", 0, 0);
 
     zumGame = 2;
@@ -244,6 +246,13 @@ export default class Game {
         this.cristal.scale(1, 1);
         this.cristal.sensors(t, 1, 1, 2, "cristal");
 
+
+        this.piranha.sensorBody = false;
+        this.piranha.speedPersecute = 4;
+        this.piranha.sprite(t);
+        this.piranha.scale(1, 1);
+        this.piranha.sensors(t, 0.2, 1, 1, "piranha-left");
+
         this.meduza2.sprite(t);
 
         this.meduza2.sensors(t, 1, 1, 2, "meduza2-up");
@@ -261,7 +270,9 @@ export default class Game {
             this.goldFish.body,
             this.ejDirect.body,
             this.penguin.body,
-            this.letMonster.body)
+            this.letMonster.body,
+            this.piranha.body,
+        )
 
         this.destoryMonster = t.matter.add.sprite(-9000, 0, "vzriv").setSensor(true);
 
@@ -457,7 +468,6 @@ export default class Game {
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectA, gameObjectB} = eventData;
                 if (gameObjectB) {
-                    //  console.log(gameObjectB.index)
                     if ([459, 460, 859, 860, 461].filter((el) => gameObjectB.index === el) > 1) {
                         setLive(bodyA, bodyB, gameObjectA, gameObjectB, this, t, 3)
                     }
@@ -473,8 +483,7 @@ export default class Game {
                     this.timer.paused = false
                     if (this.timeSkill) {
                         gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
-                        gameObjectB.play(gameObjectB.body.play, true)
-                        //  this.woodSkill.scale(1,1);
+                        gameObjectB.play(gameObjectB.body.play, true);
                     }
                     this.player.skillImg = bodyB.name;
                     this.player.obj = gameObjectB;
@@ -525,7 +534,6 @@ export default class Game {
                 if (bodyB.label === "skill") {
                     this.timer.paused = true;
                     this.timeSkill = true;
-                    //  this.woodSkill.scale(0.3,0.3);
                     gameObjectB.play(gameObjectB.body.playStatic, true);
                     gameObjectB.setPosition(gameObjectB.body.sX, gameObjectB.body.sY);
 
@@ -604,10 +612,6 @@ export default class Game {
                 const {bodyA, gameObjectB} = eventData;
                 bodyA.money = bodyA.money + 1;
                 this.db.set("player", 1, (doc) => doc.money = bodyA.money);
-                this.db.set("position", 1, (el) => {
-                    el.x = bodyA.position.x;
-                    el.y = bodyA.position.y;
-                });
                 this.database.saveDatabase();
                 t.matter.world.remove(gameObjectB);
                 gameObjectB.destroy();
@@ -692,6 +696,7 @@ export default class Game {
 
         this.letMonster.draw(t, "horizontal", "let-monster-left", "let-monster-right", "let-monster-left", "let-monster-right");
 
+        this.piranha.draw(t,"persecute",'piranha-left','piranha-right','piranha-left','piranha-right', this.player.body.body)
 
         this.grassAttack.body.filter((f) => f.body).forEach((el, i) => {
             if (el.sensor.sensor) {
