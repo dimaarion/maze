@@ -421,14 +421,8 @@ export default class Game {
             if (parseInt(body.label.split("_")[1]) === el) {
                 db.getCollection("player").chain().find({"$loki": 1}).update((doc) => doc.level = "Scene_" + el);
                 db.getCollection("position").chain().find({"$loki": 1}).update((doc) => {
-                    if (start) {
-                        doc.x = start.position.x;
-                        doc.y = start.position.y;
-                    } else {
                         doc.x = 100;
                         doc.y = 100;
-                    }
-
                 });
                 db.saveDatabase();
                 t.scene.start("Scene_" + el);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="80fe3478-d971-4ea2-9542-92ee568bfe7a" name="maze">
+        <fileTransfer rootFolder="/home/users/d/dimaarion/domains/g.fk-i-s.ru" accessType="SFTP" host="fk-i-s.ru" port="22" sshConfigId="c6f13675-5e7f-4379-b343-25ed6edb93d0" sshConfig="dimaarion@fk-i-s.ru:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
