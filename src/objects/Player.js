@@ -1,6 +1,7 @@
 import {constrain} from "../action";
 import Phaser from "phaser"
 import Database from "../components/Database";
+import {get, set} from "lockr";
 
 export default class Player {
     body;
@@ -83,19 +84,33 @@ export default class Player {
             label: "player"
         };
 
-        if(this.db.get && this.db.get("position").x === 0 && this.db.get("position").y === 0){
-            this.db.set("position", 1, (el) => {
-                el.x = this.body.body.position.x;
-                el.y = this.body.body.position.y;
-            })
-        }
+        let levels = get("_maze_levels").map((el) => {
+            if (el.level === this.level) {
+                if (el.x === 0 && el.y === 0) {
+                    el.x = this.body.body.position.x;
+                    el.y = this.body.body.position.y;
+               }
+            }else {
 
+            }
+
+            return el;
+        });
+
+        let levelPosition = get("_maze_levels").filter((el) => el.level === this.level)[0]
+        if (!levelPosition) {
+            this.x = this.body.body.position.x;
+            this.y = this.body.body.position.y;
+        }else {
+            this.x = levelPosition.x;
+            this.y = levelPosition.y;
+        }
 
 
         this.body = this.playerController.matterSprite.setCircle(this.playerController.matterSprite.width / 2, this.playerController.options)
             .setName("player")
             .setFixedRotation()
-            .setPosition(this.db.get("position").x, this.db.get("position").y);
+            .setPosition(this.x, this.y);
 
         let p = this.body
         let sensors = this.playerController.sensors;
@@ -119,12 +134,12 @@ export default class Player {
         this.keyD = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyS = el.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
-        this.body.setScale(0.5, 0.5)
-        this.x = this.body.body.position.x;
+        this.body.setScale(0.5, 0.5);
 
     }
 
     draw(el) {
+
 
         this.body.setVelocityX(constrain(this.body.body.jX / 50, -this.speed, this.speed))
 

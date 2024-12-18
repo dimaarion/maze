@@ -5,8 +5,7 @@ import Joystick from "../components/Joystick";
 import MobileDetect from "mobile-detect";
 import Action from "../components/Action";
 import SavePanel from "../components/SavePanel";
-import {get,set,setPrefix} from "lockr";
-
+import {get, set, setPrefix} from "lockr";
 
 
 export default class InterFace extends Phaser.Scene {
@@ -79,22 +78,11 @@ export default class InterFace extends Phaser.Scene {
     savePanel = new SavePanel(this);
 
     create(data) {
-
-        setPrefix("_maze_")
-        if(!get("music")){
-            set("music",1);
-        }
-        if(!get("effect")){
-            set("effect",1);
-        }
-
         this.database = this.db.create();
 
         data.player.database = this.database;
 
-        data.player.music = get("music");
-        data.player.effect = get("effect");
-       let music = this.sound.get("fon-music")
+        let music = this.sound.get("fon-music")
 
         this.add.image(23 + this.x, 25, "power-player").setScale(0.1, 0.1);
         this.add.image(61 + this.x, 25, "money-static").setScale(0.5, 0.5);
@@ -136,7 +124,6 @@ export default class InterFace extends Phaser.Scene {
         this.hpShop = this.add.image(0, 0, 'hp').setScale(0.8, 0.8).setPosition(-9000, 0);
         let player = this.player;
         let sizeMax = this.sizeMax;
-
 
 
         this.hpPlus = this.rexUI.add.buttons({
@@ -268,13 +255,13 @@ export default class InterFace extends Phaser.Scene {
                             y: this.sliders.y
                         }
                     ],
-                    value: get("music"),
+                    value: get("_maze_music"),
                     valuechangeCallback: function (value) {
-                        set("music",value);
+                        set("_maze_music", value);
                         data.player.music = value;
                         music.volume = value
                     }
-                },this);
+                }, this);
 
 
                 this.sliders2.slider = this.rexSlider.add(this.sliders2, {
@@ -287,9 +274,9 @@ export default class InterFace extends Phaser.Scene {
                             y: this.sliders2.y
                         }
                     ],
-                    value: get("effect"),
+                    value: get("_maze_effect"),
                     valuechangeCallback: function (value) {
-                        set("effect",value);
+                        set("_maze_effect", value);
                         data.player.effect = value;
                     }
                 });
@@ -480,7 +467,6 @@ export default class InterFace extends Phaser.Scene {
         if (player.sceneKey === "Scene_1") {
             liveAddSave(this.database, player, this.sizeMax)
         }
-
 
     }
 

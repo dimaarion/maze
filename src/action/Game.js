@@ -4,10 +4,11 @@ import Point from "../objects/Point";
 import Platform from "../objects/Platform";
 import Body from "../objects/Body";
 import MobileDetect from "mobile-detect";
-import * as Phaser from "phaser";
 
-import {arrayCount, getObjects} from "./index";
+
+import {arrayCount} from "./index";
 import Penguin from "../objects/Penguin";
+import {get,set} from "lockr";
 
 
 export default class Game {
@@ -124,6 +125,10 @@ export default class Game {
 
         this.pointBubble.sprite(t, "bubble", "bubble-potok");
 
+        this.player.music = get("_maze_effect");
+        this.player.effect = get("_maze_effect");
+        this.player.sceneKey = t.scene.key;
+        this.player.level = t.scene.key.match(/[0-9]/g).join("");
         this.player.money = playerFindDb.money;
         this.player.liveStatic = playerFindDb.liveMax;
         this.player.live = playerFindDb.live;
@@ -141,8 +146,7 @@ export default class Game {
         t.matter.world.setBounds(0, 0, t.map.widthInPixels, t.map.heightInPixels);
 
 
-        this.player.sceneKey = t.scene.key;
-        this.player.level = t.scene.key.match(/[0-9]/g).join("");
+
         this.platform.body = this.platform.setup(t, t.map);
         this.money = t.map.createFromObjects('money', {name: "money"});
         this.skills = t.map.createFromObjects("skills", {name: "hp"})
@@ -275,6 +279,23 @@ export default class Game {
 
         this.destoryMonster = t.matter.add.sprite(-9000, 0, "vzriv").setSensor(true);
 
+        if(Array.isArray(get("_maze_levels")) && get("_maze_levels").filter((el)=>el.level === this.player.level).length === 0){
+
+           let addLevel =  [... get("_maze_levels"), {
+                level: this.player.level,
+                x: this.player.x,
+                y: this.player.y,
+                money: 0,
+                chest: 0,
+                monster: 0,
+                goldFish:0
+
+            }]
+            set("_maze_levels",addLevel)
+        }
+
+
+
         this.timer = t.time.addEvent({
             delay: 10000,                // ms
             callback: () => {
@@ -287,16 +308,21 @@ export default class Game {
             paused: true
         });
 
-
+        let levels = get("_maze_levels")
         t.matterCollision.addOnCollideStart({
             objectA: this.player.body,
             objectB: this.savePosition.body,
             callback: (eventData) => {
                 const {bodyA, bodyB, gameObjectB} = eventData;
-                this.db.set("position", 1, (el) => {
-                    el.x = bodyA.position.x;
-                    el.y = bodyA.position.y;
-                });
+                levels.map((el)=>{
+                    if(el.level === this.player.level){
+                        el.x = bodyA.position.x;
+                        el.y = bodyA.position.y;
+                    }
+                    return el
+                })
+
+                set("_maze_levels",levels)
                 gameObjectB.play("saveActive")
                 gameObjectB.body.savePosition = true;
             }
@@ -317,6 +343,14 @@ export default class Game {
                         bodyA.money = bodyA.money + 100;
                         this.collectionPlayer.chain().find({"$loki": 1}).update((doc) => doc.money = bodyA.money);
                         this.database.saveDatabase();
+                        levels.map((el)=>{
+                            if(el.level === this.player.level){
+                                el.chest += 1 ;
+                            }
+                            return el
+                        })
+
+                        set("_maze_levels",levels)
                         t.sound.play("openCh", {
                             volume: this.player.effect,
                             loop: false,
@@ -339,6 +373,18 @@ export default class Game {
                 this.database.saveDatabase();
                 t.matter.world.remove(gameObjectB);
                 gameObjectB.destroy();
+                levels.map((el)=>{
+                    if(el.level === this.player.level){
+                        if(!el.cristal){
+                            el.cristal = 1
+                        }else {
+                            el.cristal += 1 ;
+                        }
+
+                    }
+                    return el
+                })
+                set("_maze_levels",levels)
                 t.sound.play("openCh", {
                     volume: this.player.effect,
                     loop: false,
@@ -370,7 +416,13 @@ export default class Game {
                     this.destoryMonster.play("vzriv", true).on('animationcomplete', (animation, frame, gameObject) => {
                         this.destoryMonster.setPosition(-9000, 0)
                     });
-
+                    levels.map((el)=>{
+                        if(el.level === this.player.level){
+                                el.monster += 1 ;
+                        }
+                        return el
+                    })
+                    set("_maze_levels",levels)
                 }
 
             }
@@ -414,16 +466,9 @@ export default class Game {
             }
         });
 
-
-        let start = this.point.body.filter((el) => el.label === "start")[0];
-
         function levelStep(bodyA, body, db, t, el) {
             if (parseInt(body.label.split("_")[1]) === el) {
                 db.getCollection("player").chain().find({"$loki": 1}).update((doc) => doc.level = "Scene_" + el);
-                db.getCollection("position").chain().find({"$loki": 1}).update((doc) => {
-                        doc.x = 100;
-                        doc.y = 100;
-                });
                 db.saveDatabase();
                 t.scene.start("Scene_" + el);
             }
@@ -458,8 +503,18 @@ export default class Game {
 
 
                 if (bodyA.live < 10) {
-                    bodyA.live = 15
-                    gameObjectA.setPosition(th.db.get("position").x, th.db.get("position").y)
+                    bodyA.live = 15;
+                    let levelPosition = get("_maze_levels").filter((el) => el.level === th.player.level)[0]
+                    let p = {x:100,y:100}
+                    if(levelPosition){
+                        p.x = levelPosition.x;
+                        p.y = levelPosition.y;
+                    }else {
+                        p.x = th.player.x;
+                        p.y = th.player.y
+                    }
+                    gameObjectA.setPosition(p.x, p.y)
+
                 }
 
             }
@@ -600,8 +655,15 @@ export default class Game {
                     this.database.saveDatabase();
                     t.matter.world.remove(gameObjectB);
                     gameObjectB.destroy();
+                    levels.map((el)=>{
+                        if(el.level === this.player.level){
+                            el.goldFish += 1 ;
+                        }
+                        return el
+                    })
+                    set("_maze_levels",levels)
                     t.sound.play("coin", {
-                        volume: this.player.effect,
+                        volume: get("_maze_effect"),
                         loop: false,
                     })
                 }
@@ -620,6 +682,14 @@ export default class Game {
                 this.database.saveDatabase();
                 t.matter.world.remove(gameObjectB);
                 gameObjectB.destroy();
+
+                levels.map((el)=>{
+                    if(el.level === this.player.level){
+                        el.money += 1 ;
+                    }
+                    return el
+                })
+                set("_maze_levels",levels)
                 t.sound.play("coin", {
                     volume: this.player.effect,
                     loop: false,

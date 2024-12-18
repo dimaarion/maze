@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 import Database from "../components/Database";
-import {get} from "lockr";
+import {get, set, setPrefix} from "lockr";
 
 export default class StartMenu extends Phaser.Scene {
     constructor() {
@@ -21,6 +21,28 @@ export default class StartMenu extends Phaser.Scene {
     create() {
         this.database = this.db.create();
 
+        setPrefix("_maze_")
+        if (!get("_maze_music")) {
+            set("_maze_music", 1);
+        }
+        if (!get("_maze_effect")) {
+            set("_maze_effect", 1);
+        }
+        if (!get("_maze_levels")) {
+            set("_maze_levels", [
+             {
+                level: '12',
+                x: 100,
+                y: 100,
+                money: 0,
+                chest: 0,
+                monster: 0,
+                goldFish:0
+            }]);
+        }
+
+
+        console.log(get("_maze_levels"))
         this.sound.play("fon-music", {
             loop: true,
             volume:get("_maze_music")
