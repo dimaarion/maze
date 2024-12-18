@@ -378,7 +378,7 @@ export default class Preloader extends Phaser.Scene {
         this.anims.create({
             key: "ej",
             frames: "ej",
-            frameRate: 2,
+            frameRate: 10,
             repeat: -1,
         });
         //
