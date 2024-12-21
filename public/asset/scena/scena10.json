@@ -226,7 +226,7 @@
          "name":"objects",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":62,
          "x":0,
          "y":0
@@ -313,6 +313,17 @@
                  "width":32,
                  "x":926,
                  "y":1247
+                }, 
+                {
+                 "height":32,
+                 "id":1403,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":465.298245614035,
+                 "y":1502.30409356725
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1140,7 +1151,7 @@
          "y":0
         }],
  "nextlayerid":38,
- "nextobjectid":1403,
+ "nextobjectid":1404,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

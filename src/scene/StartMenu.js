@@ -30,22 +30,23 @@ export default class StartMenu extends Phaser.Scene {
         }
         if (!get("_maze_levels")) {
             set("_maze_levels", [
-             {
-                level: '12',
-                x: 100,
-                y: 100,
-                money: 0,
-                chest: 0,
-                monster: 0,
-                goldFish:0
-            }]);
+                {
+                    level: '1',
+                    x: 100,
+                    y: 100,
+                    money: 0,
+                    chest: 0,
+                    monster: 0,
+                    goldFish: 0,
+                    cristal: 0
+                }]);
         }
 
 
-        console.log(get("_maze_levels"))
+
         this.sound.play("fon-music", {
             loop: true,
-            volume:get("_maze_music")
+            volume: get("_maze_music")
         })
 
 

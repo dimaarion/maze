@@ -300,6 +300,17 @@
                  "width":32,
                  "x":406,
                  "y":856
+                }, 
+                {
+                 "height":32,
+                 "id":1326,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":454.707602339181,
+                 "y":1247.31578947368
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -879,17 +890,6 @@
                 }, 
                 {
                  "height":20,
-                 "id":1258,
-                 "name":"money",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":20,
-                 "x":81,
-                 "y":1456
-                }, 
-                {
-                 "height":20,
                  "id":1265,
                  "name":"money",
                  "rotation":0,
@@ -964,6 +964,17 @@
                  "width":64,
                  "x":1090.66666666667,
                  "y":576
+                }, 
+                {
+                 "height":32,
+                 "id":1325,
+                 "name":"cristal",
+                 "rotation":0,
+                 "type":"money",
+                 "visible":true,
+                 "width":32,
+                 "x":73.8245614035088,
+                 "y":1466.1052631579
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -995,7 +1006,7 @@
          "y":0
         }],
  "nextlayerid":38,
- "nextobjectid":1325,
+ "nextobjectid":1327,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

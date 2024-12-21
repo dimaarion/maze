@@ -508,8 +508,8 @@
                  "type":"",
                  "visible":true,
                  "width":30,
-                 "x":1387,
-                 "y":75
+                 "x":1411.32748538012,
+                 "y":69.3859649122807
                 }, 
                 {
                  "height":30,
@@ -532,6 +532,28 @@
                  "width":32,
                  "x":80,
                  "y":797
+                }, 
+                {
+                 "height":30.4319,
+                 "id":1112,
+                 "name":"ej-direct",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30.4319,
+                 "x":1427.59106754386,
+                 "y":192.503348245614
+                }, 
+                {
+                 "height":30.4319,
+                 "id":1114,
+                 "name":"ej-direct",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30.4319,
+                 "x":722.093991520468,
+                 "y":1388.29282192982
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -654,6 +676,50 @@
                  "width":32,
                  "x":393.333333333333,
                  "y":992
+                }, 
+                {
+                 "height":32,
+                 "id":1117,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":723.74269005848,
+                 "y":1246.70175438597
+                }, 
+                {
+                 "height":32,
+                 "id":1118,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":425.333333333333,
+                 "y":220
+                }, 
+                {
+                 "height":32,
+                 "id":1119,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":912,
+                 "y":346
+                }, 
+                {
+                 "height":32,
+                 "id":1120,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":143,
+                 "y":990
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -729,18 +795,6 @@
                 {
                  "ellipse":true,
                  "height":20,
-                 "id":1037,
-                 "name":"money",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":20,
-                 "x":1376.41303228119,
-                 "y":84.2685715702449
-                }, 
-                {
-                 "ellipse":true,
-                 "height":20,
                  "id":1056,
                  "name":"money",
                  "rotation":0,
@@ -797,18 +851,6 @@
                  "width":20,
                  "x":450.382116666667,
                  "y":1487.04878333333
-                }, 
-                {
-                 "ellipse":true,
-                 "height":20,
-                 "id":1065,
-                 "name":"money",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":20,
-                 "x":720.382116666667,
-                 "y":1471.38211666667
                 }, 
                 {
                  "ellipse":true,
@@ -928,6 +970,28 @@
                  "width":64,
                  "x":448.93567251462,
                  "y":826.947368421053
+                }, 
+                {
+                 "height":32,
+                 "id":1111,
+                 "name":"cristal",
+                 "rotation":0,
+                 "type":"money",
+                 "visible":true,
+                 "width":32,
+                 "x":1359.43859649123,
+                 "y":62.5964912280702
+                }, 
+                {
+                 "height":32,
+                 "id":1115,
+                 "name":"cristal",
+                 "rotation":0,
+                 "type":"money",
+                 "visible":true,
+                 "width":32,
+                 "x":1490.43274853801,
+                 "y":1226.5730994152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -971,7 +1035,7 @@
          "y":0
         }],
  "nextlayerid":38,
- "nextobjectid":1111,
+ "nextobjectid":1121,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

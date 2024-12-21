@@ -261,6 +261,28 @@
                  "width":32,
                  "x":1553,
                  "y":989
+                }, 
+                {
+                 "height":32,
+                 "id":713,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":400.486549707602,
+                 "y":852.004678362573
+                }, 
+                {
+                 "height":32,
+                 "id":714,
+                 "name":"save",
+                 "rotation":0,
+                 "type":"save",
+                 "visible":true,
+                 "width":32,
+                 "x":579.536842105263,
+                 "y":347.93918128655
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -573,6 +595,17 @@
                  "width":30.4319,
                  "x":464.592237134503,
                  "y":609.036681578947
+                }, 
+                {
+                 "height":30.4319,
+                 "id":712,
+                 "name":"ej-direct",
+                 "rotation":0,
+                 "type":"alive",
+                 "visible":true,
+                 "width":30.4319,
+                 "x":272.821476900585,
+                 "y":327.315044152047
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -785,6 +818,17 @@
                  "width":20,
                  "x":794,
                  "y":150
+                }, 
+                {
+                 "height":32,
+                 "id":711,
+                 "name":"cristal",
+                 "rotation":0,
+                 "type":"money",
+                 "visible":true,
+                 "width":32,
+                 "x":334.315789473684,
+                 "y":334.315789473684
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -816,7 +860,7 @@
          "y":0
         }],
  "nextlayerid":36,
- "nextobjectid":710,
+ "nextobjectid":715,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
