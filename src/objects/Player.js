@@ -89,8 +89,8 @@ export default class Player {
                 if (el.x === 0 && el.y === 0) {
                     el.x = this.body.body.position.x;
                     el.y = this.body.body.position.y;
-               }
-            }else {
+                }
+            } else {
 
             }
 
@@ -101,7 +101,7 @@ export default class Player {
         if (!levelPosition) {
             this.x = this.body.body.position.x;
             this.y = this.body.body.position.y;
-        }else {
+        } else {
             this.x = levelPosition.x;
             this.y = levelPosition.y;
         }
@@ -146,9 +146,11 @@ export default class Player {
         if (!this.noDown) {
             this.body.setVelocityY(constrain(this.body.body.jY / 50, -this.speed, this.speed))
         }
-
+        if (!this.obj.body) {
+            this.skillImg = "round"
+        }
         if (el.cursor.space.isDown) {
-            if (this.obj.name) {
+            if (this.obj.body && this.obj.name) {
                 this.obj.setPosition(this.body.x, this.body.y);
             }
         }

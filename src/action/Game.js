@@ -545,8 +545,12 @@ export default class Game {
                         gameObjectB.setPosition(bodyA.position.x, bodyA.position.y);
                         gameObjectB.play(gameObjectB.body.play, true);
                     }
-                    this.player.skillImg = bodyB.name;
-                    this.player.obj = gameObjectB;
+
+
+                        this.player.skillImg = bodyB.name;
+                        this.player.obj = gameObjectB;
+
+
                 }
 
             }
